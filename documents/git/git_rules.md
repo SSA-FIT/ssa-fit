@@ -30,12 +30,14 @@ release-1.0.0
 hotfix
 
 develop
-develop/fe
-develop/be
-develop/al
 
-feature/login
-feature/signup
+backend
+frontend
+algorithm
+
+feature/be/login
+feature/fe/signup
+feature/al/exercise_rec
 ```
 
 <br>
