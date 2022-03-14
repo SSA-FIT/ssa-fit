@@ -26,7 +26,7 @@ const SignUpForm: React.FC = () => {
                 <InputWrapper>
                   <Input />
                 </InputWrapper>
-                <ConfirmButton>중복 확인</ConfirmButton>
+                <OverlapConfirmButton>중복 확인</OverlapConfirmButton>
               </InputAndButtonWrapper>
             </InputFieldWrapper>
             <InputFieldWrapper>
@@ -55,11 +55,15 @@ const SignUpForm: React.FC = () => {
                 <InputWrapper>
                   <Input />
                 </InputWrapper>
-                <ConfirmButton>중복 확인</ConfirmButton>
+                <OverlapConfirmButton>중복 확인</OverlapConfirmButton>
               </InputAndButtonWrapper>
             </InputFieldWrapper>
           </ContentWrapper>
         </ContentsWrapper>
+        <ConFirmWrapper>
+          <CancelButton>이전</CancelButton>
+          <ConfirmButton>확인</ConfirmButton>
+        </ConFirmWrapper>
       </Container>
     </>
   );
@@ -274,7 +278,7 @@ const Input = styled.input`
   }
 `;
 
-const ConfirmButton = styled.button`
+const OverlapConfirmButton = styled.button`
   margin-top: 0.4rem;
   color: #555;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -299,6 +303,57 @@ const ConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 1.5;
   }
+`;
+
+const ConFirmWrapper = styled.div`
+  justify-content: space-between;
+  display: flex;
+  justify-items: flex-start;
+  margin: 4rem 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const CancelButton = styled.button`
+  flex: 6;
+  margin-right: 0.4rem;
+  background-color: #fff;
+  color: #013066;
+  display: block;
+  width: 100%;
+  padding: 1.5rem 2rem 1.6rem;
+  border: 1px solid #013066;
+  border-radius: 0.2rem;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.58;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  appearance: none;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+`;
+
+const ConfirmButton = styled.button`
+  flex: 6;
+  margin-left: 0.4rem;
+  display: block;
+  width: 100%;
+  padding: 1.5rem 2rem 1.6rem;
+  border: 1px solid #013066;
+  border-radius: 0.2rem;
+  background-color: #013066;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.58;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  appearance: none;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
 
 export default SignUpForm;

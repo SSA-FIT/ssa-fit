@@ -6,9 +6,10 @@ import SignUpForm from './SignUpForm';
 import SignUpSteppers from './SignUpSteppers';
 import EmailVerification from './EmailVerification';
 import AgreementForm from './AgreementForm';
+import SignUpComplete from './SignUpComplete';
 
 const SignUpCard: React.FC = () => {
-  const [signUpStep, setSignUpStep] = useState<number>(0);
+  const [signUpStep, setSignUpStep] = useState<number>(4);
   return (
     <>
       <ContainerWrapper>
@@ -28,6 +29,8 @@ const SignUpCard: React.FC = () => {
                   return <BodyInfoForm />;
                 case 3:
                   return <SignUpForm />;
+                case 4:
+                  return <SignUpComplete />;
                 default:
                   return <Redirect to="/" />;
               }
