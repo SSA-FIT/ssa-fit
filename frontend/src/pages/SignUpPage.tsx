@@ -2,19 +2,19 @@ import { useEffect } from 'react';
 
 import Footer from '../components/common/Footer';
 import Header from '../components/common/Header';
-import MainBannerSection from '../components/main/MainBannerSection';
+import SignUpCard from '../components/signUp/SignUpCard';
 
-const MainPage: React.FC = () => {
+const SignUpPage: React.FC = () => {
   useEffect(() => {
-    document.title = '싸핏';
+    document.title = '회원가입';
   }, []);
 
   return (
     <>
       <Header />
-      <MainBannerSection />
+      <SignUpCard />
       <Footer />
     </>
   );
 };
-export default MainPage;
+export default SignUpPage;
