@@ -1,9 +1,11 @@
 package com.ssafy.ssafit.service;
 
+import com.ssafy.ssafit.dto.request.PasswordResetRequestDto;
 import com.ssafy.ssafit.dto.request.SignUpRequestDto;
 import com.ssafy.ssafit.entity.User;
 import com.ssafy.ssafit.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +33,12 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public User saveUser(SignUpRequestDto signUpRequestDto) {
+
         double height = Double.parseDouble(signUpRequestDto.getHeight());
         height /= 100;
         double weight = Double.parseDouble(signUpRequestDto.getWeight());
         double bmi = weight / (height * height);
-        System.out.println(String.valueOf(bmi).substring(0, 4));
+
         User user = User.builder()
                 .height(signUpRequestDto.getHeight())
                 .weight(signUpRequestDto.getWeight())
@@ -49,7 +52,20 @@ public class UserServiceImpl implements UserService{
                 .bmi(String.valueOf(bmi).substring(0, 4))
                 .roles("ROLE_USER")
                 .build();
+
         return userRepository.save(user);
+
+    }
+
+    @Transactional
+    @Modifying
+    @Override
+    public User resetPassword(String password, User user) {
+
+        user.setPassword(passwordEncoder.encode(password));
+
+        return userRepository.save(user);
+
     }
 
 }

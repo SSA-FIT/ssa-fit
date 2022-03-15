@@ -12,7 +12,7 @@ import lombok.*;
 @ApiModel(value = "로그인 입력 정보", description = "아이디, 비밀번호를 입력하는 클래스")
 public class LoginRequestDto {
 
-    @ApiModelProperty(value = "아이디", example = "ssafit@gmail.com")
+    @ApiModelProperty(value = "아이디", example = "ssafit321")
     private String userId;
 
     @ApiModelProperty(value = "비밀번호", example = "a123123")

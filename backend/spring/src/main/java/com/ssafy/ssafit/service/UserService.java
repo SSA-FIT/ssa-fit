@@ -1,5 +1,6 @@
 package com.ssafy.ssafit.service;
 
+import com.ssafy.ssafit.dto.request.PasswordResetRequestDto;
 import com.ssafy.ssafit.dto.request.SignUpRequestDto;
 import com.ssafy.ssafit.entity.User;
 
@@ -13,4 +14,7 @@ public interface UserService {
 
     // 회원가입
     User saveUser(SignUpRequestDto signUpRequestDto);
+
+    // 비밀번호 재설정
+    User resetPassword(String password, User user);
 }
