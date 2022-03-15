@@ -33,7 +33,7 @@ public class SignUpRequestDto {
     @ApiModelProperty(value = "닉네임", example = "싸핏유저")
     private String nickname;
 
-    @ApiModelProperty(value = "이메일", example = "ssafit@gmail.com")
+    @ApiModelProperty(value = "이메일", example = "jwb7214@gmail.com")
     private String email;
 
     @ApiModelProperty(value = "비밀번호", example = "a123123")

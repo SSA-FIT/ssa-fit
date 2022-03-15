@@ -23,7 +23,9 @@ public class FindIdResponseDto {
 
         FindIdResponseDto body = new FindIdResponseDto();
         body.message = message;
-        body.userId = userId;
+        int userIdLength = userId.length();
+        String secretUserId = userId.substring(0, userIdLength-3) + "***";
+        body.userId = secretUserId;
         return body;
 
     }
