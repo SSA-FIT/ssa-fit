@@ -9,6 +9,10 @@ interface Props {
   settings?: Settings;
 }
 
+const Slider: React.FC<Props> = ({ settings = DEFAULT_SETTINGS, children }) => (
+  <ReactSlick {...settings}>{children}</ReactSlick>
+);
+
 const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   padding: 16px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -60,9 +64,5 @@ const DEFAULT_SETTINGS: Settings = {
     </ArrowButton>
   ),
 };
-
-const Slider: React.FC<Props> = ({ settings = DEFAULT_SETTINGS, children }) => (
-  <ReactSlick {...settings}>{children}</ReactSlick>
-);
 
 export default Slider;
