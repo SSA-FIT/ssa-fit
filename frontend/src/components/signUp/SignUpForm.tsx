@@ -1,6 +1,18 @@
 import styled from '@emotion/styled';
 
-const SignUpForm: React.FC = () => {
+interface Props {
+  setSignUpStep: (signUpStep: number) => void;
+}
+
+const SignUpForm: React.FC<Props> = ({ setSignUpStep }) => {
+  const handleNext = () => {
+    setSignUpStep(4);
+  };
+
+  const handleBefore = () => {
+    setSignUpStep(2);
+  };
+
   return (
     <>
       <Container>
@@ -61,8 +73,8 @@ const SignUpForm: React.FC = () => {
           </ContentWrapper>
         </ContentsWrapper>
         <ConFirmWrapper>
-          <CancelButton>이전</CancelButton>
-          <ConfirmButton>확인</ConfirmButton>
+          <CancelButton onClick={handleBefore}>이전</CancelButton>
+          <ConfirmButton onClick={handleNext}>확인</ConfirmButton>
         </ConFirmWrapper>
       </Container>
     </>

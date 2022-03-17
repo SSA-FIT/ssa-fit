@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
@@ -101,7 +102,7 @@ interface SignUpStepperProps {
 
 const SignUpSteppers: React.FC<SignUpStepperProps> = ({ signUpStep }) => {
   return (
-    <Stack sx={{ width: '100%' }} spacing={4} css={box}>
+    <Stack sx={{ width: '90%' }} spacing={4} css={box}>
       <Stepper
         alternativeLabel
         activeStep={signUpStep}

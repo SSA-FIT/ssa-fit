@@ -1,6 +1,15 @@
 import styled from '@emotion/styled';
 
-const AgreementForm: React.FC = () => {
+interface Props {
+  setSignUpStep: (signUpStep: number) => void;
+}
+
+const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
+  const handleNext = () => {
+    console.log('1');
+    setSignUpStep(1);
+  };
+
   return (
     <>
       <Container>
@@ -30,7 +39,7 @@ const AgreementForm: React.FC = () => {
         </AgreementFieldSet>
         <ConFirmWrapper>
           <CancelButton>취소</CancelButton>
-          <ConfirmButton>확인</ConfirmButton>
+          <ConfirmButton onClick={handleNext}>확인</ConfirmButton>
         </ConFirmWrapper>
       </Container>
     </>

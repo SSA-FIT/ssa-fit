@@ -9,7 +9,7 @@ import AgreementForm from './AgreementForm';
 import SignUpComplete from './SignUpComplete';
 
 const SignUpCard: React.FC = () => {
-  const [signUpStep, setSignUpStep] = useState<number>(4);
+  const [signUpStep, setSignUpStep] = useState<number>(0);
   return (
     <>
       <ContainerWrapper>
@@ -22,13 +22,13 @@ const SignUpCard: React.FC = () => {
             {(() => {
               switch (signUpStep) {
                 case 0:
-                  return <AgreementForm />;
+                  return <AgreementForm setSignUpStep={setSignUpStep} />;
                 case 1:
-                  return <EmailVerification />;
+                  return <EmailVerification setSignUpStep={setSignUpStep} />;
                 case 2:
-                  return <BodyInfoForm />;
+                  return <BodyInfoForm setSignUpStep={setSignUpStep} />;
                 case 3:
-                  return <SignUpForm />;
+                  return <SignUpForm setSignUpStep={setSignUpStep} />;
                 case 4:
                   return <SignUpComplete />;
                 default:
@@ -46,6 +46,7 @@ const ContainerWrapper = styled.div`
   display: block;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
+// padding: 4rem 2rem 13rem;
 
 const Container = styled.div`
   box-sizing: border-box;
