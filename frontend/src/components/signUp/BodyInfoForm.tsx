@@ -1,6 +1,36 @@
+import * as React from 'react';
+
 import styled from '@emotion/styled';
 
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
 const BodyInfoForm: React.FC = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [alignment, setAlignment] = React.useState('seed');
+
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment(newAlignment);
+  };
+
   return (
     <>
       <Container>
@@ -57,9 +87,151 @@ const BodyInfoForm: React.FC = () => {
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
               <SelfExerciseLevelButtonWrapper>
-                <SelfExerciseLevelButton>
+                <SelfExerciseLevelButton onClick={handleClickOpen}>
                   자가 체력 진단
                 </SelfExerciseLevelButton>
+                <Dialog open={open} onClose={handleClose}>
+                  <MuiDialogTitle>운동 레벨 자가 체력 진단</MuiDialogTitle>
+                  <DialogContent>
+                    <MuiDialogContentText>
+                      운동 추천을 위한 자가 체력 진단입니다. 평소 생활을
+                      돌아보며 답해주세요.
+                    </MuiDialogContentText>
+                  </DialogContent>
+                  <ToggleButtonWrapper>
+                    <QuestionWrapper>
+                      <Question>
+                        1. 내가 생각하는 나의 운동 레벨은 어느 정도인가요?
+                      </Question>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={alignment}
+                        exclusive
+                        onChange={handleChange}
+                      >
+                        <MuiToggleButton value="seed">🌱씨앗</MuiToggleButton>
+                        <MuiToggleButton value="sprout">🌿새싹</MuiToggleButton>
+                        <MuiToggleButton value="tree">🌳나무</MuiToggleButton>
+                        <MuiToggleButton value="fruit">🍎열매</MuiToggleButton>
+                      </ToggleButtonGroup>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
+                      <Question>2. 1주일 운동 몇 회 하나요?</Question>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={alignment}
+                        exclusive
+                        onChange={handleChange}
+                      >
+                        <MuiToggleButton value="one">0회</MuiToggleButton>
+                        <MuiToggleButton value="two">1~2회</MuiToggleButton>
+                        <MuiToggleButton value="three">3~4회</MuiToggleButton>
+                        <MuiToggleButton value="four">5회 이상</MuiToggleButton>
+                      </ToggleButtonGroup>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
+                      <Question>3. 1회 운동 시, 몇 시간 하나요?</Question>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={alignment}
+                        exclusive
+                        onChange={handleChange}
+                      >
+                        <MuiToggleButton value="30min">
+                          30분 미만
+                        </MuiToggleButton>
+                        <MuiToggleButton value="1hour">
+                          30분 이상 1시간 미만
+                        </MuiToggleButton>
+                        <MuiToggleButton value="2hour">
+                          1시간 이상 2시간 미만
+                        </MuiToggleButton>
+                        <MuiToggleButton value="many">
+                          2시간 이상
+                        </MuiToggleButton>
+                      </ToggleButtonGroup>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
+                      <Question>4. 몇 층 계단부터 숨이 차나요?</Question>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={alignment}
+                        exclusive
+                        onChange={handleChange}
+                      >
+                        <MuiToggleButton value="3stairs">
+                          1층-3층
+                        </MuiToggleButton>
+                        <MuiToggleButton value="6stairs">
+                          4층-6층
+                        </MuiToggleButton>
+                        <MuiToggleButton value="9stairs">
+                          7층-9층
+                        </MuiToggleButton>
+                        <MuiToggleButton value="10stairs">
+                          10층 이상
+                        </MuiToggleButton>
+                      </ToggleButtonGroup>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
+                      <Question className="Test">
+                        5. 어깨유연성 검사(좌, 우)를 해보세요.
+                      </Question>
+                      <QuestionDescription>
+                        등 뒤에서 한 팔은 위에서 아래도, 다른 한 팔은 아래에서
+                        위로 손끝을 마주 붙인다. <br />
+                        양쪽 다 닿지 않으면 : 운동 부족 (0점) <br />
+                        한쪽만 닿으면 : 좋음 (2점) <br /> 좌, 우 양쪽 다 손끝이
+                        모두 닿으면 : 아주 좋음 (4점)
+                      </QuestionDescription>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={alignment}
+                        exclusive
+                        onChange={handleChange}
+                      >
+                        <MuiToggleButton value="shoulderpoint0">
+                          0점
+                        </MuiToggleButton>
+                        <MuiToggleButton value="shoulderpoint2">
+                          2점
+                        </MuiToggleButton>
+                        <MuiToggleButton value="shoulderpoint4">
+                          4점
+                        </MuiToggleButton>
+                      </ToggleButtonGroup>
+                    </QuestionWrapper>
+                    <QuestionWrapper>
+                      <Question className="Test">
+                        5. 다리 근력 테스트를 해보세요.
+                      </Question>
+                      <QuestionDescription>
+                        한손 끝으로 벽을 잡고 옆으로 선 다음 한쪽 다리를 위로
+                        올려 들고서 무릎을 굽혀 완전히 내려앉았다(1초 이상 멈춘
+                        후) 일어선다. <br />
+                        양쪽 다 설 수 없으면 : 운동 부족 (0점) <br />
+                        한쪽만 일어설 수 있으면 : 좋음 (2점) <br />
+                        양쪽 다 일어설 수 있으면 : 아주 좋음 (4점)
+                      </QuestionDescription>
+                      <ToggleButtonGroup
+                        color="primary"
+                        value={alignment}
+                        exclusive
+                        onChange={handleChange}
+                      >
+                        <MuiToggleButton value="legpoint0">0점</MuiToggleButton>
+                        <MuiToggleButton value="legpoint2">2점</MuiToggleButton>
+                        <MuiToggleButton value="legpoint4">4점</MuiToggleButton>
+                      </ToggleButtonGroup>
+                    </QuestionWrapper>
+                  </ToggleButtonWrapper>
+                  <DialogActions>
+                    <DialogButton onClick={handleClose}>취소</DialogButton>
+                    <DialogButton onClick={handleClose}>
+                      진단 마치기
+                    </DialogButton>
+                  </DialogActions>
+                </Dialog>
               </SelfExerciseLevelButtonWrapper>
             </InputWrapper>
           </ContentWrapper>
@@ -401,4 +573,46 @@ const ConfirmButton = styled.button`
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
+
+const MuiDialogTitle = styled(DialogTitle)`
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+`;
+
+const MuiDialogContentText = styled(DialogContentText)`
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+`;
+
+const ToggleButtonWrapper = styled.div`
+  padding-top: 0px;
+  padding-right: 24px;
+  padding-bottom: 16px;
+  padding-left: 24px;
+`;
+
+const QuestionWrapper = styled.div`
+  margin-bottom: 16px;
+`;
+
+const MuiToggleButton = styled(ToggleButton)`
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+`;
+
+const Question = styled.div`
+  margin-bottom: 16px;
+
+  &.Test {
+    margin-bottom: 8px;
+  }
+`;
+
+const QuestionDescription = styled.div`
+  margin-bottom: 16px;
+  color: #00000099;
+`;
+
+const DialogButton = styled(Button)`
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  color: #013066;
+`;
+
 export default BodyInfoForm;
