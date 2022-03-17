@@ -3,24 +3,10 @@ import styled from '@emotion/styled';
 import Slider from '../../common/Slider';
 import Card from '../../common/Card';
 
-const Base = styled.div`
-  margin-bottom: 21px;
-  position: relative;
-  background-color: #fafafa;
-`;
-
-const Title = styled.h4`
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 30px;
-  padding: 12px 0 14px;
-`;
-
 const UserSelection: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   interface ExerciseSelection {
     id: number;
-    linkUrl: string;
     title: string;
     poster_path: string;
   }
@@ -28,33 +14,33 @@ const UserSelection: React.FC = () => {
   const ExerciseSelections: ExerciseSelection[] = [
     {
       id: 0,
-      linkUrl: 'www.naver.com',
-      title: '상지 루틴 운동',
-      poster_path: '/images/common/ssafit_logo.png',
+      title: '등/어깨 뒤쪽 스트레칭',
+      poster_path: '/images/common/sample1.jpg',
     },
     {
       id: 1,
-      linkUrl: 'www.naver.com',
-      title: '상지 루틴 운동',
-      poster_path: '/images/common/ssafit_logo.png',
+      title: '조깅',
+      poster_path: '/images/common/sample2.jpg',
     },
     {
       id: 2,
-      linkUrl: 'www.naver.com',
-      title: '상지 루틴 운동',
-      poster_path: '/images/common/ssafit_logo.png',
+      title: '자전거',
+      poster_path: '/images/common/sample3.jpg',
     },
     {
       id: 3,
-      linkUrl: 'www.naver.com',
-      title: '상지 루틴 운동',
-      poster_path: '/images/common/ssafit_logo.png',
+      title: '줄넘기',
+      poster_path: '/images/common/sample4.jpg',
     },
     {
       id: 4,
-      linkUrl: 'www.naver.com',
-      title: '상지 루틴 운동',
-      poster_path: '/images/common/ssafit_logo.png',
+      title: '서서 균형잡기',
+      poster_path: '/images/common/sample5.jpg',
+    },
+    {
+      id: 5,
+      title: '수영',
+      poster_path: '/images/common/sample7.jpg',
     },
   ];
   return (
@@ -67,7 +53,6 @@ const UserSelection: React.FC = () => {
           {ExerciseSelections.map((ExerciseSelection) => (
             <Card
               key={ExerciseSelection.id}
-              linkUrl={ExerciseSelection.linkUrl}
               title={ExerciseSelection.title}
               posterPath={ExerciseSelection.poster_path}
             />
@@ -77,5 +62,18 @@ const UserSelection: React.FC = () => {
     </Base>
   );
 };
+
+const Base = styled.div`
+  margin-bottom: 21px;
+  position: relative;
+  bottom: 0;
+`;
+
+const Title = styled.h4`
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 30px;
+  padding: 12px 0 14px;
+`;
 
 export default UserSelection;

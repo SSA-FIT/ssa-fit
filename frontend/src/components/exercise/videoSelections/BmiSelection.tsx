@@ -19,7 +19,6 @@ const VideoSelection: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   interface ExerciseSelection {
     id: number;
-    linkUrl: string;
     title: string;
     poster_path: string;
   }
@@ -27,49 +26,41 @@ const VideoSelection: React.FC = () => {
   const ExerciseSelections: ExerciseSelection[] = [
     {
       id: 0,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 1,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 2,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 3,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 4,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 5,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 6,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 7,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
@@ -84,7 +75,6 @@ const VideoSelection: React.FC = () => {
           {ExerciseSelections.map((ExerciseSelection) => (
             <Card
               key={ExerciseSelection.id}
-              linkUrl={ExerciseSelection.linkUrl}
               title={ExerciseSelection.title}
               posterPath={ExerciseSelection.poster_path}
             />

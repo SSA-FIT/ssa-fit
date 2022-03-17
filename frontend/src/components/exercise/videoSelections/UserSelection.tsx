@@ -20,7 +20,6 @@ const UserVideoSelection: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   interface ExerciseSelection {
     id: number;
-    linkUrl: string;
     title: string;
     poster_path: string;
   }
@@ -28,31 +27,26 @@ const UserVideoSelection: React.FC = () => {
   const ExerciseSelections: ExerciseSelection[] = [
     {
       id: 0,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 1,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 2,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 3,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
     {
       id: 4,
-      linkUrl: 'www.naver.com',
       title: '상지 루틴 운동',
       poster_path: '/images/common/ssafit_logo.png',
     },
@@ -67,7 +61,6 @@ const UserVideoSelection: React.FC = () => {
           {ExerciseSelections.map((ExerciseSelection) => (
             <Card
               key={ExerciseSelection.id}
-              linkUrl={ExerciseSelection.linkUrl}
               title={ExerciseSelection.title}
               posterPath={ExerciseSelection.poster_path}
             />

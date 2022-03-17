@@ -3,12 +3,11 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
 interface Props {
-  linkUrl: string;
   title: string;
   posterPath: string;
 }
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.div`
   text-decoration: none;
   display: block;
   margin-inline: 10px;
@@ -57,15 +56,15 @@ const CheckBox = styled.input`
   line-height: 27px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   position: relative;
   width: 100%;
   height: 0;
   padding-bottom: 145.37037037037038%;
 `;
 
-const Card: React.FC<Props> = ({ linkUrl, title, posterPath }) => (
-  <StyledLink to={linkUrl}>
+const Card: React.FC<Props> = ({ title, posterPath }) => (
+  <StyledLink>
     <Base>
       <Wrapper>
         <CheckBox type="checkbox" />
