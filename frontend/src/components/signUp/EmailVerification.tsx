@@ -1,17 +1,22 @@
+import React, { useEffect, useState } from 'react';
+
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+
+import { regExp } from '../../utils/RegExpressions';
+import UserService from '../../services/UserService';
+import { EmailCodeRequest } from '../../types/commonTypes';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
-  setSignUpEmail: (email: string) => void;
+  // setSignUpEmail: (email: string) => void;
 }
 
 const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
-  const handleNext = () => {
+  const handleNextButton = () => {
     setSignUpStep(2);
   };
 
-  const handleBefore = () => {
+  const handleBeforeButton = () => {
     setSignUpStep(0);
   };
 
@@ -21,28 +26,47 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
   // 유효성 검사
   const [isEmail, setIsEmail] = useState<boolean>(false);
   const [emailCodeRequestButton, setEmailCodeRequestButton] =
-    useState<boolean>(false);
+    useState<boolean>(true);
   const [emailCodeInput, setEmailCodeInput] = useState<boolean>(false);
 
   // 이메일
-  const checkEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const regExp =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+  const checkEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
-    console.log('이메일 유효성 검사 :: ', regExp.test(e.target.value));
-    const emailCurrent = e.target.value;
+
+    console.log('이메일 유효성 검사 :: ', regExp.test(event.target.value));
+
+    const emailCurrent = event.target.value;
     setEmail(emailCurrent);
 
     if (!regExp.test(emailCurrent)) {
       setEmailMessage('이메일 형식이 올바르지 않습니다.');
       setIsEmail(false);
+      setEmailCodeRequestButton(true);
     } else {
       setEmailMessage('');
-      setEmailCodeRequestButton(true);
+      setEmailCodeRequestButton(false);
       setIsEmail(true);
     }
   };
 
+  const emailCodeRequest = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    setEmailCodeInput(true);
+    const data: EmailCodeRequest = { email: '' };
+    data.email = email;
+    UserService.getUserInfo(data)
+      .then(({ message }) => {
+        // alert(message);
+      })
+      .catch((error) => {
+        const { status, message } = error.response.data;
+
+        if (status === 500) {
+          // console.log(message);
+        }
+      });
+  };
   return (
     <>
       <Container>
@@ -73,7 +97,10 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
                     </span>
                   )}
                 </InputWrapper>
-                <OverlapConfirmButton onClick={() => setEmailCodeInput(true)}>
+                <OverlapConfirmButton
+                  onClick={emailCodeRequest}
+                  disabled={emailCodeRequestButton}
+                >
                   이메일 인증하기
                 </OverlapConfirmButton>
               </InputAndButtonWrapper>
@@ -94,8 +121,8 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
           </ContentWrapper>
         </ContentsWrapper>
         <ConFirmWrapper>
-          <CancelButton onClick={handleBefore}>이전</CancelButton>
-          <ConfirmButton onClick={handleNext}>확인</ConfirmButton>
+          <CancelButton onClick={handleBeforeButton}>이전</CancelButton>
+          <ConfirmButton onClick={handleNextButton}>확인</ConfirmButton>
         </ConFirmWrapper>
       </Container>
     </>
@@ -287,8 +314,8 @@ const OverlapConfirmButton = styled.button`
     line-height: 1.5;
   }
 
-  &.abled {
-    disabled=""
+  &:disabled {
+    border-color: red;
   }
 `;
 
@@ -317,10 +344,10 @@ const CodeConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 1.5;
   }
-
+  /* 
   &.abled {
     disabled=""
-  }
+  } */
 `;
 
 const ConFirmWrapper = styled.div`

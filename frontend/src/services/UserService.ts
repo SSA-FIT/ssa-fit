@@ -1,12 +1,16 @@
 import { axiosInstance } from '../apis/axios';
 
-import { SignUpData, SignUpResponse } from '../types/commonTypes';
+import { EmailCodeRequest, SignUpResponse } from '../types/commonTypes';
 
 class UserService {
-  public static async getUserInfo(data: SignUpData): Promise<SignUpResponse> {
-    const response = await axiosInstance.post<SignUpResponse>(
-      `/api/auth/users/sign-up`,
-      data,
+  public static async getUserInfo(
+    data: EmailCodeRequest,
+  ): Promise<SignUpResponse> {
+    const response = await axiosInstance.get<SignUpResponse>(
+      `/api/auth/users/sign-up/email-verification`,
+      {
+        params: data,
+      },
     );
 
     return response.data;

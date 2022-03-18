@@ -1,10 +1,13 @@
 import * as React from 'react';
+
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
@@ -14,8 +17,6 @@ import StepConnector, {
   stepConnectorClasses,
 } from '@mui/material/StepConnector';
 import { StepIconProps } from '@mui/material/StepIcon';
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {

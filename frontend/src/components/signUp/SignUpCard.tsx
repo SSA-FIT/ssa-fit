@@ -29,7 +29,7 @@ const SignUpCard: React.FC = () => {
                   return (
                     <EmailVerification
                       setSignUpStep={setSignUpStep}
-                      setSignUpEmail={setSignUpEmail}
+                      // setSignUpEmail={setSignUpEmail}
                     />
                   );
                 case 2:
