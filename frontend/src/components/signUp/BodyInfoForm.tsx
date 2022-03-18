@@ -203,7 +203,7 @@ const BodyInfoForm: React.FC = () => {
                     </QuestionWrapper>
                     <QuestionWrapper>
                       <Question className="Test">
-                        5. 다리 근력 테스트를 해보세요.
+                        6. 다리 근력 테스트를 해보세요.
                       </Question>
                       <QuestionDescription>
                         한손 끝으로 벽을 잡고 옆으로 선 다음 한쪽 다리를 위로
