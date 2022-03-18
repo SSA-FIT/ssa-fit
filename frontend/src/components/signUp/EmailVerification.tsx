@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
+  setSignUpEmail: (email: string) => void;
 }
 
 const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
@@ -11,6 +13,34 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
 
   const handleBefore = () => {
     setSignUpStep(0);
+  };
+
+  const [email, setEmail] = useState<string>('');
+  // 오류메시지 상태저장
+  const [emailMessage, setEmailMessage] = useState<string>('');
+  // 유효성 검사
+  const [isEmail, setIsEmail] = useState<boolean>(false);
+  const [emailCodeRequestButton, setEmailCodeRequestButton] =
+    useState<boolean>(false);
+  const [emailCodeInput, setEmailCodeInput] = useState<boolean>(false);
+
+  // 이메일
+  const checkEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const regExp =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    // 형식에 맞는 경우 true 리턴
+    console.log('이메일 유효성 검사 :: ', regExp.test(e.target.value));
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+
+    if (!regExp.test(emailCurrent)) {
+      setEmailMessage('이메일 형식이 올바르지 않습니다.');
+      setIsEmail(false);
+    } else {
+      setEmailMessage('');
+      setEmailCodeRequestButton(true);
+      setIsEmail(true);
+    }
   };
 
   return (
@@ -30,10 +60,36 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
               <InputName>이메일</InputName>
               <InputAndButtonWrapper>
                 <InputWrapper>
-                  <Input />
+                  <Input
+                    type="email"
+                    onChange={checkEmail}
+                    className={emailMessage !== '' ? 'have-error' : ''}
+                  />
+                  {email.length > 0 && (
+                    <span
+                      className={`message ${isEmail ? 'success' : 'error'}`}
+                    >
+                      {emailMessage}
+                    </span>
+                  )}
                 </InputWrapper>
-                <OverlapConfirmButton>이메일 인증하기</OverlapConfirmButton>
+                <OverlapConfirmButton onClick={() => setEmailCodeInput(true)}>
+                  이메일 인증하기
+                </OverlapConfirmButton>
               </InputAndButtonWrapper>
+              {emailCodeInput ? (
+                <InputFieldWrapper>
+                  <InputCode>
+                    이메일로 전송된 인증코드를 입력해주세요.
+                  </InputCode>
+                  <InputAndButtonWrapper>
+                    <InputWrapper>
+                      <Input />
+                    </InputWrapper>
+                    <CodeConfirmButton>인증하기</CodeConfirmButton>
+                  </InputAndButtonWrapper>
+                </InputFieldWrapper>
+              ) : null}
             </InputFieldWrapper>
           </ContentWrapper>
         </ContentsWrapper>
@@ -148,6 +204,18 @@ const InputName = styled.label`
   }
 `;
 
+const InputCode = styled.div`
+  display: block;
+  margin-bottom: 0.2rem;
+  color: #767676;
+  font-size: 1.4rem;
+  line-height: 1.58;
+
+  @media (min-width: 1060px) {
+    margin-bottom: 0.9rem;
+  }
+`;
+
 const InputAndButtonWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -185,6 +253,12 @@ const Input = styled.input`
     font-size: 1.8rem;
     line-height: 1.56;
   }
+
+  &.have-error {
+    margin-bottom: 4px;
+    border: 1px solid #f44336;
+    box-shadow: inset 0 0 0 1px #ff77774d;
+  }
 `;
 
 const OverlapConfirmButton = styled.button`
@@ -211,6 +285,41 @@ const OverlapConfirmButton = styled.button`
     padding: 0.7rem 0.8rem;
     font-size: 1.6rem;
     line-height: 1.5;
+  }
+
+  &.abled {
+    disabled=""
+  }
+`;
+
+const CodeConfirmButton = styled.button`
+  margin-top: 0.4rem;
+  color: #555;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  display: inline-block;
+  min-width: 6.8rem;
+  margin: 0;
+  padding: 0.6rem 1.2rem 0.7rem;
+  border-radius: 0.2rem;
+  background-color: #fff;
+  font-size: 1.4rem;
+  line-height: 1.58;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #00256c;
+  appearance: none;
+
+  @media (min-width: 1060px) {
+    margin-top: 0.8rem;
+    min-width: 8.4rem;
+    padding: 0.7rem 0.8rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+
+  &.abled {
+    disabled=""
   }
 `;
 

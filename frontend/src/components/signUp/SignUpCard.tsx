@@ -10,6 +10,8 @@ import SignUpComplete from './SignUpComplete';
 
 const SignUpCard: React.FC = () => {
   const [signUpStep, setSignUpStep] = useState<number>(0);
+  const [signUpEmail, setSignUpEmail] = useState<string>('');
+
   return (
     <>
       <ContainerWrapper>
@@ -24,7 +26,12 @@ const SignUpCard: React.FC = () => {
                 case 0:
                   return <AgreementForm setSignUpStep={setSignUpStep} />;
                 case 1:
-                  return <EmailVerification setSignUpStep={setSignUpStep} />;
+                  return (
+                    <EmailVerification
+                      setSignUpStep={setSignUpStep}
+                      setSignUpEmail={setSignUpEmail}
+                    />
+                  );
                 case 2:
                   return <BodyInfoForm setSignUpStep={setSignUpStep} />;
                 case 3:
