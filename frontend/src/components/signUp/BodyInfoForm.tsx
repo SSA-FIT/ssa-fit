@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -16,7 +16,16 @@ interface Props {
 }
 
 const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [userHeight, setUserHeight] = useState<string>('');
+  const [height1, setHeight1] = useState<string>('0');
+  const [height2, setHeight2] = useState<string>('0');
+  const [userHeightNumber, setUserHeightNumber] = useState<number>(0);
+  const [userWeight, setUserWeight] = useState<string>('');
+  const [weight1, setWeight1] = useState<string>('0');
+  const [weight2, setWeight2] = useState<string>('0');
+  const [heightMessage, setHeightMessage] = useState<string>('');
+  const [isHeight, setIsHeight] = useState<boolean>(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,6 +52,67 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
     setSignUpStep(1);
   };
 
+  const getHeight1 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let height1 = event.target.value;
+    if (height1 === '') {
+      height1 = '0';
+    }
+    setHeight1(height1);
+    const height = `${height1}.${height2}`;
+    setUserHeight(height);
+    console.log(`${height1} + ${height2} = ${height}`);
+    setUserHeightNumber(parseFloat(height));
+    console.log('userHeihtNum :: ', userHeightNumber);
+    if (userHeightNumber <= 300 && userHeightNumber >= 1) {
+      setIsHeight(true);
+      setHeightMessage('');
+    } else {
+      setIsHeight(false);
+      setHeightMessage('1~300사이의 값을 입력해주세요');
+    }
+  };
+
+  const getHeight2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let height2 = event.target.value;
+    if (height2 === '') {
+      height2 = '0';
+    }
+    setHeight2(height2);
+    const height = `${height1}.${height2}`;
+    setUserHeight(height);
+    console.log(`${height1} + ${height2} = ${height}`);
+    setUserHeightNumber(parseFloat(height));
+    console.log('userHeihtNum :: ', userHeightNumber);
+    if (userHeightNumber <= 300 && userHeightNumber >= 1) {
+      setIsHeight(true);
+      setHeightMessage('');
+    } else {
+      setIsHeight(false);
+      setHeightMessage('1~300사이의 값을 입력해주세요');
+    }
+  };
+
+  const getWeight1 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let weight1 = event.target.value;
+    if (weight1 === '') {
+      weight1 = '0';
+    }
+    setWeight1(weight1);
+    const weight = `${weight1}.${weight2}`;
+    setUserWeight(weight);
+    console.log(`${weight1} + ${weight2} = ${userWeight}`);
+  };
+
+  const getWeight2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let weight2 = event.target.value;
+    if (weight2 === '') {
+      weight2 = '0';
+    }
+    setWeight2(weight2);
+    const weight = `${weight1}.${weight2}`;
+    setUserWeight(weight);
+    console.log(`${weight1} + ${weight2} = ${userWeight}`);
+  };
   return (
     <>
       <Container>
@@ -61,14 +131,33 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
                 키(cm)
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
-              <Input />
+              <BodyInput1
+                maxLength={3}
+                onChange={getHeight1}
+                className={heightMessage !== '' ? 'have-error' : ''}
+              />
+              .
+              <BodyInput2
+                maxLength={1}
+                onChange={getHeight2}
+                className={heightMessage !== '' ? 'have-error' : ''}
+              />
+              입력값 {userHeight}
             </InputWrapper>
+
+            {userHeightNumber > 0 && (
+              <span className={`message ${isHeight ? 'success' : 'error'}`}>
+                {heightMessage}
+              </span>
+            )}
             <InputWrapper>
               <InputName>
                 몸무게(kg)
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
-              <Input />
+              <BodyInput1 maxLength={3} onChange={getWeight1} />.
+              <BodyInput2 maxLength={1} onChange={getWeight2} />
+              입력값 {userWeight}
             </InputWrapper>
             <InputWrapper>
               <InputName>
@@ -440,6 +529,68 @@ const Input = styled.input`
     height: 4.8rem;
     font-size: 1.8rem;
     line-height: 1.56;
+  }
+`;
+
+const BodyInput1 = styled.input`
+  appearance: none;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  padding-right: 5px;
+  border: 0;
+  left: 0;
+  width: 3.5rem;
+  height: 2rem;
+  border-bottom: 1px solid #00256c;
+  border-radius: 0;
+  color: #000;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  transition: border 0.2s 0.3s, color 0.2s 0.3s, box-shadow 0.2s 0.3s;
+  text-align: right;
+
+  @media (min-width: 1060px) {
+    height: 4.8rem;
+    font-size: 1.8rem;
+    line-height: 1.56;
+  }
+
+  &.have-error {
+    margin-bottom: 4px;
+    border-bottom: 1px solid #f44336;
+    box-shadow: inset 0 0 0 1px #ff77774d;
+  }
+`;
+
+const BodyInput2 = styled.input`
+  appearance: none;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 0;
+  padding-left: 5px;
+  border: 0;
+  left: 0;
+  width: 1.5rem;
+  height: 2rem;
+  border-bottom: 1px solid #00256c;
+  border-radius: 0;
+  color: #000;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  transition: border 0.2s 0.3s, color 0.2s 0.3s, box-shadow 0.2s 0.3s;
+  text-align: left;
+
+  @media (min-width: 1060px) {
+    height: 4.8rem;
+    font-size: 1.8rem;
+    line-height: 1.56;
+  }
+
+  &.have-error {
+    margin-bottom: 4px;
+    border-bottom: 1px solid #f44336;
+    box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
 

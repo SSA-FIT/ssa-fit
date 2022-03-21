@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import { regExp } from '../../utils/RegExpressions';
 import UserService from '../../services/UserService';
-import { EmailCodeRequest } from '../../types/commonTypes';
+import { EmailCodeConfirm, EmailCodeRequest } from '../../types/commonTypes';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
@@ -13,7 +13,9 @@ interface Props {
 
 const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
   const handleNextButton = () => {
-    setSignUpStep(2);
+    if (emailConfirmComplete) {
+      setSignUpStep(2);
+    }
   };
 
   const handleBeforeButton = () => {
@@ -27,7 +29,10 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
   const [isEmail, setIsEmail] = useState<boolean>(false);
   const [emailCodeRequestButton, setEmailCodeRequestButton] =
     useState<boolean>(true);
-  const [emailCodeInput, setEmailCodeInput] = useState<boolean>(false);
+  const [emailCodeInputView, setEmailCodeInputView] = useState<boolean>(false);
+  const [emailCodeInput, setEmailCodeInput] = useState<string>('');
+  const [emailConfirmComplete, setemailConfirmComplete] =
+    useState<boolean>(false);
 
   // 이메일
   const checkEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,21 +57,50 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
   const emailCodeRequest = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    setEmailCodeInput(true);
     const data: EmailCodeRequest = { email: '' };
     data.email = email;
-    UserService.getUserInfo(data)
+    UserService.getEmailCodeRequest(data)
       .then(({ message }) => {
+        // alert(message);
+        console.log(message);
+        setEmailCodeInputView(true);
+      })
+      .catch((error) => {
+        const { status, message } = error.response.data;
+        console.log('에러 :: ', message);
+
+        if (status === 500) {
+          console.log('서버에러 :: ', message);
+        }
+      });
+  };
+
+  const checkEmailCode = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailCodeInput(event.target.value);
+  };
+
+  const emailCodeConfirm = () => {
+    const data: EmailCodeConfirm = {
+      code: '',
+      email: '',
+    };
+    data.code = emailCodeInput;
+    data.email = email;
+    UserService.getEmailCodeConfirm(data)
+      .then(({ message }) => {
+        console.log('입력코드 :: ', data.code);
+        setemailConfirmComplete(true);
         // alert(message);
       })
       .catch((error) => {
         const { status, message } = error.response.data;
 
         if (status === 500) {
-          // console.log(message);
+          console.log(message);
         }
       });
   };
+
   return (
     <>
       <Container>
@@ -104,16 +138,18 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
                   이메일 인증하기
                 </OverlapConfirmButton>
               </InputAndButtonWrapper>
-              {emailCodeInput ? (
+              {emailCodeInputView ? (
                 <InputFieldWrapper>
                   <InputCode>
                     이메일로 전송된 인증코드를 입력해주세요.
                   </InputCode>
                   <InputAndButtonWrapper>
                     <InputWrapper>
-                      <Input />
+                      <Input type="emailCodeInput" onChange={checkEmailCode} />
                     </InputWrapper>
-                    <CodeConfirmButton>인증하기</CodeConfirmButton>
+                    <CodeConfirmButton onClick={emailCodeConfirm}>
+                      인증하기
+                    </CodeConfirmButton>
                   </InputAndButtonWrapper>
                 </InputFieldWrapper>
               ) : null}
