@@ -10,7 +10,15 @@ import SignUpComplete from './SignUpComplete';
 
 const SignUpCard: React.FC = () => {
   const [signUpStep, setSignUpStep] = useState<number>(0);
-  const [signUpEmail, setSignUpEmail] = useState<string>('');
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [userHeight, setUserHeight] = useState<string>('');
+  const [userWeight, setUserWeight] = useState<string>('');
+  const [userBirth, setUserBirth] = useState<string>('');
+  const [userGender, setUserGender] = useState<string>('');
+  const [userLevel, setUserLevel] = useState<string>('');
+  // const [userId, setUserId] = useState<string>('');
+  // const [userPw, setUserPw] = useState<string>('');
+  // const [userNickname, setUserNickname] = useState<string>('');
 
   return (
     <>
@@ -29,13 +37,32 @@ const SignUpCard: React.FC = () => {
                   return (
                     <EmailVerification
                       setSignUpStep={setSignUpStep}
-                      // setSignUpEmail={setSignUpEmail}
+                      setUserEmail={setUserEmail}
                     />
                   );
                 case 2:
-                  return <BodyInfoForm setSignUpStep={setSignUpStep} />;
+                  return (
+                    <BodyInfoForm
+                      setSignUpStep={setSignUpStep}
+                      setUserHeight={setUserHeight}
+                      setUserWeight={setUserWeight}
+                      setUserBirth={setUserBirth}
+                      setUserGender={setUserGender}
+                      setUserLevel={setUserLevel}
+                    />
+                  );
                 case 3:
-                  return <SignUpForm setSignUpStep={setSignUpStep} />;
+                  return (
+                    <SignUpForm
+                      setSignUpStep={setSignUpStep}
+                      userEmail={userEmail}
+                      userHeight={userHeight}
+                      userWeight={userWeight}
+                      userBirth={userBirth}
+                      userGender={userGender}
+                      userLevel={userLevel}
+                    />
+                  );
                 case 4:
                   return <SignUpComplete />;
                 default:

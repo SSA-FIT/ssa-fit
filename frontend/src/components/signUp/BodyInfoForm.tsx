@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -10,22 +10,92 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { BodyInfoData } from '../../types/commonTypes';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
+  setUserHeight: (userHeight: string) => void;
+  setUserWeight: (userWeight: string) => void;
+  setUserBirth: (userBirth: string) => void;
+  setUserGender: (userGender: string) => void;
+  setUserLevel: (userLevel: string) => void;
 }
 
-const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
+const BodyInfoForm: React.FC<Props> = ({
+  setSignUpStep,
+  setUserHeight,
+  setUserWeight,
+  setUserBirth,
+  setUserGender,
+  setUserLevel,
+}) => {
   const [open, setOpen] = useState(false);
-  const [userHeight, setUserHeight] = useState<string>('');
+  const [userHeightChange, setUserHeightChange] = useState<string>('');
   const [height1, setHeight1] = useState<string>('0');
   const [height2, setHeight2] = useState<string>('0');
   const [userHeightNumber, setUserHeightNumber] = useState<number>(0);
-  const [userWeight, setUserWeight] = useState<string>('');
-  const [weight1, setWeight1] = useState<string>('0');
-  const [weight2, setWeight2] = useState<string>('0');
   const [heightMessage, setHeightMessage] = useState<string>('');
   const [isHeight, setIsHeight] = useState<boolean>(false);
+  const [userWeightChange, setUserWeightChange] = useState<string>('');
+  const [weight1, setWeight1] = useState<string>('0');
+  const [weight2, setWeight2] = useState<string>('0');
+  const [userWeightNumber, setUserWeightNumber] = useState<number>(0);
+  const [weightMessage, setWeightMessage] = useState<string>('');
+  const [isWeight, setIsWeight] = useState<boolean>(false);
+  const [userBirthChange, setUserBirthChange] = useState<string>('');
+  const [userGenderChange, setUserGenderChange] = useState<string>('');
+  const [userLevelChange, setUserLevelChange] = useState<string>('');
+  const [userLevelIcon, setUserLevelIcon] = useState<string>('');
+
+  const UserBodyInfoProps = (data: BodyInfoData) => {
+    const { userHeight, userWeight, userLevel, userBirth, userGender } = data;
+
+    // setSignUpStep(2);
+    setUserHeight(userHeight);
+    setUserWeight(userWeight);
+    setUserLevel(userLevel);
+    setUserBirth(userBirth);
+    setUserGender(userGender);
+  };
+
+  const handleNext = () => {
+    const data: BodyInfoData = {
+      userHeight: '',
+      userWeight: '',
+      userLevel: '',
+      userBirth: '',
+      userGender: '',
+    };
+
+    data.userHeight = userHeightChange;
+    data.userWeight = userWeightChange;
+    data.userLevel = userLevelChange;
+    data.userBirth = userBirthChange;
+    data.userGender = userGenderChange;
+
+    UserBodyInfoProps(data);
+
+    if (
+      isHeight &&
+      isWeight &&
+      userBirthChange !== '' &&
+      userGenderChange !== '' &&
+      userLevelChange !== ''
+    )
+      setSignUpStep(3);
+  };
+
+  const handleBefore = () => {
+    setSignUpStep(1);
+  };
+
+  const [selfTest1, setSelfTest1] = useState<number>(1);
+  const [selfTest2, setSelfTest2] = useState<number>(1);
+  const [selfTest3, setSelfTest3] = useState<number>(1);
+  const [selfTest4, setSelfTest4] = useState<number>(1);
+  const [selfTest5, setSelfTest5] = useState<number>(0);
+  const [selfTest6, setSelfTest6] = useState<number>(0);
+  const [selfTestSum, setSelfTestSum] = useState<number>(4);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,22 +105,237 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
     setOpen(false);
   };
 
-  const [alignment, setAlignment] = React.useState('seed');
+  const [alignment1, setAlignment1] = React.useState('level1');
+  const [alignment2, setAlignment2] = React.useState('one');
+  const [alignment3, setAlignment3] = React.useState('30min');
+  const [alignment4, setAlignment4] = React.useState('3stairs');
+  const [alignment5, setAlignment5] = React.useState('shoulderpoint0');
+  const [alignment6, setAlignment6] = React.useState('legpoint0');
 
-  const handleChange = (
+  const handleCloseCancelButton = () => {
+    setOpen(false);
+
+    setAlignment1('level1');
+    setAlignment2('one');
+    setAlignment3('30min');
+    setAlignment4('3stairs');
+    setAlignment5('shoulderpoint0');
+    setAlignment6('legpoint0');
+  };
+
+  const handleCloseFinishButton = () => {
+    setOpen(false);
+
+    if (selfTestSum >= 4 && selfTestSum < 9) {
+      setUserLevelChange('씨앗');
+      setUserLevelIcon('🌱');
+    }
+
+    if (selfTestSum >= 9 && selfTestSum < 14) {
+      setUserLevelChange('새싹');
+      setUserLevelIcon('🌿');
+    }
+
+    if (selfTestSum >= 15 && selfTestSum < 20) {
+      setUserLevelChange('나무');
+      setUserLevelIcon('🌳');
+    }
+
+    if (selfTestSum >= 21 && selfTestSum < 24) {
+      setUserLevelChange('열매');
+      setUserLevelIcon('🍎');
+    }
+  };
+
+  const handleChange1 = (
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string,
   ) => {
-    setAlignment(newAlignment);
+    // console.log(`alignment1:${alignment1}, newAlignment:${newAlignment}`);
+    setAlignment1(newAlignment);
+    // console.log(`alignment1:${alignment1}, newAlignment:${newAlignment}`);
   };
 
-  const handleNext = () => {
-    setSignUpStep(3);
+  const handleChange2 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment2(newAlignment);
   };
 
-  const handleBefore = () => {
-    setSignUpStep(1);
+  const handleChange3 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment3(newAlignment);
   };
+
+  const handleChange4 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment4(newAlignment);
+  };
+
+  const handleChange5 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment5(newAlignment);
+  };
+
+  const handleChange6 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment6(newAlignment);
+  };
+
+  useEffect(() => {
+    console.log('alignment1 :: ', alignment1);
+    switch (alignment1) {
+      case 'level1':
+        setSelfTest1(1);
+        break;
+      case 'level2':
+        setSelfTest1(2);
+        break;
+      case 'level3':
+        setSelfTest1(3);
+        break;
+      case 'level4':
+        setSelfTest1(4);
+        break;
+
+      default:
+    }
+  }, [alignment1]);
+
+  useEffect(() => {
+    console.log('alignment2 :: ', alignment2);
+    switch (alignment2) {
+      case 'one':
+        setSelfTest2(1);
+        break;
+      case 'two':
+        setSelfTest2(2);
+        break;
+      case 'three':
+        setSelfTest2(3);
+        break;
+      case 'four':
+        setSelfTest2(4);
+        break;
+
+      default:
+    }
+  }, [alignment2]);
+
+  useEffect(() => {
+    console.log('alignment3 :: ', alignment3);
+    switch (alignment3) {
+      case '30min':
+        setSelfTest3(1);
+        break;
+      case '1hour':
+        setSelfTest3(2);
+        break;
+      case '2hour':
+        setSelfTest3(3);
+        break;
+      case 'many':
+        setSelfTest3(4);
+        break;
+
+      default:
+    }
+  }, [alignment3]);
+
+  useEffect(() => {
+    console.log('alignment4 :: ', alignment4);
+    switch (alignment4) {
+      case '3stairs':
+        setSelfTest4(1);
+        break;
+      case '6stairs':
+        setSelfTest4(2);
+        break;
+      case '9stairs':
+        setSelfTest4(3);
+        break;
+      case '10stairs':
+        setSelfTest4(4);
+        break;
+
+      default:
+    }
+  }, [alignment4]);
+
+  useEffect(() => {
+    console.log('alignment5 :: ', alignment5);
+    switch (alignment5) {
+      case 'shoulderpoint0':
+        setSelfTest5(0);
+        break;
+      case 'shoulderpoint2':
+        setSelfTest5(2);
+        break;
+      case 'shoulderpoint4':
+        setSelfTest5(4);
+        break;
+
+      default:
+    }
+  }, [alignment5]);
+
+  useEffect(() => {
+    console.log('alignment6 :: ', alignment6);
+    switch (alignment6) {
+      case 'legpoint0':
+        setSelfTest6(0);
+        break;
+      case 'legpoint2':
+        setSelfTest6(2);
+        break;
+      case 'legpoint4':
+        setSelfTest6(4);
+        break;
+
+      default:
+    }
+  }, [alignment6]);
+
+  useEffect(() => {
+    console.log(
+      `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6} = ${selfTestSum}`,
+    );
+  }, [selfTestSum]);
+
+  useEffect(() => {
+    const sum =
+      selfTest1 + selfTest2 + selfTest3 + selfTest4 + selfTest5 + selfTest6;
+    setSelfTestSum(sum);
+    console.log(
+      `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6}`,
+    );
+  }, [selfTest1, selfTest2, selfTest3, selfTest4, selfTest5, selfTest6]);
+
+  useEffect(() => {
+    console.log('userHeightChange :: ', userHeightChange);
+    setUserHeightNumber(parseFloat(userHeightChange));
+  }, [userHeightChange]);
+
+  useEffect(() => {
+    console.log('userHeightNumber :: ', userHeightNumber);
+
+    if (userHeightNumber <= 300 && userHeightNumber >= 1) {
+      setIsHeight(true);
+      setHeightMessage('');
+    } else {
+      setIsHeight(false);
+      setHeightMessage('1~300사이의 값을 입력해주세요');
+    }
+  }, [userHeightNumber]);
 
   const getHeight1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     let height1 = event.target.value;
@@ -59,17 +344,8 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
     }
     setHeight1(height1);
     const height = `${height1}.${height2}`;
-    setUserHeight(height);
-    console.log(`${height1} + ${height2} = ${height}`);
-    setUserHeightNumber(parseFloat(height));
-    console.log('userHeihtNum :: ', userHeightNumber);
-    if (userHeightNumber <= 300 && userHeightNumber >= 1) {
-      setIsHeight(true);
-      setHeightMessage('');
-    } else {
-      setIsHeight(false);
-      setHeightMessage('1~300사이의 값을 입력해주세요');
-    }
+    setUserHeightChange(height);
+    // console.log(`${height1} + ${height2} = ${height}`);
   };
 
   const getHeight2 = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,18 +355,28 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
     }
     setHeight2(height2);
     const height = `${height1}.${height2}`;
-    setUserHeight(height);
-    console.log(`${height1} + ${height2} = ${height}`);
+    setUserHeightChange(height);
+    // console.log(`${height1} + ${height2} = ${height}`);
     setUserHeightNumber(parseFloat(height));
-    console.log('userHeihtNum :: ', userHeightNumber);
-    if (userHeightNumber <= 300 && userHeightNumber >= 1) {
-      setIsHeight(true);
-      setHeightMessage('');
-    } else {
-      setIsHeight(false);
-      setHeightMessage('1~300사이의 값을 입력해주세요');
-    }
+    // console.log('userHeihtNum :: ', userHeightNumber);
   };
+
+  useEffect(() => {
+    console.log('userWeightChange :: ', userWeightChange);
+    setUserWeightNumber(parseFloat(userWeightChange));
+  }, [userWeightChange]);
+
+  useEffect(() => {
+    console.log('userWeightNumber :: ', userWeightNumber);
+
+    if (userWeightNumber <= 600 && userWeightNumber >= 1) {
+      setIsWeight(true);
+      setWeightMessage('');
+    } else {
+      setIsWeight(false);
+      setWeightMessage('1~600사이의 값을 입력해주세요');
+    }
+  }, [userWeightNumber]);
 
   const getWeight1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     let weight1 = event.target.value;
@@ -99,8 +385,8 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
     }
     setWeight1(weight1);
     const weight = `${weight1}.${weight2}`;
-    setUserWeight(weight);
-    console.log(`${weight1} + ${weight2} = ${userWeight}`);
+    setUserWeightChange(weight);
+    // console.log(`${weight1} + ${weight2} = ${userWeight}`);
   };
 
   const getWeight2 = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,9 +396,22 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
     }
     setWeight2(weight2);
     const weight = `${weight1}.${weight2}`;
-    setUserWeight(weight);
-    console.log(`${weight1} + ${weight2} = ${userWeight}`);
+    setUserWeightChange(weight);
+    // console.log(`${weight1} + ${weight2} = ${userWeight}`);
   };
+
+  const getBirth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const birth = event.target.value;
+    setUserBirthChange(birth);
+    // console.log('userBirth :: ', userBirth);
+  };
+
+  const getGender = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const gender = event.target.value;
+    setUserGenderChange(gender);
+    // console.log('userGender :: ', userGender);
+  };
+
   return (
     <>
       <Container>
@@ -134,18 +433,26 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
               <BodyInput1
                 maxLength={3}
                 onChange={getHeight1}
-                className={heightMessage !== '' ? 'have-error' : ''}
+                className={
+                  heightMessage !== '' && userHeightChange !== ''
+                    ? 'have-error'
+                    : ''
+                }
               />
               .
               <BodyInput2
                 maxLength={1}
                 onChange={getHeight2}
-                className={heightMessage !== '' ? 'have-error' : ''}
+                className={
+                  heightMessage !== '' && userHeightChange !== ''
+                    ? 'have-error'
+                    : ''
+                }
               />
-              입력값 {userHeight}
+              입력값 {userHeightChange}
             </InputWrapper>
 
-            {userHeightNumber > 0 && (
+            {userHeightNumber >= 0 && (
               <span className={`message ${isHeight ? 'success' : 'error'}`}>
                 {heightMessage}
               </span>
@@ -155,16 +462,38 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
                 몸무게(kg)
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
-              <BodyInput1 maxLength={3} onChange={getWeight1} />.
-              <BodyInput2 maxLength={1} onChange={getWeight2} />
-              입력값 {userWeight}
+              <BodyInput1
+                maxLength={3}
+                onChange={getWeight1}
+                className={
+                  weightMessage !== '' && userWeightChange !== ''
+                    ? 'have-error'
+                    : ''
+                }
+              />
+              .
+              <BodyInput2
+                maxLength={1}
+                onChange={getWeight2}
+                className={
+                  weightMessage !== '' && userWeightChange !== ''
+                    ? 'have-error'
+                    : ''
+                }
+              />
+              입력값 {userWeightChange}
             </InputWrapper>
+            {userWeightNumber >= 0 && (
+              <span className={`message ${isWeight ? 'success' : 'error'}`}>
+                {weightMessage}
+              </span>
+            )}
             <InputWrapper>
               <InputName>
                 생년월일
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
-              <Input type="date" />
+              <Input type="date" onChange={getBirth} />
             </InputWrapper>
             <InputWrapper>
               <InputName>
@@ -173,11 +502,23 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
               </InputName>
               <GenderSelectWrapper>
                 <GenderSelect>
-                  <GenderInput type="radio" value="M" id="M" name="gender" />
+                  <GenderInput
+                    type="radio"
+                    value="M"
+                    id="M"
+                    name="gender"
+                    onChange={getGender}
+                  />
                   <Gender htmlFor="M">남자</Gender>
                 </GenderSelect>
                 <GenderSelect>
-                  <GenderInput type="radio" value="FM" id="FM" name="gender" />
+                  <GenderInput
+                    type="radio"
+                    value="FM"
+                    id="FM"
+                    name="gender"
+                    onChange={getGender}
+                  />
                   <Gender htmlFor="FM">여자</Gender>
                 </GenderSelect>
               </GenderSelectWrapper>
@@ -206,23 +547,27 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
                       </Question>
                       <ToggleButtonGroup
                         color="primary"
-                        value={alignment}
+                        value={alignment1}
                         exclusive
-                        onChange={handleChange}
+                        onChange={handleChange1}
                       >
-                        <MuiToggleButton value="seed">🌱씨앗</MuiToggleButton>
+                        {/* <MuiToggleButton value="seed">🌱씨앗</MuiToggleButton>
                         <MuiToggleButton value="sprout">🌿새싹</MuiToggleButton>
                         <MuiToggleButton value="tree">🌳나무</MuiToggleButton>
-                        <MuiToggleButton value="fruit">🍎열매</MuiToggleButton>
+                        <MuiToggleButton value="fruit">🍎열매</MuiToggleButton> */}
+                        <MuiToggleButton value="level1">초보</MuiToggleButton>
+                        <MuiToggleButton value="level2">하수</MuiToggleButton>
+                        <MuiToggleButton value="level3">중수</MuiToggleButton>
+                        <MuiToggleButton value="level4">고수</MuiToggleButton>
                       </ToggleButtonGroup>
                     </QuestionWrapper>
                     <QuestionWrapper>
                       <Question>2. 1주일 운동 몇 회 하나요?</Question>
                       <ToggleButtonGroup
                         color="primary"
-                        value={alignment}
+                        value={alignment2}
                         exclusive
-                        onChange={handleChange}
+                        onChange={handleChange2}
                       >
                         <MuiToggleButton value="one">0회</MuiToggleButton>
                         <MuiToggleButton value="two">1~2회</MuiToggleButton>
@@ -234,9 +579,9 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
                       <Question>3. 1회 운동 시, 몇 시간 하나요?</Question>
                       <ToggleButtonGroup
                         color="primary"
-                        value={alignment}
+                        value={alignment3}
                         exclusive
-                        onChange={handleChange}
+                        onChange={handleChange3}
                       >
                         <MuiToggleButton value="30min">
                           30분 미만
@@ -256,9 +601,9 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
                       <Question>4. 몇 층 계단부터 숨이 차나요?</Question>
                       <ToggleButtonGroup
                         color="primary"
-                        value={alignment}
+                        value={alignment4}
                         exclusive
-                        onChange={handleChange}
+                        onChange={handleChange4}
                       >
                         <MuiToggleButton value="3stairs">
                           1층-3층
@@ -281,24 +626,25 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
                       <QuestionDescription>
                         등 뒤에서 한 팔은 위에서 아래도, 다른 한 팔은 아래에서
                         위로 손끝을 마주 붙인다. <br />
-                        양쪽 다 닿지 않으면 : 운동 부족 (0점) <br />
-                        한쪽만 닿으면 : 좋음 (2점) <br /> 좌, 우 양쪽 다 손끝이
-                        모두 닿으면 : 아주 좋음 (4점)
+                        양쪽 다 닿지 않으면 : BAD
+                        <br />
+                        한쪽만 닿으면 : GOOD
+                        <br /> 좌, 우 양쪽 다 손끝이 모두 닿으면 : PERFECT
                       </QuestionDescription>
                       <ToggleButtonGroup
                         color="primary"
-                        value={alignment}
+                        value={alignment5}
                         exclusive
-                        onChange={handleChange}
+                        onChange={handleChange5}
                       >
                         <MuiToggleButton value="shoulderpoint0">
-                          0점
+                          BAD
                         </MuiToggleButton>
                         <MuiToggleButton value="shoulderpoint2">
-                          2점
+                          GOOD
                         </MuiToggleButton>
                         <MuiToggleButton value="shoulderpoint4">
-                          4점
+                          PERFECT
                         </MuiToggleButton>
                       </ToggleButtonGroup>
                     </QuestionWrapper>
@@ -310,30 +656,40 @@ const BodyInfoForm: React.FC<Props> = ({ setSignUpStep }) => {
                         한손 끝으로 벽을 잡고 옆으로 선 다음 한쪽 다리를 위로
                         올려 들고서 무릎을 굽혀 완전히 내려앉았다(1초 이상 멈춘
                         후) 일어선다. <br />
-                        양쪽 다 설 수 없으면 : 운동 부족 (0점) <br />
-                        한쪽만 일어설 수 있으면 : 좋음 (2점) <br />
-                        양쪽 다 일어설 수 있으면 : 아주 좋음 (4점)
+                        양쪽 다 설 수 없으면 : BAD
+                        <br />
+                        한쪽만 일어설 수 있으면 : GOOD
+                        <br />
+                        양쪽 다 일어설 수 있으면 : PERFECT
                       </QuestionDescription>
                       <ToggleButtonGroup
                         color="primary"
-                        value={alignment}
+                        value={alignment6}
                         exclusive
-                        onChange={handleChange}
+                        onChange={handleChange6}
                       >
-                        <MuiToggleButton value="legpoint0">0점</MuiToggleButton>
-                        <MuiToggleButton value="legpoint2">2점</MuiToggleButton>
-                        <MuiToggleButton value="legpoint4">4점</MuiToggleButton>
+                        <MuiToggleButton value="legpoint0">BAD</MuiToggleButton>
+                        <MuiToggleButton value="legpoint2">
+                          GOOD
+                        </MuiToggleButton>
+                        <MuiToggleButton value="legpoint4">
+                          PERFECT
+                        </MuiToggleButton>
                       </ToggleButtonGroup>
                     </QuestionWrapper>
                   </ToggleButtonWrapper>
                   <DialogActions>
-                    <DialogButton onClick={handleClose}>취소</DialogButton>
-                    <DialogButton onClick={handleClose}>
+                    <DialogButton onClick={handleCloseCancelButton}>
+                      취소
+                    </DialogButton>
+                    <DialogButton onClick={handleCloseFinishButton}>
                       진단 마치기
                     </DialogButton>
                   </DialogActions>
                 </Dialog>
               </SelfExerciseLevelButtonWrapper>
+              {userLevelChange}
+              {userLevelIcon}
             </InputWrapper>
           </ContentWrapper>
         </ContentsWrapper>
@@ -567,7 +923,7 @@ const BodyInput2 = styled.input`
   appearance: none;
   box-sizing: border-box;
   display: inline-block;
-  margin: 0;
+  margin-right: 30px;
   padding-left: 5px;
   border: 0;
   left: 0;
@@ -743,6 +1099,7 @@ const MuiDialogTitle = styled(DialogTitle)`
 
 const MuiDialogContentText = styled(DialogContentText)`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  padding-bottom: 16px;
 `;
 
 const ToggleButtonWrapper = styled.div`

@@ -4,6 +4,8 @@ import {
   EmailCodeRequest,
   EmailCodeConfirm,
   SignUpResponse,
+  IdCheckRequest,
+  SignUpData,
 } from '../types/commonTypes';
 
 class UserService {
@@ -40,6 +42,30 @@ class UserService {
   ): Promise<SignUpResponse> {
     const response = await axiosInstance.post<SignUpResponse>(
       `/api/users/sign-up/email-verification`,
+      data,
+    );
+
+    return response.data;
+  }
+
+  // 아이디 중복체크
+  public static async getIdCheckRequest(
+    data: IdCheckRequest,
+  ): Promise<SignUpResponse> {
+    const response = await axiosInstance.get<SignUpResponse>(
+      `/api/users/sign-up/id-check`,
+      {
+        params: data,
+      },
+    );
+
+    return response.data;
+  }
+
+  // 회원가입
+  public static async userSignUp(data: FormData): Promise<SignUpResponse> {
+    const response = await axiosInstance.post<SignUpResponse>(
+      `/api/users/sign-up`,
       data,
     );
 

@@ -2,27 +2,30 @@ import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import { regExp } from '../../utils/RegExpressions';
+import { regEmail } from '../../utils/RegExpressions';
 import UserService from '../../services/UserService';
 import { EmailCodeConfirm, EmailCodeRequest } from '../../types/commonTypes';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
-  // setSignUpEmail: (email: string) => void;
+  setUserEmail: (userEmail: string) => void;
 }
 
-const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
+const EmailVerification: React.FC<Props> = ({
+  setSignUpStep,
+  setUserEmail,
+}) => {
+  const handleBeforeButton = () => {
+    setSignUpStep(0);
+  };
+
   const handleNextButton = () => {
     if (emailConfirmComplete) {
       setSignUpStep(2);
     }
   };
 
-  const handleBeforeButton = () => {
-    setSignUpStep(0);
-  };
-
-  const [email, setEmail] = useState<string>('');
+  const [userEmailChange, setUserEmailChange] = useState<string>('');
   // 오류메시지 상태저장
   const [emailMessage, setEmailMessage] = useState<string>('');
   // 유효성 검사
@@ -30,20 +33,29 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
   const [emailCodeRequestButton, setEmailCodeRequestButton] =
     useState<boolean>(true);
   const [emailCodeInputView, setEmailCodeInputView] = useState<boolean>(false);
+  const [emailCodeConfirmButton, setEmailCodeConfirmButton] =
+    useState<boolean>(true);
   const [emailCodeInput, setEmailCodeInput] = useState<string>('');
   const [emailConfirmComplete, setemailConfirmComplete] =
     useState<boolean>(false);
+
+  const UserEmailProps = (data: EmailCodeConfirm) => {
+    const { userEmail } = data;
+
+    // setSignUpStep(2);
+    setUserEmail(userEmail);
+  };
 
   // 이메일
   const checkEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
 
-    console.log('이메일 유효성 검사 :: ', regExp.test(event.target.value));
+    console.log('이메일 유효성 검사 :: ', regEmail.test(event.target.value));
 
     const emailCurrent = event.target.value;
-    setEmail(emailCurrent);
+    setUserEmailChange(emailCurrent);
 
-    if (!regExp.test(emailCurrent)) {
+    if (!regEmail.test(emailCurrent)) {
       setEmailMessage('이메일 형식이 올바르지 않습니다.');
       setIsEmail(false);
       setEmailCodeRequestButton(true);
@@ -57,18 +69,18 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
   const emailCodeRequest = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    const data: EmailCodeRequest = { email: '' };
-    data.email = email;
+    const data: EmailCodeRequest = { userEmail: '' };
+    data.userEmail = userEmailChange;
     UserService.getEmailCodeRequest(data)
       .then(({ message }) => {
-        // alert(message);
+        alert(message);
         console.log(message);
         setEmailCodeInputView(true);
       })
       .catch((error) => {
         const { status, message } = error.response.data;
         console.log('에러 :: ', message);
-
+        alert(message);
         if (status === 500) {
           console.log('서버에러 :: ', message);
         }
@@ -79,22 +91,31 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
     setEmailCodeInput(event.target.value);
   };
 
+  useEffect(() => {
+    if (emailCodeInput !== '') {
+      setEmailCodeConfirmButton(false);
+    } else {
+      setEmailCodeConfirmButton(true);
+    }
+  }, [emailCodeInput]);
+
   const emailCodeConfirm = () => {
     const data: EmailCodeConfirm = {
       code: '',
-      email: '',
+      userEmail: '',
     };
     data.code = emailCodeInput;
-    data.email = email;
+    data.userEmail = userEmailChange;
     UserService.getEmailCodeConfirm(data)
       .then(({ message }) => {
         console.log('입력코드 :: ', data.code);
         setemailConfirmComplete(true);
-        // alert(message);
+        UserEmailProps(data);
+        alert(message);
       })
       .catch((error) => {
         const { status, message } = error.response.data;
-
+        alert(message);
         if (status === 500) {
           console.log(message);
         }
@@ -108,7 +129,6 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
         <StepDescription>
           서비스 이용을 위해 이메일 인증해주세요.
         </StepDescription>
-
         <ContentsWrapper>
           <ContentNameWrapper>
             <ContentName>이메일 인증 (필수)</ContentName>
@@ -123,7 +143,7 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
                     onChange={checkEmail}
                     className={emailMessage !== '' ? 'have-error' : ''}
                   />
-                  {email.length > 0 && (
+                  {userEmailChange.length > 0 && (
                     <span
                       className={`message ${isEmail ? 'success' : 'error'}`}
                     >
@@ -147,7 +167,10 @@ const EmailVerification: React.FC<Props> = ({ setSignUpStep }) => {
                     <InputWrapper>
                       <Input type="emailCodeInput" onChange={checkEmailCode} />
                     </InputWrapper>
-                    <CodeConfirmButton onClick={emailCodeConfirm}>
+                    <CodeConfirmButton
+                      onClick={emailCodeConfirm}
+                      disabled={emailCodeConfirmButton}
+                    >
                       인증하기
                     </CodeConfirmButton>
                   </InputAndButtonWrapper>
@@ -380,10 +403,10 @@ const CodeConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 1.5;
   }
-  /* 
-  &.abled {
-    disabled=""
-  } */
+
+  &:disabled {
+    border-color: red;
+  }
 `;
 
 const ConFirmWrapper = styled.div`
