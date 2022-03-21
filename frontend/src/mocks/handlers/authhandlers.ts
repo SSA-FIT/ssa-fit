@@ -38,11 +38,12 @@ export const authhandlers = [
   rest.post(
     `${process.env.REACT_APP_LOCALHOST_URL}/api/users/sign-up/email-verification`,
 
-    async (request, response, context) => {
-      // const data: EmailCodeConfirm = request.body;
-      // const { userEmail, emailCode } = data;
-      const userEmail = request.url.searchParams.get('email');
-      const emailCode = request.url.searchParams.get('code');
+    async (request: any, response, context) => {
+      const data: EmailCodeConfirm = request.body;
+      // const { code, email } = data;
+
+      const userEmail = data.email;
+      const emailCode = data.code;
 
       if (emailCode === '401error') {
         return response(
