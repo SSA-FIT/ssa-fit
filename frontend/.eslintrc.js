@@ -33,6 +33,8 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     '@typescript-eslint/no-var-requires': 0,
     'global-require': 0,
+    'no-alert': 'off',
+    'no-console': 0,
   },
   settings: {
     'import/resolver': {
