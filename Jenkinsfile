@@ -7,5 +7,27 @@ pipeline {
       }
     }
 
+    stage('Build') {
+      steps {
+        dir('./backend/spring') {
+        }
+      }
+
+      steps {
+        sh 'chmod +x gradlew'
+      }
+
+      steps {
+        sh ./gradlew build
+      }
+        
+      steps {
+        sh docker build --tag=ssafit .
+      }
+
+      steps {
+        sh docker rm -f $(docker ps -a --filter "name=ssafit" -q)
+      }
+    }
   }
 }
