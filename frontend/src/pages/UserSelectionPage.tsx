@@ -31,8 +31,8 @@ const UserSelectionPage: React.FC = () => (
     <Header />
     <Main>
       <Container>
-        <VideoSelection />
-        <UserVideoSelection />
+        {/* <VideoSelection />
+        <UserVideoSelection /> */}
         <Submit>운동 세트 완성</Submit>
       </Container>
     </Main>

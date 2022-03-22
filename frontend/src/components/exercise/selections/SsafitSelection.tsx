@@ -72,13 +72,13 @@ const SsafitSelection: React.FC = () => {
         <div>Loading...</div>
       ) : (
         <Slider>
-          {ExerciseSelections.map((ExerciseSelection) => (
+          {/* {ExerciseSelections.map((ExerciseSelection) => (
             <Card
               key={ExerciseSelection.id}
-              title={ExerciseSelection.title}
-              posterPath={ExerciseSelection.poster_path}
+              name={ExerciseSelection.title}
+              imageURL={ExerciseSelection.poster_path}
             />
-          ))}
+          ))} */}
         </Slider>
       )}
     </Base>

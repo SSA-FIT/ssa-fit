@@ -1,63 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Slider from '../../common/Slider';
 import Card from '../../common/Card';
+import {
+  Recommendation,
+  UserSelectListProp,
+} from '../../../types/recommendationTypes';
 
-const UserSelection: React.FC = () => {
+const UserSelection: React.FC<UserSelectListProp> = ({
+  setUserSelectList,
+  userSelectList,
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  interface ExerciseSelection {
-    id: number;
-    title: string;
-    poster_path: string;
-  }
+  const [userSelections, setUserSelctions] =
+    useState<Recommendation[]>(userSelectList);
 
-  const ExerciseSelections: ExerciseSelection[] = [
-    {
-      id: 0,
-      title: '등/어깨 뒤쪽 스트레칭',
-      poster_path: '/images/common/sample1.jpg',
-    },
-    {
-      id: 1,
-      title: '조깅',
-      poster_path: '/images/common/sample2.jpg',
-    },
-    {
-      id: 2,
-      title: '자전거',
-      poster_path: '/images/common/sample3.jpg',
-    },
-    {
-      id: 3,
-      title: '줄넘기',
-      poster_path: '/images/common/sample4.jpg',
-    },
-    {
-      id: 4,
-      title: '서서 균형잡기',
-      poster_path: '/images/common/sample5.jpg',
-    },
-    {
-      id: 5,
-      title: '수영',
-      poster_path: '/images/common/sample7.jpg',
-    },
-  ];
+  useEffect(() => {
+    setUserSelctions(userSelectList);
+    console.log(userSelectList);
+  }, [userSelectList]);
+
   return (
     <Base>
       <Title>오늘의 운동</Title>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <Slider>
-          {ExerciseSelections.map((ExerciseSelection) => (
-            <Card
-              key={ExerciseSelection.id}
-              title={ExerciseSelection.title}
-              posterPath={ExerciseSelection.poster_path}
-            />
-          ))}
-        </Slider>
+        userSelections.length >= 5 && (
+          <Slider>
+            {userSelections.map((userSelection) => (
+              <Card
+                userSelectList={userSelectList}
+                setUserSelectList={setUserSelectList}
+                key={userSelection.id}
+                id={userSelection.id}
+                name={userSelection.name}
+                imageURL={userSelection.imageURL}
+                description={userSelection.description}
+              />
+            ))}
+          </Slider>
+        )
       )}
     </Base>
   );

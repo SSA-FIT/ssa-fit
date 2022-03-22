@@ -1,29 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
+
+import { Recommendation } from '../types/recommendationTypes';
+
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
-import BmiSelection from '../components/exercise/selections/BmiSelection';
 import SsafitSelection from '../components/exercise/selections/SsafitSelection';
 import StarSelection from '../components/exercise/selections/StarSelection';
 import UserSelection from '../components/exercise/selections/UserSelection';
+import EntireSelection from '../components/exercise/selections/EntireSelectiosn';
+import ProfileSelections from '../components/exercise/selections/ProfileSelection';
 
-const ExerciseSelectionPage: React.FC = () => (
-  <>
-    <Header />
-    <Main>
-      <Container>
-        <BmiSelection />
-        <SsafitSelection />
+const ExerciseSelectionPage: React.FC = () => {
+  const [userSelectList, setUserSelectList] = useState<Recommendation[]>([]);
+  return (
+    <>
+      <Header />
+      <Main>
+        <Container>
+          <ProfileSelections
+            userSelectList={userSelectList}
+            setUserSelectList={setUserSelectList}
+          />
+          {/* <SsafitSelection />
         <StarSelection />
-        <UserSelectionWrapper>
-          <UserSelection />
-          <Submit>운동 선택 완료</Submit>
-        </UserSelectionWrapper>
-      </Container>
-    </Main>
-    <Footer />
-  </>
-);
+        <EntireSelection /> */}
+          <UserSelectionWrapper>
+            <UserSelection
+              userSelectList={userSelectList}
+              setUserSelectList={setUserSelectList}
+            />
+            <Submit>운동 선택 완료</Submit>
+          </UserSelectionWrapper>
+        </Container>
+      </Main>
+      <Footer />
+    </>
+  );
+};
 
 const Main = styled.main`
   max-width: 1200px;
