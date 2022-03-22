@@ -54,13 +54,14 @@ public class User {
     private String userId;
 
     @NotNull
-    @Column(length = 45, unique = true)
+    @Column(length = 45)
     private String nickname;
 
     @NotNull
-    @Column(length = 45)
+    @Column(length = 45, unique = true)
     private String email;
 
+    @NotNull
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
