@@ -6,30 +6,30 @@ import {
   Recommendation,
   UserSelectListProp,
 } from '../../../types/recommendationTypes';
-import useProfileRecList from '../../../hooks/useProfileRecList';
+import useSimilarityRecList from '../../../hooks/useSmilarityRecList';
 
-const ProfileSelections: React.FC<UserSelectListProp> = ({
+const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
   userSelectList,
   setUserSelectList,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const profileRecoList: Recommendation[] = useProfileRecList();
+  const similarityRecoList: Recommendation[] = useSimilarityRecList();
   return (
     <Base>
-      <Title>신체정보 기반 운동 추천</Title>
+      <Title>싸핏 운동 추천</Title>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <Slider>
-          {profileRecoList.map((profileReco) => (
+          {similarityRecoList.map((similarityReco) => (
             <Card
               userSelectList={userSelectList}
               setUserSelectList={setUserSelectList}
-              key={profileReco.id}
-              id={profileReco.id}
-              name={profileReco.name}
-              imageURL={profileReco.imageURL}
-              description={profileReco.description}
+              key={similarityReco.id}
+              id={similarityReco.id}
+              name={similarityReco.name}
+              imageURL={similarityReco.imageURL}
+              description={similarityReco.description}
             />
           ))}
         </Slider>
@@ -37,6 +37,7 @@ const ProfileSelections: React.FC<UserSelectListProp> = ({
     </Base>
   );
 };
+
 const Base = styled.div`
   margin-bottom: 42px;
   position: relative;
@@ -48,5 +49,4 @@ const Title = styled.h4`
   line-height: 30px;
   padding: 12px 0 14px;
 `;
-
-export default ProfileSelections;
+export default SimilarityRecommendation;

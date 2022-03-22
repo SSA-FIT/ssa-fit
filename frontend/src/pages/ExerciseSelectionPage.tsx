@@ -1,39 +1,75 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
+import { Redirect } from 'react-router-dom';
 import { Recommendation } from '../types/recommendationTypes';
 
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
-import SsafitSelection from '../components/exercise/selections/SsafitSelection';
-import StarSelection from '../components/exercise/selections/StarSelection';
-import UserSelection from '../components/exercise/selections/UserSelection';
-import EntireSelection from '../components/exercise/selections/EntireSelectiosn';
-import ProfileSelections from '../components/exercise/selections/ProfileSelection';
+import ProfileRecommendation from '../components/exercise/recommendation/ProfileRecommendation';
+import UserSelection from '../components/exercise/recommendation/UserSelection';
+import SimilarityRecommendation from '../components/exercise/recommendation/SimilarityRecommendation';
+import BookMarkRecommendation from '../components/exercise/recommendation/BookMarkRecommendation';
+import EntireRecommendation from '../components/exercise/recommendation/EntireRecommendation';
 
 const ExerciseSelectionPage: React.FC = () => {
   const [userSelectList, setUserSelectList] = useState<Recommendation[]>([]);
+  const [step, setStep] = useState<number>(0);
+  const handleSubmitButton = (event: React.MouseEvent) => {
+    setStep(1);
+  };
   return (
     <>
       <Header />
-      <Main>
-        <Container>
-          <ProfileSelections
-            userSelectList={userSelectList}
-            setUserSelectList={setUserSelectList}
-          />
-          {/* <SsafitSelection />
-        <StarSelection />
-        <EntireSelection /> */}
-          <UserSelectionWrapper>
-            <UserSelection
-              userSelectList={userSelectList}
-              setUserSelectList={setUserSelectList}
-            />
-            <Submit>운동 선택 완료</Submit>
-          </UserSelectionWrapper>
-        </Container>
-      </Main>
+
+      {(() => {
+        switch (step) {
+          case 0:
+            return (
+              <Main>
+                <Container>
+                  <ProfileRecommendation
+                    userSelectList={userSelectList}
+                    setUserSelectList={setUserSelectList}
+                  />
+                  <SimilarityRecommendation
+                    userSelectList={userSelectList}
+                    setUserSelectList={setUserSelectList}
+                  />
+                  <BookMarkRecommendation
+                    userSelectList={userSelectList}
+                    setUserSelectList={setUserSelectList}
+                  />
+
+                  <EntireRecommendation
+                    userSelectList={userSelectList}
+                    setUserSelectList={setUserSelectList}
+                  />
+                  <UserSelectionWrapper>
+                    <UserSelection
+                      userSelectList={userSelectList}
+                      setUserSelectList={setUserSelectList}
+                    />
+                    <Submit onClick={handleSubmitButton}>운동 선택 완료</Submit>
+                  </UserSelectionWrapper>
+                </Container>
+              </Main>
+            );
+          case 1:
+            return (
+              <Main>
+                <Container />
+              </Main>
+            );
+          // case 2:
+          //   return (
+
+          //   );
+          default:
+            return <Redirect to="/" />;
+        }
+      })()}
+
       <Footer />
     </>
   );

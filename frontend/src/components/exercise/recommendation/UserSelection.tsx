@@ -17,7 +17,6 @@ const UserSelection: React.FC<UserSelectListProp> = ({
 
   useEffect(() => {
     setUserSelctions(userSelectList);
-    console.log(userSelectList);
   }, [userSelectList]);
 
   return (

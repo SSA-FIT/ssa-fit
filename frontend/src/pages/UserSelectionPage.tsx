@@ -6,6 +6,19 @@ import Footer from '../components/common/Footer';
 import VideoSelection from '../components/exercise/videoSelections/BmiSelection';
 import UserVideoSelection from '../components/exercise/videoSelections/UserSelection';
 
+const UserSelectionPage: React.FC = () => (
+  <>
+    <Header />
+    <Main>
+      <Container>
+        {/* <VideoSelection />
+        <UserVideoSelection /> */}
+        <Submit>운동 세트 완성</Submit>
+      </Container>
+    </Main>
+    <Footer />
+  </>
+);
 const Main = styled.main`
   max-width: 1200px;
   margin: 0 auto;
@@ -26,18 +39,4 @@ const Submit = styled.button`
   padding: 0px;
   color: white;
 `;
-const UserSelectionPage: React.FC = () => (
-  <>
-    <Header />
-    <Main>
-      <Container>
-        {/* <VideoSelection />
-        <UserVideoSelection /> */}
-        <Submit>운동 세트 완성</Submit>
-      </Container>
-    </Main>
-    <Footer />
-  </>
-);
-
 export default UserSelectionPage;

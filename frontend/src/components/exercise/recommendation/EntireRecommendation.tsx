@@ -3,10 +3,17 @@ import styled from '@emotion/styled';
 import Slider from '../../common/Slider';
 import Card from '../../common/Card';
 import useEntireSelectionList from '../../../hooks/useRecoList';
+import {
+  Recommendation,
+  UserSelectListProp,
+} from '../../../types/recommendationTypes';
 
-const EntireSelection: React.FC = () => {
+const EntireRecommendation: React.FC<UserSelectListProp> = ({
+  userSelectList,
+  setUserSelectList,
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const entireSelections = useEntireSelectionList();
+  const entireRecoList: Recommendation[] = useEntireSelectionList();
   return (
     <Base>
       <Title>전체 운동 목록</Title>
@@ -14,13 +21,17 @@ const EntireSelection: React.FC = () => {
         <div>Loading...</div>
       ) : (
         <Slider>
-          {/* {entireSelections.map((entireSelection) => (
+          {entireRecoList.map((entireReco) => (
             <Card
-              key={entireSelection.id}
-              name={entireSelection.name}
-              imageURL={entireSelection.imageURL}
+              userSelectList={userSelectList}
+              setUserSelectList={setUserSelectList}
+              key={entireReco.id}
+              id={entireReco.id}
+              name={entireReco.name}
+              imageURL={entireReco.imageURL}
+              description={entireReco.description}
             />
-          ))} */}
+          ))}
         </Slider>
       )}
     </Base>
@@ -38,4 +49,4 @@ const Title = styled.h4`
   padding: 12px 0 14px;
 `;
 
-export default EntireSelection;
+export default EntireRecommendation;

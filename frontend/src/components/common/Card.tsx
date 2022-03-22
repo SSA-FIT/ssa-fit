@@ -69,7 +69,6 @@ const Card: React.FC<Props> = ({
       addUserExercise(id, name, imageURL);
     } else {
       setChecked(false);
-      console.log(id);
       deleteUserExercise(id);
     }
   };
