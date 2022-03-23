@@ -32,7 +32,8 @@ pipeline {
           sh 'chmod +x gradlew'
           sh './gradlew init'
           sh './gradlew clean'
-          sh './gradlew build'
+          //sh './gradlew build'
+          sh './gradlew --debug build'
         }
 
         dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
