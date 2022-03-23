@@ -33,7 +33,8 @@ pipeline {
           sh './gradlew init'
           sh './gradlew clean'
           //sh './gradlew build'
-          sh './gradlew --debug build'
+          //sh './gradlew --debug build'
+          sh './gradlew build --exclude-task test'
         }
 
         dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
