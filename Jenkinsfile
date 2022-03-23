@@ -30,7 +30,7 @@ pipeline {
       steps {
         sh 'cd backend/spring'
           // sh 'chmod +x gradlew'
-        sh './gradlew bootjar'
+        sh './gradlew build'
         //sh 'gradlew.bat build'
         sh 'cd backend/spring/build/libs'
         sh 'java -jar spring-0.0.1-SNAPSHOT.jar'
