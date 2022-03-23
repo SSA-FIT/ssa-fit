@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import { Redirect } from 'react-router-dom';
-import { Recommendation } from '../types/recommendationTypes';
+import { Recommendation, YoutubeVideo } from '../types/recommendationTypes';
 
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
@@ -11,65 +11,102 @@ import UserSelection from '../components/exercise/recommendation/UserSelection';
 import SimilarityRecommendation from '../components/exercise/recommendation/SimilarityRecommendation';
 import BookMarkRecommendation from '../components/exercise/recommendation/BookMarkRecommendation';
 import EntireRecommendation from '../components/exercise/recommendation/EntireRecommendation';
+import UserSelectionChips from '../components/exercise/youtubeSelections/UserSelectionChips';
+import VideoList from '../components/exercise/youtubeSelections/VideoList';
+import UserVideoSelection from '../components/exercise/youtubeSelections/UserVideoSelection';
 
 const ExerciseSelectionPage: React.FC = () => {
-  const [userSelectList, setUserSelectList] = useState<Recommendation[]>([]);
+  const [userRecoSelectList, setUserRecoSelectList] = useState<
+    Recommendation[]
+  >([]);
+  const [youtubeVideoList, setYoutubeVideoList] = useState<YoutubeVideo[]>([]);
+  const [userVideoSelectList, setUserVideoSelectList] = useState<
+    YoutubeVideo[]
+  >([]);
   const [step, setStep] = useState<number>(0);
-  const handleSubmitButton = (event: React.MouseEvent) => {
+  const handleRecoSubmitButton = (event: React.MouseEvent) => {
     setStep(1);
   };
+  const handleVideoSubmitButton = (event: React.MouseEvent) => {
+    setStep(2);
+  };
+
+  console.log(userVideoSelectList);
   return (
     <>
       <Header />
-
-      {(() => {
-        switch (step) {
-          case 0:
-            return (
-              <Main>
-                <Container>
-                  <ProfileRecommendation
-                    userSelectList={userSelectList}
-                    setUserSelectList={setUserSelectList}
-                  />
-                  <SimilarityRecommendation
-                    userSelectList={userSelectList}
-                    setUserSelectList={setUserSelectList}
-                  />
-                  <BookMarkRecommendation
-                    userSelectList={userSelectList}
-                    setUserSelectList={setUserSelectList}
-                  />
-
-                  <EntireRecommendation
-                    userSelectList={userSelectList}
-                    setUserSelectList={setUserSelectList}
-                  />
-                  <UserSelectionWrapper>
-                    <UserSelection
-                      userSelectList={userSelectList}
-                      setUserSelectList={setUserSelectList}
+      <Main>
+        <Container>
+          {(() => {
+            switch (step) {
+              case 0:
+                return (
+                  <>
+                    <ProfileRecommendation
+                      userRecoSelectList={userRecoSelectList}
+                      setUserRecoSelectList={setUserRecoSelectList}
                     />
-                    <Submit onClick={handleSubmitButton}>운동 선택 완료</Submit>
-                  </UserSelectionWrapper>
-                </Container>
-              </Main>
-            );
-          case 1:
-            return (
-              <Main>
-                <Container />
-              </Main>
-            );
-          // case 2:
-          //   return (
+                    <SimilarityRecommendation
+                      userRecoSelectList={userRecoSelectList}
+                      setUserRecoSelectList={setUserRecoSelectList}
+                    />
+                    <BookMarkRecommendation
+                      userRecoSelectList={userRecoSelectList}
+                      setUserRecoSelectList={setUserRecoSelectList}
+                    />
 
-          //   );
-          default:
-            return <Redirect to="/" />;
-        }
-      })()}
+                    <EntireRecommendation
+                      userRecoSelectList={userRecoSelectList}
+                      setUserRecoSelectList={setUserRecoSelectList}
+                    />
+                    <UserSelectionWrapper>
+                      <UserSelection
+                        userRecoSelectList={userRecoSelectList}
+                        setUserRecoSelectList={setUserRecoSelectList}
+                      />
+                      <Submit onClick={handleRecoSubmitButton}>
+                        운동 선택 완료
+                      </Submit>
+                    </UserSelectionWrapper>
+                  </>
+                );
+              case 1:
+                return (
+                  <>
+                    <UserSelectionChips
+                      userRecoSelectList={userRecoSelectList}
+                      setYoutubeVideoList={setYoutubeVideoList}
+                    />
+                    {youtubeVideoList.length > 0 && (
+                      <>
+                        <VideoList
+                          youtubeVideoList={youtubeVideoList}
+                          userVideoSelectList={userVideoSelectList}
+                          setUserVideoSelectList={setUserVideoSelectList}
+                        />
+                        <UserSelectionWrapper>
+                          <UserVideoSelection
+                            userVideoSelectList={userVideoSelectList}
+                            setUserVideoSelectList={setUserVideoSelectList}
+                          />
+                          <Submit onClick={handleVideoSubmitButton}>
+                            운동 선택 완료
+                          </Submit>
+                        </UserSelectionWrapper>
+                      </>
+                    )}
+                  </>
+                );
+              // case 2:
+              //   return (
 
+              //   );
+              default:
+                return <Redirect to="/" />;
+            }
+          })()}
+        </Container>
+      </Main>
       <Footer />
     </>
   );

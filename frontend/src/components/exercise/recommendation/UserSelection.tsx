@@ -8,20 +8,20 @@ import {
 } from '../../../types/recommendationTypes';
 
 const UserSelection: React.FC<UserSelectListProp> = ({
-  setUserSelectList,
-  userSelectList,
+  setUserRecoSelectList,
+  userRecoSelectList,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userSelections, setUserSelctions] =
-    useState<Recommendation[]>(userSelectList);
+    useState<Recommendation[]>(userRecoSelectList);
 
   useEffect(() => {
-    setUserSelctions(userSelectList);
-  }, [userSelectList]);
+    setUserSelctions(userRecoSelectList);
+  }, [userRecoSelectList]);
 
   return (
     <Base>
-      <Title>오늘의 운동</Title>
+      <Title>오늘의 운동 종류</Title>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
@@ -29,8 +29,8 @@ const UserSelection: React.FC<UserSelectListProp> = ({
           <Slider>
             {userSelections.map((userSelection) => (
               <Card
-                userSelectList={userSelectList}
-                setUserSelectList={setUserSelectList}
+                userRecoSelectList={userRecoSelectList}
+                setUserRecoSelectList={setUserRecoSelectList}
                 key={userSelection.id}
                 id={userSelection.id}
                 name={userSelection.name}

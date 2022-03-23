@@ -9,8 +9,8 @@ import {
 import useBookMarkList from '../../../hooks/useBookMarkList';
 
 const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
-  userSelectList,
-  setUserSelectList,
+  userRecoSelectList,
+  setUserRecoSelectList,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const bookMarkRecoList: Recommendation[] = useBookMarkList();
@@ -23,8 +23,8 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
         <Slider>
           {bookMarkRecoList.map((bookMarkReco) => (
             <Card
-              userSelectList={userSelectList}
-              setUserSelectList={setUserSelectList}
+              userRecoSelectList={userRecoSelectList}
+              setUserRecoSelectList={setUserRecoSelectList}
               key={bookMarkReco.id}
               id={bookMarkReco.id}
               name={bookMarkReco.name}
