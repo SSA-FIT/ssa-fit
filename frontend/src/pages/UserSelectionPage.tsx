@@ -3,9 +3,6 @@ import styled from '@emotion/styled';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 
-import VideoSelection from '../components/exercise/videoSelections/BmiSelection';
-import UserVideoSelection from '../components/exercise/videoSelections/UserSelection';
-
 const UserSelectionPage: React.FC = () => (
   <>
     <Header />

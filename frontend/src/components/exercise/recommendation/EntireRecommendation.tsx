@@ -9,8 +9,8 @@ import {
 } from '../../../types/recommendationTypes';
 
 const EntireRecommendation: React.FC<UserSelectListProp> = ({
-  userSelectList,
-  setUserSelectList,
+  userRecoSelectList,
+  setUserRecoSelectList,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const entireRecoList: Recommendation[] = useEntireSelectionList();
@@ -23,8 +23,8 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
         <Slider>
           {entireRecoList.map((entireReco) => (
             <Card
-              userSelectList={userSelectList}
-              setUserSelectList={setUserSelectList}
+              userRecoSelectList={userRecoSelectList}
+              setUserRecoSelectList={setUserRecoSelectList}
               key={entireReco.id}
               id={entireReco.id}
               name={entireReco.name}

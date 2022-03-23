@@ -9,8 +9,8 @@ import {
 import useSimilarityRecList from '../../../hooks/useSmilarityRecList';
 
 const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
-  userSelectList,
-  setUserSelectList,
+  userRecoSelectList,
+  setUserRecoSelectList,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const similarityRecoList: Recommendation[] = useSimilarityRecList();
@@ -23,8 +23,8 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
         <Slider>
           {similarityRecoList.map((similarityReco) => (
             <Card
-              userSelectList={userSelectList}
-              setUserSelectList={setUserSelectList}
+              userRecoSelectList={userRecoSelectList}
+              setUserRecoSelectList={setUserRecoSelectList}
               key={similarityReco.id}
               id={similarityReco.id}
               name={similarityReco.name}

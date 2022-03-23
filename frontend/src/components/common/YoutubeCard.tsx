@@ -1,63 +1,68 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { UserSelectListProp } from '../../types/recommendationTypes';
+import { YoutubeVideo } from '../../types/recommendationTypes';
 
-interface Props extends UserSelectListProp {
+interface Props {
+  searchName: string;
+  videoId: string;
+  title: string;
+  thumbnails: string;
+  userVideoSelectList: YoutubeVideo[];
+  setUserVideoSelectList: (userVideoSelectList: YoutubeVideo[]) => void;
   id: number;
-  name: string;
-  imageURL: string;
-  description: string;
 }
 
-const Card: React.FC<Props> = ({
+const YoutubeCard: React.FC<Props> = ({
+  searchName,
+  videoId,
+  title,
+  thumbnails,
+  userVideoSelectList,
+  setUserVideoSelectList,
   id,
-  name,
-  imageURL,
-  userRecoSelectList,
-  description,
-  setUserRecoSelectList,
 }) => {
   const [checked, setChecked] = useState<boolean>(false);
 
-  const findExerciseId = userRecoSelectList.findIndex(
-    (userRecoSelectItem) => userRecoSelectItem.id === id,
+  const findVideoId = userVideoSelectList.findIndex(
+    (userVideoSelectItem) => userVideoSelectItem.videoId === videoId,
   );
 
   useEffect(() => {
-    if (findExerciseId !== -1) {
+    if (findVideoId !== -1) {
       setChecked(true);
     } else {
       setChecked(false);
     }
-  }, [checked, findExerciseId]);
+  }, [checked, findVideoId]);
 
-  const addUserExercise = (id: number, name: string, imageURL: string) => {
-    const findExerciseId = userRecoSelectList.findIndex(
-      (userRecoSelectItem) => userRecoSelectItem.id === id,
+  const addUserExercise = () => {
+    const findVideoId = userVideoSelectList.findIndex(
+      (userVideoSelectItem) => userVideoSelectItem.videoId === videoId,
     );
 
-    if (findExerciseId === -1) {
-      setUserRecoSelectList([
-        ...userRecoSelectList,
+    if (findVideoId === -1) {
+      setUserVideoSelectList([
+        ...userVideoSelectList,
         {
           id,
-          name,
-          imageURL,
-          description,
+          title,
+          thumbnails,
+          videoId,
+          searchName,
         },
       ]);
     }
   };
 
-  const deleteUserExercise = (exerciseDeleteId: number): void => {
-    const findExerciseId = userRecoSelectList.findIndex(
-      (userRecoSelectItem) => userRecoSelectItem.id === exerciseDeleteId,
+  const deleteUserExercise = (): void => {
+    const findVideoId = userVideoSelectList.findIndex(
+      (userVideoSelectItem) => userVideoSelectItem.videoId === videoId,
     );
 
-    if (findExerciseId !== -1) {
-      const tempUserSelectList = [...userRecoSelectList];
-      tempUserSelectList.splice(findExerciseId, 1);
-      setUserRecoSelectList(tempUserSelectList);
+    if (findVideoId !== -1) {
+      const tempUserVideoSelectList = [...userVideoSelectList];
+      tempUserVideoSelectList.splice(findVideoId, 1);
+      setUserVideoSelectList(tempUserVideoSelectList);
     }
   };
 
@@ -66,13 +71,12 @@ const Card: React.FC<Props> = ({
   ) => {
     if (event.target.checked) {
       setChecked(true);
-      addUserExercise(id, name, imageURL);
+      addUserExercise();
     } else {
       setChecked(false);
-      deleteUserExercise(id);
+      deleteUserExercise();
     }
   };
-
   return (
     <StyledLink>
       <Base>
@@ -83,11 +87,15 @@ const Card: React.FC<Props> = ({
               onChange={checkBoxChangeHandler}
               checked={checked}
             />
-            <Image key={id} src={imageURL} alt={`${name} 의 이미지`} />
+            <Image
+              key={videoId}
+              src={thumbnails}
+              alt={`${searchName} 의 섬네일`}
+            />
           </ImageWrapper>
         </Wrapper>
         <Info>
-          <Title>{name}</Title>
+          <Title>{title}</Title>
         </Info>
       </Base>
     </StyledLink>
@@ -155,4 +163,4 @@ const Wrapper = styled.form`
   padding-bottom: 145.37037037037038%;
 `;
 
-export default Card;
+export default YoutubeCard;

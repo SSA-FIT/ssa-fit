@@ -30,6 +30,30 @@ export interface RecommendationBookmarkRec {
 }
 
 export interface UserSelectListProp {
-  setUserSelectList: (userSelectList: Recommendation[]) => void;
-  userSelectList: Recommendation[];
+  setUserRecoSelectList: (userRecoSelectList: Recommendation[]) => void;
+  userRecoSelectList: Recommendation[];
+}
+
+export interface UserVideoSelectListProp {
+  userVideoSelectList: YoutubeVideo[];
+  setUserVideoSelectList: (userVideoSelectList: YoutubeVideo[]) => void;
+}
+
+export interface YoutubeListProp {
+  userRecoSelectList: Recommendation[];
+  setYoutubeVideoList: (youtubeVideoList: YoutubeVideo[]) => void;
+}
+
+export interface YoutubeVideo {
+  id: number;
+  searchName: string;
+  videoId: string;
+  title: string;
+  thumbnails: string;
+}
+
+export interface VideoListProp {
+  youtubeVideoList: YoutubeVideo[];
+  userVideoSelectList: YoutubeVideo[];
+  setUserVideoSelectList: (userVideoSelectList: YoutubeVideo[]) => void;
 }

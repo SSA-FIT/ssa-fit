@@ -9,8 +9,8 @@ import {
 import useProfileRecList from '../../../hooks/useProfileRecList';
 
 const ProfileRecommendation: React.FC<UserSelectListProp> = ({
-  userSelectList,
-  setUserSelectList,
+  userRecoSelectList,
+  setUserRecoSelectList,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const profileRecoList: Recommendation[] = useProfileRecList();
@@ -23,8 +23,8 @@ const ProfileRecommendation: React.FC<UserSelectListProp> = ({
         <Slider>
           {profileRecoList.map((profileReco) => (
             <Card
-              userSelectList={userSelectList}
-              setUserSelectList={setUserSelectList}
+              userRecoSelectList={userRecoSelectList}
+              setUserRecoSelectList={setUserRecoSelectList}
               key={profileReco.id}
               id={profileReco.id}
               name={profileReco.name}
