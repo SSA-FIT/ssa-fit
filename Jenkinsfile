@@ -28,12 +28,12 @@ pipeline {
       }
 */
       steps {
-        sh 'cd /var/lib/jenkins/workspace/ssafit-backend/backend/spring'
+        sh 'cd /var/lib/jenkins/workspace/ssafit-backend/backend/spring/gradlew build'
           // sh 'chmod +x gradlew'
-        sh './gradlew build'
+        //sh './gradlew build'
         //sh 'gradlew.bat build'
-        sh 'cd /var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'
-        sh 'java -jar spring-0.0.1-SNAPSHOT.jar'
+        sh 'cd /var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs/java -jar spring-0.0.1-SNAPSHOT.jar'
+        //sh 'java -jar spring-0.0.1-SNAPSHOT.jar'
           // sh 'docker build --tag=ssafit .'
           // sh 'docker rm -f $(docker ps -a --filter "name=ssafit" -q)'
         
