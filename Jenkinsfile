@@ -18,7 +18,6 @@ pipeline {
       }
     }
 
-/**
     stage('Build backend') {
 
       agent {
@@ -34,8 +33,18 @@ pipeline {
           sh 'docker build --tag=ssafit .'
           sh 'docker rm -f $(docker ps -a --filter "name=ssafit" -q)'
         }
-      }  
+      }
+
+      post {
+        success {
+          echo 'Successfully Building spring'
+        }
+
+        failure {
+          echo 'Failed Building backend'
+        }
+      }
     }
-*/
+
   }
 }
