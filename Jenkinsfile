@@ -28,7 +28,7 @@ pipeline {
       }
 */
       steps {
-        dir('./spring'){
+        dir('./backend/spring'){
           // sh 'chmod +x gradlew'
           // sh './gradlew build'
           sh 'gradlew.bat build'
