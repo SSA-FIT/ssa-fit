@@ -29,7 +29,7 @@ pipeline {
 */
       steps {
         dir('./spring'){
-          sh 'chmod +x gradlew'
+          // sh 'chmod +x gradlew'
           sh './gradlew build'
           sh 'build/libs/java jar spring-0.0.1-SNAPSHOT.jar'
           // sh 'docker build --tag=ssafit .'
