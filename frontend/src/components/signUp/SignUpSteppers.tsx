@@ -1,4 +1,8 @@
 import * as React from 'react';
+
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
@@ -13,8 +17,6 @@ import StepConnector, {
   stepConnectorClasses,
 } from '@mui/material/StepConnector';
 import { StepIconProps } from '@mui/material/StepIcon';
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -101,7 +103,7 @@ interface SignUpStepperProps {
 
 const SignUpSteppers: React.FC<SignUpStepperProps> = ({ signUpStep }) => {
   return (
-    <Stack sx={{ width: '100%' }} spacing={4} css={box}>
+    <Stack sx={{ width: '90%' }} spacing={4} css={box}>
       <Stepper
         alternativeLabel
         activeStep={signUpStep}

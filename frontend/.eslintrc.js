@@ -1,4 +1,8 @@
 module.exports = {
+  env: {
+    browser: true,
+    node: true,
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   extends: [
@@ -27,6 +31,10 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'react/jsx-props-no-spreading': 'off',
+    '@typescript-eslint/no-var-requires': 0,
+    'global-require': 0,
+    'no-alert': 'off',
+    'no-console': 0,
   },
   settings: {
     'import/resolver': {

@@ -9,7 +9,17 @@ import AgreementForm from './AgreementForm';
 import SignUpComplete from './SignUpComplete';
 
 const SignUpCard: React.FC = () => {
-  const [signUpStep, setSignUpStep] = useState<number>(4);
+  const [signUpStep, setSignUpStep] = useState<number>(0);
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [userHeight, setUserHeight] = useState<string>('');
+  const [userWeight, setUserWeight] = useState<string>('');
+  const [userBirth, setUserBirth] = useState<string>('');
+  const [userGender, setUserGender] = useState<string>('');
+  const [userLevel, setUserLevel] = useState<string>('');
+  // const [userId, setUserId] = useState<string>('');
+  // const [userPw, setUserPw] = useState<string>('');
+  // const [userNickname, setUserNickname] = useState<string>('');
+
   return (
     <>
       <ContainerWrapper>
@@ -22,13 +32,37 @@ const SignUpCard: React.FC = () => {
             {(() => {
               switch (signUpStep) {
                 case 0:
-                  return <AgreementForm />;
+                  return <AgreementForm setSignUpStep={setSignUpStep} />;
                 case 1:
-                  return <EmailVerification />;
+                  return (
+                    <EmailVerification
+                      setSignUpStep={setSignUpStep}
+                      setUserEmail={setUserEmail}
+                    />
+                  );
                 case 2:
-                  return <BodyInfoForm />;
+                  return (
+                    <BodyInfoForm
+                      setSignUpStep={setSignUpStep}
+                      setUserHeight={setUserHeight}
+                      setUserWeight={setUserWeight}
+                      setUserBirth={setUserBirth}
+                      setUserGender={setUserGender}
+                      setUserLevel={setUserLevel}
+                    />
+                  );
                 case 3:
-                  return <SignUpForm />;
+                  return (
+                    <SignUpForm
+                      setSignUpStep={setSignUpStep}
+                      userEmail={userEmail}
+                      userHeight={userHeight}
+                      userWeight={userWeight}
+                      userBirth={userBirth}
+                      userGender={userGender}
+                      userLevel={userLevel}
+                    />
+                  );
                 case 4:
                   return <SignUpComplete />;
                 default:
@@ -46,6 +80,7 @@ const ContainerWrapper = styled.div`
   display: block;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
+// padding: 4rem 2rem 13rem;
 
 const Container = styled.div`
   box-sizing: border-box;
