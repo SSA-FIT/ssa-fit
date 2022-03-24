@@ -1,6 +1,34 @@
 import styled from '@emotion/styled';
+import { useState } from 'react';
 
-const AgreementForm: React.FC = () => {
+interface Props {
+  setSignUpStep: (signUpStep: number) => void;
+}
+
+const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
+  const [agreement, setAgreement] = useState<boolean>(false);
+  const [agreementError, setAgreementError] = useState<boolean>(false);
+
+  const handleNext = () => {
+    if (!agreement) {
+      setAgreementError(true);
+    } else {
+      setSignUpStep(1);
+    }
+  };
+
+  const handleCheckAgreement = (
+    event: React.MouseEvent<HTMLInputElement, MouseEvent>,
+  ) => {
+    if (agreement === false) {
+      setAgreement(true);
+      setAgreementError(false);
+    } else {
+      setAgreement(false);
+      setAgreementError(true);
+    }
+  };
+
   return (
     <>
       <Container>
@@ -11,7 +39,12 @@ const AgreementForm: React.FC = () => {
         <AgreementFieldSet>
           <AllAgreementWrapper>
             <Selections>
-              <InputCheck type="checkbox" id="checkbox-all" />
+              <InputCheck
+                type="checkbox"
+                id="checkbox-all"
+                onClick={handleCheckAgreement}
+                className={agreementError ? 'have-error' : ''}
+              />
               <AgreementLabel className="bold" htmlFor="checkbox-all">
                 필수 약관에 모두 동의합니다.
               </AgreementLabel>
@@ -30,7 +63,7 @@ const AgreementForm: React.FC = () => {
         </AgreementFieldSet>
         <ConFirmWrapper>
           <CancelButton>취소</CancelButton>
-          <ConfirmButton>확인</ConfirmButton>
+          <ConfirmButton onClick={handleNext}>확인</ConfirmButton>
         </ConFirmWrapper>
       </Container>
     </>
@@ -89,6 +122,10 @@ const InputCheck = styled.input`
   width: 2rem;
   height: 2rem;
   border: 0;
+
+  &.have-error {
+    box-shadow: inset 0 0 0 1px #f44336;
+  }
 `;
 
 const AgreementLabel = styled.label`
