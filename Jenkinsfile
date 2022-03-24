@@ -26,11 +26,6 @@ pipeline {
           sh './gradlew clean'
           sh './gradlew build --exclude-task test'
         }
-
-        //dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
-        //  sh 'nohup java -jar spring-0.0.1-SNAPSHOT.jar &'
-        //  sh 'exit'
-        //}
         
       }
 
@@ -47,11 +42,17 @@ pipeline {
 
     stage('Deploy backend') {
       steps {
-        dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring'){
 
-          sh 'docker build --tag=ssafit-backend .'
-          sh 'docker rm -f $(docker ps -a --filter "name=ssafit-backend" -q)'
-          sh 'docker run -d --name ssafit-backend -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit-backend:latest'
+        dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
+          sh 'nohup java -jar spring-0.0.1-SNAPSHOT.jar &'
+          sh 'exit'
+        }
+
+        //dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring'){
+
+        //  sh 'docker build --tag=ssafit-backend .'
+        //  sh 'docker rm -f $(docker ps -a --filter "name=ssafit-backend" -q)'
+        //  sh 'docker run -d --name ssafit-backend -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit-backend:latest'
           //sh 'exit'
         }        
       }
