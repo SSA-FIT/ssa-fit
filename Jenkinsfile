@@ -53,16 +53,16 @@ pipeline {
           }
         }
 
-      stage('Build frontend'){
-        steps {
-          dir('/var/lib/jenkins/workspace/ssafit-backend/frontend'){
-            sh 'yarn install'
-            sh 'yarn build'
+        stage('Build frontend'){
+          steps {
+            dir('/var/lib/jenkins/workspace/ssafit-backend/frontend'){
+              sh 'yarn install'
+              sh 'yarn build'
 
+            }
+          
           }
-        
         }
-      }
 
       }
     }
