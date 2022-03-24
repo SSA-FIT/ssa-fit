@@ -48,7 +48,7 @@ pipeline {
           steps {
             dir('/var/lib/jenkins/workspace/ssafit-backend/frontend'){
               sh 'yarn install'
-              sh 'yarn build'
+              sh 'CI=false yarn build'
 
             }
             
