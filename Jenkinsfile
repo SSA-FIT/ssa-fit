@@ -35,15 +35,16 @@ pipeline {
           //sh './gradlew build'
           //sh './gradlew --debug build'
           sh './gradlew build --exclude-task test'
-          sh 'docker build --tag=ssafit-backend .'
-          sh 'docker rm -f $(docker ps -a --filter "name=ssafit-backend" -q)'
-          sh 'nohup docker run -d --name ssafit-backend -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit-backend:latest &'
-          sh 'exit'
+          //sh 'docker build --tag=ssafit-backend .'
+          //sh 'docker rm -f $(docker ps -a --filter "name=ssafit-backend" -q)'
+          //sh 'nohup docker run -d --name ssafit-backend -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit-backend:latest &'
+          //sh 'exit'
         }
 
-        //dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
-          //sh 'java -jar spring-0.0.1-SNAPSHOT.jar'
-        //}
+        dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
+          sh 'nohup java -jar spring-0.0.1-SNAPSHOT.jar &'
+          sh 'exit'
+        }
         //sh 'cd /var/lib/jenkins/workspace/ssafit-backend/backend/spring/gradlew build'
           // sh 'chmod +x gradlew'
         //sh 'gradlew.bat build'
