@@ -19,7 +19,7 @@ pipeline {
     }
 
     stage('Parellel') {
-      Parellel {
+      parellel {
         stage('Build backend') {
           steps {
             dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring'){
