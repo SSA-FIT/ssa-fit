@@ -57,6 +57,16 @@ pipeline {
             }
             
           }
+          post {
+            success {
+              echo 'Successfully Building react'
+            }
+
+            failure {
+              echo 'Failed Building frontend'
+            }
+          }
+
         }
       }
     }
