@@ -37,7 +37,7 @@ pipeline {
           sh './gradlew build --exclude-task test'
           sh 'docker build --tag=ssafit .'
           sh 'docker rm -f $(docker ps -a --filter "name=ssafit" -q)'
-          sh 'nohup docker run -d --name ssafit -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit:latest'
+          sh 'sudo nohup docker run -d --name ssafit -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit:latest &'
         }
 
         //dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
