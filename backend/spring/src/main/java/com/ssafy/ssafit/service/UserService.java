@@ -1,6 +1,5 @@
 package com.ssafy.ssafit.service;
 
-import com.ssafy.ssafit.dto.request.PasswordResetRequestDto;
 import com.ssafy.ssafit.dto.request.SignUpRequestDto;
 import com.ssafy.ssafit.entity.User;
 
