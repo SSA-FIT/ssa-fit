@@ -18,57 +18,53 @@ pipeline {
       }
     }
 
-    stage('Build backend') {
-      steps {
-        dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring'){
-          sh 'chmod +x gradlew'
-          sh './gradlew init'
-          sh './gradlew clean'
-          sh './gradlew build --exclude-task test'
+    stage('Parellel') {
+      Parellel {
+        stage('Build backend') {
+          steps {
+            dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring'){
+              sh 'chmod +x gradlew'
+              sh './gradlew init'
+              sh './gradlew clean'
+              sh './gradlew build --exclude-task test'
+            }
+            
+          }
+
+          steps {
+
+            dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring'){
+
+              sh 'docker build --tag=ssafit-backend .'
+              sh 'docker rm -f $(docker ps -a --filter "name=ssafit-backend" -q)'
+              sh 'docker run -d --name ssafit-backend -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit-backend:latest'
+
+            }        
+          }
+
+          post {
+            success {
+              echo 'Successfully Building spring'
+            }
+
+            failure {
+              echo 'Failed Building backend'
+            }
+          }
         }
+
+      stage('Build frontend'){
+        steps {
+          dir('/var/lib/jenkins/workspace/ssafit-backend/frontend'){
+            sh 'yarn install'
+            sh 'yarn build'
+
+          }
         
+        }
       }
 
-      post {
-        success {
-          echo 'Successfully Building spring'
-        }
-
-        failure {
-          echo 'Failed Building backend'
-        }
       }
     }
-
-    stage('Deploy backend') {
-      steps {
-
-        //dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
-          //sh 'nohup java -jar spring-0.0.1-SNAPSHOT.jar &'
-          //sh 'java -jar spring-0.0.1-SNAPSHOT.jar'
-          //sh 'exit'
-        //}
-
-        dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring'){
-
-          sh 'docker build --tag=ssafit-backend .'
-          sh 'docker rm -f $(docker ps -a --filter "name=ssafit-backend" -q)'
-          sh 'docker run -d --name ssafit-backend -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit-backend:latest'
-          //sh 'exit'
-        }        
-      }
-
-      post {
-        success {
-          echo 'Successfully Deploying spring'
-          //sh 'exit'
-        }
-
-        failure {
-          echo 'Failed Deploying backend'
-        }
-      }
-    }
-
   }
 }
