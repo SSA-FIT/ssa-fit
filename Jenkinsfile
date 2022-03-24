@@ -35,11 +35,13 @@ pipeline {
           //sh './gradlew build'
           //sh './gradlew --debug build'
           sh './gradlew build --exclude-task test'
+          sh 'docker build --tag=ssafit .'
+          sh 'docker rm -f $(docker ps -a --filter "name=ssafit" -q)'
         }
 
-        dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
-          sh 'java -jar spring-0.0.1-SNAPSHOT.jar'
-        }
+        //dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
+          //sh 'java -jar spring-0.0.1-SNAPSHOT.jar'
+        //}
         //sh 'cd /var/lib/jenkins/workspace/ssafit-backend/backend/spring/gradlew build'
           // sh 'chmod +x gradlew'
         //sh 'gradlew.bat build'
