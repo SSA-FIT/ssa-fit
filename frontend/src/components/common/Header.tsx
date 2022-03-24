@@ -17,7 +17,7 @@ const Header: React.FC = () => {
           </AccountMenuItem>
           <Division />
           <AccountMenuItem>
-            <PageLink to="#">회원가입</PageLink>
+            <PageLink to="/users/sign-up">회원가입</PageLink>
           </AccountMenuItem>
         </AccountMenuList>
       </Wrapper>
