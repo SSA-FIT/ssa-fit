@@ -44,7 +44,8 @@ pipeline {
       steps {
 
         dir('/var/lib/jenkins/workspace/ssafit-backend/backend/spring/build/libs'){
-          sh 'nohup java -jar spring-0.0.1-SNAPSHOT.jar &'
+          //sh 'nohup java -jar spring-0.0.1-SNAPSHOT.jar &'
+          sh 'java -jar spring-0.0.1-SNAPSHOT.jar'
           //sh 'exit'
         }
 
