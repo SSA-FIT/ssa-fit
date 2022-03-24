@@ -54,7 +54,7 @@ pipeline {
         //  sh 'docker rm -f $(docker ps -a --filter "name=ssafit-backend" -q)'
         //  sh 'docker run -d --name ssafit-backend -p 8081:8081 -v /var/webapps/upload/:/var/webapps/upload/ ssafit-backend:latest'
           //sh 'exit'
-        }        
+        //}        
       }
 
       post {
