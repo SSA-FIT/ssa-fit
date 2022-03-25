@@ -47,8 +47,8 @@ pipeline {
         stage('Build frontend'){
           steps {
             dir('/var/lib/jenkins/workspace/ssafit-backend/frontend'){
-              sh 'yarn install'
-              sh 'CI=false yarn build'
+              sh 'sudo yarn install'
+              sh 'sudo CI=false yarn build'
               sh 'docker build --tag=ssafit-frontend .'
               sh 'docker rm -f $(docker ps -a --filter "name=ssafit-frontend" -q)'
               sh 'docker run -d --name ssafit-frontend -p 3000:3000 -v /var/webapps/upload/:/var/webapps/upload/ ssafit-frontend:latest'
