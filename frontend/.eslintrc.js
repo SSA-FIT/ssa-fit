@@ -35,6 +35,8 @@ module.exports = {
     'global-require': 0,
     'no-alert': 'off',
     'no-console': 0,
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
   settings: {
     'import/resolver': {

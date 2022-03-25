@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const MainBannerSection: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const MainBannerSection: React.FC = () => {
             <BrandName>SSAFIT!</BrandName>
           </TextWrapper>
           <ButtonWrapper>
-            <NonLoginButton>싸핏 체험하러가기</NonLoginButton>
+            <NonLoginButton to="/exercise">싸핏 체험하러가기</NonLoginButton>
           </ButtonWrapper>
         </Wrapper>
       </Container>
@@ -89,7 +90,7 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const NonLoginButton = styled.button`
+const NonLoginButton = styled(Link)`
   display: inline-flex;
   -webkit-box-align: center;
   align-items: center;
