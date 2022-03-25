@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 
 import { Redirect } from 'react-router-dom';
@@ -14,8 +14,13 @@ import EntireRecommendation from '../components/exercise/recommendation/EntireRe
 import UserSelectionChips from '../components/exercise/youtubeSelections/UserSelectionChips';
 import VideoList from '../components/exercise/youtubeSelections/VideoList';
 import UserVideoSelection from '../components/exercise/youtubeSelections/UserVideoSelection';
+import VideoPlayCard from '../components/exercise/video/VideoPlayCard';
 
 const ExerciseSelectionPage: React.FC = () => {
+  useEffect(() => {
+    document.title = '운동 추천';
+  }, []);
+
   const [userRecoSelectList, setUserRecoSelectList] = useState<
     Recommendation[]
   >([]);
@@ -31,7 +36,6 @@ const ExerciseSelectionPage: React.FC = () => {
     setStep(2);
   };
 
-  console.log(userVideoSelectList);
   return (
     <>
       <Header />
@@ -97,10 +101,12 @@ const ExerciseSelectionPage: React.FC = () => {
                     )}
                   </>
                 );
-              // case 2:
-              //   return (
-
-              //   );
+              case 2:
+                return (
+                  <>
+                    {/* <VideoPlayCard userVideoSelectList={userVideoSelectList} /> */}
+                  </>
+                );
               default:
                 return <Redirect to="/" />;
             }
@@ -122,6 +128,7 @@ const UserSelectionWrapper = styled.div`
   bottom: 0;
   background-color: #caace8cc;
 `;
+
 const Container = styled.div`
   margin-top: 62px;
   padding: 24px 0;
@@ -137,4 +144,5 @@ const Submit = styled.button`
   padding: 0px;
   color: white;
 `;
+
 export default ExerciseSelectionPage;
