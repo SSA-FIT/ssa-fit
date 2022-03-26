@@ -57,3 +57,13 @@ export interface VideoListProp {
   userVideoSelectList: YoutubeVideo[];
   setUserVideoSelectList: (userVideoSelectList: YoutubeVideo[]) => void;
 }
+
+export interface recoRecord {
+  id: number;
+  countPerSet: number;
+  setCount: 5;
+  derationTime: string;
+}
+export interface recoRecordList {
+  exercises: recoRecord[];
+}

@@ -82,8 +82,11 @@ const Card: React.FC<Props> = ({
               type="checkbox"
               onChange={checkBoxChangeHandler}
               checked={checked}
+              id={name}
             />
-            <Image key={id} src={imageURL} alt={`${name} 의 이미지`} />
+            <ImageLabel htmlFor={name}>
+              <Image key={id} src={imageURL} alt={`${name} 의 이미지`} />
+            </ImageLabel>
           </ImageWrapper>
         </Wrapper>
         <Info>
@@ -112,6 +115,7 @@ const ImageWrapper = styled.div`
   height: 300px;
 `;
 
+const ImageLabel = styled.label``;
 const Image = styled.img`
   width: 100%;
   height: 100%;
