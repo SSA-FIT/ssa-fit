@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 import { useDispatch } from 'react-redux';
-import { Login } from '@mui/icons-material';
 import { useCallback, useState } from 'react';
 import { login as loginSagaStart } from '../../redux/modules/auth';
+import { LogInRequest } from '../../types/authTypes';
 
 const LogInCard: React.FC = () => {
   const dispatch = useDispatch();
-  const [id, setId] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [id, setId] = useState<string>('qwe');
+  const [password, setPassword] = useState<string>('qwe');
 
   const login = useCallback(
-    (reqData) => {
-      dispatch(loginSagaStart(reqData));
+    (requestData) => {
+      dispatch(loginSagaStart(requestData));
     },
     [dispatch],
   );
@@ -19,8 +19,10 @@ const LogInCard: React.FC = () => {
   const handleLogInButtonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    login({ id, password });
+    event.preventDefault();
+    login({ userId: id, password });
   };
+
   return (
     <>
       <Wrapper>

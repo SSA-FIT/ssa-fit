@@ -12,7 +12,6 @@ export interface UserInfo {
 }
 
 export interface LogInResponse {
-  message: string;
   token: string;
   userInfo: UserInfo;
 }

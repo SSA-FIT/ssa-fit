@@ -11,18 +11,16 @@ import {
 } from '../../types/authTypes';
 
 interface AuthState {
-  message: string | null;
-  status: string | null;
   token: string | null;
   userInfo: UserInfo | null;
+  loading: boolean;
   error: Error | null;
 }
 
 const initialState: AuthState = {
-  message: null,
-  status: null,
   token: null,
   userInfo: null,
+  loading: false,
   error: null,
 };
 
@@ -37,15 +35,19 @@ export const { pending, success, fail } = createActions(
 
 const reducer = handleActions<AuthState, LogInResponse>(
   {
-    PENDING: (state) => ({ ...state, error: null }),
+    PENDING: (state) => ({ ...state, loading: true, error: null }),
     SUCCESS: (state, action) => ({
       ...state,
-      message: action.payload.message,
+      // eslint-disable-next-line react/destructuring-assignment
       token: action.payload.token,
+      // eslint-disable-next-line react/destructuring-assignment
       userInfo: action.payload.userInfo,
+      loading: false,
+      error: null,
     }),
     FAIL: (state, action: any) => ({
       ...state,
+      loading: false,
       error: action.payload,
     }),
   },
@@ -56,15 +58,18 @@ const reducer = handleActions<AuthState, LogInResponse>(
 export default reducer;
 
 // saga
-export const { login, logout } = createActions('LOGIN', 'LOGOUT', prefix);
+export const { login, logout } = createActions('LOGIN', 'LOGOUT', { prefix });
 
 function* loginSaga(action: Action<LogInRequest>) {
   try {
+    alert('아');
     yield put(pending());
-    const response: LogInApiResponse = yield call(
-      UserService.userLogIn,
-      action.payload,
-    );
+
+    const response: LogInApiResponse = yield call(UserService.userLogIn, {
+      userId: action.payload.userId,
+      password: action.payload.password,
+    });
+
     const { token } = response;
     // localStorage
     TokenService.set(token);
