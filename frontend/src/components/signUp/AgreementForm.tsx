@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Alert } from '@mui/material';
 import { useState } from 'react';
 
 interface Props {
@@ -11,6 +12,11 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
 
   const handleNext = () => {
     if (!agreement) {
+      // <Alert severity="error">This is an error alert — check it out!</Alert>;
+      // <Alert severity="success" color="info">
+      //   This is a success alert — check it out!
+      // </Alert>;
+      // alert('약관에 동의해주세요.');
       setAgreementError(true);
     } else {
       setSignUpStep(1);
@@ -32,6 +38,7 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
   return (
     <>
       <Container>
+        {/*  className={agreementError ? 'have-error' : ''} */}
         <StepName>약관 동의</StepName>
         <StepDescription>
           약관 및 개인정보 수집 이용에 동의해주세요.
@@ -61,9 +68,19 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
             </AgreementItem>
           </AgreementList>
         </AgreementFieldSet>
+        {agreementError && (
+          <ErrorWrapper>
+            <ErrorMessage>필수 동의 항목입니다.</ErrorMessage>
+          </ErrorWrapper>
+        )}
         <ConFirmWrapper>
           <CancelButton>취소</CancelButton>
-          <ConfirmButton onClick={handleNext}>확인</ConfirmButton>
+          <ConfirmButton
+            onClick={handleNext}
+            className={agreement ? 'complete' : ''}
+          >
+            확인
+          </ConfirmButton>
         </ConFirmWrapper>
       </Container>
     </>
@@ -79,6 +96,11 @@ const StepName = styled.h2`
     margin: 4rem 0 0.8rem;
     font-size: 2.4rem;
     line-height: 1.5;
+  }
+
+  &.have-error {
+    font-weight: bold;
+    color: rgb(255, 119, 119);
   }
 `;
 
@@ -211,8 +233,8 @@ const ConfirmButton = styled.button`
   padding: 1.5rem 2rem 1.6rem;
   border: 1px solid #013066;
   border-radius: 0.2rem;
-  background-color: #013066;
-  color: #fff;
+  background: rgb(247, 248, 250);
+  color: rgb(194, 200, 204);
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -221,5 +243,27 @@ const ConfirmButton = styled.button`
   cursor: pointer;
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+
+  &.complete {
+    background-color: #013066;
+    color: #fff;
+  }
 `;
+
+// background: rgb(247, 248, 250);
+//     color: rgb(194, 200, 204);
+//     border-color: rgb(218, 220, 224);
+
+const ErrorWrapper = styled.div`
+  margin: 1rem 0 0.8rem;
+`;
+
+// 22.4px보다 2px작게
+const ErrorMessage = styled.span`
+  font-size: 20px;
+  color: rgb(255, 119, 119);
+  padding-left: 6px;
+  line-height: 1.5;
+`;
+
 export default AgreementForm;
