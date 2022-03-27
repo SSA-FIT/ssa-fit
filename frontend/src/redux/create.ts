@@ -10,7 +10,7 @@ const create = () => {
   const sagaMiddleware = createSagaMiddleware();
 
   const store = createStore(
-    reducer,
+    reducer(history),
 
     composeWithDevTools(
       applyMiddleware(sagaMiddleware, routerMiddleware(history)),

@@ -156,7 +156,7 @@ const LogInTitle = styled.h1`
 const InputAreaWrapper = styled.div`
   padding-top: 1rem;
 
-  &:not(:first-child) {
+  &:not(:first-of-type) {
     margin-top: 3rem;
   }
 `;
