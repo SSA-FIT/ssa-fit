@@ -13,7 +13,7 @@ const Header: React.FC = () => {
         </BrandWrapper>
         <AccountMenuList>
           <AccountMenuItem>
-            <PageLink to="#">로그인</PageLink>
+            <PageLink to="/users/login">로그인</PageLink>
           </AccountMenuItem>
           <Division />
           <AccountMenuItem>

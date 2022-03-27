@@ -1,4 +1,5 @@
 import { axiosInstance } from '../apis/axios';
+import { LogInApiResponse, LogInRequest } from '../types/authTypes';
 
 import {
   EmailCodeRequest,
@@ -66,6 +67,16 @@ class UserService {
   public static async userSignUp(data: FormData): Promise<SignUpResponse> {
     const response = await axiosInstance.post<SignUpResponse>(
       `/api/users/sign-up`,
+      data,
+    );
+
+    return response.data;
+  }
+
+  // 로그인
+  public static async userLogIn(data: LogInRequest): Promise<LogInApiResponse> {
+    const response = await axiosInstance.post<LogInApiResponse>(
+      `/api/users/login`,
       data,
     );
 
