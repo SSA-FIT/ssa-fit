@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import UserService from '../../services/UserService';
-import { IdCheckRequest } from '../../types/commonTypes';
+import { IdCheckRequest, SignUpData } from '../../types/commonTypes';
 import { regId, regPw } from '../../utils/RegExpressions';
 
 interface Props {
@@ -42,8 +42,6 @@ const SignUpForm: React.FC<Props> = ({
   // 유효성 검사
   const [isPwConfirm, setIsPwConfirm] = useState<boolean>(false);
   const [userNickname, setUserNickname] = useState<string>('');
-
-  const signUpForm = new FormData();
 
   const checkId = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
@@ -128,38 +126,57 @@ const SignUpForm: React.FC<Props> = ({
     console.log('userNickname :: ', userNickname);
   };
 
-  const getSignUpForm = () => {
-    signUpForm.append('userEmail', userEmail);
-    signUpForm.append('userHeight', userHeight);
-    signUpForm.append('userWeight', userWeight);
-    signUpForm.append('userBirth', userBirth);
-    signUpForm.append('userGender', userGender);
-    signUpForm.append('userLevel', userLevel);
-    signUpForm.append('userId', userId);
-    signUpForm.append('userPw', userPw);
-    signUpForm.append('userNickname', userNickname);
-
-    return signUpForm;
-  };
-
   const handleNext = () => {
-    const data: FormData = getSignUpForm();
-
     if (isIdConfirm && isPwConfirm && userNickname !== '') {
+      const data: SignUpData = {
+        height: '',
+        weight: '',
+        level: '',
+        birth: '',
+        gender: '',
+        userId: '',
+        nickname: '',
+        email: '',
+        password: '',
+      };
+      data.height = userHeight;
+      data.weight = userWeight;
+      data.level = userLevel;
+      data.birth = userBirth;
+      data.gender = userGender;
+      data.userId = userId;
+      data.nickname = userNickname;
+      data.email = userEmail;
+      data.password = userPw;
+
       UserService.userSignUp(data)
         .then(({ message }) => {
-          console.log(message);
+          console.log(data);
+          console.log(data.email);
           alert(message);
           setSignUpStep(4);
         })
         .catch((error) => {
           const { status, message } = error.response.data;
-          console.log('에러 :: ', message);
           alert(message);
           if (status === 500) {
             console.log('서버에러 :: ', message);
           }
         });
+      // UserService.userSignUp(data)
+      //   .then(({ message }) => {
+      //     console.log(message);
+      //     alert(message);
+      //     setSignUpStep(4);
+      //   })
+      //   .catch((error) => {
+      //     const { status, message } = error.response.data;
+      //     console.log('에러 :: ', message);
+      //     alert(message);
+      //     if (status === 500) {
+      //       console.log('서버에러 :: ', message);
+      //     }
+      //   });
     }
   };
 
