@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ProfileCard: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -59,6 +60,9 @@ const ProfileCard: React.FC = () => {
                         <ProfileInfoFieldName>아이디</ProfileInfoFieldName>
                         qwe123
                       </ProfileInfoFieldItem>
+                      <NewPasswordWrapper>
+                        <NewPassword to="/">비밀번호 재설정</NewPassword>
+                      </NewPasswordWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
                       <ProfileInfoFieldItem>
@@ -302,8 +306,12 @@ const ProfileCard: React.FC = () => {
                     </ProfileInfoFieldItemWrapper>
                   </ProfileInfoFieldValue>
                 </ProfileInfoField>
+                <WithdrawalWrapper>
+                  <Withdrawal to="/">회원 탈퇴</Withdrawal>
+                </WithdrawalWrapper>
               </ProfileInfo>
             </ProfileInfoWrapper>
+
             <ConfirmWrapper>
               <Cancel>취소</Cancel>
               <ConfirmButton>확인</ConfirmButton>
@@ -479,6 +487,34 @@ const ProfileInfoFieldName = styled.strong`
   }
 `;
 
+const NewPasswordWrapper = styled.div`
+  margin-top: 1.2rem;
+  text-align: right;
+`;
+
+const NewPassword = styled(Link)`
+  display: inline-block;
+  min-width: 6.8rem;
+  margin: 0;
+  padding: 0.6rem 1.2rem 0.7rem;
+  border-radius: 0.2rem;
+  background-color: #fff;
+  font-size: 1.4rem;
+  line-height: 1.58;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #00256c;
+  appearance: none;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+
+  @media (min-width: 1060px) {
+    min-width: 8.4rem;
+    padding: 0.7rem 0.8rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+`;
 const ProfileInfoFieldItemLabel = styled.label`
   display: block;
   margin-bottom: 0.2rem;
@@ -657,6 +693,28 @@ const DialogButton = styled(Button)`
   color: #013066;
 `;
 
+const WithdrawalWrapper = styled.div`
+  justify-content: flex-start;
+  margin-top: 2rem;
+  @media (min-width: 1060px) {
+    display: flex;
+    justify-items: flex-start;
+  }
+`;
+
+const Withdrawal = styled(Link)`
+  position: relative;
+  font-size: 1.4rem;
+  text-decoration: none;
+  @media (min-width: 1060px) {
+    font-size: 1.6rem;
+    display: inline-block;
+    border: 0;
+    background: none;
+    color: #0064de;
+    text-indent: 0;
+  }
+`;
 const ConfirmWrapper = styled.div`
   justify-content: space-between;
   display: flex;
