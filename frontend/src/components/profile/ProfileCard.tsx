@@ -12,9 +12,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ProfileCard: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
+  const [buttonText, setButtonText] = useState<string>('수정');
   const [alignment1, setAlignment1] = useState<string>('level1');
+  const [inputDisabled, setInputDisabled] = useState<boolean>(true);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -35,6 +37,11 @@ const ProfileCard: React.FC = () => {
     newAlignment: string,
   ) => {
     setAlignment1(newAlignment);
+  };
+
+  const handleConfirmButton = (event: React.MouseEvent<HTMLElement>) => {
+    setButtonText('확인');
+    setInputDisabled(false);
   };
 
   // 🌱씨앗 🌿새싹 🌳나무 🍎열매
@@ -93,7 +100,7 @@ const ProfileCard: React.FC = () => {
                         <Requirement>필수입력</Requirement>
                       </ProfileInfoFieldItemLabel>
                       <InputWrapper>
-                        <Input type="text" />
+                        <Input type="text" disabled={inputDisabled} />
                       </InputWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
@@ -101,7 +108,7 @@ const ProfileCard: React.FC = () => {
                         키(cm)<Requirement>필수입력</Requirement>
                       </ProfileInfoFieldItemLabel>
                       <InputWrapper>
-                        <Input type="text" />
+                        <Input type="text" disabled={inputDisabled} />
                       </InputWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
@@ -110,7 +117,7 @@ const ProfileCard: React.FC = () => {
                         <Requirement>필수입력</Requirement>
                       </ProfileInfoFieldItemLabel>
                       <InputWrapper>
-                        <Input type="text" />
+                        <Input type="text" disabled={inputDisabled} />
                       </InputWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
@@ -125,6 +132,7 @@ const ProfileCard: React.FC = () => {
                             value="M"
                             id="M"
                             name="gender"
+                            disabled={inputDisabled}
                           />
                           <Gender htmlFor="M">남자</Gender>
                         </GenderSelect>
@@ -134,6 +142,7 @@ const ProfileCard: React.FC = () => {
                             value="FM"
                             id="FM"
                             name="gender"
+                            disabled={inputDisabled}
                           />
                           <Gender htmlFor="FM">여자</Gender>
                         </GenderSelect>
@@ -314,7 +323,9 @@ const ProfileCard: React.FC = () => {
 
             <ConfirmWrapper>
               <Cancel>취소</Cancel>
-              <ConfirmButton>확인</ConfirmButton>
+              <ConfirmButton onClick={handleConfirmButton}>
+                {buttonText}
+              </ConfirmButton>
             </ConfirmWrapper>
           </Contents>
         </Container>
