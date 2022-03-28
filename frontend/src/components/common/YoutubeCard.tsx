@@ -86,12 +86,15 @@ const YoutubeCard: React.FC<Props> = ({
               type="checkbox"
               onChange={checkBoxChangeHandler}
               checked={checked}
+              id={videoId}
             />
-            <Image
-              key={videoId}
-              src={thumbnails}
-              alt={`${searchName} 의 섬네일`}
-            />
+            <ImageLabel htmlFor={videoId}>
+              <Image
+                key={videoId}
+                src={thumbnails}
+                alt={`${searchName} 의 섬네일`}
+              />
+            </ImageLabel>
           </ImageWrapper>
         </Wrapper>
         <Info>
@@ -120,6 +123,7 @@ const ImageWrapper = styled.div`
   height: 300px;
 `;
 
+const ImageLabel = styled.label``;
 const Image = styled.img`
   width: 100%;
   height: 100%;

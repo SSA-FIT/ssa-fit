@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import { LogInRequest } from '../../types/authTypes';
 import { EmailCodeConfirm, SignUpData } from '../../types/commonTypes';
 
 export const authhandlers = [
@@ -140,6 +141,52 @@ export const authhandlers = [
       return response(
         context.json({
           message: '가입이 완료되었습니다.',
+        }),
+      );
+    },
+  ),
+
+  rest.post(
+    `${process.env.REACT_APP_LOCALHOST_URL}/api/users/login`,
+
+    async (request: any, response, context) => {
+      const data: LogInRequest = request.body;
+      const { userId } = data;
+
+      if (userId === '400error') {
+        return response(
+          context.status(401),
+          context.json({
+            message: '아이디 또는 비밀번호를 확인해주세요.',
+          }),
+        );
+      }
+
+      if (userId === '500error') {
+        return response(
+          context.status(500),
+          context.json({
+            message: 'Internal Server Error, 로그인 실패',
+          }),
+        );
+      }
+
+      return response(
+        context.json({
+          message: '로그인하였습니다.',
+          token: 'asfasdfawefzxcvzxvdsv.asdfweefwfwefzxvxcvxzcv.wqwdafsdfsdf',
+          userInfo: {
+            id: 1,
+            height: '180.5',
+            weight: '77.3',
+            bmi: '23.5',
+            level: '초보',
+            birth: '2000-01-01',
+            gender: '남',
+            userId: 'dudqo225',
+            nickname: '싸피',
+            email: 'ssafy@naver.com',
+          },
         }),
       );
     },

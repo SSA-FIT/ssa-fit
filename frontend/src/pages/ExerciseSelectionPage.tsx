@@ -104,7 +104,7 @@ const ExerciseSelectionPage: React.FC = () => {
               case 2:
                 return (
                   <>
-                    {/* <VideoPlayCard userVideoSelectList={userVideoSelectList} /> */}
+                    <VideoPlayCard userVideoSelectList={userVideoSelectList} />
                   </>
                 );
               default:
