@@ -11,6 +11,7 @@ import SignUpPage from './pages/SignUpPage';
 import ExerciseSelectionPage from './pages/ExerciseSelectionPage';
 import LogInPage from './pages/LogInpage';
 import history from './history';
+import ProfilePage from './pages/ProfilePage';
 
 const App: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
           <Route exact path="/" component={MainPage} />
           <Route exact path="/users/sign-up" component={SignUpPage} />
           <Route exact path="/users/login" component={LogInPage} />
+          <Route exact path="/users/profile" component={ProfilePage} />
           <Route exact path="/exercise" component={ExerciseSelectionPage} />
         </Switch>
       </ConnectedRouter>
