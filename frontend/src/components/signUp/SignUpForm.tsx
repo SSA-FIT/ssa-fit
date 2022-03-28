@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import UserService from '../../services/UserService';
 import { IdCheckRequest, SignUpData } from '../../types/commonTypes';
 import { regId, regPw } from '../../utils/RegExpressions';
@@ -28,7 +29,7 @@ const SignUpForm: React.FC<Props> = ({
   // 유효성 검사
   const [isId, setIsId] = useState<boolean>(false);
   const [idCheckRequestButton, setIdCheckRequestButton] =
-    useState<boolean>(true);
+    useState<boolean>(false);
 
   const [isIdConfirm, setIsIdConfirm] = useState<boolean>(false);
 
@@ -43,11 +44,18 @@ const SignUpForm: React.FC<Props> = ({
   const [isPwConfirm, setIsPwConfirm] = useState<boolean>(false);
   const [userNickname, setUserNickname] = useState<string>('');
 
+  const [idError, setIdError] = useState<boolean>(false);
+  const [pwError, setPwError] = useState<boolean>(false);
+  const [pwcheckError, setPwcheckError] = useState<boolean>(false);
+  const [nicknameError, setNicknameError] = useState<boolean>(false);
+  const [signUpFormComplete, setSignUpFormComplete] = useState<boolean>(false);
+
   const checkId = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
 
-    console.log('아이디 유효성 검사 :: ', regId.test(event.target.value));
+    // console.log('아이디 유효성 검사 :: ', regId.test(event.target.value));
 
+    setIdError(false);
     const idCurrent = event.target.value;
     setUserId(idCurrent);
 
@@ -69,16 +77,26 @@ const SignUpForm: React.FC<Props> = ({
     data.id = userId;
     UserService.getIdCheckRequest(data)
       .then(({ message }) => {
-        alert(message);
+        // alert(message);
+        Swal.fire({
+          icon: 'success',
+          html: message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setIsIdConfirm(true);
-        console.log(message);
+        setIdCheckRequestButton(true);
+        // console.log(message);
       })
       .catch((error) => {
         const { status, message } = error.response.data;
-        console.log('에러 :: ', message);
-        alert(message);
-        if (status === 500) {
-          console.log('서버에러 :: ', message);
+        // console.log('에러 :: ', message);
+        // alert(message);
+        setIdMessage(message);
+        if (status === 409) {
+          setIdMessage(message);
+        } else if (status === 500) {
+          setIdMessage(message);
         }
       });
   };
@@ -86,8 +104,9 @@ const SignUpForm: React.FC<Props> = ({
   const checkPw = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
 
-    console.log('비밀번호 유효성 검사 :: ', regPw.test(event.target.value));
+    // console.log('비밀번호 유효성 검사 :: ', regPw.test(event.target.value));
 
+    setPwError(false);
     const pwCurrent = event.target.value;
     setUserPw(pwCurrent);
 
@@ -103,6 +122,7 @@ const SignUpForm: React.FC<Props> = ({
   const doubleCheckPw = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
 
+    setPwcheckError(false);
     const pwCurrent = event.target.value;
     setUserPwConfirm(pwCurrent);
 
@@ -111,23 +131,31 @@ const SignUpForm: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    if (userPwConfirm !== userPw && userPwConfirm !== '') {
-      setPwConfirmMessage('비밀번호가 일치하지 않습니다.');
-      setIsPwConfirm(false);
-    } else {
+    if (userPwConfirm === userPw && isPw) {
       setPwConfirmMessage('');
       setIsPwConfirm(true);
+    } else {
+      setPwConfirmMessage('비밀번호가 일치하지 않습니다.');
+      setIsPwConfirm(false);
     }
   }, [userPw, userPwConfirm]);
 
   const getNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNicknameError(false);
     const nickname = event.target.value;
     setUserNickname(nickname);
-    console.log('userNickname :: ', userNickname);
+    // console.log('userNickname :: ', userNickname);
   };
 
   const handleNext = () => {
+    if (!isIdConfirm) setIdError(true);
+    // console.log(isPwConfirm);
+    if (userPw === '') setPwError(true);
+    if (userPwConfirm === '') setPwcheckError(true);
+    if (userNickname === '') setNicknameError(true);
+
     if (isIdConfirm && isPwConfirm && userNickname !== '') {
+      setSignUpFormComplete(true);
       const data: SignUpData = {
         height: '',
         weight: '',
@@ -151,32 +179,30 @@ const SignUpForm: React.FC<Props> = ({
 
       UserService.userSignUp(data)
         .then(({ message }) => {
-          console.log(data);
-          console.log(data.email);
-          alert(message);
+          // console.log(data);
+          // console.log(data.email);
+          // alert(message);
           setSignUpStep(4);
         })
         .catch((error) => {
           const { status, message } = error.response.data;
           alert(message);
-          if (status === 500) {
-            console.log('서버에러 :: ', message);
+          if (status === 400) {
+            Swal.fire({
+              icon: 'error',
+              html: message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else if (status === 500) {
+            Swal.fire({
+              icon: 'error',
+              html: message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
         });
-      // UserService.userSignUp(data)
-      //   .then(({ message }) => {
-      //     console.log(message);
-      //     alert(message);
-      //     setSignUpStep(4);
-      //   })
-      //   .catch((error) => {
-      //     const { status, message } = error.response.data;
-      //     console.log('에러 :: ', message);
-      //     alert(message);
-      //     if (status === 500) {
-      //       console.log('서버에러 :: ', message);
-      //     }
-      //   });
     }
   };
 
@@ -203,14 +229,17 @@ const SignUpForm: React.FC<Props> = ({
               <InputName>
                 아이디
                 <InputRequireLabel>필수입력</InputRequireLabel>
-                <InputDescription>6~12자리 영문, 숫자로 입력</InputDescription>
+                <InputDescription>
+                  영문+숫자 6자~12자 이내 입력 가능, 특수문자 입력 불가
+                </InputDescription>
               </InputName>
               <InputAndButtonWrapper>
                 <InputWrapper>
                   <Input
                     type="text"
                     onChange={checkId}
-                    className={idMessage !== '' ? 'have-error' : ''}
+                    disabled={isIdConfirm}
+                    className={idMessage !== '' || idError ? 'have-error' : ''}
                   />
                 </InputWrapper>
                 <OverlapConfirmButton
@@ -220,6 +249,11 @@ const SignUpForm: React.FC<Props> = ({
                   중복 확인
                 </OverlapConfirmButton>
               </InputAndButtonWrapper>
+              {idError && (
+                <ErrorWrapper>
+                  <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                </ErrorWrapper>
+              )}
               {userId.length > 0 && (
                 <span className={`message ${isId ? 'success' : 'error'}`}>
                   {idMessage}
@@ -237,9 +271,14 @@ const SignUpForm: React.FC<Props> = ({
               <Input
                 type="password"
                 onChange={checkPw}
-                className={pwMessage !== '' ? 'have-error' : ''}
+                className={pwMessage !== '' || pwError ? 'have-error' : ''}
               />
             </InputFieldWrapper>
+            {pwError && (
+              <ErrorWrapper>
+                <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+              </ErrorWrapper>
+            )}
             {userPw.length > 0 && (
               <span className={`message ${isPw ? 'success' : 'error'}`}>
                 {pwMessage}
@@ -253,9 +292,18 @@ const SignUpForm: React.FC<Props> = ({
               <Input
                 type="password"
                 onChange={doubleCheckPw}
-                className={pwConfirmMessage !== '' ? 'have-error' : ''}
+                className={
+                  (!isPwConfirm && userPwConfirm !== '') || pwcheckError
+                    ? 'have-error'
+                    : ''
+                }
               />
             </InputFieldWrapper>
+            {pwcheckError && (
+              <ErrorWrapper>
+                <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+              </ErrorWrapper>
+            )}
             {userPwConfirm.length > 0 && (
               <span className={`message ${isPwConfirm ? 'success' : 'error'}`}>
                 {pwConfirmMessage}
@@ -268,16 +316,31 @@ const SignUpForm: React.FC<Props> = ({
               </InputName>
               <InputAndButtonWrapper>
                 <InputWrapper>
-                  <Input value={userNickname} onChange={getNickname} />
+                  <Input
+                    value={userNickname}
+                    onChange={getNickname}
+                    className={nicknameError ? 'have-error' : ''}
+                  />
                 </InputWrapper>
-                <OverlapConfirmButton>중복 확인</OverlapConfirmButton>
+                {/* <OverlapConfirmButton>중복 확인</OverlapConfirmButton> */}
               </InputAndButtonWrapper>
+
+              {nicknameError && (
+                <ErrorWrapper>
+                  <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                </ErrorWrapper>
+              )}
             </InputFieldWrapper>
           </ContentWrapper>
         </ContentsWrapper>
         <ConFirmWrapper>
           <CancelButton onClick={handleBefore}>이전</CancelButton>
-          <ConfirmButton onClick={handleNext}>확인</ConfirmButton>
+          <ConfirmButton
+            onClick={handleNext}
+            className={signUpFormComplete ? 'complete' : ''}
+          >
+            확인
+          </ConfirmButton>
         </ConFirmWrapper>
       </Container>
     </>
@@ -524,6 +587,21 @@ const OverlapConfirmButton = styled.button`
     font-size: 1.6rem;
     line-height: 1.5;
   }
+
+  &:disabled {
+    background: rgb(247, 248, 250);
+    color: rgb(194, 200, 204);
+    border-color: rgb(218, 220, 224);
+    cursor: not-allowed;
+  }
+
+  &.have-error {
+    cursor: not-allowed;
+  }
+
+  &.checked {
+    border-color: blue;
+  }
 `;
 
 const ConFirmWrapper = styled.div`
@@ -565,8 +643,8 @@ const ConfirmButton = styled.button`
   padding: 1.5rem 2rem 1.6rem;
   border: 1px solid #013066;
   border-radius: 0.2rem;
-  background-color: #013066;
-  color: #fff;
+  background: rgb(247, 248, 250);
+  color: rgb(194, 200, 204);
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -575,6 +653,23 @@ const ConfirmButton = styled.button`
   cursor: pointer;
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+
+  &.complete {
+    background-color: #013066;
+    color: #fff;
+  }
+`;
+
+const ErrorWrapper = styled.div`
+  margin: 1rem 0 0.8rem;
+`;
+
+// 22.4px보다 2px작게
+const ErrorMessage = styled.span`
+  font-size: 20px;
+  color: rgb(255, 119, 119);
+  padding-left: 6px;
+  line-height: 1.5;
 `;
 
 export default SignUpForm;

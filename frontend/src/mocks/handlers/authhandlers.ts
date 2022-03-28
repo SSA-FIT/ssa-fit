@@ -29,7 +29,7 @@ export const authhandlers = [
       return response(
         context.json({
           message:
-            '입력한 이메일로 인증 메일을 발송했습니다.\n 이메일에 표시된 인증코드를 입력해주세요.',
+            '입력한 이메일로 인증 메일을 발송했습니다.<br>이메일에 표시된 인증코드를 입력해주세요.',
         }),
       );
     },

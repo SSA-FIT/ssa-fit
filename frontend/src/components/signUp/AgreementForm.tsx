@@ -12,7 +12,6 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
 
   const handleNext = () => {
     if (!agreement) {
-      // <Alert severity="error">This is an error alert — check it out!</Alert>;
       // <Alert severity="success" color="info">
       //   This is a success alert — check it out!
       // </Alert>;
@@ -37,6 +36,7 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
 
   return (
     <>
+      {/* <Alert severity="error">This is an error alert — check it out!</Alert> */}
       <Container>
         {/*  className={agreementError ? 'have-error' : ''} */}
         <StepName>약관 동의</StepName>
