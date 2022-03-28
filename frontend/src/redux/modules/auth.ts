@@ -12,14 +12,12 @@ import {
 
 interface AuthState {
   token: string | null;
-  userInfo: UserInfo | null;
   loading: boolean;
   error: Error | null;
 }
 
 const initialState: AuthState = {
   token: null,
-  userInfo: null,
   loading: false,
   error: null,
 };
@@ -40,8 +38,6 @@ const reducer = handleActions<AuthState, LogInResponse>(
       ...state,
       // eslint-disable-next-line react/destructuring-assignment
       token: action.payload.token,
-      // eslint-disable-next-line react/destructuring-assignment
-      userInfo: action.payload.userInfo,
       loading: false,
       error: null,
     }),
@@ -62,7 +58,6 @@ export const { login, logout } = createActions('LOGIN', 'LOGOUT', { prefix });
 
 function* loginSaga(action: Action<LogInRequest>) {
   try {
-    alert('아');
     yield put(pending());
 
     const response: LogInApiResponse = yield call(UserService.userLogIn, {

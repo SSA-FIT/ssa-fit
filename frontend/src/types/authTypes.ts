@@ -13,14 +13,12 @@ export interface UserInfo {
 
 export interface LogInResponse {
   token: string;
-  userInfo: UserInfo;
 }
 
 export interface LogInApiResponse {
   status: number | null;
   message: string;
   token: string;
-  userInfo: UserInfo | null;
 }
 
 export interface LogInRequest {
