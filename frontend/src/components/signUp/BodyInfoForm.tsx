@@ -440,8 +440,9 @@ const BodyInfoForm: React.FC<Props> = ({
   const getGender = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGenderError(false);
     const gender = event.target.value;
-    setUserGenderChange(gender);
-    // console.log('userGender :: ', userGender);
+    if (gender === 'M') setUserGenderChange('남');
+    else if (gender === 'FM') setUserGenderChange('여');
+    // console.log('userGender :: ', userGenderChange);
   };
 
   return (
@@ -971,7 +972,7 @@ const Input = styled.input`
 
   &.have-error {
     margin-bottom: 4px;
-    border-bottom: 1px solid #f44336;
+    border: 1px solid #f44336;
     box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
@@ -1002,7 +1003,7 @@ const BodyInput1 = styled.input`
 
   &.have-error {
     margin-bottom: 4px;
-    border-bottom: 1px solid #f44336;
+    border: 1px solid #f44336;
     box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
@@ -1033,14 +1034,15 @@ const BodyInput2 = styled.input`
 
   &.have-error {
     margin-bottom: 4px;
-    border-bottom: 1px solid #f44336;
+    border: 1px solid #f44336;
     box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
 
 const GenderSelectWrapper = styled.ul`
   list-style: none;
-  margin: 2.2rem 0;
+  margin: 1rem 0;
+  padding: 1rem;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -1053,7 +1055,7 @@ const GenderSelectWrapper = styled.ul`
 
   &.have-error {
     margin-bottom: 4px;
-    border-bottom: 1px solid #f44336;
+    border: 1px solid #f44336;
     box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
@@ -1114,7 +1116,7 @@ const SelfExerciseLevelButtonWrapper = styled.div`
 `;
 
 const UserLevel = styled.span`
-  margin-right: 10px;
+  padding-right: 10px;
 `;
 
 const SelfExerciseLevelButton = styled.button`
@@ -1186,8 +1188,8 @@ const ConfirmButton = styled.button`
   padding: 1.5rem 2rem 1.6rem;
   border: 1px solid #013066;
   border-radius: 0.2rem;
-  background: rgb(247, 248, 250);
-  color: rgb(194, 200, 204);
+  background: #bad5f5;
+  color: #013066;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -1245,15 +1247,12 @@ const DialogButton = styled(Button)`
   color: #013066;
 `;
 
-const ErrorWrapper = styled.div`
-  margin: 1rem 0 0.8rem;
-`;
+const ErrorWrapper = styled.div``;
 
 // 22.4px보다 2px작게
 const ErrorMessage = styled.span`
-  font-size: 20px;
+  font-size: 1.1rem;
   color: rgb(255, 119, 119);
-  padding-left: 6px;
   line-height: 1.5;
 `;
 

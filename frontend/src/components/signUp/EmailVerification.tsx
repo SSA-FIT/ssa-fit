@@ -26,12 +26,17 @@ const EmailVerification: React.FC<Props> = ({
   };
 
   const handleNextButton = () => {
-    if (userEmailChange !== '') {
+    if (!emailCodeInputView) {
+      setEmailMessage('이메일 인증을 완료해주세요.');
+      if (userEmailChange === '') setEmailMessage('필수 입력 항목입니다.');
+      setEmailRequestError(true);
+    } else {
       setEmailRequestError(false);
-      if (emailCodeInput !== '') {
-        setEmailCodeRequestError(false);
-      } else setEmailCodeRequestError(true);
-    } else setEmailRequestError(true);
+      if (!emailConfirmComplete) {
+        setEmailConfirmMessage('인증번호 인증을 완료해주세요.');
+        setEmailCodeRequestError(true);
+      }
+    }
 
     if (emailConfirmComplete) {
       setSignUpStep(2);
@@ -58,10 +63,10 @@ const EmailVerification: React.FC<Props> = ({
   const [timeout, setTimeout] = useState<boolean>(false);
 
   const UserEmailProps = (data: EmailCodeConfirm) => {
-    const { userEmail } = data;
+    const { email } = data;
 
     // setSignUpStep(2);
-    setUserEmail(userEmail);
+    setUserEmail(email);
   };
 
   // 이메일
@@ -89,8 +94,8 @@ const EmailVerification: React.FC<Props> = ({
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     // console.log('userEmailChange :: ', userEmailChange);
-    const data: EmailCodeRequest = { userEmail: '' };
-    data.userEmail = userEmailChange;
+    const data: EmailCodeRequest = { email: '' };
+    data.email = userEmailChange;
     UserService.getEmailCodeRequest(data)
       .then(({ message }) => {
         Swal.fire({
@@ -101,6 +106,7 @@ const EmailVerification: React.FC<Props> = ({
         });
         // alert(message);
         // console.log(message);
+        setEmailMessage('');
         setEmailCodeInputView(true);
         setMinutes(2);
         setSeconds(59);
@@ -112,12 +118,6 @@ const EmailVerification: React.FC<Props> = ({
         // alert(message);
 
         setEmailMessage(message);
-        // Swal.fire({
-        //   icon: 'error',
-        //   html: message,
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        // });
         if (status === 409) {
           // alert(message);
           setEmailMessage(message);
@@ -134,21 +134,18 @@ const EmailVerification: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    if (emailCodeInput !== '' && !timeout) {
-      setEmailConfirmMessage('');
-      setEmailCodeConfirmButton(false);
-    } else {
-      setEmailCodeConfirmButton(true);
-    }
+    setEmailConfirmMessage('');
+    if (timeout) setEmailCodeConfirmButton(true);
+    else setEmailCodeConfirmButton(false);
   }, [emailCodeInput]);
 
   const emailCodeConfirm = () => {
     const data: EmailCodeConfirm = {
       code: '',
-      userEmail: '',
+      email: '',
     };
     data.code = emailCodeInput;
-    data.userEmail = userEmailChange;
+    data.email = userEmailChange;
     UserService.getEmailCodeConfirm(data)
       .then(({ message }) => {
         // console.log('입력코드 :: ', data.code);
@@ -162,19 +159,23 @@ const EmailVerification: React.FC<Props> = ({
           showConfirmButton: false,
           timer: 1500,
         });
+        setEmailMessage('');
       })
       .catch((error) => {
         const { status, message } = error.response.data;
         // alert(message);
         setEmailConfirmMessage(message);
-        setEmailCodeInput('');
+        // setEmailCodeInput('');
         if (status === 401) {
           // alert(message);
           setEmailConfirmMessage(message);
+          // setEmailCodeInput('');
         } else if (status === 403) {
           setEmailConfirmMessage(message);
+          // setEmailCodeInput('');
         } else if (status === 500) {
           setEmailConfirmMessage(message);
+          // setEmailCodeInput('');
         }
       });
   };
@@ -200,8 +201,9 @@ const EmailVerification: React.FC<Props> = ({
 
   const requestAgainCode = () => {
     // console.log('userEmailChange :: ', userEmailChange);
-    const data: EmailCodeRequest = { userEmail: '' };
-    data.userEmail = userEmailChange;
+    const data: EmailCodeRequest = { email: '' };
+    data.email = userEmailChange;
+    setEmailCodeInput('');
     UserService.getEmailCodeRequest(data)
       .then(({ message }) => {
         // alert(message);
@@ -259,7 +261,8 @@ const EmailVerification: React.FC<Props> = ({
                     onChange={checkEmail}
                     disabled={emailCodeInputView}
                     className={
-                      emailMessage !== '' || emailRequestError
+                      (emailMessage !== '' && !emailCodeInputView) ||
+                      (emailRequestError && !emailCodeInputView)
                         ? 'have-error'
                         : ''
                     }
@@ -267,16 +270,16 @@ const EmailVerification: React.FC<Props> = ({
                   />
                   {emailRequestError && (
                     <ErrorWrapper>
-                      <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                      <ErrorMessage>{emailMessage}</ErrorMessage>
                     </ErrorWrapper>
                   )}
-                  {userEmailChange.length > 0 && (
-                    <span
-                      className={`message ${isEmail ? 'success' : 'error'}`}
-                    >
-                      {emailMessage}
-                    </span>
-                  )}
+                  {userEmailChange.length > 0 &&
+                    !emailRequestError &&
+                    !emailCodeInputView && (
+                      <ErrorWrapper>
+                        <ErrorMessage>{emailMessage}</ErrorMessage>
+                      </ErrorWrapper>
+                    )}
                 </InputWrapper>
                 <OverlapConfirmButton
                   onClick={emailCodeRequest}
@@ -321,21 +324,30 @@ const EmailVerification: React.FC<Props> = ({
                         onChange={checkEmailCode}
                         disabled={emailConfirmComplete}
                         className={
-                          emailConfirmMessage !== '' || emailCodeRequestError
+                          !emailConfirmComplete &&
+                          (emailConfirmMessage !== '' || emailCodeRequestError)
                             ? 'have-error'
                             : ''
                         }
                       />
                       {emailCodeRequestError && (
                         <ErrorWrapper>
-                          <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                          <ErrorMessage>{emailConfirmMessage}</ErrorMessage>
                         </ErrorWrapper>
                       )}
-                      {emailConfirmMessage}
+                      {emailConfirmMessage.length > 0 &&
+                        !emailCodeRequestError && (
+                          <ErrorWrapper>
+                            <ErrorMessage>{emailConfirmMessage}</ErrorMessage>
+                          </ErrorWrapper>
+                        )}
                     </InputWrapper>
                     <CodeConfirmButton
                       onClick={emailCodeConfirm}
-                      disabled={emailCodeConfirmButton || emailConfirmComplete}
+                      disabled={
+                        (!emailConfirmComplete && emailCodeInput === '') ||
+                        (emailConfirmComplete && emailCodeInput !== '')
+                      }
                     >
                       인증하기
                     </CodeConfirmButton>
@@ -389,7 +401,7 @@ const ContentsWrapper = styled.div`
   padding: 2rem 1.6rem;
   border: 1px solid #d9dbe1;
   box-sizing: border-box;
-  margin: 4rem 0;
+  margin: 2rem 0;
 
   @media (min-width: 1060px) {
     display: flex;
@@ -497,7 +509,7 @@ const Input = styled.input`
   width: 100%;
   height: 4rem;
   margin-bottom: 10px;
-  padding: 0;
+  padding-left: 10px;
   border: 0;
   border-bottom: 1px solid #00256c;
   border-radius: 4px;
@@ -571,9 +583,9 @@ const OverlapConfirmButton = styled.button`
   appearance: none;
 
   @media (min-width: 1060px) {
-    margin-top: 0.8rem;
+    margin-top: 0.4rem;
     min-width: 8.4rem;
-    padding: 0.7rem 0.8rem;
+    padding: 0.7rem 0.7rem;
     font-size: 1.6rem;
     line-height: 1.5;
   }
@@ -582,10 +594,6 @@ const OverlapConfirmButton = styled.button`
     background: rgb(247, 248, 250);
     color: rgb(194, 200, 204);
     border-color: rgb(218, 220, 224);
-    cursor: not-allowed;
-  }
-
-  &.have-error {
     cursor: not-allowed;
   }
 
@@ -628,7 +636,7 @@ const CodeConfirmButton = styled.button`
   appearance: none;
 
   @media (min-width: 1060px) {
-    margin-top: 0.8rem;
+    margin-top: 0.4rem;
     min-width: 8.4rem;
     padding: 0.7rem 0.8rem;
     font-size: 1.6rem;
@@ -686,8 +694,8 @@ const ConfirmButton = styled.button`
   padding: 1.5rem 2rem 1.6rem;
   border: 1px solid #013066;
   border-radius: 0.2rem;
-  background: rgb(247, 248, 250);
-  color: rgb(194, 200, 204);
+  background: #bad5f5;
+  color: #013066;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -703,15 +711,12 @@ const ConfirmButton = styled.button`
   }
 `;
 
-const ErrorWrapper = styled.div`
-  margin: 1rem 0 0.8rem;
-`;
+const ErrorWrapper = styled.div``;
 
 // 22.4px보다 2px작게
 const ErrorMessage = styled.span`
-  font-size: 20px;
+  font-size: 1.1rem;
   color: rgb(255, 119, 119);
-  padding-left: 6px;
   line-height: 1.5;
 `;
 

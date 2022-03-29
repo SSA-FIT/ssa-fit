@@ -233,8 +233,8 @@ const ConfirmButton = styled.button`
   padding: 1.5rem 2rem 1.6rem;
   border: 1px solid #013066;
   border-radius: 0.2rem;
-  background: rgb(247, 248, 250);
-  color: rgb(194, 200, 204);
+  background: #bad5f5;
+  color: #013066;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -249,20 +249,17 @@ const ConfirmButton = styled.button`
     color: #fff;
   }
 `;
-
+// #bad5f5 #62a6f5
 // background: rgb(247, 248, 250);
 //     color: rgb(194, 200, 204);
 //     border-color: rgb(218, 220, 224);
 
-const ErrorWrapper = styled.div`
-  margin: 1rem 0 0.8rem;
-`;
+const ErrorWrapper = styled.div``;
 
 // 22.4px보다 2px작게
 const ErrorMessage = styled.span`
-  font-size: 20px;
+  font-size: 1.1rem;
   color: rgb(255, 119, 119);
-  padding-left: 6px;
   line-height: 1.5;
 `;
 

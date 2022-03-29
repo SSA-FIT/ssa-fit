@@ -73,8 +73,8 @@ const SignUpForm: React.FC<Props> = ({
   const idCheckRequest = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
-    const data: IdCheckRequest = { id: '' };
-    data.id = userId;
+    const data: IdCheckRequest = { userId: '' };
+    data.userId = userId;
     UserService.getIdCheckRequest(data)
       .then(({ message }) => {
         // alert(message);
@@ -147,6 +147,11 @@ const SignUpForm: React.FC<Props> = ({
     // console.log('userNickname :: ', userNickname);
   };
 
+  useEffect(() => {
+    if (isIdConfirm && isPwConfirm && userNickname !== '')
+      setSignUpFormComplete(true);
+  }, [isIdConfirm, isPwConfirm, userNickname]);
+
   const handleNext = () => {
     if (!isIdConfirm) setIdError(true);
     // console.log(isPwConfirm);
@@ -155,7 +160,6 @@ const SignUpForm: React.FC<Props> = ({
     if (userNickname === '') setNicknameError(true);
 
     if (isIdConfirm && isPwConfirm && userNickname !== '') {
-      setSignUpFormComplete(true);
       const data: SignUpData = {
         height: '',
         weight: '',
@@ -244,7 +248,7 @@ const SignUpForm: React.FC<Props> = ({
                 </InputWrapper>
                 <OverlapConfirmButton
                   onClick={idCheckRequest}
-                  disabled={idCheckRequestButton}
+                  disabled={userId === '' || idCheckRequestButton}
                 >
                   중복 확인
                 </OverlapConfirmButton>
@@ -255,9 +259,9 @@ const SignUpForm: React.FC<Props> = ({
                 </ErrorWrapper>
               )}
               {userId.length > 0 && (
-                <span className={`message ${isId ? 'success' : 'error'}`}>
-                  {idMessage}
-                </span>
+                <ErrorWrapper>
+                  <ErrorMessage>{idMessage}</ErrorMessage>
+                </ErrorWrapper>
               )}
             </InputFieldWrapper>
             <InputFieldWrapper>
@@ -280,9 +284,9 @@ const SignUpForm: React.FC<Props> = ({
               </ErrorWrapper>
             )}
             {userPw.length > 0 && (
-              <span className={`message ${isPw ? 'success' : 'error'}`}>
-                {pwMessage}
-              </span>
+              <ErrorWrapper>
+                <ErrorMessage>{pwMessage}</ErrorMessage>
+              </ErrorWrapper>
             )}
             <InputFieldWrapper>
               <InputName>
@@ -305,9 +309,9 @@ const SignUpForm: React.FC<Props> = ({
               </ErrorWrapper>
             )}
             {userPwConfirm.length > 0 && (
-              <span className={`message ${isPwConfirm ? 'success' : 'error'}`}>
-                {pwConfirmMessage}
-              </span>
+              <ErrorWrapper>
+                <ErrorMessage>{pwConfirmMessage}</ErrorMessage>
+              </ErrorWrapper>
             )}
             <InputFieldWrapper>
               <InputName>
@@ -643,8 +647,8 @@ const ConfirmButton = styled.button`
   padding: 1.5rem 2rem 1.6rem;
   border: 1px solid #013066;
   border-radius: 0.2rem;
-  background: rgb(247, 248, 250);
-  color: rgb(194, 200, 204);
+  background: #bad5f5;
+  color: #013066;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -660,15 +664,12 @@ const ConfirmButton = styled.button`
   }
 `;
 
-const ErrorWrapper = styled.div`
-  margin: 1rem 0 0.8rem;
-`;
+const ErrorWrapper = styled.div``;
 
 // 22.4px보다 2px작게
 const ErrorMessage = styled.span`
-  font-size: 20px;
+  font-size: 1.1rem;
   color: rgb(255, 119, 119);
-  padding-left: 6px;
   line-height: 1.5;
 `;
 
