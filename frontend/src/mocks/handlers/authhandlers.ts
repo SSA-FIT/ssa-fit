@@ -7,9 +7,9 @@ export const authhandlers = [
     `${process.env.REACT_APP_LOCALHOST_URL}/api/users/sign-up/email-verification`,
 
     async (request, response, context) => {
-      const userEmail = request.url.searchParams.get('userEmail');
+      const email = request.url.searchParams.get('email');
 
-      if (userEmail === '409error@naver.com') {
+      if (email === '409error@naver.com') {
         return response(
           context.status(409),
           context.json({
@@ -18,7 +18,7 @@ export const authhandlers = [
         );
       }
 
-      if (userEmail === '500error@naver.com') {
+      if (email === '500error@naver.com') {
         return response(
           context.status(500),
           context.json({
@@ -30,7 +30,7 @@ export const authhandlers = [
       return response(
         context.json({
           message:
-            '입력한 이메일로 인증 메일을 발송했습니다.\n 이메일에 표시된 인증코드를 입력해주세요.',
+            '입력한 이메일로 인증 메일을 발송했습니다<br>이메일에 표시된 인증코드를 입력해주세요.',
         }),
       );
     },
@@ -41,7 +41,7 @@ export const authhandlers = [
 
     async (request: any, response, context) => {
       const data: EmailCodeConfirm = request.body;
-      const { code, userEmail } = data;
+      const { code, email } = data;
 
       // const userEmail = data.email;
       // const emailCode = data.code;
@@ -85,7 +85,7 @@ export const authhandlers = [
     `${process.env.REACT_APP_LOCALHOST_URL}/api/users/sign-up/id-check`,
 
     async (request, response, context) => {
-      const userId = request.url.searchParams.get('id');
+      const userId = request.url.searchParams.get('userId');
 
       if (userId === '409error') {
         return response(

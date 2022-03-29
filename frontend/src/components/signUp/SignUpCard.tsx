@@ -98,7 +98,7 @@ const Contents = styled.div`
 
   @media (min-width: 1060px) {
     max-width: 128rem;
-    padding: 6rem 0 10rem;
+    padding: 6rem 6rem 10rem;
   }
 `;
 

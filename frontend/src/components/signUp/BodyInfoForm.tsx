@@ -47,6 +47,13 @@ const BodyInfoForm: React.FC<Props> = ({
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
 
+  const [heightError, setHeightError] = useState<boolean>(false);
+  const [weightError, setWeightError] = useState<boolean>(false);
+  const [levelError, setLevelError] = useState<boolean>(false);
+  const [birthError, setBirthError] = useState<boolean>(false);
+  const [genderError, setGenderError] = useState<boolean>(false);
+  const [bodyInfoComplete, setBodyInfoComplete] = useState<boolean>(false);
+
   const UserBodyInfoProps = (data: BodyInfoData) => {
     const { userHeight, userWeight, userLevel, userBirth, userGender } = data;
 
@@ -75,6 +82,20 @@ const BodyInfoForm: React.FC<Props> = ({
 
     UserBodyInfoProps(data);
 
+    if (!isHeight) setHeightError(true);
+    if (!isWeight) setWeightError(true);
+    if (userBirthChange === '') setBirthError(true);
+    if (userGenderChange === '') setGenderError(true);
+    if (userLevelChange === '') setLevelError(true);
+
+    if (bodyInfoComplete) setSignUpStep(3);
+  };
+
+  const handleBefore = () => {
+    setSignUpStep(1);
+  };
+
+  useEffect(() => {
     if (
       isHeight &&
       isWeight &&
@@ -82,12 +103,16 @@ const BodyInfoForm: React.FC<Props> = ({
       userGenderChange !== '' &&
       userLevelChange !== ''
     )
-      setSignUpStep(3);
-  };
-
-  const handleBefore = () => {
-    setSignUpStep(1);
-  };
+      setBodyInfoComplete(true);
+    else setBodyInfoComplete(false);
+  }, [
+    isHeight,
+    isWeight,
+    userBirthChange,
+    userGenderChange,
+    userGenderChange,
+    userLevelChange,
+  ]);
 
   const [selfTest1, setSelfTest1] = useState<number>(1);
   const [selfTest2, setSelfTest2] = useState<number>(1);
@@ -131,12 +156,12 @@ const BodyInfoForm: React.FC<Props> = ({
       setUserLevelIcon('🌱');
     }
 
-    if (selfTestSum >= 9 && selfTestSum < 14) {
+    if (selfTestSum >= 9 && selfTestSum < 15) {
       setUserLevelChange('새싹');
       setUserLevelIcon('🌿');
     }
 
-    if (selfTestSum >= 15 && selfTestSum < 20) {
+    if (selfTestSum >= 15 && selfTestSum < 21) {
       setUserLevelChange('나무');
       setUserLevelIcon('🌳');
     }
@@ -146,6 +171,10 @@ const BodyInfoForm: React.FC<Props> = ({
       setUserLevelIcon('🍎');
     }
   };
+
+  useEffect(() => {
+    if (userLevelChange !== '') setLevelError(false);
+  }, [userLevelChange]);
 
   const handleChange1 = (
     event: React.MouseEvent<HTMLElement>,
@@ -192,7 +221,7 @@ const BodyInfoForm: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    console.log('alignment1 :: ', alignment1);
+    // console.log('alignment1 :: ', alignment1);
     switch (alignment1) {
       case 'level1':
         setSelfTest1(1);
@@ -212,7 +241,7 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment1]);
 
   useEffect(() => {
-    console.log('alignment2 :: ', alignment2);
+    // console.log('alignment2 :: ', alignment2);
     switch (alignment2) {
       case 'one':
         setSelfTest2(1);
@@ -232,7 +261,7 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment2]);
 
   useEffect(() => {
-    console.log('alignment3 :: ', alignment3);
+    // console.log('alignment3 :: ', alignment3);
     switch (alignment3) {
       case '30min':
         setSelfTest3(1);
@@ -252,7 +281,7 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment3]);
 
   useEffect(() => {
-    console.log('alignment4 :: ', alignment4);
+    // console.log('alignment4 :: ', alignment4);
     switch (alignment4) {
       case '3stairs':
         setSelfTest4(1);
@@ -272,7 +301,7 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment4]);
 
   useEffect(() => {
-    console.log('alignment5 :: ', alignment5);
+    // console.log('alignment5 :: ', alignment5);
     switch (alignment5) {
       case 'shoulderpoint0':
         setSelfTest5(0);
@@ -289,7 +318,7 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment5]);
 
   useEffect(() => {
-    console.log('alignment6 :: ', alignment6);
+    // console.log('alignment6 :: ', alignment6);
     switch (alignment6) {
       case 'legpoint0':
         setSelfTest6(0);
@@ -305,35 +334,35 @@ const BodyInfoForm: React.FC<Props> = ({
     }
   }, [alignment6]);
 
-  useEffect(() => {
-    console.log(
-      `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6} = ${selfTestSum}`,
-    );
-  }, [selfTestSum]);
+  // useEffect(() => {
+  //   console.log(
+  //     `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6} = ${selfTestSum}`,
+  //   );
+  // }, [selfTestSum]);
 
   useEffect(() => {
     const sum =
       selfTest1 + selfTest2 + selfTest3 + selfTest4 + selfTest5 + selfTest6;
     setSelfTestSum(sum);
-    console.log(
-      `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6}`,
-    );
+    // console.log(
+    //   `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6}`,
+    // );
   }, [selfTest1, selfTest2, selfTest3, selfTest4, selfTest5, selfTest6]);
 
   useEffect(() => {
-    console.log('userHeightChange :: ', userHeightChange);
+    // console.log('userHeightChange :: ', userHeightChange);
     setUserHeightNumber(parseFloat(userHeightChange));
   }, [userHeightChange]);
 
   useEffect(() => {
-    console.log('userHeightNumber :: ', userHeightNumber);
-
+    // console.log('userHeightNumber :: ', userHeightNumber);
+    setHeightError(false);
     if (userHeightNumber <= 300 && userHeightNumber >= 1) {
       setIsHeight(true);
       setHeightMessage('');
     } else {
       setIsHeight(false);
-      setHeightMessage('1~300사이의 값을 입력해주세요');
+      setHeightMessage('유효하지 않은 입력값입니다.');
     }
   }, [userHeightNumber]);
 
@@ -362,19 +391,20 @@ const BodyInfoForm: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    console.log('userWeightChange :: ', userWeightChange);
+    // console.log('userWeightChange :: ', userWeightChange);
     setUserWeightNumber(parseFloat(userWeightChange));
   }, [userWeightChange]);
 
   useEffect(() => {
-    console.log('userWeightNumber :: ', userWeightNumber);
+    // console.log('userWeightNumber :: ', userWeightNumber);
 
+    setWeightError(false);
     if (userWeightNumber <= 600 && userWeightNumber >= 1) {
       setIsWeight(true);
       setWeightMessage('');
     } else {
       setIsWeight(false);
-      setWeightMessage('1~600사이의 값을 입력해주세요');
+      setWeightMessage('유효하지 않은 입력값입니다.');
     }
   }, [userWeightNumber]);
 
@@ -401,15 +431,18 @@ const BodyInfoForm: React.FC<Props> = ({
   };
 
   const getBirth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBirthError(false);
     const birth = event.target.value;
     setUserBirthChange(birth);
     // console.log('userBirth :: ', userBirth);
   };
 
   const getGender = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGenderError(false);
     const gender = event.target.value;
-    setUserGenderChange(gender);
-    // console.log('userGender :: ', userGender);
+    if (gender === 'M') setUserGenderChange('남');
+    else if (gender === 'FM') setUserGenderChange('여');
+    // console.log('userGender :: ', userGenderChange);
   };
 
   return (
@@ -434,7 +467,8 @@ const BodyInfoForm: React.FC<Props> = ({
                 maxLength={3}
                 onChange={getHeight1}
                 className={
-                  heightMessage !== '' && userHeightChange !== ''
+                  (heightMessage !== '' && userHeightChange !== '') ||
+                  heightError
                     ? 'have-error'
                     : ''
                 }
@@ -444,12 +478,18 @@ const BodyInfoForm: React.FC<Props> = ({
                 maxLength={1}
                 onChange={getHeight2}
                 className={
-                  heightMessage !== '' && userHeightChange !== ''
+                  (heightMessage !== '' && userHeightChange !== '') ||
+                  heightError
                     ? 'have-error'
                     : ''
                 }
               />
-              입력값 {userHeightChange}
+              {/* 입력값 {userHeightChange} */}
+              {heightError && (
+                <ErrorWrapper>
+                  <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                </ErrorWrapper>
+              )}
             </InputWrapper>
 
             {userHeightNumber >= 0 && (
@@ -466,7 +506,8 @@ const BodyInfoForm: React.FC<Props> = ({
                 maxLength={3}
                 onChange={getWeight1}
                 className={
-                  weightMessage !== '' && userWeightChange !== ''
+                  (weightMessage !== '' && userWeightChange !== '') ||
+                  weightError
                     ? 'have-error'
                     : ''
                 }
@@ -476,12 +517,18 @@ const BodyInfoForm: React.FC<Props> = ({
                 maxLength={1}
                 onChange={getWeight2}
                 className={
-                  weightMessage !== '' && userWeightChange !== ''
+                  (weightMessage !== '' && userWeightChange !== '') ||
+                  weightError
                     ? 'have-error'
                     : ''
                 }
               />
-              입력값 {userWeightChange}
+              {/* 입력값 {userWeightChange} */}
+              {weightError && (
+                <ErrorWrapper>
+                  <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                </ErrorWrapper>
+              )}
             </InputWrapper>
             {userWeightNumber >= 0 && (
               <span className={`message ${isWeight ? 'success' : 'error'}`}>
@@ -493,14 +540,23 @@ const BodyInfoForm: React.FC<Props> = ({
                 생년월일
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
-              <Input type="date" onChange={getBirth} />
+              <Input
+                type="date"
+                onChange={getBirth}
+                className={birthError ? 'have-error' : ''}
+              />
+              {birthError && (
+                <ErrorWrapper>
+                  <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                </ErrorWrapper>
+              )}
             </InputWrapper>
             <InputWrapper>
               <InputName>
                 성별
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
-              <GenderSelectWrapper>
+              <GenderSelectWrapper className={genderError ? 'have-error' : ''}>
                 <GenderSelect>
                   <GenderInput
                     type="radio"
@@ -522,6 +578,11 @@ const BodyInfoForm: React.FC<Props> = ({
                   <Gender htmlFor="FM">여자</Gender>
                 </GenderSelect>
               </GenderSelectWrapper>
+              {genderError && (
+                <ErrorWrapper>
+                  <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                </ErrorWrapper>
+              )}
             </InputWrapper>
             <InputWrapper>
               <InputName>
@@ -529,9 +590,23 @@ const BodyInfoForm: React.FC<Props> = ({
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
               <SelfExerciseLevelButtonWrapper>
-                <SelfExerciseLevelButton onClick={handleClickOpen}>
-                  자가 체력 진단
-                </SelfExerciseLevelButton>
+                <UserLevel>
+                  {userLevelChange}
+                  {userLevelIcon}
+                </UserLevel>
+                {userLevelChange === '' ? (
+                  <SelfExerciseLevelButton
+                    onClick={handleClickOpen}
+                    className={levelError ? 'have-error' : ''}
+                  >
+                    자가 체력 진단
+                  </SelfExerciseLevelButton>
+                ) : (
+                  <SelfExerciseLevelButton onClick={handleClickOpen}>
+                    자가 체력 재진단
+                  </SelfExerciseLevelButton>
+                )}
+
                 <Dialog open={open} onClose={handleClose}>
                   <MuiDialogTitle>운동 레벨 자가 체력 진단</MuiDialogTitle>
                   <DialogContent>
@@ -688,14 +763,22 @@ const BodyInfoForm: React.FC<Props> = ({
                   </DialogActions>
                 </Dialog>
               </SelfExerciseLevelButtonWrapper>
-              {userLevelChange}
-              {userLevelIcon}
+              {levelError && (
+                <ErrorWrapper>
+                  <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                </ErrorWrapper>
+              )}
             </InputWrapper>
           </ContentWrapper>
         </ContentsWrapper>
         <ConFirmWrapper>
           <CancelButton onClick={handleBefore}>이전</CancelButton>
-          <ConfirmButton onClick={handleNext}>확인</ConfirmButton>
+          <ConfirmButton
+            onClick={handleNext}
+            className={bodyInfoComplete ? 'complete' : ''}
+          >
+            확인
+          </ConfirmButton>
         </ConFirmWrapper>
       </Container>
     </>
@@ -886,6 +969,12 @@ const Input = styled.input`
     font-size: 1.8rem;
     line-height: 1.56;
   }
+
+  &.have-error {
+    margin-bottom: 4px;
+    border: 1px solid #f44336;
+    box-shadow: inset 0 0 0 1px #ff77774d;
+  }
 `;
 
 const BodyInput1 = styled.input`
@@ -914,7 +1003,7 @@ const BodyInput1 = styled.input`
 
   &.have-error {
     margin-bottom: 4px;
-    border-bottom: 1px solid #f44336;
+    border: 1px solid #f44336;
     box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
@@ -945,14 +1034,15 @@ const BodyInput2 = styled.input`
 
   &.have-error {
     margin-bottom: 4px;
-    border-bottom: 1px solid #f44336;
+    border: 1px solid #f44336;
     box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
 
 const GenderSelectWrapper = styled.ul`
   list-style: none;
-  margin: 2.2rem 0;
+  margin: 1rem 0;
+  padding: 1rem;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -961,6 +1051,12 @@ const GenderSelectWrapper = styled.ul`
   @media (min-width: 1060px) {
     display: flex;
     flex-wrap: wrap;
+  }
+
+  &.have-error {
+    margin-bottom: 4px;
+    border: 1px solid #f44336;
+    box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
 
@@ -995,6 +1091,7 @@ const Gender = styled.label`
     line-height: 1.5;
   }
 `;
+
 const SelfExerciseLevelButtonWrapper = styled.div`
   appearance: none;
   box-sizing: border-box;
@@ -1018,6 +1115,10 @@ const SelfExerciseLevelButtonWrapper = styled.div`
   }
 `;
 
+const UserLevel = styled.span`
+  padding-right: 10px;
+`;
+
 const SelfExerciseLevelButton = styled.button`
   display: inline-block;
   min-width: 6.8rem;
@@ -1039,6 +1140,12 @@ const SelfExerciseLevelButton = styled.button`
     padding: 0.7rem 0.8rem;
     font-size: 1.6rem;
     line-height: 1.5;
+  }
+
+  &.have-error {
+    margin-bottom: 4px;
+    border: 1px solid #f44336;
+    box-shadow: inset 0 0 0 1px #ff77774d;
   }
 `;
 
@@ -1081,8 +1188,8 @@ const ConfirmButton = styled.button`
   padding: 1.5rem 2rem 1.6rem;
   border: 1px solid #013066;
   border-radius: 0.2rem;
-  background-color: #013066;
-  color: #fff;
+  background: #bad5f5;
+  color: #013066;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -1091,6 +1198,11 @@ const ConfirmButton = styled.button`
   cursor: pointer;
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+
+  &.complete {
+    background-color: #013066;
+    color: #fff;
+  }
 `;
 
 const MuiDialogTitle = styled(DialogTitle)`
@@ -1133,6 +1245,15 @@ const QuestionDescription = styled.div`
 const DialogButton = styled(Button)`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   color: #013066;
+`;
+
+const ErrorWrapper = styled.div``;
+
+// 22.4px보다 2px작게
+const ErrorMessage = styled.span`
+  font-size: 1.1rem;
+  color: rgb(255, 119, 119);
+  line-height: 1.5;
 `;
 
 export default BodyInfoForm;
