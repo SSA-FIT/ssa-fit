@@ -23,7 +23,7 @@ public class ExerciseHistory {
 
     private int countPerSet;
 
-    private int set;
+    private int set_count;
 
     @Column(length = 45)
     private String durationTime;
