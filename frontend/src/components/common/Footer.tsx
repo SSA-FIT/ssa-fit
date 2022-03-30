@@ -1,6 +1,34 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+const Footer: React.FC = () => {
+  return (
+    <Base>
+      <Section>
+        {/* <Statistics>
+          <Summary>
+            지금까지&nbsp;
+            <Emphasis>★ 633,986,967 개의 평가가</Emphasis>
+            &nbsp;쌓였어요.
+          </Summary>
+        </Statistics> */}
+        <Container>
+          <ContentWrapper>
+            <Left>
+              <TermsAndPolicy>
+                <TermsAndPolicyItem>서비스 이용약관</TermsAndPolicyItem>
+                <TermsAndPolicyItem>개인정보 처리방침</TermsAndPolicyItem>
+                <TermsAndPolicyItem>싸핏 안내</TermsAndPolicyItem>
+              </TermsAndPolicy>
+            </Left>
+            <Right />
+          </ContentWrapper>
+        </Container>
+      </Section>
+    </Base>
+  );
+};
+
 const Base = styled.footer`
   display: block;
   box-sizing: border-box;
@@ -72,33 +100,5 @@ const TermsAndPolicyItem = styled.li`
 `;
 
 const Right = styled.div``;
-
-const Footer: React.FC = () => {
-  return (
-    <Base>
-      <Section>
-        {/* <Statistics>
-          <Summary>
-            지금까지&nbsp;
-            <Emphasis>★ 633,986,967 개의 평가가</Emphasis>
-            &nbsp;쌓였어요.
-          </Summary>
-        </Statistics> */}
-        <Container>
-          <ContentWrapper>
-            <Left>
-              <TermsAndPolicy>
-                <TermsAndPolicyItem>서비스 이용약관</TermsAndPolicyItem>
-                <TermsAndPolicyItem>개인정보 처리방침</TermsAndPolicyItem>
-                <TermsAndPolicyItem>싸핏 안내</TermsAndPolicyItem>
-              </TermsAndPolicy>
-            </Left>
-            <Right />
-          </ContentWrapper>
-        </Container>
-      </Section>
-    </Base>
-  );
-};
 
 export default Footer;

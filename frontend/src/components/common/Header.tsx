@@ -1,128 +1,154 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../types/authTypes';
 
 const Header: React.FC = () => {
+  const token = useSelector<RootState, string | null>(
+    (state) => state.auth.token,
+  );
+  console.log(token);
   return (
     <Container>
       <Wrapper>
-        <BrandWrapper>
-          <Brand to="/">
-            <LogoName>SSAFIT</LogoName>
-          </Brand>
-        </BrandWrapper>
-        <AccountMenuList>
-          <AccountMenuItem>
-            <PageLink to="/users/login">로그인</PageLink>
-          </AccountMenuItem>
-          <Division />
-          <AccountMenuItem>
-            <PageLink to="/users/sign-up">회원가입</PageLink>
-          </AccountMenuItem>
-        </AccountMenuList>
+        <LogoWrapper>
+          <LogoNameWrapper>
+            <LogoName to="/">
+              <Logo src="/images/common/Logo.jpg" />
+            </LogoName>
+          </LogoNameWrapper>
+        </LogoWrapper>
+        <AcoountWrapper>
+          <AccountInfoListWrapper>
+            <AccountInfoList>
+              {token === null ? (
+                <>
+                  <AccountInfoItem>
+                    <AccountLink to="/users/login">로그인</AccountLink>
+                  </AccountInfoItem>
+                  <AccountInfoItem>
+                    <AccountLink to="/users/">회원가입</AccountLink>
+                  </AccountInfoItem>
+                </>
+              ) : (
+                <>
+                  <AccountInfoItem>
+                    <AccountLink to="/">로그아웃</AccountLink>
+                  </AccountInfoItem>
+                  <AccountInfoItem>
+                    <AccountLink to="/users/profile">정보수정</AccountLink>
+                  </AccountInfoItem>
+                  <AccountInfoItem>
+                    <AccountLink to="/exercise/history">운동이력</AccountLink>
+                  </AccountInfoItem>
+                  <AccountInfoItem>
+                    <AccountLink to="/">즐겨찾기</AccountLink>
+                  </AccountInfoItem>
+                </>
+              )}
+            </AccountInfoList>
+          </AccountInfoListWrapper>
+        </AcoountWrapper>
       </Wrapper>
     </Container>
   );
 };
 
 const Container = styled.header`
-  top: 0;
-  left: 0;
-  z-index: 100;
-  width: 100%;
-  background-color: #0d161c;
+  position: relative;
+  border-bottom: 1px solid #6367ff;
+  pointer-events: none;
 `;
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
+  width: 100%;
+  height: 50px;
+  max-width: 128rem;
   margin: 0 auto;
-  padding: 6px 16px;
-  box-sizing: border-box;
+  padding: 0 5.4rem 0 2rem;
+  pointer-events: none;
 
-  /* @media (max-width: 991px) {
-    flex-direction: column;
-    padding-top: 0;
-    padding-bottom: 0;
-  } */
+  @media (min-width: 1060px) {
+    height: 90px;
+    padding: 0;
+  }
 `;
 
-const BrandWrapper = styled.div`
-  height: 34px;
-
-  /* @media (max-width: 991px) {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 6px 0;
-  } */
+const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  float: left;
+  height: 100%;
+  pointer-events: auto;
 `;
 
-const Brand = styled(Link)`
+const LogoNameWrapper = styled.div`
   display: flex;
   align-items: center;
   height: inherit;
 `;
 
-const LogoName = styled.span`
-  margin-left: 6px;
-  padding-top: 1px;
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-  font-family: 'Orbitron', sans-serif;
-`;
-
-const AccountMenuList = styled.ul`
-  display: flex;
-
-  /* @media (max-width: 991px) {
-    overflow-y: hidden;
-    flex-direction: column;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #0d161c;
-    transition: all 0.35s ease;
-  } */
-`;
-
-const AccountMenuItem = styled.li`
-  /* @media (max-width: 992px) {
-    padding: 12px 4px;
-    box-sizing: border-box;
-  } */
-`;
-
-const PageLink = styled(Link)`
-  padding: 4px 8px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.6;
-  color: rgb(195, 195, 195);
+const LogoName = styled(Link)`
+  overflow: hidden;
+  white-space: nowrap;
+  // text-indent: 100%;
+  display: inline-block;
+  width: 50%;
+  /* height: 50%; */
+  outline: 0;
   text-decoration: none;
-  transition: color 0.08s ease-in-out;
+  vertical-align: top;
+  font-family: 'Orbitron', sans-serif;
+  color: #000;
 
-  &:hover {
-    color: #fff;
-  }
-
-  /* @media (max-width: 991px) {
-    padding: 0;
-    font-size: 15px;
-    line-height: 1.4669;
-  } */
-`;
-
-const Division = styled.div`
-  width: 1px;
-  height: 27px;
-  background-color: rgb(195, 195, 195);
-
-  @media (max-width: 991px) {
-    display: none;
+  @media (min-width: 1060px) {
+    width: 100%;
+    /* height: 100%; */
   }
 `;
 
+const Logo = styled.img`
+  width: 100%;
+  height: 100%;
+  margin: 0px auto;
+`;
+
+const AcoountWrapper = styled.div`
+  float: right;
+  pointer-events: auto;
+`;
+
+const AccountInfoListWrapper = styled.nav`
+  padding: 0.3rem 0.6rem 0.3rem 0;
+`;
+
+const AccountInfoList = styled.ul`
+  display: table;
+  height: 4.4rem;
+  list-style: none;
+  @media (min-width: 1060px) {
+    height: 4.8rem;
+  }
+`;
+
+const AccountInfoItem = styled.li`
+  // display: none;
+  vertical-align: middle;
+
+  @media (min-width: 1060px) {
+    padding-right: 0.8rem;
+    display: table-cell;
+  }
+`;
+
+const AccountLink = styled(Link)`
+  display: block;
+  outline: 0;
+  color: #6367ff;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.56;
+  text-decoration: none;
+`;
 export default Header;

@@ -1,3 +1,5 @@
+import { AuthState } from '../redux/modules/auth';
+
 export interface UserInfo {
   id: number;
   height: string;
@@ -30,4 +32,8 @@ export interface LogInRequestIdCheck {
   userId: string;
   password: string;
   idCheck: boolean;
+}
+
+export interface RootState {
+  auth: AuthState;
 }
