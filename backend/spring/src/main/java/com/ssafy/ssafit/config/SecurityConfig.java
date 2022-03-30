@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().disable()
                 .authorizeRequests()
-//                .antMatchers("/api/users/**").access("hasRole('USER')")
+                .antMatchers("/api/users/profile").access("hasRole('USER')")
 //                .antMatchers("/api/chats/rooms/**").access("hasRole('USER')")
 //                .antMatchers("/api/chats/logs/**").access("hasRole('USER')")
                 .anyRequest().permitAll()    // 그 외 나머지 요청 다 허용
@@ -94,7 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://j6a104.p,ssafy.io:3100", "https://j6a104.p,ssafy.io:3000", "https://j6a104.p,ssafy.io:443"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://j6a104.p,ssafy.io","https://j6a104.p,ssafy.io", "https://j6a104.p,ssafy.io:3000", "https://j6a104.p,ssafy.io:443"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
