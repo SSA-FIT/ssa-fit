@@ -12,20 +12,20 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Api(value = "회원가입 API", tags = {"SignUp"})
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/users/sign-up")
 public class SignUpController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
 
     @GetMapping("/id-check")
     @ApiOperation(value = "아이디 중복체크", notes = "아이디를 중복체크한다.")

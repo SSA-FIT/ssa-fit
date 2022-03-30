@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@Service
+@Service("UserService")
 public class UserServiceImpl implements UserService{
 
     @Autowired
