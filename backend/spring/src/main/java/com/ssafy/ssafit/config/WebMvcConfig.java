@@ -15,8 +15,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //    private String resourcesUriPath;
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry){
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
         registry.addResourceHandler("images/exercise/**")
                 .addResourceLocations("file://images/exercise/");
     }
+
 }
