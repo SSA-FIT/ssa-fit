@@ -1,6 +1,6 @@
 package com.ssafy.ssafit.service;
 
-import com.ssafy.ssafit.dto.request.PasswordResetRequestDto;
+import com.ssafy.ssafit.dto.request.ProfileModifyRequestDto;
 import com.ssafy.ssafit.dto.request.SignUpRequestDto;
 import com.ssafy.ssafit.entity.User;
 import com.ssafy.ssafit.repository.UserRepository;
@@ -10,9 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 
 @Service("UserService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -65,6 +66,36 @@ public class UserServiceImpl implements UserService{
         user.setPassword(passwordEncoder.encode(password));
 
         return userRepository.save(user);
+
+    }
+
+    @Override
+    public User getUserByUserId(String userId) {
+
+        return userRepository.findByUserId(userId).orElse(null);
+
+    }
+
+    public User modifyProfile(String userId, ProfileModifyRequestDto profileModifyRequestDto) {
+        User user = userRepository.findByUserId(userId).orElse(null);
+        user.setBirth(profileModifyRequestDto.getBirth());
+        user.setHeight(profileModifyRequestDto.getHeight());
+        user.setWeight(profileModifyRequestDto.getWeight());
+        user.setLevel(profileModifyRequestDto.getLevel());
+        user.setGender(profileModifyRequestDto.getGender());
+        user.setNickname(profileModifyRequestDto.getNickname());
+        LocalDateTime localDateTime = LocalDateTime.now();
+        user.setUpdatedAt(localDateTime);
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public User deleteProfile(User user) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        user.setDeletedAt(localDateTime);
+        User deleteUser = userRepository.save(user);
+        return deleteUser;
 
     }
 

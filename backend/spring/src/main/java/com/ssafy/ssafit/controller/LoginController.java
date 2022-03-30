@@ -59,7 +59,7 @@ public class LoginController {
             return ResponseEntity.status(401).body(ErrorResponseDto.of(401, "아이디 또는 비밀번호를 확인해주세요"));
         }
         String token = tokenProvider.createToken(loginRequestDto.getUserId());
-        return ResponseEntity.status(200).body(LoginResponseDto.of("로그인하였습니다.", token, user));
+        return ResponseEntity.status(200).body(LoginResponseDto.of("로그인하였습니다.", token));
 
     }
 
