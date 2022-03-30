@@ -4,17 +4,17 @@ export interface SignUpResponse {
 }
 
 export interface EmailCodeRequest {
-  // email: string;
-  userEmail: string;
+  email: string;
+  // userEmail: string;
 }
 
 export interface EmailCodeConfirm {
   code: string;
-  userEmail: string;
+  email: string;
 }
 
 export interface IdCheckRequest {
-  id: string;
+  userId: string;
 }
 
 export interface BodyInfoData {

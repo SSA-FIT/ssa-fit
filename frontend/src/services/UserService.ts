@@ -64,7 +64,7 @@ class UserService {
   }
 
   // 회원가입
-  public static async userSignUp(data: FormData): Promise<SignUpResponse> {
+  public static async userSignUp(data: SignUpData): Promise<SignUpResponse> {
     const response = await axiosInstance.post<SignUpResponse>(
       `/api/users/sign-up`,
       data,

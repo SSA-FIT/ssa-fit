@@ -1,11 +1,14 @@
 import { createActions, handleActions, Action } from 'redux-actions';
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { go, push } from 'connected-react-router';
+
+import Swal from 'sweetalert2';
 import TokenService from '../../services/TokenService';
 import UserService from '../../services/UserService';
 import {
   LogInApiResponse,
   LogInRequest,
+  LogInRequestIdCheck,
   LogInResponse,
   UserInfo,
 } from '../../types/authTypes';
@@ -56,7 +59,7 @@ export default reducer;
 // saga
 export const { login, logout } = createActions('LOGIN', 'LOGOUT', { prefix });
 
-function* loginSaga(action: Action<LogInRequest>) {
+function* loginSaga(action: Action<LogInRequestIdCheck>) {
   try {
     yield put(pending());
 
@@ -68,11 +71,32 @@ function* loginSaga(action: Action<LogInRequest>) {
     const { token } = response;
     // localStorage
     TokenService.set(token);
+
+    if (action.payload.idCheck) {
+      localStorage.setItem('ssafit-id', action.payload.userId);
+    } else {
+      localStorage.removeItem('ssafit-id');
+    }
+
+    Swal.fire({
+      icon: 'success',
+      text: response.message,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
     // push
-    yield put(push('/'));
     yield put(success(response));
+    yield put(push('/'));
   } catch (error: any) {
     yield put(fail(new Error(error?.response?.data?.error || 'UNKNOWN ERROR')));
+    // alert(error.response.data.message);
+    Swal.fire({
+      icon: 'error',
+      text: error.response.data.message,
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 }
 
