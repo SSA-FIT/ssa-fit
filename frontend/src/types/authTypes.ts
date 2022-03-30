@@ -25,3 +25,9 @@ export interface LogInRequest {
   userId: string;
   password: string;
 }
+
+export interface LogInRequestIdCheck {
+  userId: string;
+  password: string;
+  idCheck: boolean;
+}
