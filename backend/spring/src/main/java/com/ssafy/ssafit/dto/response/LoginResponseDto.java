@@ -22,29 +22,11 @@ public class LoginResponseDto {
     @ApiModelProperty(name = "access-token", example = "akslndasujndoiw.asdfnjdaifnklfegsg2134.fsdfsadfsd")
     private String token;
 
-    @ApiModelProperty(name="회원 아이디", example = "ssafit321")
-    List<UserInfoResponseDto> userInfo;
-
-    public static LoginResponseDto of(String message, String token, User user) {
+    public static LoginResponseDto of(String message, String token) {
 
         LoginResponseDto body = new LoginResponseDto();
         body.message = message;
         body.token = token;
-        List<UserInfoResponseDto> userInfo = new ArrayList<>();
-        UserInfoResponseDto userInformation = UserInfoResponseDto.builder()
-                .id(user.getId())
-                .height(user.getHeight())
-                .weight(user.getWeight())
-                .bmi(user.getBmi())
-                .level(user.getLevel())
-                .birth(user.getBirth())
-                .gender(user.getGender())
-                .userId(user.getUserId())
-                .nickname(user.getNickname())
-                .email(user.getEmail())
-                .build();
-        userInfo.add(userInformation);
-        body.userInfo = userInfo;
         return body;
 
     }

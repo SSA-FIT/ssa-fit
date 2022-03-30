@@ -1,5 +1,6 @@
 package com.ssafy.ssafit.service;
 
+import com.ssafy.ssafit.dto.request.ProfileModifyRequestDto;
 import com.ssafy.ssafit.dto.request.SignUpRequestDto;
 import com.ssafy.ssafit.entity.User;
 
@@ -19,5 +20,11 @@ public interface UserService {
 
     // 사용자 ID로 유저 찾기
     User getUserByUserId(String userId);
+
+    // 프로필 수정
+    User modifyProfile(String userId, ProfileModifyRequestDto profileModifyRequestDto);
+
+    // 회원 탈퇴
+    User deleteProfile(User user);
 
 }
