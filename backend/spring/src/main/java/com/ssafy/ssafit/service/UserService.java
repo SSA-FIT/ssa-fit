@@ -16,4 +16,8 @@ public interface UserService {
 
     // 비밀번호 재설정
     User resetPassword(String password, User user);
+
+    // 사용자 ID로 유저 찾기
+    User getUserByUserId(String userId);
+
 }

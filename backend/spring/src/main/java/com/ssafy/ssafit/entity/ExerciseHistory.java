@@ -42,4 +42,5 @@ public class ExerciseHistory {
     @ManyToOne(targetEntity = Exercise.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
+
 }
