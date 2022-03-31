@@ -120,9 +120,8 @@ const ExerciseBookMark = styled.input`
   z-index: 3;
   border: 0;
   //clip: rect(0 0 0 0);
-  //opacity: 0;
+  opacity: 0;
   margin: -1px;
-  margin-bottom: 30px;
   overflow: hidden;
   padding: 0;
   white-space: nowrap;
