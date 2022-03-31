@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { VideoListProp } from '../../../types/recommendationTypes';
-import YoutubeSlider from '../../common/YoutubeSlider';
 import YoutubeCard from '../../common/YoutubeCard';
+import Slider from '../../common/Slider';
 
 const VideoList: React.FC<VideoListProp> = ({
   youtubeVideoList,
@@ -17,7 +17,7 @@ const VideoList: React.FC<VideoListProp> = ({
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <YoutubeSlider>
+        <Slider length={youtubeVideoList.length}>
           {youtubeVideoList.map((youtubeVideoItem) => (
             <YoutubeCard
               userVideoSelectList={userVideoSelectList}
@@ -30,7 +30,7 @@ const VideoList: React.FC<VideoListProp> = ({
               id={youtubeVideoItem.id}
             />
           ))}
-        </YoutubeSlider>
+        </Slider>
       )}
     </Base>
   );

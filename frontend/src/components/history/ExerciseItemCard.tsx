@@ -79,7 +79,7 @@ const ExerciseItem = styled.div`
 `;
 
 const Exercise = styled.div`
-  object-fit: cover;
+  // object-fit: cover;
   position: relative;
   height: 0px;
   padding-top: 56.3333%;
@@ -102,9 +102,9 @@ const ExerciseImage = styled.img`
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 100%;
+  //height: 100%;
   //z-index: 1;
-  object-fit: cover;
+  //object-fit: cover;
   vertical-align: middle;
   border-style: none;
 `;

@@ -124,10 +124,11 @@ const ImageWrapper = styled.div`
 `;
 
 const ImageLabel = styled.label``;
+
 const Image = styled.img`
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  // height: 100%;
+  // object-fit: cover;
   border-radius: 4px;
 `;
 

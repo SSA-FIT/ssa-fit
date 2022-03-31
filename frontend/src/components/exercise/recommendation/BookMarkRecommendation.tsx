@@ -20,7 +20,7 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <Slider>
+        <Slider length={bookMarkRecoList.length}>
           {bookMarkRecoList.map((bookMarkReco) => (
             <Card
               userRecoSelectList={userRecoSelectList}
@@ -29,7 +29,7 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
               id={bookMarkReco.id}
               name={bookMarkReco.name}
               imageURL={bookMarkReco.imageURL}
-              description={bookMarkReco.description}
+              score={null}
             />
           ))}
         </Slider>
@@ -45,7 +45,7 @@ const Base = styled.div`
 
 const Title = styled.h4`
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 30px;
   padding: 12px 0 14px;
 `;

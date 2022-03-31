@@ -1,7 +1,19 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 const MainBannerSection: React.FC = () => {
+  const [startText, setStartText] = useState<string>('싸핏 체험하러가기');
+
+  const token: string | null = useToken();
+
+  useEffect(() => {
+    if (token !== null) setStartText('오늘도 싸핏하러가기');
+    else {
+      setStartText('싸핏 체험하러가기');
+    }
+  }, []);
   return (
     <>
       <Container>
@@ -11,7 +23,7 @@ const MainBannerSection: React.FC = () => {
             <BrandName>SSAFIT!</BrandName>
           </TextWrapper>
           <ButtonWrapper>
-            <NonLoginButton to="/exercise">싸핏 체험하러가기</NonLoginButton>
+            <NonLoginButton to="/exercise">{startText}</NonLoginButton>
           </ButtonWrapper>
         </Wrapper>
       </Container>

@@ -1,5 +1,8 @@
 import { rest } from 'msw';
-import { ExerciseSelections } from '../databse/recommendations';
+import {
+  ExerciseSelections,
+  SimilarityExerciseSelections,
+} from '../databse/recommendations';
 
 export const recoHandlers = [
   rest.get(
@@ -20,7 +23,9 @@ export const recoHandlers = [
     `${process.env.REACT_APP_LOCALHOST_URL}/api/recommendation/similarity`,
 
     async (request, response, context) => {
-      return response(context.json({ similarityRec: ExerciseSelections }));
+      return response(
+        context.json({ similarityRec: SimilarityExerciseSelections }),
+      );
     },
   ),
   rest.get(

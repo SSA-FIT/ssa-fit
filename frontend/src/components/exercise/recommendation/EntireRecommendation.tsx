@@ -20,7 +20,7 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <Slider>
+        <Slider length={entireRecoList.length}>
           {entireRecoList.map((entireReco) => (
             <Card
               userRecoSelectList={userRecoSelectList}
@@ -29,7 +29,7 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
               id={entireReco.id}
               name={entireReco.name}
               imageURL={entireReco.imageURL}
-              description={entireReco.description}
+              score={null}
             />
           ))}
         </Slider>
@@ -44,7 +44,7 @@ const Base = styled.div`
 
 const Title = styled.h4`
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 30px;
   padding: 12px 0 14px;
 `;

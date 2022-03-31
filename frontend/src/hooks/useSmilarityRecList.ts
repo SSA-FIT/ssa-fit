@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import RecommendationService from '../services/RecommendationService';
-import { Recommendation } from '../types/recommendationTypes';
+import { SimilarityRecommendationType } from '../types/recommendationTypes';
 
 const useSimilarityRecList = () => {
-  const [similarityRecList, setSimilarityRecList] = useState<Recommendation[]>(
-    [],
-  );
+  const [similarityRecList, setSimilarityRecList] = useState<
+    SimilarityRecommendationType[]
+  >([]);
+
   const token = 'skdjflksjdflkjdlkfjsdlkfjlk';
+
   useEffect(() => {
     async function fetchEntireExerciseList() {
       const similarityRecListData =

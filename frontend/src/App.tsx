@@ -14,6 +14,7 @@ import history from './history';
 import ProfilePage from './pages/ProfilePage';
 import ExerciseHistoryPage from './pages/ExerciseHistoryPage';
 import ExerciseBookmarkPage from './pages/ExerciseBookmarkPage';
+import 'slick-carousel/slick/slick.css';
 
 const App: React.FC = () => {
   return (
