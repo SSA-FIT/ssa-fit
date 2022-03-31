@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
@@ -74,7 +75,7 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
           </ErrorWrapper>
         )}
         <ConFirmWrapper>
-          <CancelButton>취소</CancelButton>
+          <CancelButton to="/">취소</CancelButton>
           <ConfirmButton
             onClick={handleNext}
             className={agreement ? 'complete' : ''}
@@ -205,7 +206,7 @@ const ConFirmWrapper = styled.div`
   }
 `;
 
-const CancelButton = styled.button`
+const CancelButton = styled(Link)`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;

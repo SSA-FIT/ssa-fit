@@ -52,3 +52,26 @@ export interface SignUpData {
   email: string;
   password: string;
 }
+
+export interface SearchIdResponse {
+  status: number | null;
+  message: string;
+  userId: string | null;
+}
+
+export interface ResetPasswordEmailCodeRequest {
+  userId: string;
+  email: string;
+}
+
+export interface ResetPasswordEmailCodeConfirm {
+  userId: string;
+  email: string;
+  code: string;
+}
+
+export interface ResetPasswordConfirm {
+  userId: string;
+  email: string;
+  password: string;
+}
