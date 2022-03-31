@@ -34,7 +34,7 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
         ) : (
           <>
             <div>
-              <BookMarkIconchecked color="secondary" />
+              <BookMarkIconchecked sx={{ color: '#6367ff' }} />
             </div>
           </>
         )}
@@ -63,6 +63,7 @@ const Image = styled.img`
   border-radius: 6px;
   vertical-align: middle;
   border-style: none;
+
   @media (min-width: 992px) {
     max-width: 295px;
     min-height: 303px;

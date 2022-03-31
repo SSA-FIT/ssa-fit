@@ -2,13 +2,20 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
+import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import { RootState } from '../../types/authTypes';
 
 const Header: React.FC = () => {
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token,
   );
-  console.log(token);
+
   return (
     <Container>
       <Wrapper>
@@ -33,16 +40,24 @@ const Header: React.FC = () => {
               ) : (
                 <>
                   <AccountInfoItem>
-                    <AccountLink to="/">로그아웃</AccountLink>
+                    <AccountLink to="/">
+                      <LogoutRoundedIcon css={icon} />
+                    </AccountLink>
                   </AccountInfoItem>
                   <AccountInfoItem>
-                    <AccountLink to="/users/profile">정보수정</AccountLink>
+                    <AccountLink to="/users/profile">
+                      <ContentPasteSearchIcon css={icon} />
+                    </AccountLink>
                   </AccountInfoItem>
                   <AccountInfoItem>
-                    <AccountLink to="/exercise/history">운동이력</AccountLink>
+                    <AccountLink to="/exercise/history">
+                      <FitnessCenterRoundedIcon css={icon} />
+                    </AccountLink>
                   </AccountInfoItem>
                   <AccountInfoItem>
-                    <AccountLink to="/exercise/bookmark">즐겨찾기</AccountLink>
+                    <AccountLink to="/exercise/bookmark">
+                      <StarsRoundedIcon css={icon} />
+                    </AccountLink>
                   </AccountInfoItem>
                 </>
               )}
@@ -133,16 +148,21 @@ const LogoImage = styled(Link)`
 const AcoountWrapper = styled.div`
   float: right;
   pointer-events: auto;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const AccountInfoListWrapper = styled.nav`
-  padding: 0.3rem 0.6rem 0.3rem 0;
+  //padding: 0.3rem 0.6rem 0.3rem 0;
 `;
 
 const AccountInfoList = styled.ul`
   display: table;
   height: 4.4rem;
   list-style: none;
+
   @media (min-width: 1060px) {
     height: 4.8rem;
   }
@@ -162,9 +182,13 @@ const AccountLink = styled(Link)`
   display: block;
   outline: 0;
   color: #6367ff;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.6rem;
   line-height: 1.56;
   text-decoration: none;
+`;
+
+const icon = css`
+  font-size: 30px;
 `;
 export default Header;
