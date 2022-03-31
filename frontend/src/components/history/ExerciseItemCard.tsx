@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
 import React, { useState } from 'react';
 import { exerciseItemRecord } from '../../types/historyTypes';
@@ -9,7 +8,9 @@ interface Props {
 }
 
 const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
-  const [bookMarkChecked, setBookMarkChecked] = useState<boolean>(false);
+  const [bookMarkChecked, setBookMarkChecked] = useState<boolean>(
+    exerciseItem.bookmark,
+  );
 
   const handleExerciseBookMarkChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -26,13 +27,13 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
         <ExerciseItem>
           <Exercise>
             <ExerciseImage src={exerciseItem.imageURL} />
-            <div>
+            <ExerciseBookMarkWrapper>
               <ExerciseBookMark
                 type="checkbox"
                 checked={bookMarkChecked}
                 onChange={handleExerciseBookMarkChange}
               />
-            </div>
+            </ExerciseBookMarkWrapper>
             {bookMarkChecked === false ? (
               <ExerciseBookMarkIconchecked sx={{ color: '#fafafa' }} />
             ) : (
@@ -108,6 +109,8 @@ const ExerciseImage = styled.img`
   border-style: none;
 `;
 
+const ExerciseBookMarkWrapper = styled.div``;
+
 const ExerciseBookMark = styled.input`
   width: 3em;
   height: 3em;
@@ -117,19 +120,12 @@ const ExerciseBookMark = styled.input`
   z-index: 3;
   border: 0;
   //clip: rect(0 0 0 0);
-  opacity: 0;
+  //opacity: 0;
   margin: -1px;
+  margin-bottom: 30px;
   overflow: hidden;
   padding: 0;
   white-space: nowrap;
-`;
-
-const ExerciseBookMarkIconUnchecked = styled(StarBorderRoundedIcon)`
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  width: 2.5em;
-  height: 2.5em;
 `;
 
 const ExerciseBookMarkIconchecked = styled(StarRoundedIcon)`
@@ -139,6 +135,7 @@ const ExerciseBookMarkIconchecked = styled(StarRoundedIcon)`
   width: 2.5em;
   height: 2.5em;
 `;
+
 const ExerciseDescription = styled.p`
   font-size: 18px;
   line-height: 1.5;

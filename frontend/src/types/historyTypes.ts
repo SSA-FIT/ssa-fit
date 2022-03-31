@@ -14,4 +14,5 @@ export interface exerciseItemRecord {
   setCount: number | null;
   durationTime: string | null;
   imageURL: string;
+  bookmark: boolean;
 }

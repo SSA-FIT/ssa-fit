@@ -14,9 +14,8 @@ const Header: React.FC = () => {
       <Wrapper>
         <LogoWrapper>
           <LogoNameWrapper>
-            <LogoName to="/">
-              <Logo src="/images/common/Logo.jpg" />
-            </LogoName>
+            <LogoImage to="/" />
+            <LogoImage className="logo" to="/" />
           </LogoNameWrapper>
         </LogoWrapper>
         <AcoountWrapper>
@@ -43,7 +42,7 @@ const Header: React.FC = () => {
                     <AccountLink to="/exercise/history">운동이력</AccountLink>
                   </AccountInfoItem>
                   <AccountInfoItem>
-                    <AccountLink to="/">즐겨찾기</AccountLink>
+                    <AccountLink to="/exercise/bookmark">즐겨찾기</AccountLink>
                   </AccountInfoItem>
                 </>
               )}
@@ -89,29 +88,46 @@ const LogoNameWrapper = styled.div`
   height: inherit;
 `;
 
-const LogoName = styled(Link)`
+const LogoImage = styled(Link)`
   overflow: hidden;
   white-space: nowrap;
-  // text-indent: 100%;
+  text-indent: 100%;
   display: inline-block;
-  width: 50%;
-  /* height: 50%; */
+  width: 10.5rem;
+  height: 3.5rem;
   outline: 0;
+  background: transparent url(/images/common/Logo.jpg) no-repeat center center /
+    105px 35px;
   text-decoration: none;
   vertical-align: top;
-  font-family: 'Orbitron', sans-serif;
-  color: #000;
 
-  @media (min-width: 1060px) {
-    width: 100%;
-    /* height: 100%; */
+  &.logo {
+    display: none;
+
+    @media (min-width: 1060px) {
+      overflow: hidden;
+      white-space: nowrap;
+      text-indent: 100%;
+      display: inline-block;
+      width: 3.8rem;
+      height: 5.4rem;
+      outline: 0;
+      text-decoration: none;
+      vertical-align: top;
+      background: transparent url(/ssafit2.png) no-repeat center center / 54px
+        54px;
+    }
   }
-`;
+  @media (min-width: 1060px) {
+    background: transparent url(/images/common/Logo.jpg) no-repeat center center /
+      162px 54px;
+  }
 
-const Logo = styled.img`
-  width: 100%;
-  height: 100%;
-  margin: 0px auto;
+  @media (min-width: 360) {
+    width: 13.2rem;
+    height: 4.4rem;
+    background-size: 132px 44px;
+  }
 `;
 
 const AcoountWrapper = styled.div`

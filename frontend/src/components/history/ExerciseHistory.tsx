@@ -17,6 +17,7 @@ const ExerciseHistory: React.FC = () => {
             durationTime: '01:33:44',
             imageURL:
               'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
+            bookmark: true,
           },
           {
             exerciseId: 3,
@@ -26,6 +27,7 @@ const ExerciseHistory: React.FC = () => {
             durationTime: null,
             imageURL:
               'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
+            bookmark: true,
           },
           {
             exerciseId: 5,
@@ -35,6 +37,7 @@ const ExerciseHistory: React.FC = () => {
             durationTime: null,
             imageURL:
               'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
+            bookmark: true,
           },
           {
             exerciseId: 7,
@@ -44,6 +47,7 @@ const ExerciseHistory: React.FC = () => {
             durationTime: '3:00:00',
             imageURL:
               'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
+            bookmark: true,
           },
           {
             exerciseId: 10,
@@ -53,6 +57,7 @@ const ExerciseHistory: React.FC = () => {
             durationTime: null,
             imageURL:
               'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
+            bookmark: false,
           },
           {
             exerciseId: 23,
@@ -62,6 +67,7 @@ const ExerciseHistory: React.FC = () => {
             durationTime: '00:10:00',
             imageURL:
               'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
+            bookmark: false,
           },
         ],
       },
@@ -76,6 +82,7 @@ const ExerciseHistory: React.FC = () => {
             durationTime: '01:33:44',
             imageURL:
               'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
+            bookmark: false,
           },
           {
             exerciseId: 3,
@@ -85,6 +92,7 @@ const ExerciseHistory: React.FC = () => {
             durationTime: null,
             imageURL:
               'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
+            bookmark: false,
           },
         ],
       },
