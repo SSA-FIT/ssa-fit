@@ -66,14 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    // h2 관련된 건 차단 무시
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-
-        web.ignoring().antMatchers("/h2-console/**", "/favicon.ico");
-
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();

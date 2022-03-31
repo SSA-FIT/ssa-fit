@@ -70,6 +70,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
+    @Modifying
     @Override
     public User modifyProfile(String userId, ProfileModifyRequestDto profileModifyRequestDto) {
         User user = userRepository.findByUserId(userId).orElse(null);
@@ -85,6 +87,8 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional
+    @Modifying
     @Override
     public User deleteProfile(User user) {
         LocalDateTime localDateTime = LocalDateTime.now();
