@@ -87,6 +87,15 @@ class UserService {
     return response.data;
   }
 
+  // 로그아웃
+  public static async logout(token: string): Promise<void> {
+    await axiosInstance.delete('', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
   // 아이디 찾기
   public static async searchId(
     data: EmailCodeRequest,

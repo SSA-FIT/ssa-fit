@@ -13,6 +13,7 @@ import {
   ResetPasswordEmailCodeConfirm,
   ResetPasswordEmailCodeRequest,
 } from '../../types/commonTypes';
+import Circular from '../common/Circular';
 
 const ResetPasswordVerify: React.FC = () => {
   const [id, setId] = useState<string>('');
@@ -50,6 +51,8 @@ const ResetPasswordVerify: React.FC = () => {
 
   const [resetPasswordComplete, setResetPasswordComplete] =
     useState<boolean>(false);
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getId = (event: React.ChangeEvent<HTMLInputElement>) => {
     const idCurrent = event.target.value;
@@ -110,12 +113,14 @@ const ResetPasswordVerify: React.FC = () => {
     if (email === '') setEmailMessage('필수 입력 항목입니다.');
     else if (!isEmail) setEmailMessage('이메일 형식이 올바르지 않습니다.');
 
+    setLoading(true);
+
     if (emailRequestFormComplete) {
-      Swal.fire({
-        html: '회원정보를 확인중입니다.',
-        showConfirmButton: false,
-        timer: 3000,
-      });
+      // Swal.fire({
+      //   html: '회원정보를 확인중입니다.',
+      //   showConfirmButton: false,
+      //   timer: 3000,
+      // });
 
       const data: ResetPasswordEmailCodeRequest = { userId: '', email: '' };
       data.userId = id;
@@ -133,18 +138,22 @@ const ResetPasswordVerify: React.FC = () => {
           setMinutes(2);
           setSeconds(59);
           setTimeout(false);
+          setLoading(false);
         })
         .catch((error) => {
           const { status, message } = error.response.data;
+          setLoading(false);
           // console.log('에러 :: ', message);
           // alert(message);
           setCodeRequestErrorMessage(message);
           if (status === 409) {
             // alert(message);
             setCodeRequestErrorMessage(message);
+            setLoading(false);
           } else if (status === 500) {
             // alert(message);
             setCodeRequestErrorMessage(message);
+            setLoading(false);
           }
         });
     }
@@ -222,6 +231,7 @@ const ResetPasswordVerify: React.FC = () => {
     const data: ResetPasswordEmailCodeRequest = { userId: '', email: '' };
     data.userId = id;
     data.email = email;
+    setLoading(true);
     UserService.getResetPasswordEmailCodeRequest(data)
       .then(({ message }) => {
         Swal.fire({
@@ -233,17 +243,20 @@ const ResetPasswordVerify: React.FC = () => {
         setMinutes(2);
         setSeconds(59);
         setTimeout(false);
+        setLoading(false);
       })
       .catch((error) => {
         const { status, message } = error.response.data;
         // console.log('에러 :: ', message);
         // alert(message);
+        setLoading(false);
         Swal.fire({
           icon: 'error',
           html: message,
           showConfirmButton: false,
           timer: 1500,
         });
+        setLoading(false);
         if (status === 409) {
           Swal.fire({
             icon: 'error',
@@ -251,6 +264,7 @@ const ResetPasswordVerify: React.FC = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          setLoading(false);
         } else if (status === 500) {
           Swal.fire({
             icon: 'error',
@@ -258,6 +272,7 @@ const ResetPasswordVerify: React.FC = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+          setLoading(false);
         }
       });
   };
@@ -405,7 +420,7 @@ const ResetPasswordVerify: React.FC = () => {
                             : ''
                         }
                       >
-                        이메일 인증
+                        {!loading ? '이메일 인증' : <Circular />}
                       </ResetPasswordButton>
                       <FindWrapper>
                         <FindItemWrapper>
@@ -442,7 +457,7 @@ const ResetPasswordVerify: React.FC = () => {
                             )}
                           </Timer>
                           <RequestAgainCode onClick={requestAgainCode}>
-                            인증번호 재전송
+                            {!loading ? '인증번호 재전송' : <Circular />}
                           </RequestAgainCode>
                         </CodeTimerWrapper>
                       )}
