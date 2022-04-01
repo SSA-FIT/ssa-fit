@@ -3,11 +3,15 @@ package com.ssafy.ssafit.service;
 import com.ssafy.ssafit.dto.response.DateAndExerciseHistoryDto;
 import com.ssafy.ssafit.dto.response.ExerciseAndBookmark;
 import com.ssafy.ssafit.dto.response.ExerciseAndBookmarkDto;
+import com.ssafy.ssafit.entity.ExerciseBookmark;
+import com.ssafy.ssafit.repository.ExerciseBookmarkRepository;
 import com.ssafy.ssafit.repository.ExerciseHistoryRepository;
 import com.ssafy.ssafit.util.CalendarUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +20,9 @@ public class MyPageServiceImpl implements MyPageService {
 
     @Autowired
     private ExerciseHistoryRepository exerciseHistoryRepository;
+
+    @Autowired
+    private ExerciseBookmarkRepository exerciseBookmarkRepository;
 
     @Autowired
     private CalendarUtil calendarUtil;
@@ -71,5 +78,24 @@ public class MyPageServiceImpl implements MyPageService {
 
 
         return list;
+    }
+
+    @Override
+    public ExerciseBookmark getBookmarkByExerciseId(int exerciseId, int userId) {
+        return exerciseBookmarkRepository.findByExerciseIdAndUserId(exerciseId, userId).orElse(null);
+    }
+
+    @Override
+    @Modifying
+    @Transactional
+    public int saveBookmark(int exerciseId, int userId) {
+        return exerciseBookmarkRepository.saveBookmark(exerciseId, userId);
+    }
+
+    @Override
+    @Modifying
+    @Transactional
+    public int deleteBookmark(int id) {
+        return exerciseBookmarkRepository.deleteBookmark(id);
     }
 }

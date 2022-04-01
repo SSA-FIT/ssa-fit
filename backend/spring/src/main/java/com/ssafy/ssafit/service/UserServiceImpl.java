@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    @Modifying
     @Override
     public User saveUser(SignUpRequestDto signUpRequestDto) {
 
@@ -78,6 +79,9 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
+    @Modifying
+    @Override
     public User modifyProfile(String userId, ProfileModifyRequestDto profileModifyRequestDto) {
         User user = userRepository.findByUserId(userId).orElse(null);
         user.setBirth(profileModifyRequestDto.getBirth());
