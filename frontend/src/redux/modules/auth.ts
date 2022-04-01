@@ -13,7 +13,7 @@ import {
   UserInfo,
 } from '../../types/authTypes';
 
-interface AuthState {
+export interface AuthState {
   token: string | null;
   loading: boolean;
   error: Error | null;

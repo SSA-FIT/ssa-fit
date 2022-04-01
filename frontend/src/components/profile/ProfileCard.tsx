@@ -345,6 +345,7 @@ const Container = styled.div`
 const Contents = styled.div`
   margin: 0 auto;
   padding: 4rem 2rem 13rem;
+
   @media (min-width: 1060px) {
     max-width: 128rem;
     padding: 6rem 0 10rem;
@@ -356,6 +357,7 @@ const ContentName = styled.h1`
   color: #000;
   font-weight: 700;
   font-size: 2rem;
+
   @media (min-width: 1060px) {
     font-weight: 400;
     font-size: 3.2rem;

@@ -15,6 +15,7 @@ import ProfilePage from './pages/ProfilePage';
 import ExerciseHistoryPage from './pages/ExerciseHistoryPage';
 import SearchIdPage from './pages/SearchIdPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import ExerciseBookmarkPage from './pages/ExerciseBookmarkPage';
 
 const App: React.FC = () => {
   return (
@@ -38,6 +39,11 @@ const App: React.FC = () => {
             exact
             path="/exercise/history"
             component={ExerciseHistoryPage}
+          />
+          <Route
+            exact
+            path="/exercise/bookmark"
+            component={ExerciseBookmarkPage}
           />
         </Switch>
       </ConnectedRouter>

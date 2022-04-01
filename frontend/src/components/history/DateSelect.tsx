@@ -18,7 +18,7 @@ const DateSelect: React.FC<Props> = ({ labelType }) => {
 
   const year: number[] = [2022, 2023, 2024, 2025, 2026];
   const month: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const week: number[] = [1, 2, 3, 4, 5];
+  const week: number[] = [1, 2, 3, 4, 5, 6];
 
   useEffect(() => {
     if (labelType === 'Year') {
