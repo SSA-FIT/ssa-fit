@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service("SimilarityRecommendationService")
-public class SimilarityRecommendationServiceImpl implements SimilarityRecommendationService{
+public class SimilarityRecommendationServiceImpl implements SimilarityRecommendationService {
 
     @Autowired
     private ExerciseRepository exerciseRepository;
@@ -20,17 +20,22 @@ public class SimilarityRecommendationServiceImpl implements SimilarityRecommenda
     @Autowired
     SimilarityRecommendationRepository similarityRecommendationRepository;
 
-    public List<SimilarityRecDto> getSimilarRec(User user){
+    public List<SimilarityRecDto> getSimilarRec(User user) {
         int userId = user.getId();
-        SimilarityRecommendation simRecData = similarityRecommendationRepository.findByUserId(userId).orElse(null);
-        String exerSimRec = simRecData.getExerciseId();
-        exerSimRec = exerSimRec.substring(0,exerSimRec.indexOf("}")).substring(exerSimRec.indexOf("{")+1);
-
         List<SimilarityRecDto> exerciseList = new ArrayList<>();
+
+        SimilarityRecommendation simRecData = similarityRecommendationRepository.findByUserId(userId).orElse(null);
+
+        if (simRecData == null) return exerciseList;
+
+        String exerSimRec = simRecData.getExerciseId();
+        exerSimRec = exerSimRec.substring(0, exerSimRec.indexOf("}")).substring(exerSimRec.indexOf("{") + 1);
+
         List<Integer> exerIdList = new ArrayList<>();
 
         StringTokenizer st1 = new StringTokenizer(exerSimRec, ",");
-        while(st1.hasMoreTokens()){
+
+        while (st1.hasMoreTokens()) {
             String str = st1.nextToken();
             StringTokenizer st2 = new StringTokenizer(str, ": ");
             SimilarityRecDto ex = new SimilarityRecDto();
@@ -39,10 +44,12 @@ public class SimilarityRecommendationServiceImpl implements SimilarityRecommenda
             exerciseList.add(ex);
             exerIdList.add(ex.getId());
         }
-        List<Exercise> exerciseListQuery = exerciseRepository .findAllByIdIn(exerIdList);
-        for(int i=0; i<exerciseList.size(); i++){
-            for(int j=0; j<exerciseListQuery.size(); j++) {
-                if(exerciseList.get(i).getId() == exerciseListQuery.get(j).getId()) {
+
+        List<Exercise> exerciseListQuery = exerciseRepository.findAllByIdIn(exerIdList);
+
+        for (int i = 0; i < exerciseList.size(); i++) {
+            for (int j = 0; j < exerciseListQuery.size(); j++) {
+                if (exerciseList.get(i).getId() == exerciseListQuery.get(j).getId()) {
                     exerciseList.get(i).setName(exerciseListQuery.get(j).getName());
                     exerciseList.get(i).setImageURL(exerciseListQuery.get(j).getImageURL());
                     break;
@@ -50,6 +57,7 @@ public class SimilarityRecommendationServiceImpl implements SimilarityRecommenda
             }
         }
         return exerciseList;
+
     }
 
 }

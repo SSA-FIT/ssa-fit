@@ -28,5 +28,6 @@ public class ExerciseHistoryServiceImpl implements ExerciseHistoryService {
                 .build();
 
         return exerciseHistoryRepository.save(exerciseHistory);
+
     }
 }
