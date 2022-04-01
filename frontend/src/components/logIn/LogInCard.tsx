@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useDispatch } from 'react-redux';
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { login as loginSagaStart } from '../../redux/modules/auth';
 import { LogInRequest } from '../../types/authTypes';
 import { regId, regPw } from '../../utils/RegExpressions';
@@ -167,12 +168,15 @@ const LogInCard: React.FC = () => {
                   </LogInButtonWrapper>
                   <FindWrapper>
                     <FindItemWrapper>
-                      <FindLink className="inner" href="#">
+                      <FindLink className="inner" to="/users/search-id">
                         아이디 찾기
                       </FindLink>
                     </FindItemWrapper>
                     <FindItemWrapper>
-                      <FindLink className="inner" href="#">
+                      <FindLink
+                        className="inner"
+                        to="/users/reset-password/verify"
+                      >
                         비밀번호 재설정
                       </FindLink>
                     </FindItemWrapper>
@@ -444,7 +448,7 @@ const FindItemWrapper = styled.li`
   text-align: center;
 `;
 
-const FindLink = styled.a`
+const FindLink = styled(Link)`
   display: inline-block;
   border: 0;
   background: none;

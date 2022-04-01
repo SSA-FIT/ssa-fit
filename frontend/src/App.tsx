@@ -13,6 +13,8 @@ import LogInPage from './pages/LogInpage';
 import history from './history';
 import ProfilePage from './pages/ProfilePage';
 import ExerciseHistoryPage from './pages/ExerciseHistoryPage';
+import SearchIdPage from './pages/SearchIdPage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 import ExerciseBookmarkPage from './pages/ExerciseBookmarkPage';
 
 const App: React.FC = () => {
@@ -27,7 +29,12 @@ const App: React.FC = () => {
           <Route exact path="/users/login" component={LogInPage} />
           <Route exact path="/users/profile" component={ProfilePage} />
           <Route exact path="/exercise" component={ExerciseSelectionPage} />
-
+          <Route exact path="/users/search-id" component={SearchIdPage} />
+          <Route
+            exact
+            path="/users/reset-password/verify"
+            component={ResetPasswordPage}
+          />
           <Route
             exact
             path="/exercise/history"
