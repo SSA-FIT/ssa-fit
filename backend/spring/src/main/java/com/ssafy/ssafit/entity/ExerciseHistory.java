@@ -19,9 +19,9 @@ public class ExerciseHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int countPerSet;
+    private String countPerSet;
 
-    private int set_count;
+    private int setCount;
 
     @Column(length = 45)
     private String durationTime;

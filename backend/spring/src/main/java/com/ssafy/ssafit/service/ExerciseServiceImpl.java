@@ -18,4 +18,8 @@ public class ExerciseServiceImpl implements ExerciseService{
         return exerciseRepository.findAll();
     }
 
+    @Override
+    public Exercise getExerciseByExerciseId(int id) {
+        return exerciseRepository.findExerciseById(id).orElse(null);
+    }
 }
