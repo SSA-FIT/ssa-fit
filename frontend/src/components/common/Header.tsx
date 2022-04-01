@@ -11,10 +11,16 @@ import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
 import { css } from '@emotion/react';
 import { RootState } from '../../types/authTypes';
 
+import { logout as logoutSagaStart } from '../../redux/modules/auth';
+
 const Header: React.FC = () => {
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token,
   );
+
+  const logoutButtonClick = () => {
+    dispatch(logoutSagaStart());
+  };
 
   return (
     <Container>
@@ -34,14 +40,17 @@ const Header: React.FC = () => {
                     <AccountLink to="/users/login">로그인</AccountLink>
                   </AccountInfoItem>
                   <AccountInfoItem>
-                    <AccountLink to="/users/">회원가입</AccountLink>
+                    <AccountLink to="/users/sign-up">회원가입</AccountLink>
                   </AccountInfoItem>
                 </>
               ) : (
                 <>
                   <AccountInfoItem>
                     <AccountLink to="/">
-                      <LogoutRoundedIcon css={icon} />
+                      <LogoutRoundedIcon
+                        css={icon}
+                        onClick={logoutButtonClick}
+                      />
                     </AccountLink>
                   </AccountInfoItem>
                   <AccountInfoItem>
@@ -192,3 +201,6 @@ const icon = css`
   font-size: 30px;
 `;
 export default Header;
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}
