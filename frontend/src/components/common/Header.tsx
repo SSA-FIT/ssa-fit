@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
@@ -17,6 +16,8 @@ const Header: React.FC = () => {
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token,
   );
+
+  const dispatch = useDispatch();
 
   const logoutButtonClick = () => {
     dispatch(logoutSagaStart());
@@ -201,6 +202,3 @@ const icon = css`
   font-size: 30px;
 `;
 export default Header;
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
