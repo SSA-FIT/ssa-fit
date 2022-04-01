@@ -899,8 +899,6 @@ const ResetPasswordButton = styled.button`
 
 const ResetPasswordCompleteButton = styled(Link)`
   display: block;
-  width: 100%;
-  height: 5.4rem;
   margin: 0;
   padding: 1.6rem 2rem;
   border: 1px solid #00256c;
