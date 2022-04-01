@@ -83,6 +83,12 @@ public class UserServiceImpl implements UserService {
     @Modifying
     @Override
     public User modifyProfile(String userId, ProfileModifyRequestDto profileModifyRequestDto) {
+
+        double height = Double.parseDouble(profileModifyRequestDto.getHeight());
+        height /= 100;
+        double weight = Double.parseDouble(profileModifyRequestDto.getWeight());
+        double bmi = weight / (height * height);
+
         User user = userRepository.findByUserId(userId).orElse(null);
         user.setBirth(profileModifyRequestDto.getBirth());
         user.setHeight(profileModifyRequestDto.getHeight());
@@ -90,6 +96,7 @@ public class UserServiceImpl implements UserService {
         user.setLevel(profileModifyRequestDto.getLevel());
         user.setGender(profileModifyRequestDto.getGender());
         user.setNickname(profileModifyRequestDto.getNickname());
+        user.setBmi(String.valueOf(bmi).substring(0, 4));
         LocalDateTime localDateTime = LocalDateTime.now();
         user.setUpdatedAt(localDateTime);
         userRepository.save(user);
