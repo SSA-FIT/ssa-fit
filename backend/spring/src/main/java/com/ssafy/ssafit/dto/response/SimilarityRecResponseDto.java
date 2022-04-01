@@ -15,15 +15,16 @@ import java.util.List;
 @ApiModel(value = "유사도 기반 운동 추천", description = "유사도 기반으로 추천된 운동을 반환한다.")
 public class SimilarityRecResponseDto {
 
-    @ApiModelProperty(name="운동 정보", example = "exerciseInfo{}")
-    List<SimilarityRecDto> exerciseInfo;
+    @ApiModelProperty(name="운동 정보", example = "exercises{}")
+    List<SimilarityRecDto> exercises;
 
     public static SimilarityRecResponseDto of(List<SimilarityRecDto> exercises) {
 
         SimilarityRecResponseDto body = new SimilarityRecResponseDto();
         List<SimilarityRecDto> exerciseInfo = exercises;
 
-        body.exerciseInfo = exerciseInfo;
+        body.exercises = exerciseInfo;
         return body;
+
     }
 }

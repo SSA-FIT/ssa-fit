@@ -9,9 +9,12 @@ import lombok.*;
 @AllArgsConstructor
 public class SimilarityRecDto {
 
-    int id;
-    String name;
-    String imageURL;
-    int score;
+    private int id;
+
+    private String name;
+
+    private String imageURL;
+
+    private int score;
 
 }
