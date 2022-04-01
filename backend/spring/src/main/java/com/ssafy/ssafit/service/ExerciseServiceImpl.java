@@ -11,7 +11,7 @@ import java.util.List;
 public class ExerciseServiceImpl implements ExerciseService{
 
     @Autowired
-    ExerciseRepository exerciseRepository;
+    private ExerciseRepository exerciseRepository;
 
     @Override
     public List<Exercise> exerciseList() {
@@ -22,4 +22,5 @@ public class ExerciseServiceImpl implements ExerciseService{
     public Exercise getExerciseByExerciseId(int id) {
         return exerciseRepository.findExerciseById(id).orElse(null);
     }
+
 }
