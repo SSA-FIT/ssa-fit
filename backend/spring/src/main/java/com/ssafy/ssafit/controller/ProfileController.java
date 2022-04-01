@@ -44,11 +44,11 @@ public class ProfileController {
         User user;
         try {
             user = userService.userIdCheck(token);
+            if (user == null) {
+                return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "잘못된 접근입니다."));
+            }
         } catch (Exception exception) {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 내 프로필 응답 실패"));
-        }
-        if (user == null) {
-            return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "잘못된 접근입니다."));
         }
 
         return ResponseEntity.status(200).body(ProfileResponseDto.of(user));
@@ -68,18 +68,15 @@ public class ProfileController {
         User user;
         try {
             user = userService.userIdCheck(token);
+            if (user == null) {
+                return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "프로필을 수정할 수 있는 권한이 없습니다."));
+            }
+            String userId = user.getUserId();
+            User modifyUser = userService.modifyProfile(userId, profileModifyRequestDto);
         } catch (Exception exception) {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 프로필 수정 실패"));
         }
-        if (user == null) {
-            return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "프로필을 수정할 수 있는 권한이 없습니다."));
-        }
 
-        String userId = user.getUserId();
-        user = userService.modifyProfile(userId, profileModifyRequestDto);
-        if(user == null){
-            return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 프로필 수정 실패"));
-        }
         return ResponseEntity.status(200).body(SuccessResponseDto.of("프로필 수정 성공하였습니다."));
 
     }
@@ -97,21 +94,20 @@ public class ProfileController {
         User user;
         try {
             user = userService.userIdCheck(token);
-        } catch (Exception exception) {
-            return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 회원 탈퇴 실패"));
-        }
-        if (user == null) {
-            return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "회원 탈퇴할 수 있는 권한이 없습니다."));
-        }
 
-        if (!passwordEncoder.matches(deleteUserRequestDto.getPassword(), user.getPassword())) {
-            return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "회원 탈퇴할 수 있는 권한이 없습니다."));
-        }
-        try {
+            if (user == null) {
+                return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "회원 탈퇴할 수 있는 권한이 없습니다."));
+            }
+
+            if (!passwordEncoder.matches(deleteUserRequestDto.getPassword(), user.getPassword())) {
+                return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "회원 탈퇴할 수 있는 권한이 없습니다."));
+            }
+
             User deleteUser = userService.deleteProfile(user);
         } catch (Exception exception) {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 회원 탈퇴 실패"));
         }
+
         return ResponseEntity.status(200).body(SuccessResponseDto.of("회원 탈퇴에 성공하였습니다."));
 
     }

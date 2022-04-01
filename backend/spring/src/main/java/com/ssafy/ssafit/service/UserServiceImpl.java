@@ -69,6 +69,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Transactional
+    @Modifying
     @Override
     public User getUserByUserId(String userId) {
 
@@ -90,6 +92,8 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional
+    @Modifying
     @Override
     public User deleteProfile(User user) {
         LocalDateTime localDateTime = LocalDateTime.now();
