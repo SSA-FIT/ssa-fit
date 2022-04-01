@@ -59,7 +59,7 @@ public class LoginController {
             return ResponseEntity.status(401).body(ErrorResponseDto.of(401, "아이디 또는 비밀번호를 확인해주세요"));
         }
         String token = tokenProvider.createToken(loginRequestDto.getUserId());
-        return ResponseEntity.status(200).body(LoginResponseDto.of("로그인하였습니다.", token, user));
+        return ResponseEntity.status(200).body(LoginResponseDto.of("로그인하였습니다.", token));
 
     }
 
@@ -108,7 +108,7 @@ public class LoginController {
             return ResponseEntity.status(409).body(ErrorResponseDto.of(409, "입력하신 회원 정보가 맞는지 확인해주세요."));
         }
 
-        return ResponseEntity.status(200).body(SuccessResponseDto.of("입력한 이메일로 인증 메일을 발송했습니다.\n 이메일에 표시된 인증코드를 입력해주세요."));
+        return ResponseEntity.status(200).body(SuccessResponseDto.of("입력한 이메일로 인증 메일을 발송했습니다.<br> 이메일에 표시된 인증코드를 입력해주세요."));
 
     }
 

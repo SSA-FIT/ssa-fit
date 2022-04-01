@@ -4,9 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,9 +19,9 @@ public class ExerciseHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int countPerSet;
+    private String countPerSet;
 
-    private int set_count;
+    private int setCount;
 
     @Column(length = 45)
     private String durationTime;
@@ -42,4 +40,5 @@ public class ExerciseHistory {
     @ManyToOne(targetEntity = Exercise.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
+
 }
