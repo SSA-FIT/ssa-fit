@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react';
+
 import styled from '@emotion/styled';
 
 import Button from '@mui/material/Button';
@@ -8,15 +10,26 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ProfileCard: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const [buttonText, setButtonText] = useState<string>('수정');
-  const [alignment1, setAlignment1] = useState<string>('level1');
   const [inputDisabled, setInputDisabled] = useState<boolean>(true);
+  const [userLevelChange, setUserLevelChange] = useState<string>('');
+  const [userLevelIcon, setUserLevelIcon] = useState<string>('');
+
+  const [levelError, setLevelError] = useState<boolean>(false);
+
+  const [selfTest1, setSelfTest1] = useState<number>(1);
+  const [selfTest2, setSelfTest2] = useState<number>(1);
+  const [selfTest3, setSelfTest3] = useState<number>(1);
+  const [selfTest4, setSelfTest4] = useState<number>(1);
+  const [selfTest5, setSelfTest5] = useState<number>(0);
+  const [selfTest6, setSelfTest6] = useState<number>(0);
+  const [selfTestSum, setSelfTestSum] = useState<number>(4);
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -24,13 +37,52 @@ const ProfileCard: React.FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const [alignment1, setAlignment1] = React.useState('level1');
+  const [alignment2, setAlignment2] = React.useState('one');
+  const [alignment3, setAlignment3] = React.useState('30min');
+  const [alignment4, setAlignment4] = React.useState('3stairs');
+  const [alignment5, setAlignment5] = React.useState('shoulderpoint0');
+  const [alignment6, setAlignment6] = React.useState('legpoint0');
+
   const handleCloseCancelButton = () => {
     setOpen(false);
+
+    setAlignment1('level1');
+    setAlignment2('one');
+    setAlignment3('30min');
+    setAlignment4('3stairs');
+    setAlignment5('shoulderpoint0');
+    setAlignment6('legpoint0');
   };
 
   const handleCloseFinishButton = () => {
     setOpen(false);
+
+    if (selfTestSum >= 4 && selfTestSum < 9) {
+      setUserLevelChange('씨앗');
+      setUserLevelIcon('🌱');
+    }
+
+    if (selfTestSum >= 9 && selfTestSum < 15) {
+      setUserLevelChange('새싹');
+      setUserLevelIcon('🌿');
+    }
+
+    if (selfTestSum >= 15 && selfTestSum < 21) {
+      setUserLevelChange('나무');
+      setUserLevelIcon('🌳');
+    }
+
+    if (selfTestSum >= 21 && selfTestSum < 24) {
+      setUserLevelChange('열매');
+      setUserLevelIcon('🍎');
+    }
   };
+
+  useEffect(() => {
+    if (userLevelChange !== '') setLevelError(false);
+  }, [userLevelChange]);
 
   const handleChange1 = (
     event: React.MouseEvent<HTMLElement>,
@@ -38,6 +90,170 @@ const ProfileCard: React.FC = () => {
   ) => {
     setAlignment1(newAlignment);
   };
+
+  const handleChange2 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment2(newAlignment);
+  };
+
+  const handleChange3 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment3(newAlignment);
+  };
+
+  const handleChange4 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment4(newAlignment);
+  };
+
+  const handleChange5 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment5(newAlignment);
+  };
+
+  const handleChange6 = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string,
+  ) => {
+    setAlignment6(newAlignment);
+  };
+
+  useEffect(() => {
+    // console.log('alignment1 :: ', alignment1);
+    switch (alignment1) {
+      case 'level1':
+        setSelfTest1(1);
+        break;
+      case 'level2':
+        setSelfTest1(2);
+        break;
+      case 'level3':
+        setSelfTest1(3);
+        break;
+      case 'level4':
+        setSelfTest1(4);
+        break;
+
+      default:
+    }
+  }, [alignment1]);
+
+  useEffect(() => {
+    // console.log('alignment2 :: ', alignment2);
+    switch (alignment2) {
+      case 'one':
+        setSelfTest2(1);
+        break;
+      case 'two':
+        setSelfTest2(2);
+        break;
+      case 'three':
+        setSelfTest2(3);
+        break;
+      case 'four':
+        setSelfTest2(4);
+        break;
+
+      default:
+    }
+  }, [alignment2]);
+
+  useEffect(() => {
+    // console.log('alignment3 :: ', alignment3);
+    switch (alignment3) {
+      case '30min':
+        setSelfTest3(1);
+        break;
+      case '1hour':
+        setSelfTest3(2);
+        break;
+      case '2hour':
+        setSelfTest3(3);
+        break;
+      case 'many':
+        setSelfTest3(4);
+        break;
+
+      default:
+    }
+  }, [alignment3]);
+
+  useEffect(() => {
+    // console.log('alignment4 :: ', alignment4);
+    switch (alignment4) {
+      case '3stairs':
+        setSelfTest4(1);
+        break;
+      case '6stairs':
+        setSelfTest4(2);
+        break;
+      case '9stairs':
+        setSelfTest4(3);
+        break;
+      case '10stairs':
+        setSelfTest4(4);
+        break;
+
+      default:
+    }
+  }, [alignment4]);
+
+  useEffect(() => {
+    // console.log('alignment5 :: ', alignment5);
+    switch (alignment5) {
+      case 'shoulderpoint0':
+        setSelfTest5(0);
+        break;
+      case 'shoulderpoint2':
+        setSelfTest5(2);
+        break;
+      case 'shoulderpoint4':
+        setSelfTest5(4);
+        break;
+
+      default:
+    }
+  }, [alignment5]);
+
+  useEffect(() => {
+    // console.log('alignment6 :: ', alignment6);
+    switch (alignment6) {
+      case 'legpoint0':
+        setSelfTest6(0);
+        break;
+      case 'legpoint2':
+        setSelfTest6(2);
+        break;
+      case 'legpoint4':
+        setSelfTest6(4);
+        break;
+
+      default:
+    }
+  }, [alignment6]);
+
+  // useEffect(() => {
+  //   console.log(
+  //     `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6} = ${selfTestSum}`,
+  //   );
+  // }, [selfTestSum]);
+
+  useEffect(() => {
+    const sum =
+      selfTest1 + selfTest2 + selfTest3 + selfTest4 + selfTest5 + selfTest6;
+    setSelfTestSum(sum);
+    // console.log(
+    //   `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6}`,
+    // );
+  }, [selfTest1, selfTest2, selfTest3, selfTest4, selfTest5, selfTest6]);
 
   const handleConfirmButton = (event: React.MouseEvent<HTMLElement>) => {
     setButtonText('확인');
@@ -153,12 +369,25 @@ const ProfileCard: React.FC = () => {
                         운동레벨
                         <Requirement>필수입력</Requirement>
                       </ProfileInfoFieldItemLabel>
-                      <ProfileInfoFieldItem>🌱씨앗</ProfileInfoFieldItem>
+                      <ProfileInfoFieldItem>
+                        {userLevelChange}
+                        {userLevelIcon}
+                      </ProfileInfoFieldItem>
 
                       <SelfExerciseLevelButtonWrapper>
-                        <SelfExerciseLevelButton onClick={handleClickOpen}>
-                          자가 체력 진단
-                        </SelfExerciseLevelButton>
+                        {userLevelChange === '' ? (
+                          <SelfExerciseLevelButton
+                            onClick={handleClickOpen}
+                            className={levelError ? 'have-error' : ''}
+                          >
+                            자가 체력 진단
+                          </SelfExerciseLevelButton>
+                        ) : (
+                          <SelfExerciseLevelButton onClick={handleClickOpen}>
+                            자가 체력 재진단
+                          </SelfExerciseLevelButton>
+                        )}
+
                         <Dialog open={open} onClose={handleClose}>
                           <MuiDialogTitle>
                             운동 레벨 자가 체력 진단
@@ -197,7 +426,12 @@ const ProfileCard: React.FC = () => {
                             </QuestionWrapper>
                             <QuestionWrapper>
                               <Question>2. 1주일 운동 몇 회 하나요?</Question>
-                              <ToggleButtonGroup color="primary" exclusive>
+                              <ToggleButtonGroup
+                                color="primary"
+                                value={alignment2}
+                                exclusive
+                                onChange={handleChange2}
+                              >
                                 <MuiToggleButton value="one">
                                   0회
                                 </MuiToggleButton>
@@ -216,7 +450,12 @@ const ProfileCard: React.FC = () => {
                               <Question>
                                 3. 1회 운동 시, 몇 시간 하나요?
                               </Question>
-                              <ToggleButtonGroup color="primary" exclusive>
+                              <ToggleButtonGroup
+                                color="primary"
+                                value={alignment3}
+                                exclusive
+                                onChange={handleChange3}
+                              >
                                 <MuiToggleButton value="30min">
                                   30분 미만
                                 </MuiToggleButton>
@@ -235,7 +474,12 @@ const ProfileCard: React.FC = () => {
                               <Question>
                                 4. 몇 층 계단부터 숨이 차나요?
                               </Question>
-                              <ToggleButtonGroup color="primary" exclusive>
+                              <ToggleButtonGroup
+                                color="primary"
+                                value={alignment4}
+                                exclusive
+                                onChange={handleChange4}
+                              >
                                 <MuiToggleButton value="3stairs">
                                   1층-3층
                                 </MuiToggleButton>
@@ -263,7 +507,12 @@ const ProfileCard: React.FC = () => {
                                 <br /> 좌, 우 양쪽 다 손끝이 모두 닿으면 :
                                 PERFECT
                               </QuestionDescription>
-                              <ToggleButtonGroup color="primary" exclusive>
+                              <ToggleButtonGroup
+                                color="primary"
+                                value={alignment5}
+                                exclusive
+                                onChange={handleChange5}
+                              >
                                 <MuiToggleButton value="shoulderpoint0">
                                   BAD
                                 </MuiToggleButton>
@@ -289,7 +538,12 @@ const ProfileCard: React.FC = () => {
                                 <br />
                                 양쪽 다 일어설 수 있으면 : PERFECT
                               </QuestionDescription>
-                              <ToggleButtonGroup color="primary" exclusive>
+                              <ToggleButtonGroup
+                                color="primary"
+                                value={alignment6}
+                                exclusive
+                                onChange={handleChange6}
+                              >
                                 <MuiToggleButton value="legpoint0">
                                   BAD
                                 </MuiToggleButton>
@@ -312,6 +566,11 @@ const ProfileCard: React.FC = () => {
                           </DialogActions>
                         </Dialog>
                       </SelfExerciseLevelButtonWrapper>
+                      {levelError && (
+                        <ErrorWrapper>
+                          <ErrorMessage>필수 입력 항목입니다.</ErrorMessage>
+                        </ErrorWrapper>
+                      )}
                     </ProfileInfoFieldItemWrapper>
                   </ProfileInfoFieldValue>
                 </ProfileInfoField>
@@ -802,4 +1061,14 @@ const ConfirmButton = styled.button`
     line-height: 1.56;
   }
 `;
+
+const ErrorWrapper = styled.div``;
+
+// 22.4px보다 2px작게
+const ErrorMessage = styled.span`
+  font-size: 1.1rem;
+  color: rgb(255, 119, 119);
+  line-height: 1.5;
+`;
+
 export default ProfileCard;
