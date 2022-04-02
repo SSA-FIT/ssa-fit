@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
 }
 
 const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
+  const location = useLocation();
+  console.log(location);
   const [agreement, setAgreement] = useState<boolean>(false);
   const [agreementError, setAgreementError] = useState<boolean>(false);
 

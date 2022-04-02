@@ -1,3 +1,4 @@
+import { SignUpResponse } from '../types/commonTypes';
 import { axiosInstance } from '../apis/axios';
 import {
   ProfileRecoWithoutTokenRequest,
@@ -5,9 +6,10 @@ import {
   RecommendationEntire,
   RecommendationProfileRec,
   RecommendationSimilarityRec,
+  recoRecordList,
 } from '../types/recommendationTypes';
 
-class getRecommendationInfo {
+class RecommendationService {
   // 비로그인, 로그인
   public static async getEntireReco(): Promise<RecommendationEntire> {
     const response = await axiosInstance.get<RecommendationEntire>(
@@ -74,6 +76,24 @@ class getRecommendationInfo {
 
     return response.data;
   }
+
+  // 운동 저장
+  public static async saveExerciseRecords(
+    data: recoRecordList,
+    token: string,
+  ): Promise<SignUpResponse> {
+    const response = await axiosInstance.post<SignUpResponse>(
+      `/api/recommendation/records`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return response.data;
+  }
 }
 
-export default getRecommendationInfo;
+export default RecommendationService;

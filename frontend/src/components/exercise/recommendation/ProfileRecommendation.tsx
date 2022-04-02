@@ -22,7 +22,6 @@ const ProfileRecommendation: React.FC<UserSelectListProp> = ({
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const profileRecoList: Recommendation[] = useProfileRecList(token, state);
-  console.log(profileRecoList);
   return (
     <Base>
       <Title>신체정보 기반 운동 추천</Title>
