@@ -1,5 +1,6 @@
 import { axiosInstance } from '../apis/axios';
 import {
+  ProfileRecoWithoutTokenRequest,
   RecommendationBookmarkRec,
   RecommendationEntire,
   RecommendationProfileRec,
@@ -7,6 +8,7 @@ import {
 } from '../types/recommendationTypes';
 
 class getRecommendationInfo {
+  // 비로그인
   public static async getEntireReco(): Promise<RecommendationEntire> {
     const response = await axiosInstance.get<RecommendationEntire>(
       `/api/recommendation`,
@@ -15,6 +17,18 @@ class getRecommendationInfo {
     return response.data;
   }
 
+  public static async getProfileRecoWithoutToken(
+    data: ProfileRecoWithoutTokenRequest,
+  ): Promise<RecommendationProfileRec> {
+    const response = await axiosInstance.get<RecommendationProfileRec>(
+      `/api/recommendation/profile`,
+      { params: data },
+    );
+
+    return response.data;
+  }
+
+  // 로그인
   public static async getProfileReco(
     token: string,
   ): Promise<RecommendationProfileRec> {

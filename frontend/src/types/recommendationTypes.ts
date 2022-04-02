@@ -1,3 +1,11 @@
+export interface ProfileRecoWithoutTokenRequest {
+  height: string;
+  weight: string;
+  level: string;
+  gender: string;
+  birth: string;
+}
+
 export interface Recommendation {
   id: number;
   name: string;
