@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import RecommendationService from '../services/RecommendationService';
 import { Recommendation } from '../types/recommendationTypes';
 
-const useBookMarkList = () => {
+const useBookMarkList = (token: string | null) => {
   const [bookMarkList, setBookMarkList] = useState<Recommendation[]>([]);
-  const token = 'skdjflksjdflkjdlkfjsdlkfjlk';
   useEffect(() => {
     async function fetchEntireExerciseList() {
-      const bookMarkListData = await RecommendationService.getBookmark(token);
+      if (token !== null) {
+        const bookMarkListData = await RecommendationService.getBookmark(token);
 
-      setBookMarkList(bookMarkListData.bookmark);
+        setBookMarkList(bookMarkListData.bookmark);
+      }
     }
 
     fetchEntireExerciseList();

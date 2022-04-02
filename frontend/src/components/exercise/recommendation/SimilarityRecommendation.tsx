@@ -7,33 +7,39 @@ import {
   UserSelectListProp,
 } from '../../../types/recommendationTypes';
 import useSimilarityRecList from '../../../hooks/useSmilarityRecList';
+import useToken from '../../../hooks/useToken';
 
 const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
   userRecoSelectList,
   setUserRecoSelectList,
 }) => {
+  const token = useToken();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const similarityRecoList: SimilarityRecommendationType[] =
-    useSimilarityRecList();
+    useSimilarityRecList(token);
   return (
     <Base>
       <Title>싸핏 운동 추천</Title>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <Slider length={similarityRecoList.length}>
-          {similarityRecoList.map((similarityReco) => (
-            <Card
-              userRecoSelectList={userRecoSelectList}
-              setUserRecoSelectList={setUserRecoSelectList}
-              key={similarityReco.id}
-              id={similarityReco.id}
-              name={similarityReco.name}
-              imageURL={similarityReco.imageURL}
-              score={similarityReco.score}
-            />
-          ))}
-        </Slider>
+        <>
+          {similarityRecoList.length !== 0 ? (
+            <Slider length={similarityRecoList.length}>
+              {similarityRecoList.map((similarityReco) => (
+                <Card
+                  userRecoSelectList={userRecoSelectList}
+                  setUserRecoSelectList={setUserRecoSelectList}
+                  key={similarityReco.id}
+                  id={similarityReco.id}
+                  name={similarityReco.name}
+                  imageURL={similarityReco.imageURL}
+                  score={similarityReco.score}
+                />
+              ))}
+            </Slider>
+          ) : undefined}
+        </>
       )}
     </Base>
   );

@@ -8,7 +8,7 @@ import {
 } from '../types/recommendationTypes';
 
 class getRecommendationInfo {
-  // 비로그인
+  // 비로그인, 로그인
   public static async getEntireReco(): Promise<RecommendationEntire> {
     const response = await axiosInstance.get<RecommendationEntire>(
       `/api/recommendation`,
@@ -17,12 +17,13 @@ class getRecommendationInfo {
     return response.data;
   }
 
+  // 비로그인
   public static async getProfileRecoWithoutToken(
     data: ProfileRecoWithoutTokenRequest,
   ): Promise<RecommendationProfileRec> {
-    const response = await axiosInstance.get<RecommendationProfileRec>(
+    const response = await axiosInstance.post<RecommendationProfileRec>(
       `/api/recommendation/profile`,
-      { params: data },
+      data,
     );
 
     return response.data;

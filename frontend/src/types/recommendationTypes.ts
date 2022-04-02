@@ -5,7 +5,9 @@ export interface ProfileRecoWithoutTokenRequest {
   gender: string;
   birth: string;
 }
-
+export interface NonUser {
+  state: ProfileRecoWithoutTokenRequest | null;
+}
 export interface Recommendation {
   id: number;
   name: string;

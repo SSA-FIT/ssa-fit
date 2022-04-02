@@ -7,32 +7,36 @@ import {
   UserSelectListProp,
 } from '../../../types/recommendationTypes';
 import useBookMarkList from '../../../hooks/useBookMarkList';
+import useToken from '../../../hooks/useToken';
 
 const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
   userRecoSelectList,
   setUserRecoSelectList,
 }) => {
+  const token = useToken();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const bookMarkRecoList: Recommendation[] = useBookMarkList();
+  const bookMarkRecoList: Recommendation[] = useBookMarkList(token);
   return (
     <Base>
-      <Title>OOO님이 좋아했던 운동 추천</Title>
+      <Title>내가 즐겨찾기한 운동</Title>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <Slider length={bookMarkRecoList.length}>
-          {bookMarkRecoList.map((bookMarkReco) => (
-            <Card
-              userRecoSelectList={userRecoSelectList}
-              setUserRecoSelectList={setUserRecoSelectList}
-              key={bookMarkReco.id}
-              id={bookMarkReco.id}
-              name={bookMarkReco.name}
-              imageURL={bookMarkReco.imageURL}
-              score={null}
-            />
-          ))}
-        </Slider>
+        bookMarkRecoList.length !== 0 && (
+          <Slider length={bookMarkRecoList.length}>
+            {bookMarkRecoList.map((bookMarkReco) => (
+              <Card
+                userRecoSelectList={userRecoSelectList}
+                setUserRecoSelectList={setUserRecoSelectList}
+                key={bookMarkReco.id}
+                id={bookMarkReco.id}
+                name={bookMarkReco.name}
+                imageURL={bookMarkReco.imageURL}
+                score={null}
+              />
+            ))}
+          </Slider>
+        )
       )}
     </Base>
   );

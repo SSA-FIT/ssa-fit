@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ExerciseModal from '../common/ExerciseModal';
 import { onlyNumberReg } from '../../utils/RegExpressions';
+import { ProfileRecoWithoutTokenRequest } from '../../types/recommendationTypes';
 
 const NonUserProfile: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -24,7 +25,7 @@ const NonUserProfile: React.FC = () => {
   const [gender, setGender] = useState<string>('');
   const [levelEmoji, setLevelEmoji] = useState<string>('');
   const [isActive, setIsActive] = useState<boolean>(false);
-
+  const [data, setData] = useState<ProfileRecoWithoutTokenRequest | null>(null);
   useEffect(() => {
     if (
       level !== '하단의 자가 체력 진단을 눌러 측정해보세요.' &&
@@ -39,6 +40,7 @@ const NonUserProfile: React.FC = () => {
       parseFloat(weight) >= 15 &&
       parseFloat(weight) <= 600
     ) {
+      setData({ level, birth, gender, height, weight });
       setIsActive(true);
     }
   }, [
@@ -258,13 +260,7 @@ const NonUserProfile: React.FC = () => {
                   isActive
                     ? {
                         pathname: '/exercise',
-                        state: {
-                          level,
-                          birth,
-                          height,
-                          weight,
-                          gender,
-                        },
+                        state: data,
                       }
                     : '#'
                 }
