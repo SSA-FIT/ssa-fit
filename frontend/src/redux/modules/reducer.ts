@@ -3,8 +3,9 @@ import { combineReducers } from 'redux';
 import { History } from 'history';
 import history from '../../history';
 import auth from './auth';
+import bookmark from '../bookmark';
 
 const reducer = (history: History<any>) =>
-  combineReducers({ auth, router: connectRouter(history) });
+  combineReducers({ auth, bookmark, router: connectRouter(history) });
 
 export default reducer;
