@@ -119,3 +119,8 @@ function* updateBookmarkInfoSaga(action: Action<number>) {
     yield put(updateBookmark(response.bookmark));
   }
 }
+
+export function* bookmarkSaga() {
+  yield takeEvery(`${prefix}/PUT_BOOKMARK_INFO`, putBookmarkInfoSaga);
+  yield takeEvery(`${prefix}/UPDATE_BOOKMARK_INFO`, updateBookmarkInfoSaga);
+}
