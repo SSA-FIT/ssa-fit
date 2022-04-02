@@ -1,4 +1,5 @@
 import { AuthState } from '../redux/modules/auth';
+import { ProfileState } from '../redux/modules/profile';
 
 export interface UserInfo {
   id: number;
@@ -36,4 +37,5 @@ export interface LogInRequestIdCheck {
 
 export interface RootState {
   auth: AuthState;
+  profile: ProfileState;
 }

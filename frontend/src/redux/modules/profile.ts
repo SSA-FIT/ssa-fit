@@ -86,6 +86,14 @@ function* putProfileSaga() {
       showConfirmButton: false,
       timer: 1500,
     });
+  } finally {
+    const token: string = yield select((state) => state.auth.token);
+    const response: ProfileResponse = yield call(
+      ProfileService.getUserInfo,
+      token,
+    );
+
+    yield put(update(response.userInfo));
   }
 }
 
@@ -95,12 +103,11 @@ function* updateProfileSaga(action: Action<ProfileRequest>) {
 
     const token: string = yield select((state) => state.auth.token);
 
-    const response: SignUpResponse = yield call(ProfileService.updateUserInfo,
-      data: action.payload,
+    const response: SignUpResponse = yield call(
+      ProfileService.updateUserInfo,
+      action.payload,
       token,
     );
-
-    yield put(update(action.payload));
   } catch (error: any) {
     yield put(fail(error?.response?.data || 'UNKNOWN ERROR'));
 
@@ -110,5 +117,18 @@ function* updateProfileSaga(action: Action<ProfileRequest>) {
       showConfirmButton: false,
       timer: 1500,
     });
+  } finally {
+    const token: string = yield select((state) => state.auth.token);
+    const response: ProfileResponse = yield call(
+      ProfileService.getUserInfo,
+      token,
+    );
+
+    yield put(update(response.userInfo));
   }
+}
+
+export function* profileSaga() {
+  yield takeEvery(`${prefix}/PUT_PROFILE_INFO`, putProfileSaga);
+  yield takeEvery(`${prefix}/UPDATE_PROFILE_INFO`, updateProfileSaga);
 }
