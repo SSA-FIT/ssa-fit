@@ -14,6 +14,13 @@ export interface Recommendation {
   imageURL: string;
 }
 
+export interface BookmarkRecommendation {
+  id: number;
+  name: string;
+  imageURL: string;
+  bookmark: boolean;
+}
+
 export interface SimilarityRecommendationType {
   id: number;
   name: string;
