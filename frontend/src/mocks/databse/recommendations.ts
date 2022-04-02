@@ -96,6 +96,44 @@ export const ExerciseSelections: Recommendation[] = [
   },
 ];
 
+export const NonUserSelections: Recommendation[] = [
+  {
+    id: 11,
+    name: '계단 오르기4',
+    imageURL: '/images/common/sample9.jpg',
+  },
+  {
+    id: 12,
+    name: '계단 오르기5',
+    imageURL: '/images/common/sample9.jpg',
+  },
+  {
+    id: 13,
+    name: '계단 오르기6',
+    imageURL: '/images/common/sample9.jpg',
+  },
+  {
+    id: 14,
+    name: '계단 오르기7',
+    imageURL: '/images/common/sample9.jpg',
+  },
+  {
+    id: 15,
+    name: '계단 오르기8',
+    imageURL: '/images/common/sample9.jpg',
+  },
+  {
+    id: 16,
+    name: '계단 오르기9',
+    imageURL: '/images/common/sample9.jpg',
+  },
+  {
+    id: 17,
+    name: '계단 오르기10',
+    imageURL: '/images/common/sample9.jpg',
+  },
+];
+
 export const SimilarityExerciseSelections: SimilarityRecommendationType[] = [
   {
     id: 0,

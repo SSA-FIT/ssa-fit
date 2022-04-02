@@ -5,11 +5,20 @@ export interface ProfileRecoWithoutTokenRequest {
   gender: string;
   birth: string;
 }
-
+export interface NonUser {
+  state: ProfileRecoWithoutTokenRequest | null;
+}
 export interface Recommendation {
   id: number;
   name: string;
   imageURL: string;
+}
+
+export interface BookmarkRecommendation {
+  id: number;
+  name: string;
+  imageURL: string;
+  bookmark: boolean;
 }
 
 export interface SimilarityRecommendationType {

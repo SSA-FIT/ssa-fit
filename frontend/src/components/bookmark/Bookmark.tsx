@@ -1,10 +1,12 @@
 import styled from '@emotion/styled';
 import useBookMarkList from '../../hooks/useBookMarkList';
+import useToken from '../../hooks/useToken';
 import { Recommendation } from '../../types/recommendationTypes';
 import BookMarkItemCard from './BookMarkItemCard';
 
 const Bookmark: React.FC = () => {
-  const bookMarkRecoList: Recommendation[] = useBookMarkList();
+  const token = useToken();
+  const bookMarkRecoList: Recommendation[] = useBookMarkList(token);
   return (
     <>
       <ContainerWrapper>
