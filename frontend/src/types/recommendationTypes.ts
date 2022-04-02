@@ -83,10 +83,11 @@ export interface VideoListProp {
 
 export interface recoRecord {
   id: number;
-  countPerSet: number;
-  setCount: 5;
-  derationTime: string;
+  countPerSet: string;
+  setCount: number;
+  durationTime: string;
 }
+
 export interface recoRecordList {
   exercises: recoRecord[];
 }
