@@ -4,8 +4,10 @@ import com.ssafy.ssafit.common.ErrorResponseDto;
 import com.ssafy.ssafit.common.SuccessResponseDto;
 import com.ssafy.ssafit.dto.request.ExerciseHistoryRequestDto;
 import com.ssafy.ssafit.dto.request.ProfileRecDto;
+import com.ssafy.ssafit.dto.response.BookmarkResponseDto;
 import com.ssafy.ssafit.dto.response.ExercisesResponseDto;
 import com.ssafy.ssafit.dto.request.SimilarityRecDto;
+import com.ssafy.ssafit.dto.response.ProfileRecResponseDto;
 import com.ssafy.ssafit.dto.response.SimilarityRecResponseDto;
 import com.ssafy.ssafit.entity.Exercise;
 import com.ssafy.ssafit.entity.User;
@@ -78,7 +80,7 @@ public class ExerciseController {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500,  "Internal Server Error, 신체정보 기반 추천 실패"));
         }
 
-        return ResponseEntity.status(200).body(ExercisesResponseDto.of(profileRecExercises));
+        return ResponseEntity.status(200).body(ProfileRecResponseDto.of(profileRecExercises));
 
     }
 
@@ -102,7 +104,7 @@ public class ExerciseController {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500,  "Internal Server Error, 신체정보 기반 추천 실패"));
         }
 
-        return ResponseEntity.status(200).body(ExercisesResponseDto.of(profileRecExercises));
+        return ResponseEntity.status(200).body(ProfileRecResponseDto.of(profileRecExercises));
 
     }
 
@@ -150,7 +152,7 @@ public class ExerciseController {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500,  "Internal Server Error, 즐겨찾기 응답 실패"));
         }
 
-        return ResponseEntity.status(200).body(ExercisesResponseDto.of(bookmarkExercises));
+        return ResponseEntity.status(200).body(BookmarkResponseDto.of(bookmarkExercises));
 
     }
 
