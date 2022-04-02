@@ -34,15 +34,17 @@ const NonUserDialog: React.FC<Props> = ({
   const [data, setData] = useState<NonUser | null>(null);
 
   useEffect(() => {
-    setData({
-      birth: state.birth,
-      gender: state.gender,
-      height: state.height,
-      level: state.level,
-      weight: state.weight,
-      exerciseRecordList,
-    });
-  }, [exerciseRecordList]);
+    if (nonUserDialogOpen) {
+      setData({
+        birth: state.birth,
+        gender: state.gender,
+        height: state.height,
+        level: state.level,
+        weight: state.weight,
+        exerciseRecordList,
+      });
+    }
+  }, [nonUserDialogOpen]);
 
   useEffect(() => {
     if (nonUserDialogOpen) {
