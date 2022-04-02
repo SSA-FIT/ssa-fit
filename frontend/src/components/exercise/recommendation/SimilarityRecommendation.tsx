@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import Slider from '../../common/Slider';
 import Card from '../../common/Card';
 import {
-  Recommendation,
+  SimilarityRecommendationType,
   UserSelectListProp,
 } from '../../../types/recommendationTypes';
 import useSimilarityRecList from '../../../hooks/useSmilarityRecList';
@@ -13,14 +13,15 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
   setUserRecoSelectList,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const similarityRecoList: Recommendation[] = useSimilarityRecList();
+  const similarityRecoList: SimilarityRecommendationType[] =
+    useSimilarityRecList();
   return (
     <Base>
       <Title>싸핏 운동 추천</Title>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <Slider>
+        <Slider length={similarityRecoList.length}>
           {similarityRecoList.map((similarityReco) => (
             <Card
               userRecoSelectList={userRecoSelectList}
@@ -29,7 +30,7 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
               id={similarityReco.id}
               name={similarityReco.name}
               imageURL={similarityReco.imageURL}
-              description={similarityReco.description}
+              score={similarityReco.score}
             />
           ))}
         </Slider>
@@ -45,7 +46,7 @@ const Base = styled.div`
 
 const Title = styled.h4`
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 30px;
   padding: 12px 0 14px;
 `;

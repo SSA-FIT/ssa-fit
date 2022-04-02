@@ -1,8 +1,22 @@
+export interface ProfileRecoWithoutTokenRequest {
+  height: string;
+  weight: string;
+  level: string;
+  gender: string;
+  birth: string;
+}
+
 export interface Recommendation {
   id: number;
   name: string;
   imageURL: string;
-  description: string;
+}
+
+export interface SimilarityRecommendationType {
+  id: number;
+  name: string;
+  imageURL: string;
+  score: number;
 }
 
 export interface RecommendationProfileRec {
@@ -18,7 +32,7 @@ export interface RecommendationEntire {
 }
 
 export interface RecommendationSimilarityRec {
-  similarityRec: Recommendation[];
+  similarityRec: SimilarityRecommendationType[];
   status: number | null;
   message: string | null;
 }

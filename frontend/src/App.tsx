@@ -4,9 +4,12 @@ import { Global } from '@emotion/react';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-import MainPage from './pages/MainPage';
+
 import commonStyles from './styles/commonStyles';
 import resetStyles from './styles/resetStyles';
+import 'slick-carousel/slick/slick.css';
+
+import MainPage from './pages/MainPage';
 import SignUpPage from './pages/SignUpPage';
 import ExerciseSelectionPage from './pages/ExerciseSelectionPage';
 import LogInPage from './pages/LogInpage';
@@ -16,6 +19,8 @@ import ExerciseHistoryPage from './pages/ExerciseHistoryPage';
 import SearchIdPage from './pages/SearchIdPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import ExerciseBookmarkPage from './pages/ExerciseBookmarkPage';
+
+import NonUserProfilePage from './pages/NonUserProfilePage';
 
 const App: React.FC = () => {
   return (
@@ -29,6 +34,7 @@ const App: React.FC = () => {
           <Route exact path="/users/login" component={LogInPage} />
           <Route exact path="/users/profile" component={ProfilePage} />
           <Route exact path="/exercise" component={ExerciseSelectionPage} />
+          <Route exact path="/nonuser" component={NonUserProfilePage} />
           <Route exact path="/users/search-id" component={SearchIdPage} />
           <Route
             exact

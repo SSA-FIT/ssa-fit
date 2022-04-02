@@ -20,7 +20,7 @@ const ProfileRecommendation: React.FC<UserSelectListProp> = ({
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        <Slider>
+        <Slider length={profileRecoList.length}>
           {profileRecoList.map((profileReco) => (
             <Card
               userRecoSelectList={userRecoSelectList}
@@ -29,7 +29,7 @@ const ProfileRecommendation: React.FC<UserSelectListProp> = ({
               id={profileReco.id}
               name={profileReco.name}
               imageURL={profileReco.imageURL}
-              description={profileReco.description}
+              score={null}
             />
           ))}
         </Slider>
@@ -44,7 +44,7 @@ const Base = styled.div`
 
 const Title = styled.h4`
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 30px;
   padding: 12px 0 14px;
 `;

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { UserVideoSelectListProp } from '../../../types/recommendationTypes';
-import YoutubeSlider from '../../common/YoutubeSlider';
 import YoutubeCard from '../../common/YoutubeCard';
+import Slider from '../../common/Slider';
 
 const UserVideoSelection: React.FC<UserVideoSelectListProp> = ({
   userVideoSelectList,
@@ -16,22 +16,20 @@ const UserVideoSelection: React.FC<UserVideoSelectListProp> = ({
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        userVideoSelectList.length >= 5 && (
-          <YoutubeSlider>
-            {userVideoSelectList.map((userVideoSelectItem) => (
-              <YoutubeCard
-                userVideoSelectList={userVideoSelectList}
-                setUserVideoSelectList={setUserVideoSelectList}
-                key={userVideoSelectItem.videoId}
-                searchName={userVideoSelectItem.searchName}
-                videoId={userVideoSelectItem.videoId}
-                title={userVideoSelectItem.title}
-                thumbnails={userVideoSelectItem.thumbnails}
-                id={userVideoSelectItem.id}
-              />
-            ))}
-          </YoutubeSlider>
-        )
+        <Slider length={userVideoSelectList.length}>
+          {userVideoSelectList.map((userVideoSelectItem) => (
+            <YoutubeCard
+              userVideoSelectList={userVideoSelectList}
+              setUserVideoSelectList={setUserVideoSelectList}
+              key={userVideoSelectItem.videoId}
+              searchName={userVideoSelectItem.searchName}
+              videoId={userVideoSelectItem.videoId}
+              title={userVideoSelectItem.title}
+              thumbnails={userVideoSelectItem.thumbnails}
+              id={userVideoSelectItem.id}
+            />
+          ))}
+        </Slider>
       )}
     </Base>
   );
@@ -45,7 +43,7 @@ const Base = styled.div`
 
 const Title = styled.h4`
   font-size: 22px;
-  font-weight: 700;
+  //font-weight: 100;
   line-height: 30px;
   padding: 12px 0 14px;
 `;

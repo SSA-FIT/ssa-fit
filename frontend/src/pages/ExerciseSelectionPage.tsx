@@ -126,7 +126,8 @@ const Main = styled.main`
 const UserSelectionWrapper = styled.div`
   position: sticky;
   bottom: 0;
-  background-color: #caace8cc;
+  background-color: #6367ffcc;
+  color: #fff;
 `;
 
 const Container = styled.div`
@@ -136,7 +137,7 @@ const Container = styled.div`
 
 const Submit = styled.button`
   width: 100%;
-  background-color: rgb(153, 51, 255);
+  background-color: #6367ff;
   height: 55px;
   border: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';

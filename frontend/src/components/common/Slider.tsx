@@ -7,11 +7,44 @@ import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 interface Props {
   // eslint-disable-next-line react/require-default-props
   settings?: Settings;
+  length: number;
 }
 
-const Slider: React.FC<Props> = ({ settings = DEFAULT_SETTINGS, children }) => (
-  <ReactSlick {...settings}>{children}</ReactSlick>
-);
+const Slider: React.FC<Props> = ({ children, length }) => {
+  const settings: Settings = {
+    dots: false,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: length < 5 ? length : 5,
+    slidesToScroll: length < 5 ? length : 5,
+    swipe: true,
+    draggable: true,
+    prevArrow: (
+      <ArrowButton pos="left">
+        <MdArrowBackIos />
+      </ArrowButton>
+    ),
+    nextArrow: (
+      <ArrowButton pos="right">
+        <MdArrowForwardIos />
+      </ArrowButton>
+    ),
+  };
+
+  return (
+    <>
+      <ReactSlick className="ssafit" {...settings}>
+        {children}
+      </ReactSlick>
+    </>
+  );
+};
+// const Slider: React.FC<Props> = ({
+//   // settings = DEFAULT_SETTINGS,
+//   children,
+//   length,
+// }) => <ReactSlick {...settings}>{children}</ReactSlick>;
 
 const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   padding: 16px;
