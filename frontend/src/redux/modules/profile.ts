@@ -86,14 +86,6 @@ function* putProfileSaga() {
       showConfirmButton: false,
       timer: 1500,
     });
-  } finally {
-    const token: string = yield select((state) => state.auth.token);
-    const response: ProfileResponse = yield call(
-      ProfileService.getUserInfo,
-      token,
-    );
-
-    yield put(update(response.userInfo));
   }
 }
 
