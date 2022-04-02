@@ -34,7 +34,7 @@ const Header: React.FC = () => {
                     <AccountLink to="/users/login">로그인</AccountLink>
                   </AccountInfoItem>
                   <AccountInfoItem>
-                    <AccountLink to="/users/">회원가입</AccountLink>
+                    <AccountLink to="/users/sign-up">회원가입</AccountLink>
                   </AccountInfoItem>
                 </>
               ) : (

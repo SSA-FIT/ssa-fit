@@ -13,7 +13,8 @@ const MainBannerSection: React.FC = () => {
     else {
       setStartText('싸핏 체험하러가기');
     }
-  }, []);
+  }, [token]);
+
   return (
     <>
       <Container>
@@ -23,7 +24,15 @@ const MainBannerSection: React.FC = () => {
             <BrandName>SSAFIT!</BrandName>
           </TextWrapper>
           <ButtonWrapper>
-            <NonLoginButton to="/exercise">{startText}</NonLoginButton>
+            {token !== null ? (
+              <MoveExerciseRecoButton to="/exercise">
+                {startText}
+              </MoveExerciseRecoButton>
+            ) : (
+              <MoveExerciseRecoButton to="/nonuser">
+                {startText}
+              </MoveExerciseRecoButton>
+            )}
           </ButtonWrapper>
         </Wrapper>
       </Container>
@@ -102,7 +111,7 @@ const ButtonWrapper = styled.div`
   text-align: center;
 `;
 
-const NonLoginButton = styled(Link)`
+const MoveExerciseRecoButton = styled(Link)`
   display: inline-flex;
   -webkit-box-align: center;
   align-items: center;
@@ -114,7 +123,7 @@ const NonLoginButton = styled(Link)`
   height: 60px;
   color: rgb(255, 255, 255);
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 300;
   border: none;
   border-radius: 34px;
   background: rgb(0, 0, 0);
