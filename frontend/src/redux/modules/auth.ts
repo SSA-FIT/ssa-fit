@@ -101,7 +101,27 @@ function* loginSaga(action: Action<LogInRequestIdCheck>) {
 }
 
 function* logoutSaga() {
-  yield put(push('/'));
+  try {
+    yield put(pending());
+    TokenService.remove();
+
+    Swal.fire({
+      icon: 'success',
+      text: '로그아웃 되었습니다.',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+    yield put(success(initialState));
+    yield put(push('/'));
+  } catch (error: any) {
+    Swal.fire({
+      icon: 'error',
+      text: '로그아웃 실패',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
 }
 
 export function* authSaga() {

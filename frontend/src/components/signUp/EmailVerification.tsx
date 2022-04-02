@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { regEmail } from '../../utils/RegExpressions';
 import UserService from '../../services/UserService';
 import { EmailCodeConfirm, EmailCodeRequest } from '../../types/commonTypes';
+import Circular from '../common/Circular';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
@@ -62,6 +63,8 @@ const EmailVerification: React.FC<Props> = ({
   const [seconds, setSeconds] = useState<number>(59);
   const [timeout, setTimeout] = useState<boolean>(false);
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   const UserEmailProps = (data: EmailCodeConfirm) => {
     const { email } = data;
 
@@ -93,6 +96,7 @@ const EmailVerification: React.FC<Props> = ({
   const emailCodeRequest = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
+    setLoading(true);
     // console.log('userEmailChange :: ', userEmailChange);
     const data: EmailCodeRequest = { email: '' };
     data.email = userEmailChange;
@@ -104,6 +108,8 @@ const EmailVerification: React.FC<Props> = ({
           showConfirmButton: false,
           timer: 1500,
         });
+
+        setLoading(false);
         // alert(message);
         // console.log(message);
         setEmailMessage('');
@@ -117,12 +123,15 @@ const EmailVerification: React.FC<Props> = ({
         // console.log('에러 :: ', message);
         // alert(message);
 
+        setLoading(false);
         setEmailMessage(message);
         if (status === 409) {
           // alert(message);
+          setLoading(false);
           setEmailMessage(message);
         } else if (status === 500) {
           // alert(message);
+          setLoading(false);
           setEmailMessage(message);
         }
       });
@@ -200,6 +209,7 @@ const EmailVerification: React.FC<Props> = ({
   }, [minutes, seconds]);
 
   const requestAgainCode = () => {
+    setLoading(true);
     // console.log('userEmailChange :: ', userEmailChange);
     const data: EmailCodeRequest = { email: '' };
     data.email = userEmailChange;
@@ -208,6 +218,8 @@ const EmailVerification: React.FC<Props> = ({
       .then(({ message }) => {
         // alert(message);
         // console.log(message);
+
+        setLoading(false);
         Swal.fire({
           icon: 'success',
           html: message,
@@ -228,6 +240,7 @@ const EmailVerification: React.FC<Props> = ({
           showConfirmButton: false,
           timer: 1500,
         });
+        setLoading(false);
         if (status === 500) {
           // alert(message);
           Swal.fire({
@@ -236,6 +249,7 @@ const EmailVerification: React.FC<Props> = ({
             showConfirmButton: false,
             timer: 1500,
           });
+          setLoading(false);
         }
       });
   };
@@ -286,7 +300,11 @@ const EmailVerification: React.FC<Props> = ({
                   disabled={emailCodeRequestButton || emailCodeInputView}
                   className={emailMessage !== '' ? 'have-error' : ''}
                 >
-                  이메일 인증하기
+                  {loading && !emailCodeInputView ? (
+                    <Circular />
+                  ) : (
+                    '이메일 인증하기'
+                  )}
                 </OverlapConfirmButton>
 
                 {/* <Alert severity="error">
@@ -312,7 +330,7 @@ const EmailVerification: React.FC<Props> = ({
                         )}
                       </Timer>
                       <RequestAgainCode onClick={requestAgainCode}>
-                        인증번호 재전송
+                        {!loading ? '인증번호 재전송' : <Circular />}
                       </RequestAgainCode>
                     </CodeTimerWrapper>
                   )}

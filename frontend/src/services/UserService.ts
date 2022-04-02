@@ -7,6 +7,10 @@ import {
   SignUpResponse,
   IdCheckRequest,
   SignUpData,
+  SearchIdResponse,
+  ResetPasswordEmailCodeRequest,
+  ResetPasswordEmailCodeConfirm,
+  ResetPasswordConfirm,
 } from '../types/commonTypes';
 
 class UserService {
@@ -77,6 +81,67 @@ class UserService {
   public static async userLogIn(data: LogInRequest): Promise<LogInApiResponse> {
     const response = await axiosInstance.post<LogInApiResponse>(
       `/api/users/login`,
+      data,
+    );
+
+    return response.data;
+  }
+
+  // 로그아웃
+  public static async logout(token: string): Promise<void> {
+    await axiosInstance.delete('', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  // 아이디 찾기
+  public static async searchId(
+    data: EmailCodeRequest,
+  ): Promise<SearchIdResponse> {
+    const response = await axiosInstance.get<SearchIdResponse>(
+      `/api/users/login/searching-id`,
+      {
+        params: data,
+      },
+    );
+
+    return response.data;
+  }
+
+  // 비밀번호 재설정 - 이메일 인증 요청 & 재요청
+  public static async getResetPasswordEmailCodeRequest(
+    data: ResetPasswordEmailCodeRequest,
+  ): Promise<SignUpResponse> {
+    const response = await axiosInstance.get<SignUpResponse>(
+      `/api/users/login/reset-password`,
+      {
+        params: data,
+      },
+    );
+
+    return response.data;
+  }
+
+  // 비밀번호 재설정 - 인증 코드 확인
+  public static async ResetPasswordEmailCodeConfirm(
+    data: ResetPasswordEmailCodeConfirm,
+  ): Promise<SignUpResponse> {
+    const response = await axiosInstance.post<SignUpResponse>(
+      `/api/users/login/reset-password`,
+      data,
+    );
+
+    return response.data;
+  }
+
+  // 비밀번호 재설정 - 새로운 비밀번호 설정
+  public static async ResetPasswordConfirm(
+    data: ResetPasswordConfirm,
+  ): Promise<SignUpResponse> {
+    const response = await axiosInstance.put<SignUpResponse>(
+      `/api/users/login/reset-password`,
       data,
     );
 

@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
@@ -11,10 +10,18 @@ import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
 import { css } from '@emotion/react';
 import { RootState } from '../../types/authTypes';
 
+import { logout as logoutSagaStart } from '../../redux/modules/auth';
+
 const Header: React.FC = () => {
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token,
   );
+
+  const dispatch = useDispatch();
+
+  const logoutButtonClick = () => {
+    dispatch(logoutSagaStart());
+  };
 
   return (
     <Container>
@@ -41,7 +48,10 @@ const Header: React.FC = () => {
                 <>
                   <AccountInfoItem>
                     <AccountLink to="/">
-                      <LogoutRoundedIcon css={icon} />
+                      <LogoutRoundedIcon
+                        css={icon}
+                        onClick={logoutButtonClick}
+                      />
                     </AccountLink>
                   </AccountInfoItem>
                   <AccountInfoItem>
