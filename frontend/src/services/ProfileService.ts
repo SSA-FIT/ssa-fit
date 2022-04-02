@@ -40,8 +40,8 @@ class ProfileService {
   ): Promise<SignUpResponse> {
     const response = await axiosInstance.delete<SignUpResponse>(
       '/api/users/profile',
-      { password },
       {
+        data: password,
         headers: {
           Authorization: `Bearer ${token}`,
         },
