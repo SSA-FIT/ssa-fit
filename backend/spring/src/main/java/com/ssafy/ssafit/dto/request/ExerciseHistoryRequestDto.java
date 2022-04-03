@@ -4,24 +4,17 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "운동이력 정보", description = "운동이력을 입력하는 클래스")
+@ApiModel(value = "운동이력 정보 리스트", description = "운동이력 리스트를 입력하는 클래스")
 public class ExerciseHistoryRequestDto {
 
     @ApiModelProperty(value = "운동아이디", example = "1")
-    private int id;
-
-    @ApiModelProperty(value = "운동횟수", example = "20")
-    private String countPerSet;
-
-    @ApiModelProperty(value = "운동세트", example = "3")
-    private int setCount;
-
-    @ApiModelProperty(value = "운동시간", example = "00:20:00")
-    private String durationTime;
+    private List<ExerciseHistoryDto> exercises;
 
 }

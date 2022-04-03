@@ -4,8 +4,10 @@ import com.ssafy.ssafit.common.ErrorResponseDto;
 import com.ssafy.ssafit.common.SuccessResponseDto;
 import com.ssafy.ssafit.dto.request.ExerciseHistoryRequestDto;
 import com.ssafy.ssafit.dto.request.ProfileRecDto;
+import com.ssafy.ssafit.dto.response.BookmarkResponseDto;
 import com.ssafy.ssafit.dto.response.ExercisesResponseDto;
 import com.ssafy.ssafit.dto.request.SimilarityRecDto;
+import com.ssafy.ssafit.dto.response.ProfileRecResponseDto;
 import com.ssafy.ssafit.dto.response.SimilarityRecResponseDto;
 import com.ssafy.ssafit.entity.Exercise;
 import com.ssafy.ssafit.entity.User;
@@ -28,10 +30,15 @@ import java.util.List;
 public class ExerciseController {
 
     private final UserService userService;
+
     private final ExerciseService exerciseService;
+
     private final ProfileRecommendationService profileRecommendationService;
+
     private final SimilarityRecommendationService similarityRecommendationService;
+
     private final ExerciseBookmarkService exerciseBookmarkService;
+
     private final ExerciseHistoryService exerciseHistoryService;
 
     @GetMapping("")
@@ -73,7 +80,7 @@ public class ExerciseController {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500,  "Internal Server Error, 신체정보 기반 추천 실패"));
         }
 
-        return ResponseEntity.status(200).body(ExercisesResponseDto.of(profileRecExercises));
+        return ResponseEntity.status(200).body(ProfileRecResponseDto.of(profileRecExercises));
 
     }
 
@@ -97,7 +104,7 @@ public class ExerciseController {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500,  "Internal Server Error, 신체정보 기반 추천 실패"));
         }
 
-        return ResponseEntity.status(200).body(ExercisesResponseDto.of(profileRecExercises));
+        return ResponseEntity.status(200).body(ProfileRecResponseDto.of(profileRecExercises));
 
     }
 
@@ -116,12 +123,9 @@ public class ExerciseController {
 
         try {
             user = userService.getUserByUserId(token);
-            if (user == null) {
-                return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "권한이 없습니다."));
-            }
             similarityRecExercises = similarityRecommendationService.getSimilarRec(user);
         } catch (Exception exception) {
-            return ResponseEntity.status(500).body(ErrorResponseDto.of(500,  "Internal Server Error, 즐겨찾기 응답 실패"));
+            return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 유사도 기반 추천 실패"));
         }
 
         return ResponseEntity.status(200).body(SimilarityRecResponseDto.of(similarityRecExercises));
@@ -143,15 +147,12 @@ public class ExerciseController {
 
         try {
             user = userService.getUserByUserId(token);
-            if (user == null) {
-                return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "권한이 없습니다."));
-            }
             bookmarkExercises = exerciseBookmarkService.getExerciseBookmarks(user);
         } catch (Exception exception) {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500,  "Internal Server Error, 즐겨찾기 응답 실패"));
         }
 
-        return ResponseEntity.status(200).body(ExercisesResponseDto.of(bookmarkExercises));
+        return ResponseEntity.status(200).body(BookmarkResponseDto.of(bookmarkExercises));
 
     }
 
@@ -164,30 +165,19 @@ public class ExerciseController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> saveExerciseHistory(
-            @RequestBody ExerciseHistoryRequestDto exerciseHistoryRequestDto
-            , @AuthenticationPrincipal String token) {
-
-        int exerciseId = exerciseHistoryRequestDto.getId();
-        String countPerSet = exerciseHistoryRequestDto.getCountPerSet();
-        int setCount = exerciseHistoryRequestDto.getSetCount();
-        String durationTime = exerciseHistoryRequestDto.getDurationTime();
+            @RequestBody ExerciseHistoryRequestDto exerciseHistoryRequestDto,
+            @AuthenticationPrincipal String token) {
 
         User user;
-        Exercise exercise = null;
+
         try {
             user = userService.getUserByUserId(token);
-            exercise = exerciseService.getExerciseByExerciseId(exerciseId);
-            if (user == null) {
-                return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "권한이 없습니다."));
+
+            boolean svExerciseHis = exerciseHistoryService.saveExerciseHistory(exerciseHistoryRequestDto, user);
+            if (!svExerciseHis) {
+                return ResponseEntity.status(400).body(ErrorResponseDto.of(400, "운동이력 저장 실패하였습니다."));
             }
-            if (countPerSet == null || countPerSet.equals("")) {
-                if ((setCount == 0 && (durationTime == null || durationTime.equals(""))) || (setCount != 0)) {
-                    return ResponseEntity.status(400).body(ErrorResponseDto.of(400, "운동이력 저장 실패하였습니다."));
-                }
-            } else {
-                if (setCount == 0) return ResponseEntity.status(400).body(ErrorResponseDto.of(400, "운동이력 저장 실패하였습니다."));
-            }
-            exerciseHistoryService.saveExerciseHistory(exerciseHistoryRequestDto, user, exercise);
+
         } catch (Exception exception) {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 운동이력 저장 실패"));
         }

@@ -18,7 +18,7 @@ public class ProfileRecDto {
     @ApiModelProperty(value = "체중", example = "77.5")
     private String weight;
 
-    @ApiModelProperty(value = "운동레벨", example = "초보")
+    @ApiModelProperty(value = "운동레벨", example = "씨앗")
     private String level;
 
     @ApiModelProperty(value = "생년월일", example = "2000-01-01")
