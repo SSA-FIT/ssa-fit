@@ -17,13 +17,12 @@ import java.util.List;
 public class ProfileResponseDto {
 
     @ApiModelProperty(name="회원 정보", example = "userInfo{}")
-    List<UserInfoResponseDto> userInfo;
+    UserInfoResponseDto userInfo;
 
     public static ProfileResponseDto of(User user) {
 
         ProfileResponseDto body = new ProfileResponseDto();
-        List<UserInfoResponseDto> userInfo = new ArrayList<>();
-        UserInfoResponseDto userInformation = UserInfoResponseDto.builder()
+        UserInfoResponseDto userInfo = UserInfoResponseDto.builder()
                 .id(user.getId())
                 .height(user.getHeight())
                 .weight(user.getWeight())
@@ -35,7 +34,6 @@ public class ProfileResponseDto {
                 .nickname(user.getNickname())
                 .email(user.getEmail())
                 .build();
-        userInfo.add(userInformation);
         body.userInfo = userInfo;
         return body;
 

@@ -62,7 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(HttpMethod.GET, "/api/recommendation").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/recommendation/profile").permitAll()
                     .antMatchers("/api/recommendation/**").access("hasRole('USER')")
-                .anyRequest().permitAll()    // 그 외 나머지 요청 다 허용
+                    .antMatchers("/api/users/bookmark").access("hasRole('USER')")
+                    .antMatchers("/api/users/exercise-history").access("hasRole('USER')")
+                    .anyRequest().permitAll()    // 그 외 나머지 요청 다 허용
                 .and()
                     .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class); // JwtFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
 
@@ -88,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://j6a104.p,ssafy.io","https://j6a104.p,ssafy.io", "https://j6a104.p,ssafy.io:3000", "https://j6a104.p,ssafy.io:443"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://j6a104.p.ssafy.io","https://j6a104.p.ssafy.io", "http://j6a104.p.ssafy.io:3000", "https://j6a104.p.ssafy.io:443"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
