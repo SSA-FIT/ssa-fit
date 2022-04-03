@@ -33,8 +33,21 @@ const NonUserDialog: React.FC<Props> = ({
   const state = location.state as ProfileRecoWithoutTokenRequest;
   const [data, setData] = useState<NonUser | null>(null);
 
+  // useEffect(() => {
+  //   if (nonUserDialogOpen) {
+  //     setData({
+  //       birth: state.birth,
+  //       gender: state.gender,
+  //       height: state.height,
+  //       level: state.level,
+  //       weight: state.weight,
+  //       exerciseRecordList,
+  //     });
+  //   }
+  // }, [nonUserDialogOpen]);
+
   useEffect(() => {
-    if (nonUserDialogOpen) {
+    if (exerciseRecordList.length !== 0 && state !== undefined) {
       setData({
         birth: state.birth,
         gender: state.gender,
@@ -44,7 +57,7 @@ const NonUserDialog: React.FC<Props> = ({
         exerciseRecordList,
       });
     }
-  }, [nonUserDialogOpen]);
+  }, [exerciseRecordList]);
 
   useEffect(() => {
     if (nonUserDialogOpen) {
