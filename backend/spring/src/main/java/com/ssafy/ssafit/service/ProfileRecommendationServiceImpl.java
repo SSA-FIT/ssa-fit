@@ -5,6 +5,7 @@ import com.ssafy.ssafit.entity.Exercise;
 import com.ssafy.ssafit.entity.User;
 import com.ssafy.ssafit.repository.ExerciseRepository;
 import com.ssafy.ssafit.repository.ProfileRecommendationRepository;
+import com.ssafy.ssafit.util.CryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +34,15 @@ public class ProfileRecommendationServiceImpl implements ProfileRecommendationSe
     }
 
     @Override
-    public List<Exercise> profileRecExerciseLogin(User user) {
+    public List<Exercise> profileRecExerciseLogin(User user) throws Exception {
 
         int ageGroup = getAgeGroup(user.getBirth());
-        String bmiLevel = getBmiLevel(user.getHeight(), user.getWeight());
+
+        CryptUtil.Aes aes = CryptUtil.getAES();
+        String Height = aes.decrypt(user.getHeight());
+        String Weight = aes.decrypt(user.getWeight());
+
+        String bmiLevel = getBmiLevel(Height, Weight);
         String gender = user.getGender();
         String level = user.getLevel();
 

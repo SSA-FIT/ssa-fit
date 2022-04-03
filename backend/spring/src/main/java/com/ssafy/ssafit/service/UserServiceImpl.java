@@ -4,7 +4,7 @@ import com.ssafy.ssafit.dto.request.ProfileModifyRequestDto;
 import com.ssafy.ssafit.dto.request.SignUpRequestDto;
 import com.ssafy.ssafit.entity.User;
 import com.ssafy.ssafit.repository.UserRepository;
-import com.ssafy.ssafit.util.EncryptConverter;
+import com.ssafy.ssafit.util.CryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,7 +24,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User userIdCheck(String userId) {
-        return userRepository.findByUserId(userId).orElse(null);
+        User user = userRepository.findByUserId(userId).orElse(null);
+        if(user != null){
+            CryptUtil.Aes aes = CryptUtil.getAES();
+            String Height = null;
+            String Weight = null;
+            String Bmi = null;
+            try {
+                Height = aes.decrypt(user.getHeight());
+                Weight = aes.decrypt(user.getWeight());
+                Bmi = aes.decrypt(user.getBmi());
+                user.setHeight(Height);
+                user.setWeight(Weight);
+                user.setBmi(Bmi);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
     }
 
     @Override
@@ -42,9 +59,23 @@ public class UserServiceImpl implements UserService {
         double weight = Double.parseDouble(signUpRequestDto.getWeight());
         double bmi = weight / (height * height);
 
+        CryptUtil.Aes aes = CryptUtil.getAES();
+        String Height = null;
+        String Weight = null;
+        String Bmi = null;
+        try {
+            Height = aes.encrypt(signUpRequestDto.getHeight());
+            Weight = aes.encrypt(signUpRequestDto.getWeight());
+            Bmi = aes.encrypt(String.valueOf(bmi).substring(0, 4));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         User user = User.builder()
-                .height(signUpRequestDto.getHeight())
-                .weight(signUpRequestDto.getWeight())
+//                .height(signUpRequestDto.getHeight())
+                .height(Height)
+//                .weight(signUpRequestDto.getWeight())
+                .weight(Weight)
                 .birth(signUpRequestDto.getBirth())
                 .level(signUpRequestDto.getLevel())
                 .email(signUpRequestDto.getEmail())
@@ -52,7 +83,8 @@ public class UserServiceImpl implements UserService {
                 .nickname(signUpRequestDto.getNickname())
                 .password(passwordEncoder.encode(signUpRequestDto.getPassword()))
                 .gender(signUpRequestDto.getGender())
-                .bmi(String.valueOf(bmi).substring(0, 4))
+//                .bmi(String.valueOf(bmi).substring(0, 4))
+                .bmi(Bmi)
                 .roles("ROLE_USER")
                 .build();
 
@@ -71,8 +103,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Transactional
-    @Modifying
     @Override
     public User getUserByUserId(String userId) {
 
@@ -90,14 +120,29 @@ public class UserServiceImpl implements UserService {
         double weight = Double.parseDouble(profileModifyRequestDto.getWeight());
         double bmi = weight / (height * height);
 
+        CryptUtil.Aes aes = CryptUtil.getAES();
+        String Height = null;
+        String Weight = null;
+        String Bmi = null;
+        try {
+            Height = aes.encrypt(profileModifyRequestDto.getHeight());
+            Weight = aes.encrypt(profileModifyRequestDto.getWeight());
+            Bmi = aes.encrypt(String.valueOf(bmi).substring(0, 4));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         User user = userRepository.findByUserId(userId).orElse(null);
         user.setBirth(profileModifyRequestDto.getBirth());
-        user.setHeight(profileModifyRequestDto.getHeight());
-        user.setWeight(profileModifyRequestDto.getWeight());
+//        user.setHeight(profileModifyRequestDto.getHeight());
+//        user.setWeight(profileModifyRequestDto.getWeight());
+        user.setHeight(Height);
+        user.setWeight(Weight);
         user.setLevel(profileModifyRequestDto.getLevel());
         user.setGender(profileModifyRequestDto.getGender());
         user.setNickname(profileModifyRequestDto.getNickname());
-        user.setBmi(String.valueOf(bmi).substring(0, 4));
+//        user.setBmi(String.valueOf(bmi).substring(0, 4));
+        user.setBmi(Bmi);
         LocalDateTime localDateTime = LocalDateTime.now();
         user.setUpdatedAt(localDateTime);
         userRepository.save(user);
