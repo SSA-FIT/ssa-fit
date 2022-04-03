@@ -81,7 +81,7 @@ const Header: React.FC = () => {
 
 const Container = styled.header`
   position: relative;
-  border-bottom: 1px solid #6367ff;
+  /* border-bottom: 1px solid #6367ff; */
   pointer-events: none;
 `;
 

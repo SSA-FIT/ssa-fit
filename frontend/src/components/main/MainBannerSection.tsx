@@ -113,28 +113,26 @@ const ButtonWrapper = styled.div`
 
 const MoveExerciseRecoButton = styled(Link)`
   display: inline-flex;
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: center;
   justify-content: center;
   outline: none;
   box-sizing: border-box;
   width: 238px;
   height: 60px;
   color: rgb(255, 255, 255);
-  font-size: 16px;
-  font-weight: 300;
+  font-size: 18px;
+  font-weight: 400;
   border: none;
   border-radius: 34px;
-  background: rgb(0, 0, 0);
+  background: #6367ffcc;
   padding-top: 0px;
   padding-bottom: 0px;
   text-align: center;
   cursor: pointer;
 
   &:hover {
-    background: rgb(0, 0, 0);
-    color: rgb(153, 51, 255);
+    background: #fff;
+    color: #6367ffcc;
     opacity: 1;
   }
 `;
