@@ -39,11 +39,13 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
         ) : undefined}
       </>
       {token !== null ? (
-        <DescriptionWrapper>
-          <Description>
-            운동 기록을 기반으로 당신을 위한 추천 운동이 만들어지고 있습니다.
-          </Description>
-        </DescriptionWrapper>
+        similarityRecoList.length === 0 && (
+          <DescriptionWrapper>
+            <Description>
+              운동 기록을 기반으로 당신을 위한 추천 운동이 만들어지고 있습니다.
+            </Description>
+          </DescriptionWrapper>
+        )
       ) : (
         <DescriptionWrapper>
           <Description>

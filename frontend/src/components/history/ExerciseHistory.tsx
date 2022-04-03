@@ -1,103 +1,16 @@
 import styled from '@emotion/styled';
-import { ExerciseHistoryList } from '../../types/historyTypes';
+import useHistoryList from '../../hooks/useHistoryList';
+import HistoryService from '../../services/HistoryService';
+import { ExerciseHistoryList, exerciseRecord } from '../../types/historyTypes';
 import DateSelect from './DateSelect';
 import DayHistoryCard from './DayHistoryCard';
 
 const ExerciseHistory: React.FC = () => {
-  const exerciseHistoryList: ExerciseHistoryList = {
-    exerciseHistory: [
-      {
-        date: '22.03.30',
-        exercise: [
-          {
-            exerciseId: 1,
-            name: '등/어깨운동',
-            countPerSet: '3.5',
-            setCount: 3,
-            durationTime: '01:33:44',
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: true,
-          },
-          {
-            exerciseId: 3,
-            name: '스쿼트',
-            countPerSet: '5',
-            setCount: 3,
-            durationTime: null,
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: true,
-          },
-          {
-            exerciseId: 5,
-            name: '조깅',
-            countPerSet: '5',
-            setCount: 3,
-            durationTime: null,
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: true,
-          },
-          {
-            exerciseId: 7,
-            name: '줄넘기',
-            countPerSet: '50',
-            setCount: 3,
-            durationTime: '3:00:00',
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: true,
-          },
-          {
-            exerciseId: 10,
-            name: '한 발로 뛰기',
-            countPerSet: '15',
-            setCount: 3,
-            durationTime: null,
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: false,
-          },
-          {
-            exerciseId: 23,
-            name: '고양이 자세',
-            countPerSet: '5',
-            setCount: 3,
-            durationTime: '00:10:00',
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: false,
-          },
-        ],
-      },
-      {
-        date: '22.03.31',
-        exercise: [
-          {
-            exerciseId: 1,
-            name: '등/어깨운동',
-            countPerSet: '3.5',
-            setCount: 3,
-            durationTime: '01:33:44',
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: false,
-          },
-          {
-            exerciseId: 3,
-            name: '스쿼트',
-            countPerSet: '5',
-            setCount: 3,
-            durationTime: null,
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: false,
-          },
-        ],
-      },
-    ],
-  };
+  const exerciseHistoryList: exerciseRecord[] = useHistoryList(
+    '2022',
+    '4',
+    '1',
+  );
   return (
     <>
       <ContainerWrapper>
@@ -113,14 +26,12 @@ const ExerciseHistory: React.FC = () => {
                     <DateSelect labelType="Week" />
                   </SelectWrapper>
                 </HistoryDate>
-                {exerciseHistoryList.exerciseHistory.map(
-                  (exerciseHistoryDay) => (
-                    <DayHistoryCard
-                      key={exerciseHistoryDay.date}
-                      exerciseHistoryDay={exerciseHistoryDay}
-                    />
-                  ),
-                )}
+                {exerciseHistoryList.map((exerciseHistoryDay) => (
+                  <DayHistoryCard
+                    key={exerciseHistoryDay.date}
+                    exerciseHistoryDay={exerciseHistoryDay}
+                  />
+                ))}
               </HistoryDateWrapper>
             </HistoryWrapper>
           </Contents>
