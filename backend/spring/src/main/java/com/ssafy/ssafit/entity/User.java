@@ -1,7 +1,6 @@
 package com.ssafy.ssafit.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ssafy.ssafit.util.EncryptConverter;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,18 +26,15 @@ public class User {
     private int id;
 
     @NotNull
-    @Column(length = 20)
-//    @Convert(converter = EncryptConverter.class)
+    @Column(length = 300)
     private String height;
 
     @NotNull
-    @Column(length = 20)
-//    @Convert(converter = EncryptConverter.class)
+    @Column(length = 300)
     private String weight;
 
     @NotNull
-    @Column(length = 20)
-//    @Convert(converter = EncryptConverter.class)
+    @Column(length = 300)
     private String bmi;
 
     @NotNull
