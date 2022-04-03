@@ -1,16 +1,42 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import useHistoryList from '../../hooks/useHistoryList';
+import useToken from '../../hooks/useToken';
 import HistoryService from '../../services/HistoryService';
 import { ExerciseHistoryList, exerciseRecord } from '../../types/historyTypes';
 import DateSelect from './DateSelect';
 import DayHistoryCard from './DayHistoryCard';
 
 const ExerciseHistory: React.FC = () => {
-  const exerciseHistoryList: exerciseRecord[] = useHistoryList(
-    '2022',
-    '4',
-    '1',
-  );
+  const [year, setYear] = useState<string>('');
+  const [month, setMonth] = useState<string>('');
+  const [week, setWeek] = useState<string>('');
+  const [exerciseHistoryList, setExerciseHistoryList] = useState<
+    exerciseRecord[]
+  >([]);
+
+  const token = useToken();
+
+  useEffect(() => {
+    async function fetchEntireExerciseList() {
+      if (token !== null && year !== '' && month !== '' && week !== '') {
+        const HistoryListData = await HistoryService.getExerciseHistory(
+          {
+            month,
+            week,
+            year,
+          },
+          token,
+        );
+
+        setExerciseHistoryList(HistoryListData.exerciseHistory);
+      }
+    }
+
+    fetchEntireExerciseList();
+  }, [year, month, week]);
+
   return (
     <>
       <ContainerWrapper>
@@ -19,11 +45,31 @@ const ExerciseHistory: React.FC = () => {
             <HistoryWrapper>
               <HistoryDateWrapper>
                 <HistoryDate>
-                  <HistoryDay>3월 1주차</HistoryDay>
+                  <HistoryDay>
+                    {year !== '' && month !== '' && week !== ''
+                      ? `${year}년
+                    ${month}월 ${week}주차`
+                      : `조회하고 싶은 운동 주간을 골라보세요.`}
+                  </HistoryDay>
                   <SelectWrapper>
-                    <DateSelect labelType="Year" />
-                    <DateSelect labelType="Month" />
-                    <DateSelect labelType="Week" />
+                    <DateSelect
+                      labelType="Year"
+                      setYear={setYear}
+                      setMonth={setMonth}
+                      setWeek={setWeek}
+                    />
+                    <DateSelect
+                      labelType="Month"
+                      setYear={setYear}
+                      setMonth={setMonth}
+                      setWeek={setWeek}
+                    />
+                    <DateSelect
+                      labelType="Week"
+                      setYear={setYear}
+                      setMonth={setMonth}
+                      setWeek={setWeek}
+                    />
                   </SelectWrapper>
                 </HistoryDate>
                 {exerciseHistoryList.map((exerciseHistoryDay) => (

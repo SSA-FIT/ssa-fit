@@ -1,16 +1,48 @@
 import styled from '@emotion/styled';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { exerciseItemRecord } from '../../types/historyTypes';
+import {
+  putBookmarkInfo as BookmarkSagaPut,
+  updateBookmarkInfo as BookmarkSagaUpdate,
+} from '../../redux/bookmark';
+import { Recommendation } from '../../types/recommendationTypes';
+import { RootState } from '../../types/authTypes';
 
 interface Props {
   exerciseItem: exerciseItemRecord;
 }
 
 const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
+  const bookMarkFromRedux = useSelector<RootState, Recommendation[] | null>(
+    (state) => state.bookmark.bookmarks,
+  );
+
+  const dispatch = useDispatch();
+
+  const updateBookmarkInfo = useCallback(
+    (requestData) => {
+      dispatch(BookmarkSagaUpdate(requestData));
+    },
+    [dispatch],
+  );
+
   const [bookMarkChecked, setBookMarkChecked] = useState<boolean>(
     exerciseItem.bookmark,
   );
+
+  const findExerciseId = bookMarkFromRedux?.findIndex(
+    (bookmark) => bookmark.id === exerciseItem.exerciseId,
+  );
+
+  useEffect(() => {
+    if (findExerciseId === -1) {
+      setBookMarkChecked(false);
+    } else {
+      setBookMarkChecked(true);
+    }
+  }, [bookMarkFromRedux]);
 
   const handleExerciseBookMarkChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -20,6 +52,8 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
     } else {
       setBookMarkChecked(false);
     }
+
+    updateBookmarkInfo({ exerciseId: exerciseItem.exerciseId });
   };
   return (
     <>
@@ -41,7 +75,7 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
             )}
           </Exercise>
         </ExerciseItem>
-        <ExerciseDescription>{exerciseItem.name}</ExerciseDescription>
+        <ExerciseDescription>{exerciseItem.getName}</ExerciseDescription>
         <ExerciseDescription className="record" key={exerciseItem.exerciseId}>
           {exerciseItem.countPerSet !== null && exerciseItem.setCount !== null
             ? `총 ${parseFloat(exerciseItem.countPerSet)} 회 (${(
@@ -100,9 +134,9 @@ const ExerciseImage = styled.img`
   top: 0px;
   left: 0px;
   width: 100%;
-  //height: 100%;
+  height: 100%;
   //z-index: 1;
-  //object-fit: cover;
+  object-fit: contain;
   vertical-align: middle;
   border-style: none;
 `;

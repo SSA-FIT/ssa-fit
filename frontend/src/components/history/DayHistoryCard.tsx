@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 import { exerciseRecord } from '../../types/historyTypes';
 import ExerciseItemCard from './ExerciseItemCard';
 
@@ -6,12 +7,34 @@ interface Props {
   exerciseHistoryDay: exerciseRecord;
 }
 const DayHistoryCard: React.FC<Props> = ({ exerciseHistoryDay }) => {
+  const [timeSum, setTimeSum] = useState<string>('00:00:00');
+
+  useEffect(() => {
+    exerciseHistoryDay.exercise.forEach((exerciseHistory) => {
+      if (exerciseHistory.durationTime !== null) {
+        setTimeSum(
+          `${
+            parseInt(exerciseHistory.durationTime?.split(':')[0], 10) +
+            parseInt(timeSum.split(':')[0], 10)
+          }:${
+            parseInt(exerciseHistory.durationTime?.split(':')[1], 10) +
+            parseInt(timeSum.split(':')[1], 10)
+          }:${
+            parseInt(exerciseHistory.durationTime?.split(':')[2], 10) +
+            parseInt(timeSum.split(':')[2], 10)
+          }`,
+        );
+      }
+    });
+  }, []);
   return (
     <>
       <DayWrapper>
         <DescroptionWrapper>
           <Day>{exerciseHistoryDay.date}</Day>
-          <Sum>{exerciseHistoryDay.exercise.length}개 | 시간(합계 넣기)</Sum>
+          <Sum>
+            {exerciseHistoryDay.exercise.length}개 | {timeSum}
+          </Sum>
         </DescroptionWrapper>
         <ExerciseWrapper>
           {exerciseHistoryDay.exercise.map((exerciseItem) => (
