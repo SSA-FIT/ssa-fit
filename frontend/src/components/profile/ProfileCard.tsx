@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -11,15 +11,19 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfileInfo as ProfileSagaUpdate } from '../../redux/modules/profile';
+import { RootState } from '../../types/authTypes';
+import useProfileInfo from '../../hooks/useProfileInfo';
+import { UserInfo, ProfileRequest } from '../../types/profileTypes';
 
 const ProfileCard: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
-
+  const [newProfile, setnewProfile] = useState<UserInfo | null>(null);
   const [buttonText, setButtonText] = useState<string>('수정');
   const [inputDisabled, setInputDisabled] = useState<boolean>(true);
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
-
   const [levelError, setLevelError] = useState<boolean>(false);
 
   const [selfTest1, setSelfTest1] = useState<number>(1);
@@ -29,6 +33,40 @@ const ProfileCard: React.FC = () => {
   const [selfTest5, setSelfTest5] = useState<number>(0);
   const [selfTest6, setSelfTest6] = useState<number>(0);
   const [selfTestSum, setSelfTestSum] = useState<number>(4);
+
+  const profileInfo: UserInfo | null = useProfileInfo();
+  const dispatch = useDispatch();
+  const oldProfileRequest = {
+    height: profileInfo?.height,
+    weight: profileInfo?.weight,
+    level: profileInfo?.level,
+    birth: profileInfo?.birth,
+    gender: profileInfo?.gender,
+    nickname: profileInfo?.nickname,
+  };
+
+  const updateProfileInfo = useCallback(
+    (requestData) => {
+      dispatch(ProfileSagaUpdate(requestData));
+    },
+    [dispatch],
+  );
+
+
+  const token = useSelector<RootState, string | null>(
+    (state) => state.auth.token,
+  );
+  
+  useEffect(() => {
+    if (profileInfo !== null) {
+
+    }
+  }, [profileInfo]),
+  // const handleChangeProfile = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  // ) => {
+  //   if (event.target.checked)
+  // };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -256,10 +294,41 @@ const ProfileCard: React.FC = () => {
   }, [selfTest1, selfTest2, selfTest3, selfTest4, selfTest5, selfTest6]);
 
   const handleConfirmButton = (event: React.MouseEvent<HTMLElement>) => {
-    setButtonText('확인');
-    setInputDisabled(false);
+    if (buttonText === '수정') {
+      setInputDisabled(false);
+      setButtonText('확인');
+    } else {
+      // newProfileInfo('');
+      setInputDisabled(true);
+      setButtonText('수정');
+    }
   };
 
+  const updateProfileAuth = useCallback(
+    (requestData) => {
+      dispatch(ProfileSagaUpdate(requestData));
+    },
+    [dispatch],
+  );
+  
+  // const newProfileRequest = (): ProfileRequest => {
+  //   const newProfileRequestData = new ProfileRequest();
+  //   newProfileRequestData.
+  // }
+
+  // const newProfileInfo = (profileInfoSelected: string) => {
+  //   switch (profileInfoSelected) {
+  //     if (profileInfo !== newProfile) {
+  //       const RequestData: <ProfileRequest> = newProfileRequest();
+  //       if (token !== null) {
+  //         updateProfileAuth({
+  //           data: RequestData,
+  //         })
+  //       }
+  //     }
+  //     break;
+  //   }
+  // };
   // 🌱씨앗 🌿새싹 🌳나무 🍎열매
   return (
     <>
@@ -281,7 +350,7 @@ const ProfileCard: React.FC = () => {
                     <ProfileInfoFieldItemWrapper>
                       <ProfileInfoFieldItem>
                         <ProfileInfoFieldName>아이디</ProfileInfoFieldName>
-                        qwe123
+                        { ProfileInfo?.id }
                       </ProfileInfoFieldItem>
                       <NewPasswordWrapper>
                         <NewPassword to="/">비밀번호 재설정</NewPassword>
@@ -290,13 +359,13 @@ const ProfileCard: React.FC = () => {
                     <ProfileInfoFieldItemWrapper>
                       <ProfileInfoFieldItem>
                         <ProfileInfoFieldName>이메일</ProfileInfoFieldName>
-                        qwe123@naver.com
+                        { ProfileInfo?.email }
                       </ProfileInfoFieldItem>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
                       <ProfileInfoFieldItem>
                         <ProfileInfoFieldName>생년월일</ProfileInfoFieldName>
-                        2022.03.28
+                        { ProfileInfo?.birth }
                       </ProfileInfoFieldItem>
                     </ProfileInfoFieldItemWrapper>
                   </ProfileInfoFieldValue>
