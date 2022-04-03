@@ -1,3 +1,4 @@
+import { BookmarkState } from '../redux/bookmark';
 import { AuthState } from '../redux/modules/auth';
 
 export interface UserInfo {
@@ -36,4 +37,5 @@ export interface LogInRequestIdCheck {
 
 export interface RootState {
   auth: AuthState;
+  bookmark: BookmarkState;
 }

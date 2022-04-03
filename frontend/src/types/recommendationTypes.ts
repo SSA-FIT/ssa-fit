@@ -91,3 +91,12 @@ export interface recoRecord {
 export interface recoRecordList {
   exercises: recoRecord[];
 }
+
+export interface NonuserBodyInfoData {
+  birth: string;
+  exerciseRecordList: recoRecord[];
+  gender: string;
+  height: string;
+  level: string;
+  weight: string;
+}

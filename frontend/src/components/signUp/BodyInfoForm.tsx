@@ -10,6 +10,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
+import { useLocation } from 'react-router-dom';
 import { BodyInfoData } from '../../types/commonTypes';
 
 interface Props {
@@ -29,6 +31,7 @@ const BodyInfoForm: React.FC<Props> = ({
   setUserGender,
   setUserLevel,
 }) => {
+  const [nonUser, setNonUser] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const [userHeightChange, setUserHeightChange] = useState<string>('');
   const [height1, setHeight1] = useState<string>('0');
@@ -46,6 +49,26 @@ const BodyInfoForm: React.FC<Props> = ({
   const [userGenderChange, setUserGenderChange] = useState<string>('');
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
+
+  const location = useLocation();
+  // console.log(location);
+  const locationState: any = location.state;
+  // console.log(locationState.birth);
+  console.log(locationState);
+  // 비로그인 체험판 확인, 사용자 정보 가져오기
+
+  useEffect(() => {
+    if (locationState !== undefined) {
+      setNonUser(true);
+      setUserHeightChange(locationState.height);
+      const heightSplit = userHeightChange.split('.');
+      console.log(heightSplit);
+      // if (userHeightChange % 1 !== 0) setUserWeightChange(locationState.weight);
+      setUserLevelChange(locationState.level);
+      setUserBirthChange(locationState.birth);
+      setUserGenderChange(locationState.gender);
+    }
+  }, [locationState]);
 
   const [heightError, setHeightError] = useState<boolean>(false);
   const [weightError, setWeightError] = useState<boolean>(false);
@@ -148,32 +171,25 @@ const BodyInfoForm: React.FC<Props> = ({
     setAlignment6('legpoint0');
   };
 
+  useEffect(() => {
+    if (selfTestSum >= 4 && selfTestSum < 9) setUserLevelChange('씨앗');
+    else if (selfTestSum >= 9 && selfTestSum < 15) setUserLevelChange('새싹');
+    else if (selfTestSum >= 15 && selfTestSum < 21) setUserLevelChange('나무');
+    else if (selfTestSum >= 21 && selfTestSum < 24) setUserLevelChange('열매');
+  }, [selfTestSum]);
+
   const handleCloseFinishButton = () => {
     setOpen(false);
-
-    if (selfTestSum >= 4 && selfTestSum < 9) {
-      setUserLevelChange('씨앗');
-      setUserLevelIcon('🌱');
-    }
-
-    if (selfTestSum >= 9 && selfTestSum < 15) {
-      setUserLevelChange('새싹');
-      setUserLevelIcon('🌿');
-    }
-
-    if (selfTestSum >= 15 && selfTestSum < 21) {
-      setUserLevelChange('나무');
-      setUserLevelIcon('🌳');
-    }
-
-    if (selfTestSum >= 21 && selfTestSum < 24) {
-      setUserLevelChange('열매');
-      setUserLevelIcon('🍎');
-    }
   };
 
   useEffect(() => {
-    if (userLevelChange !== '') setLevelError(false);
+    if (userLevelChange !== '') {
+      setLevelError(false);
+      if (userLevelChange === '씨앗') setUserLevelIcon('🌱');
+      else if (userLevelChange === '새싹') setUserLevelIcon('🌿');
+      else if (userLevelChange === '나무') setUserLevelIcon('🌳');
+      else if (userLevelChange === '열매') setUserLevelIcon('🍎');
+    }
   }, [userLevelChange]);
 
   const handleChange1 = (
@@ -542,6 +558,7 @@ const BodyInfoForm: React.FC<Props> = ({
               </InputName>
               <Input
                 type="date"
+                value={userBirthChange}
                 onChange={getBirth}
                 className={birthError ? 'have-error' : ''}
               />
@@ -564,7 +581,9 @@ const BodyInfoForm: React.FC<Props> = ({
                     id="M"
                     name="gender"
                     onChange={getGender}
+                    checked={nonUser && locationState.gender === '남'}
                   />
+                  {/* checked={nonUser && locationState.gender === '남'} */}
                   <Gender htmlFor="M">남자</Gender>
                 </GenderSelect>
                 <GenderSelect>
@@ -574,7 +593,10 @@ const BodyInfoForm: React.FC<Props> = ({
                     id="FM"
                     name="gender"
                     onChange={getGender}
+                    checked={nonUser && locationState.gender === '여'}
                   />
+                  {/* 
+                    checked={nonUser && locationState.gender === '여'} */}
                   <Gender htmlFor="FM">여자</Gender>
                 </GenderSelect>
               </GenderSelectWrapper>
@@ -626,10 +648,6 @@ const BodyInfoForm: React.FC<Props> = ({
                         exclusive
                         onChange={handleChange1}
                       >
-                        {/* <MuiToggleButton value="seed">🌱씨앗</MuiToggleButton>
-                        <MuiToggleButton value="sprout">🌿새싹</MuiToggleButton>
-                        <MuiToggleButton value="tree">🌳나무</MuiToggleButton>
-                        <MuiToggleButton value="fruit">🍎열매</MuiToggleButton> */}
                         <MuiToggleButton value="level1">초보</MuiToggleButton>
                         <MuiToggleButton value="level2">하수</MuiToggleButton>
                         <MuiToggleButton value="level3">중수</MuiToggleButton>
