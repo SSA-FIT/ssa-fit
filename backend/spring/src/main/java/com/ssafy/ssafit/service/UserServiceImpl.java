@@ -4,6 +4,7 @@ import com.ssafy.ssafit.dto.request.ProfileModifyRequestDto;
 import com.ssafy.ssafit.dto.request.SignUpRequestDto;
 import com.ssafy.ssafit.entity.User;
 import com.ssafy.ssafit.repository.UserRepository;
+import com.ssafy.ssafit.util.EncryptConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.crypto.password.PasswordEncoder;
