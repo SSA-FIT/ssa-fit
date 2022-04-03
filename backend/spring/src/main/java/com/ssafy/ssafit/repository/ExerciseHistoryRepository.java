@@ -23,4 +23,5 @@ public interface ExerciseHistoryRepository extends JpaRepository<ExerciseHistory
             "WHERE eh.user_id = :userId AND eh.created_at LIKE %:date%"
             , nativeQuery = true)
     Optional<List<ExerciseAndBookmark>> getMyPageExerciseHistory(@Param("date") String date, @Param("userId") int userId);
+
 }

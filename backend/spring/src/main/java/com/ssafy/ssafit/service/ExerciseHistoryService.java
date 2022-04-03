@@ -8,6 +8,6 @@ import com.ssafy.ssafit.entity.User;
 public interface ExerciseHistoryService {
 
     //운동이력 저장
-    ExerciseHistory saveExerciseHistory(ExerciseHistoryRequestDto exerciseHistoryRequestDto, User user, Exercise exercise);
+    boolean saveExerciseHistory(ExerciseHistoryRequestDto exerciseHistoryRequestDto, User user);
 
 }
