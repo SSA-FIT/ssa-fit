@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const SignUpComplete: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const SignUpComplete: React.FC = () => {
           싸핏 회원의 다양한 혜택들을 이용하실 수 있습니다.
         </CompleteDescription>
         <ConFirmWrapper>
-          <LogInButton>로그인하러가기</LogInButton>
+          <LogInButton to="/users/login">로그인하러가기</LogInButton>
         </ConFirmWrapper>
       </Container>
     </>
@@ -53,7 +54,7 @@ const ConFirmWrapper = styled.div`
   }
 `;
 
-const LogInButton = styled.button`
+const LogInButton = styled(Link)`
   margin-left: 0.4rem;
   display: block;
   width: 100%;

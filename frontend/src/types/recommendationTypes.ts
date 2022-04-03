@@ -1,8 +1,31 @@
+export interface ProfileRecoWithoutTokenRequest {
+  height: string;
+  weight: string;
+  level: string;
+  gender: string;
+  birth: string;
+}
+export interface NonUser {
+  state: ProfileRecoWithoutTokenRequest | null;
+}
 export interface Recommendation {
   id: number;
   name: string;
   imageURL: string;
-  description: string;
+}
+
+export interface BookmarkRecommendation {
+  id: number;
+  name: string;
+  imageURL: string;
+  bookmark: boolean;
+}
+
+export interface SimilarityRecommendationType {
+  id: number;
+  name: string;
+  imageURL: string;
+  score: number;
 }
 
 export interface RecommendationProfileRec {
@@ -18,7 +41,7 @@ export interface RecommendationEntire {
 }
 
 export interface RecommendationSimilarityRec {
-  similarityRec: Recommendation[];
+  similarityRec: SimilarityRecommendationType[];
   status: number | null;
   message: string | null;
 }
@@ -60,10 +83,11 @@ export interface VideoListProp {
 
 export interface recoRecord {
   id: number;
-  countPerSet: number;
-  setCount: 5;
-  derationTime: string;
+  countPerSet: string;
+  setCount: number;
+  durationTime: string;
 }
+
 export interface recoRecordList {
   exercises: recoRecord[];
 }

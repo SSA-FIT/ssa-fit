@@ -1,13 +1,39 @@
 import styled from '@emotion/styled';
 import { useDispatch } from 'react-redux';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { login as loginSagaStart } from '../../redux/modules/auth';
 import { LogInRequest } from '../../types/authTypes';
+import { regId, regPw } from '../../utils/RegExpressions';
 
 const LogInCard: React.FC = () => {
   const dispatch = useDispatch();
-  const [id, setId] = useState<string>('qwe');
-  const [password, setPassword] = useState<string>('qwe');
+  const [id, setId] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const [idMessage, setIdMessage] = useState<string>('');
+  const [pwMessage, setPwMessage] = useState<string>('');
+
+  const [isId, setIsId] = useState<boolean>(false);
+  const [isPw, setIsPw] = useState<boolean>(false);
+
+  // const [idError, setIdError] = useState<boolean>(false);
+  // const [pwError, setPwError] = useState<boolean>(false);
+  const [logInFormComplete, setLogInFormComplete] = useState<boolean>(false);
+  const savedId = localStorage.getItem('ssafit-id');
+  const [idSaveCheck, setIdSaveCheck] = useState<boolean>(false);
+
+  const getIdSaveCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIdSaveCheck(event.target.checked);
+  };
+
+  useEffect(() => {
+    if (savedId !== null) {
+      setId(savedId);
+      setIsId(true);
+      setIdSaveCheck(true);
+    }
+  }, [savedId]);
 
   const login = useCallback(
     (requestData) => {
@@ -16,11 +42,61 @@ const LogInCard: React.FC = () => {
     [dispatch],
   );
 
+  useEffect(() => {
+    if (isId && isPw) {
+      setLogInFormComplete(true);
+    } else setLogInFormComplete(false);
+  }, [isId, isPw]);
+
   const handleLogInButtonClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
-    login({ userId: id, password });
+
+    if (!isId) {
+      if (id === '') setIdMessage('필수 입력 항목입니다.');
+      else setIdMessage('아이디 형식이 올바르지 않습니다.');
+      // setLogInFormComplete(false);
+      // setIdError(true);
+    }
+
+    if (!isPw) {
+      if (password === '') setPwMessage('필수 입력 항목입니다.');
+      else setPwMessage('비밀번호 형식이 올바르지 않습니다.');
+      // setLogInFormComplete(false);
+      // setPwError(true);
+    }
+
+    if (logInFormComplete)
+      login({ userId: id, password, idCheck: idSaveCheck });
+  };
+
+  const getId = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const idCurrent = event.target.value;
+    setId(idCurrent);
+    // setIdError(false);
+
+    if (!regId.test(idCurrent)) {
+      setIdMessage('아이디 형식이 올바르지 않습니다.');
+      setIsId(false);
+    } else {
+      setIdMessage('');
+      setIsId(true);
+    }
+  };
+
+  const getPw = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const pwCurrent = event.target.value;
+    setPassword(pwCurrent);
+    // setPwError(false);
+
+    if (!regPw.test(pwCurrent)) {
+      setPwMessage('비밀번호 형식이 올바르지 않습니다.');
+      setIsPw(false);
+    } else {
+      setPwMessage('');
+      setIsPw(true);
+    }
   };
 
   return (
@@ -38,7 +114,17 @@ const LogInCard: React.FC = () => {
                       <Required>필수입력</Required>
                     </InputName>
                     <InputWrapper>
-                      <Input type="text" />
+                      <Input
+                        type="text"
+                        value={id}
+                        onChange={getId}
+                        className={idMessage !== '' ? 'have-error' : ''}
+                      />
+                      {idMessage !== '' && (
+                        <ErrorWrapper>
+                          <ErrorMessage>{idMessage}</ErrorMessage>
+                        </ErrorWrapper>
+                      )}
                     </InputWrapper>
                   </InputAreaWrapper>
                   <InputAreaWrapper>
@@ -47,28 +133,50 @@ const LogInCard: React.FC = () => {
                       <Required>필수입력</Required>
                     </InputName>
                     <InputWrapper>
-                      <Input type="password" />
+                      <Input
+                        type="password"
+                        value={password}
+                        onChange={getPw}
+                        className={pwMessage !== '' ? 'have-error' : ''}
+                      />
+                      {pwMessage !== '' && (
+                        <ErrorWrapper>
+                          <ErrorMessage>{pwMessage}</ErrorMessage>
+                        </ErrorWrapper>
+                      )}
                     </InputWrapper>
                   </InputAreaWrapper>
                   <InputAreaWrapper>
                     <InputWrapper>
-                      <IdSaveBox type="checkbox" id="idSave" />
+                      <IdSaveBox
+                        type="checkbox"
+                        id="idSave"
+                        onChange={getIdSaveCheck}
+                        checked={idSaveCheck}
+                      />
                       <IdSaveLabel htmlFor="idSave">아이디 저장</IdSaveLabel>
                     </InputWrapper>
                   </InputAreaWrapper>
                   <LogInButtonWrapper>
-                    <LogInButton type="submit" onClick={handleLogInButtonClick}>
+                    <LogInButton
+                      type="submit"
+                      onClick={handleLogInButtonClick}
+                      className={logInFormComplete ? 'complete' : ''}
+                    >
                       로그인
                     </LogInButton>
                   </LogInButtonWrapper>
                   <FindWrapper>
                     <FindItemWrapper>
-                      <FindLink className="inner" href="#">
+                      <FindLink className="inner" to="/users/search-id">
                         아이디 찾기
                       </FindLink>
                     </FindItemWrapper>
                     <FindItemWrapper>
-                      <FindLink className="inner" href="#">
+                      <FindLink
+                        className="inner"
+                        to="/users/reset-password/verify"
+                      >
                         비밀번호 재설정
                       </FindLink>
                     </FindItemWrapper>
@@ -245,6 +353,12 @@ const Input = styled.input`
     font-size: 1.8rem;
     line-height: 1.56;
   }
+  &.have-error {
+    border-radius: 0.2rem;
+    margin-bottom: 4px;
+    border: 1px solid #f44336;
+    box-shadow: inset 0 0 0 1px #ff77774d;
+  }
 `;
 
 const IdSaveBox = styled.input`
@@ -301,8 +415,8 @@ const LogInButton = styled.button`
   padding: 1.6rem 2rem;
   border: 1px solid #00256c;
   border-radius: 0.2rem;
-  background-color: #00256c;
-  color: #fff;
+  background: #bad5f5;
+  color: #013066;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -315,6 +429,11 @@ const LogInButton = styled.button`
     padding-left: 3rem;
     font-size: 1.6rem;
     line-height: 1.5;
+  }
+
+  &.complete {
+    background-color: #013066;
+    color: #fff;
   }
 `;
 
@@ -329,7 +448,7 @@ const FindItemWrapper = styled.li`
   text-align: center;
 `;
 
-const FindLink = styled.a`
+const FindLink = styled(Link)`
   display: inline-block;
   border: 0;
   background: none;
@@ -390,4 +509,14 @@ const SignUpLink = styled.a`
     text-decoration: none;
   }
 `;
+
+const ErrorWrapper = styled.div``;
+
+// 22.4px보다 2px작게
+const ErrorMessage = styled.span`
+  font-size: 1.1rem;
+  color: rgb(255, 119, 119);
+  line-height: 1.5;
+`;
+
 export default LogInCard;

@@ -1,16 +1,24 @@
 import styled from '@emotion/styled';
+import { Alert } from '@mui/material';
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
 }
 
 const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
+  const location = useLocation();
+  console.log(location);
   const [agreement, setAgreement] = useState<boolean>(false);
   const [agreementError, setAgreementError] = useState<boolean>(false);
 
   const handleNext = () => {
     if (!agreement) {
+      // <Alert severity="success" color="info">
+      //   This is a success alert — check it out!
+      // </Alert>;
+      // alert('약관에 동의해주세요.');
       setAgreementError(true);
     } else {
       setSignUpStep(1);
@@ -31,7 +39,9 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
 
   return (
     <>
+      {/* <Alert severity="error">This is an error alert — check it out!</Alert> */}
       <Container>
+        {/*  className={agreementError ? 'have-error' : ''} */}
         <StepName>약관 동의</StepName>
         <StepDescription>
           약관 및 개인정보 수집 이용에 동의해주세요.
@@ -61,9 +71,19 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
             </AgreementItem>
           </AgreementList>
         </AgreementFieldSet>
+        {agreementError && (
+          <ErrorWrapper>
+            <ErrorMessage>필수 동의 항목입니다.</ErrorMessage>
+          </ErrorWrapper>
+        )}
         <ConFirmWrapper>
-          <CancelButton>취소</CancelButton>
-          <ConfirmButton onClick={handleNext}>확인</ConfirmButton>
+          <CancelButton to="/">취소</CancelButton>
+          <ConfirmButton
+            onClick={handleNext}
+            className={agreement ? 'complete' : ''}
+          >
+            확인
+          </ConfirmButton>
         </ConFirmWrapper>
       </Container>
     </>
@@ -79,6 +99,11 @@ const StepName = styled.h2`
     margin: 4rem 0 0.8rem;
     font-size: 2.4rem;
     line-height: 1.5;
+  }
+
+  &.have-error {
+    font-weight: bold;
+    color: rgb(255, 119, 119);
   }
 `;
 
@@ -183,7 +208,7 @@ const ConFirmWrapper = styled.div`
   }
 `;
 
-const CancelButton = styled.button`
+const CancelButton = styled(Link)`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;
@@ -211,8 +236,8 @@ const ConfirmButton = styled.button`
   padding: 1.5rem 2rem 1.6rem;
   border: 1px solid #013066;
   border-radius: 0.2rem;
-  background-color: #013066;
-  color: #fff;
+  background: #bad5f5;
+  color: #013066;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -221,5 +246,24 @@ const ConfirmButton = styled.button`
   cursor: pointer;
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+
+  &.complete {
+    background-color: #013066;
+    color: #fff;
+  }
 `;
+// #bad5f5 #62a6f5
+// background: rgb(247, 248, 250);
+//     color: rgb(194, 200, 204);
+//     border-color: rgb(218, 220, 224);
+
+const ErrorWrapper = styled.div``;
+
+// 22.4px보다 2px작게
+const ErrorMessage = styled.span`
+  font-size: 1.1rem;
+  color: rgb(255, 119, 119);
+  line-height: 1.5;
+`;
+
 export default AgreementForm;

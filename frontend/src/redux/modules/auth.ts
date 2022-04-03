@@ -1,25 +1,26 @@
 import { createActions, handleActions, Action } from 'redux-actions';
 import { takeEvery, put, call } from 'redux-saga/effects';
 import { go, push } from 'connected-react-router';
+
+import Swal from 'sweetalert2';
 import TokenService from '../../services/TokenService';
 import UserService from '../../services/UserService';
 import {
   LogInApiResponse,
   LogInRequest,
+  LogInRequestIdCheck,
   LogInResponse,
   UserInfo,
 } from '../../types/authTypes';
 
-interface AuthState {
+export interface AuthState {
   token: string | null;
-  userInfo: UserInfo | null;
   loading: boolean;
   error: Error | null;
 }
 
 const initialState: AuthState = {
   token: null,
-  userInfo: null,
   loading: false,
   error: null,
 };
@@ -40,8 +41,6 @@ const reducer = handleActions<AuthState, LogInResponse>(
       ...state,
       // eslint-disable-next-line react/destructuring-assignment
       token: action.payload.token,
-      // eslint-disable-next-line react/destructuring-assignment
-      userInfo: action.payload.userInfo,
       loading: false,
       error: null,
     }),
@@ -60,9 +59,8 @@ export default reducer;
 // saga
 export const { login, logout } = createActions('LOGIN', 'LOGOUT', { prefix });
 
-function* loginSaga(action: Action<LogInRequest>) {
+function* loginSaga(action: Action<LogInRequestIdCheck>) {
   try {
-    alert('아');
     yield put(pending());
 
     const response: LogInApiResponse = yield call(UserService.userLogIn, {
@@ -73,16 +71,57 @@ function* loginSaga(action: Action<LogInRequest>) {
     const { token } = response;
     // localStorage
     TokenService.set(token);
+
+    if (action.payload.idCheck) {
+      localStorage.setItem('ssafit-id', action.payload.userId);
+    } else {
+      localStorage.removeItem('ssafit-id');
+    }
+
+    Swal.fire({
+      icon: 'success',
+      text: response.message,
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
     // push
-    yield put(push('/'));
     yield put(success(response));
+    yield put(push('/'));
   } catch (error: any) {
     yield put(fail(new Error(error?.response?.data?.error || 'UNKNOWN ERROR')));
+    // alert(error.response.data.message);
+    Swal.fire({
+      icon: 'error',
+      text: error.response.data.message,
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 }
 
 function* logoutSaga() {
-  yield put(push('/'));
+  try {
+    yield put(pending());
+    TokenService.remove();
+
+    Swal.fire({
+      icon: 'success',
+      text: '로그아웃 되었습니다.',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+    yield put(success(initialState));
+    yield put(push('/'));
+  } catch (error: any) {
+    Swal.fire({
+      icon: 'error',
+      text: '로그아웃 실패',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
 }
 
 export function* authSaga() {

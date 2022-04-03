@@ -1,17 +1,30 @@
 import { useState, useEffect } from 'react';
 import RecommendationService from '../services/RecommendationService';
-import { Recommendation } from '../types/recommendationTypes';
+import {
+  NonUser,
+  ProfileRecoWithoutTokenRequest,
+  Recommendation,
+} from '../types/recommendationTypes';
 
-const useProfileRecList = () => {
+const useProfileRecList = (
+  token: string | null,
+  state: ProfileRecoWithoutTokenRequest | null,
+) => {
   const [profileRecList, setProfileRecList] = useState<Recommendation[]>([]);
-  const token = 'skdjflksjdflkjdlkfjsdlkfjlk';
+
   useEffect(() => {
     async function fetchEntireExerciseList() {
-      const profileRecListData = await RecommendationService.getProfileReco(
-        token,
-      );
+      if (token !== null) {
+        const profileRecListData = await RecommendationService.getProfileReco(
+          token,
+        );
 
-      setProfileRecList(profileRecListData.profileRec);
+        setProfileRecList(profileRecListData.profileRec);
+      } else if (state !== null) {
+        const profileRecListData =
+          await RecommendationService.getProfileRecoWithoutToken(state);
+        setProfileRecList(profileRecListData.profileRec);
+      }
     }
 
     fetchEntireExerciseList();

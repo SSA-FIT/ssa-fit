@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import Slider from '../../common/Slider';
 import Card from '../../common/Card';
 import {
@@ -25,21 +27,19 @@ const UserSelection: React.FC<UserSelectListProp> = ({
       {isLoading ? (
         <div>Loading...</div>
       ) : (
-        userSelections.length >= 5 && (
-          <Slider>
-            {userSelections.map((userSelection) => (
-              <Card
-                userRecoSelectList={userRecoSelectList}
-                setUserRecoSelectList={setUserRecoSelectList}
-                key={userSelection.id}
-                id={userSelection.id}
-                name={userSelection.name}
-                imageURL={userSelection.imageURL}
-                description={userSelection.description}
-              />
-            ))}
-          </Slider>
-        )
+        <Slider length={userSelections.length}>
+          {userSelections.map((userSelection) => (
+            <Card
+              userRecoSelectList={userRecoSelectList}
+              setUserRecoSelectList={setUserRecoSelectList}
+              key={userSelection.id}
+              id={userSelection.id}
+              name={userSelection.name}
+              imageURL={userSelection.imageURL}
+              score={null}
+            />
+          ))}
+        </Slider>
       )}
     </Base>
   );
@@ -53,7 +53,7 @@ const Base = styled.div`
 
 const Title = styled.h4`
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 30px;
   padding: 12px 0 14px;
 `;
