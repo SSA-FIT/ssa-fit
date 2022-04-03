@@ -44,11 +44,9 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
         <ExerciseDescription>{exerciseItem.name}</ExerciseDescription>
         <ExerciseDescription className="record" key={exerciseItem.exerciseId}>
           {exerciseItem.countPerSet !== null && exerciseItem.setCount !== null
-            ? `총 ${
-                parseFloat(exerciseItem.countPerSet) * exerciseItem.setCount
-              } 회 (${exerciseItem.countPerSet}회 x ${
-                exerciseItem.setCount
-              }세트) `
+            ? `총 ${parseFloat(exerciseItem.countPerSet)} 회 (${(
+                parseFloat(exerciseItem.countPerSet) / exerciseItem.setCount
+              ).toFixed(1)}회 x ${exerciseItem.setCount}세트) `
             : undefined}
           {exerciseItem.durationTime !== null
             ? `${exerciseItem.durationTime} 소요`
