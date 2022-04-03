@@ -168,27 +168,15 @@ public class ExerciseController {
             @RequestBody ExerciseHistoryRequestDto exerciseHistoryRequestDto,
             @AuthenticationPrincipal String token) {
 
-        int exerciseId = exerciseHistoryRequestDto.getId();
-        String countPerSet = exerciseHistoryRequestDto.getCountPerSet();
-        int setCount = exerciseHistoryRequestDto.getSetCount();
-        String durationTime = exerciseHistoryRequestDto.getDurationTime();
-
         User user;
-        Exercise exercise = new Exercise();
 
         try {
             user = userService.getUserByUserId(token);
-            exercise.setId(exerciseId);
 
-            if (countPerSet == null || countPerSet.equals("")) {
-                if ((setCount == 0 && (durationTime == null || durationTime.equals(""))) || (setCount != 0)) {
-                    return ResponseEntity.status(400).body(ErrorResponseDto.of(400, "운동이력 저장 실패하였습니다."));
-                }
-            } else {
-                if (setCount == 0) return ResponseEntity.status(400).body(ErrorResponseDto.of(400, "운동이력 저장 실패하였습니다."));
+            boolean svExerciseHis = exerciseHistoryService.saveExerciseHistory(exerciseHistoryRequestDto, user);
+            if (!svExerciseHis) {
+                return ResponseEntity.status(400).body(ErrorResponseDto.of(400, "운동이력 저장 실패하였습니다."));
             }
-
-            exerciseHistoryService.saveExerciseHistory(exerciseHistoryRequestDto, user, exercise);
 
         } catch (Exception exception) {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 운동이력 저장 실패"));
