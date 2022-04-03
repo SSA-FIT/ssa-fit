@@ -25,6 +25,7 @@ interface NonUser {
   birth: string;
   exerciseRecordList: recoRecord[];
 }
+
 const NonUserDialog: React.FC<Props> = ({
   nonUserDialogOpen,
   exerciseRecordList,
@@ -34,7 +35,7 @@ const NonUserDialog: React.FC<Props> = ({
   const [data, setData] = useState<NonUser | null>(null);
 
   useEffect(() => {
-    if (nonUserDialogOpen) {
+    if (exerciseRecordList.length !== 0 && state !== undefined) {
       setData({
         birth: state.birth,
         gender: state.gender,
@@ -44,7 +45,7 @@ const NonUserDialog: React.FC<Props> = ({
         exerciseRecordList,
       });
     }
-  }, [nonUserDialogOpen]);
+  }, [exerciseRecordList]);
 
   useEffect(() => {
     if (nonUserDialogOpen) {
@@ -66,9 +67,9 @@ const NonUserDialog: React.FC<Props> = ({
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      {/* <Button variant="outlined" onClick={handleClickOpen}>
         운동 중단
-      </Button>
+      </Button> */}
       <Dialog
         open={open}
         onClose={handleClose}
