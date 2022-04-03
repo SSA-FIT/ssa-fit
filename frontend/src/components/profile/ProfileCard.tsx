@@ -12,7 +12,10 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfileInfo as ProfileSagaUpdate } from '../../redux/modules/profile';
+import {
+  updateProfileInfo as ProfileSagaUpdate,
+  putProfileInfo as ProfileSagaPut,
+} from '../../redux/modules/profile';
 import { RootState } from '../../types/authTypes';
 import useProfileInfo from '../../hooks/useProfileInfo';
 import { UserInfo, ProfileRequest } from '../../types/profileTypes';
@@ -35,6 +38,7 @@ const ProfileCard: React.FC = () => {
   const [selfTestSum, setSelfTestSum] = useState<number>(4);
 
   const profileInfo: UserInfo | null = useProfileInfo();
+  console.log(profileInfo);
   const dispatch = useDispatch();
   const oldProfileRequest = {
     height: profileInfo?.height,
@@ -45,6 +49,14 @@ const ProfileCard: React.FC = () => {
     nickname: profileInfo?.nickname,
   };
 
+  const putprofileInfo = useCallback(() => {
+    dispatch(ProfileSagaPut());
+  }, [dispatch]);
+
+  useEffect(() => {
+    putprofileInfo();
+  }, []);
+
   const updateProfileInfo = useCallback(
     (requestData) => {
       dispatch(ProfileSagaUpdate(requestData));
@@ -52,16 +64,15 @@ const ProfileCard: React.FC = () => {
     [dispatch],
   );
 
-
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token,
   );
-  
-  useEffect(() => {
-    if (profileInfo !== null) {
 
-    }
-  }, [profileInfo]),
+  // useEffect(() => {
+  //   if (profileInfo !== null) {
+
+  //   }
+  // }, [profileInfo]),
   // const handleChangeProfile = (
   //   event: React.ChangeEvent<HTMLInputElement>,
   // ) => {
@@ -310,7 +321,7 @@ const ProfileCard: React.FC = () => {
     },
     [dispatch],
   );
-  
+
   // const newProfileRequest = (): ProfileRequest => {
   //   const newProfileRequestData = new ProfileRequest();
   //   newProfileRequestData.
@@ -350,7 +361,7 @@ const ProfileCard: React.FC = () => {
                     <ProfileInfoFieldItemWrapper>
                       <ProfileInfoFieldItem>
                         <ProfileInfoFieldName>아이디</ProfileInfoFieldName>
-                        { ProfileInfo?.id }
+                        {profileInfo?.id}
                       </ProfileInfoFieldItem>
                       <NewPasswordWrapper>
                         <NewPassword to="/">비밀번호 재설정</NewPassword>
@@ -359,13 +370,13 @@ const ProfileCard: React.FC = () => {
                     <ProfileInfoFieldItemWrapper>
                       <ProfileInfoFieldItem>
                         <ProfileInfoFieldName>이메일</ProfileInfoFieldName>
-                        { ProfileInfo?.email }
+                        {profileInfo?.email}
                       </ProfileInfoFieldItem>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
                       <ProfileInfoFieldItem>
                         <ProfileInfoFieldName>생년월일</ProfileInfoFieldName>
-                        { ProfileInfo?.birth }
+                        {profileInfo?.birth}
                       </ProfileInfoFieldItem>
                     </ProfileInfoFieldItemWrapper>
                   </ProfileInfoFieldValue>
