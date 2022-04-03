@@ -11,7 +11,7 @@ export interface exerciseRecord {
 
 export interface exerciseItemRecord {
   exerciseId: number;
-  name: string;
+  getName: string;
   countPerSet: string | null;
   setCount: number | null;
   durationTime: string | null;

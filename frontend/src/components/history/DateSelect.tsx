@@ -10,9 +10,17 @@ import { useEffect } from 'react';
 
 interface Props {
   labelType: string;
+  setYear: (year: string) => void;
+  setMonth: (month: string) => void;
+  setWeek: (week: string) => void;
 }
 
-const DateSelect: React.FC<Props> = ({ labelType }) => {
+const DateSelect: React.FC<Props> = ({
+  labelType,
+  setYear,
+  setMonth,
+  setWeek,
+}) => {
   const [value, setValue] = React.useState<string>('');
   const [dateList, setDateList] = React.useState<number[]>([]);
 
@@ -34,6 +42,15 @@ const DateSelect: React.FC<Props> = ({ labelType }) => {
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string);
+    if (labelType === 'Year') {
+      setYear(event.target.value);
+    }
+    if (labelType === 'Month') {
+      setMonth(event.target.value);
+    }
+    if (labelType === 'Week') {
+      setWeek(event.target.value);
+    }
   };
 
   return (
