@@ -1,13 +1,25 @@
 import styled from '@emotion/styled';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+// import { BodyInfoData } from '../../types/commonTypes';
+import {
+  NonUser,
+  NonuserBodyInfoData,
+  ProfileRecoWithoutTokenRequest,
+} from '../../types/recommendationTypes';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
 }
 
 const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
+  const location = useLocation();
+  // console.log(location);
+  const locationState: any = location.state;
+  console.log(locationState);
+  // console.log(locationState.birth);
+
   const [agreement, setAgreement] = useState<boolean>(false);
   const [agreementError, setAgreementError] = useState<boolean>(false);
 

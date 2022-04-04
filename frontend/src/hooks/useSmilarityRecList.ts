@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react';
 import RecommendationService from '../services/RecommendationService';
-import { Recommendation } from '../types/recommendationTypes';
+import { SimilarityRecommendationType } from '../types/recommendationTypes';
 
-const useSimilarityRecList = () => {
-  const [similarityRecList, setSimilarityRecList] = useState<Recommendation[]>(
-    [],
-  );
-  const token = 'skdjflksjdflkjdlkfjsdlkfjlk';
+const useSimilarityRecList = (token: string | null) => {
+  const [similarityRecList, setSimilarityRecList] = useState<
+    SimilarityRecommendationType[]
+  >([]);
+
   useEffect(() => {
     async function fetchEntireExerciseList() {
-      const similarityRecListData =
-        await RecommendationService.getSimilarityReco(token);
+      if (token !== null) {
+        const similarityRecListData =
+          await RecommendationService.getSimilarityReco(token);
 
-      setSimilarityRecList(similarityRecListData.similarityRec);
+        setSimilarityRecList(similarityRecListData.similarityRec);
+      }
     }
 
     fetchEntireExerciseList();

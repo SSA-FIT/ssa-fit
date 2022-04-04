@@ -1,13 +1,39 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+
+// import { login as loginSagaStart } from '../../redux/modules/auth';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { updateBookmarkInfo as BookmarkSagaUpdate } from '../../redux/bookmark';
+import { putBookmarkInfo as BookmarkSagaPut } from '../../redux/bookmark';
 import { Recommendation } from '../../types/recommendationTypes';
+import { RootState } from '../../types/authTypes';
+import BookmarkService from '../../services/BookmarkService';
 
 interface Props {
   bookMarkItem: Recommendation;
 }
 const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
   const [bookMarkChecked, setBookMarkChecked] = useState<boolean>(true);
+  const [nowExerciseId, setNowExerciseId] = useState<number | null>();
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(BookmarkSagaPut());
+  // }, [bookMarkChecked]);
+
+  const updateBookmarkInfo = useCallback(
+    (requestData) => {
+      dispatch(BookmarkSagaUpdate(requestData));
+    },
+    [dispatch],
+  );
+
+  const token = useSelector<RootState, string | null>(
+    (state) => state.auth.token,
+  );
 
   const handleExerciseBookMarkChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -16,6 +42,15 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
       setBookMarkChecked(true);
     } else {
       setBookMarkChecked(false);
+      // console.log(event.target.value);
+
+      // 기존
+      // const targetId = event.target.value;
+      // updateBookmarkInfo({ data: targetId, token });
+
+      const exerciseId = event.target.value;
+      updateBookmarkInfo({ exerciseId });
+      // putBookmarkInfo();
     }
   };
   return (
@@ -26,6 +61,7 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
           <BookMark
             type="checkbox"
             checked={bookMarkChecked}
+            value={bookMarkItem.id}
             onChange={handleExerciseBookMarkChange}
           />
         </BookMarkWrapper>
