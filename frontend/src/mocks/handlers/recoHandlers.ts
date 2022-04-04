@@ -17,7 +17,6 @@ export const recoHandlers = [
     `${process.env.REACT_APP_LOCALHOST_URL}/api/recommendation/profile`,
 
     async (request, response, context) => {
-      console.log(request.body);
       return response(context.json({ profileRec: ExerciseSelections }));
     },
   ),

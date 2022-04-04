@@ -53,26 +53,17 @@ const BodyInfoForm: React.FC<Props> = ({
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
 
+  // 비로그인 체험유저 확인, 사용자 정보 가져오기
   const location = useLocation();
-  // console.log(location);
   const locationState: any = location.state;
-  // console.log(locationState.birth);
-  console.log(locationState);
-  // 비로그인 체험판 확인, 사용자 정보 가져오기
 
   useEffect(() => {
     if (locationState !== undefined) {
       setNonUser(true);
       const stateHeight = locationState.height;
-      // setUserHeightChange(locationState.height);
       const heightSplit = stateHeight.split('.');
-      // console.log(heightSplit);
-      // console.log(heightSplit[0].toString());
       setHeight1(heightSplit[0].toString());
-      // console.log(heightSplit.length);
       if (heightSplit.length === 2) setHeight2(heightSplit[1].toString());
-
-      // setUserWeightChange(locationState.weight);
       const stateWeight = locationState.weight;
       const weightSplit = stateWeight.split('.');
       setWeight1(weightSplit[0].toString());
@@ -94,7 +85,6 @@ const BodyInfoForm: React.FC<Props> = ({
   const UserBodyInfoProps = (data: BodyInfoData) => {
     const { userHeight, userWeight, userLevel, userBirth, userGender } = data;
 
-    // setSignUpStep(2);
     setUserHeight(userHeight);
     setUserWeight(userWeight);
     setUserLevel(userLevel);
@@ -210,9 +200,7 @@ const BodyInfoForm: React.FC<Props> = ({
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string,
   ) => {
-    // console.log(`alignment1:${alignment1}, newAlignment:${newAlignment}`);
     setAlignment1(newAlignment);
-    // console.log(`alignment1:${alignment1}, newAlignment:${newAlignment}`);
   };
 
   const handleChange2 = (
@@ -251,7 +239,6 @@ const BodyInfoForm: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    // console.log('alignment1 :: ', alignment1);
     switch (alignment1) {
       case 'level1':
         setSelfTest1(1);
@@ -271,7 +258,6 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment1]);
 
   useEffect(() => {
-    // console.log('alignment2 :: ', alignment2);
     switch (alignment2) {
       case 'one':
         setSelfTest2(1);
@@ -291,7 +277,6 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment2]);
 
   useEffect(() => {
-    // console.log('alignment3 :: ', alignment3);
     switch (alignment3) {
       case '30min':
         setSelfTest3(1);
@@ -311,7 +296,6 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment3]);
 
   useEffect(() => {
-    // console.log('alignment4 :: ', alignment4);
     switch (alignment4) {
       case '3stairs':
         setSelfTest4(1);
@@ -331,7 +315,6 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment4]);
 
   useEffect(() => {
-    // console.log('alignment5 :: ', alignment5);
     switch (alignment5) {
       case 'shoulderpoint0':
         setSelfTest5(0);
@@ -348,7 +331,6 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [alignment5]);
 
   useEffect(() => {
-    // console.log('alignment6 :: ', alignment6);
     switch (alignment6) {
       case 'legpoint0':
         setSelfTest6(0);
@@ -364,28 +346,17 @@ const BodyInfoForm: React.FC<Props> = ({
     }
   }, [alignment6]);
 
-  // useEffect(() => {
-  //   console.log(
-  //     `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6} = ${selfTestSum}`,
-  //   );
-  // }, [selfTestSum]);
-
   useEffect(() => {
     const sum =
       selfTest1 + selfTest2 + selfTest3 + selfTest4 + selfTest5 + selfTest6;
     setSelfTestSum(sum);
-    // console.log(
-    //   `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6}`,
-    // );
   }, [selfTest1, selfTest2, selfTest3, selfTest4, selfTest5, selfTest6]);
 
   useEffect(() => {
-    // console.log('userHeightChange :: ', userHeightChange);
     setUserHeightNumber(parseFloat(userHeightChange));
   }, [userHeightChange]);
 
   useEffect(() => {
-    // console.log('userHeightNumber :: ', userHeightNumber);
     setHeightError(false);
     if (userHeightNumber <= 300 && userHeightNumber >= 1) {
       setIsHeight(true);
@@ -397,41 +368,26 @@ const BodyInfoForm: React.FC<Props> = ({
   }, [userHeightNumber]);
 
   useEffect(() => {
-    // const height = `${height1}.${height2}`;
     if (height2 !== '') setUserHeightChange(`${height1}.${height2}`);
     else setUserHeightChange(height1);
   }, [height1, height2]);
 
   const getHeight1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const height1 = event.target.value;
-    // if (height1 === '') {
-    //   height1 = '0';
-    // }
     setHeight1(height1);
-    // console.log(`${height1} + ${height2} = ${height}`);
   };
 
   const getHeight2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const height2 = event.target.value;
-    // if (height2 === '') {
-    //   height2 = '0';
-    // }
     setHeight2(height2);
-    // console.log(`${height1} + ${height2} = ${height}`);
-    // setUserHeightNumber(parseFloat(height));
-    // console.log('userHeihtNum :: ', userHeightNumber);
   };
 
   useEffect(() => {
-    console.log('userWeightChange :: ', userWeightChange);
-    console.log('userHeightChange :: ', userHeightChange);
     setUserWeightNumber(parseFloat(userWeightChange));
     setUserHeightNumber(parseFloat(userHeightChange));
   }, [userWeightChange, userHeightChange]);
 
   useEffect(() => {
-    // console.log('userWeightNumber :: ', userWeightNumber);
-
     setWeightError(false);
     if (userWeightNumber <= 600 && userWeightNumber >= 1) {
       setIsWeight(true);
@@ -449,36 +405,25 @@ const BodyInfoForm: React.FC<Props> = ({
 
   const getWeight1 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const weight1 = event.target.value;
-    // if (weight1 === '') {
-    //   weight1 = '0';
-    // }
     setWeight1(weight1);
-    // console.log(`${weight1} + ${weight2} = ${userWeight}`);
   };
 
   const getWeight2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     const weight2 = event.target.value;
-    // if (weight2 === '') {
-    //   weight2 = '0';
-    // }
     setWeight2(weight2);
-    // console.log(`${weight1} + ${weight2} = ${userWeight}`);
   };
 
   const getBirth = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBirthError(false);
     const birth = event.target.value;
     setUserBirthChange(birth);
-    // console.log('userBirth :: ', userBirth);
   };
 
   const getGender = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGenderError(false);
-    // setNonUser(false);
     const gender = event.target.value;
     if (gender === 'M') setUserGenderChange('남');
     else if (gender === 'FM') setUserGenderChange('여');
-    // console.log('userGender :: ', userGenderChange);
   };
 
   return (

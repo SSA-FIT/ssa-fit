@@ -159,6 +159,7 @@ const NonUserProfile: React.FC = () => {
                           maxLength={3}
                           onChange={handleHeightIntegerChange}
                           className="height"
+                          placeholder="175"
                         />
                         <Input
                           type="text"
@@ -171,6 +172,7 @@ const NonUserProfile: React.FC = () => {
                           type="text"
                           maxLength={1}
                           onChange={handleHeightDecimalChange}
+                          placeholder="0"
                         />
                       </InputWrapper>
                     </ProfileInfoFieldItemWrapper>
@@ -185,6 +187,7 @@ const NonUserProfile: React.FC = () => {
                           css={inputsize}
                           maxLength={3}
                           onChange={handleWeightIntegerChange}
+                          placeholder="75"
                         />
                         <Input
                           type="text"
@@ -197,6 +200,7 @@ const NonUserProfile: React.FC = () => {
                           type="text"
                           maxLength={1}
                           onChange={handleWeightDecimalChange}
+                          placeholder="50"
                         />
                       </InputWrapper>
                     </ProfileInfoFieldItemWrapper>

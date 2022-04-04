@@ -49,7 +49,7 @@ const ExerciseHistory: React.FC = () => {
                     {year !== '' && month !== '' && week !== ''
                       ? `${year}년
                     ${month}월 ${week}주차`
-                      : `조회하고 싶은 운동 주간을 골라보세요.`}
+                      : `운동 이력 조회`}
                   </HistoryDay>
                   <SelectWrapper>
                     <DateSelect
@@ -72,12 +72,20 @@ const ExerciseHistory: React.FC = () => {
                     />
                   </SelectWrapper>
                 </HistoryDate>
-                {exerciseHistoryList.map((exerciseHistoryDay) => (
-                  <DayHistoryCard
-                    key={exerciseHistoryDay.date}
-                    exerciseHistoryDay={exerciseHistoryDay}
-                  />
-                ))}
+                {exerciseHistoryList.length === 0 ? (
+                  <DescriptionWrapper>
+                    <Description>
+                      조회하고 싶은 운동 주간을 골라보세요.
+                    </Description>
+                  </DescriptionWrapper>
+                ) : (
+                  exerciseHistoryList.map((exerciseHistoryDay) => (
+                    <DayHistoryCard
+                      key={exerciseHistoryDay.date}
+                      exerciseHistoryDay={exerciseHistoryDay}
+                    />
+                  ))
+                )}
               </HistoryDateWrapper>
             </HistoryWrapper>
           </Contents>
@@ -143,4 +151,27 @@ const HistoryDay = styled.h3`
 const SelectWrapper = styled.div`
   display: flex;
 `;
+
+const DescriptionWrapper = styled.div`
+  margin-top: 15px;
+  width: 100%;
+  height: 500px;
+  background-color: #fafafa;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+`;
+
+const Description = styled.h5`
+  color: #6367ffcc;
+  text-align: center;
+  margin-top: 15px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: initial;
+`;
+
 export default ExerciseHistory;

@@ -44,7 +44,6 @@ const SearchingId: React.FC = () => {
           timer: 1500,
         });
         setFindUserId(userId);
-        // console.log(userId);
         setEmailMessage('');
         setUserIdView(true);
       })
@@ -52,12 +51,30 @@ const SearchingId: React.FC = () => {
         const { status, message } = error.response.data;
 
         setEmailMessage(message);
+        Swal.fire({
+          icon: 'error',
+          html: message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         if (status === 401) {
           // alert(message);
           setEmailMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         } else if (status === 500) {
           // alert(message);
           setEmailMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       });
   };

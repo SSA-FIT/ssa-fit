@@ -4,9 +4,16 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import DoNotDisturbOnOutlinedIcon from '@mui/icons-material/DoNotDisturbOnOutlined';
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import CircleIcon from '@mui/icons-material/Circle';
-import React, { useEffect, useState } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useLocation } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import { text } from 'stream/consumers';
+import TimeField from 'react-simple-timefield';
+import Tooltip from '@mui/material/Tooltip';
+import { push } from 'connected-react-router';
+import { useDispatch } from 'react-redux';
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import {
   recoRecord,
   recoRecordList,
@@ -22,42 +29,45 @@ interface Props {
   userVideoSelectList: YoutubeVideo[];
 }
 const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
+  const dispatch = useDispatch();
+  const [duration, setDuration] = useState<string>('00:00:00');
   const location = useLocation();
   const [nonUserDialogOpen, setNonUserDialogOpen] = useState<boolean>(false);
   const token = useToken();
   const [videoIndex, setVideoIndex] = useState<number>(0);
-  const [repeatCount, setRepeatCount] = useState<string>('0');
-  const [setCount, setSetCount] = useState<string>('0');
-  const [hour, setHour] = useState<string>('00');
-  const [minute, setMinute] = useState<string>('00');
-  const [second, setSecond] = useState<string>('00');
+  const [repeatCount, setRepeatCount] = useState<number>(0);
+  const [setCount, setSetCount] = useState<number>(0);
+
   const [exerciseRecords, setExerciseRecords] = useState<recoRecordList>();
   const [exerciseRecordList, setExerciseRecordList] = useState<recoRecord[]>(
     [],
   );
   const [nextButtonDisabled, setNextButtonDisabled] = useState<boolean>(true);
+
   const handleRepeatCountOnChage = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setRepeatCount(event.target.value);
+    setRepeatCount(parseInt(event.target.value, 10));
+    if (event.target.value === '') {
+      setRepeatCount(0);
+    }
+    if (event.target.value.length > 3) {
+      setRepeatCount(parseInt(event.target.value.slice(0, 3), 10));
+    }
   };
 
+  // useEffect(()={
+  //   if (repeatCount> 3) {
+  //     setRepeatCount(repeatCount.slice(0, 3));
+  //   }
+  // },[repeatCount])
   const handleSetCountOnChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSetCount(event.target.value);
-  };
-
-  const handleHourOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setHour(event.target.value);
-  };
-
-  const handleMinuteOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMinute(event.target.value);
-  };
-
-  const handleSecondOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSecond(event.target.value);
+    setSetCount(parseInt(event.target.value, 10));
+    if (event.target.value === '') {
+      setRepeatCount(0);
+    }
   };
 
   // useEffect(() => {
@@ -67,68 +77,27 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
   // }, [nonUserDialogOpen]);
 
   useEffect(() => {
-    if (parseInt(repeatCount, 10) > 0) {
-      if (!onlyNumberReg.test(repeatCount)) {
-        setNextButtonDisabled(true);
-      }
-    }
-    if (parseInt(setCount, 10) > 0) {
-      if (!onlyNumberReg.test(setCount)) {
-        setNextButtonDisabled(true);
-      }
-    }
-    if (parseInt(hour, 10) > 0) {
-      if (!onlyNumberReg.test(hour)) {
-        setNextButtonDisabled(true);
-      }
-    }
-    if (parseInt(minute, 10) > 0) {
-      if (!onlyNumberReg.test(minute)) {
-        setNextButtonDisabled(true);
-      }
-    }
-    if (parseInt(second, 10) > 0) {
-      if (!onlyNumberReg.test(second)) {
-        setNextButtonDisabled(true);
-      }
-    }
-
-    if (
-      (parseInt(repeatCount, 10) > 0 && parseInt(setCount, 10) > 0) ||
-      parseInt(hour + minute + second, 10) > 0
-    ) {
+    if ((repeatCount > 0 && setCount > 0) || duration !== '00:00:00') {
       setNextButtonDisabled(false);
     } else {
       setNextButtonDisabled(true);
     }
 
-    if (parseInt(repeatCount, 10) > 0) {
-      if (parseInt(setCount, 10) > 0) {
-        setNextButtonDisabled(false);
-      } else {
-        setNextButtonDisabled(true);
-      }
-    }
-
-    if (parseInt(setCount, 10) > 0) {
-      if (parseInt(repeatCount, 10) > 0) {
-        setNextButtonDisabled(false);
-      } else {
-        setNextButtonDisabled(true);
-      }
-    }
-  }, [repeatCount, setCount, hour, minute, second]);
+    // if (repeatCount > 0 && setCount > 0) {
+    //   setNextButtonDisabled(false);
+    // } else {
+    //   setNextButtonDisabled(true);
+    // }
+  }, [repeatCount, setCount, duration]);
 
   const handlePrevButton = (event: React.MouseEvent) => {
     setVideoIndex(videoIndex - 1);
   };
 
   const resetRecordItem = () => {
-    setRepeatCount('0');
-    setSetCount('0');
-    setHour('0');
-    setMinute('0');
-    setSecond('0');
+    setRepeatCount(0);
+    setSetCount(0);
+    setDuration('00:00:00');
   };
 
   const [last, setLast] = useState<boolean>(false);
@@ -154,9 +123,9 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
         ...exerciseRecordList,
         {
           id: userVideoSelectList[videoIndex].id,
-          countPerSet: `${parseInt(repeatCount, 10) * parseInt(setCount, 10)}`,
-          setCount: parseInt(setCount, 10),
-          durationTime: `${hour}:${minute}:${second}`,
+          countPerSet: repeatCount * setCount,
+          setCount,
+          durationTime: duration,
         },
       ]);
       return true;
@@ -165,26 +134,23 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
 
     tempExerciseRecordList[findExerciseId] = {
       id: userVideoSelectList[videoIndex].id,
-      countPerSet: `${
-        parseInt(exerciseRecordList[findExerciseId].countPerSet, 10) +
-        parseInt(repeatCount, 10) * parseInt(setCount, 10)
-      }`,
-      setCount:
-        exerciseRecordList[findExerciseId].setCount + parseInt(setCount, 10),
+      countPerSet:
+        exerciseRecordList[findExerciseId].countPerSet + repeatCount * setCount,
+      setCount: exerciseRecordList[findExerciseId].setCount + setCount,
       durationTime: `${
-        parseInt(hour, 10) +
+        parseInt(duration.split(':')[0], 10) +
         parseInt(
           exerciseRecordList[findExerciseId].durationTime.split(':')[0],
           10,
         )
       }:${
-        parseInt(minute, 10) +
+        parseInt(duration.split(':')[1], 10) +
         parseInt(
           exerciseRecordList[findExerciseId].durationTime.split(':')[1],
           10,
         )
       }:${
-        parseInt(second, 10) +
+        parseInt(duration.split(':')[2], 10) +
         parseInt(
           exerciseRecordList[findExerciseId].durationTime.split(':')[2],
           10,
@@ -212,10 +178,11 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
           .then(({ message }) => {
             Swal.fire({
               icon: 'success',
-              html: message,
+              html: `운동 성공! <br> 어제보다 건강해졌네요. <br> 내일 또 싸핏하러 오세요 🏃‍♂️`,
               showConfirmButton: false,
-              timer: 1500,
+              timer: 3000,
             });
+            dispatch(push('/'));
           })
           .catch((error) => {
             const { status, message } = error.response.data;
@@ -231,6 +198,13 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
       }
     }
   };
+
+  const handleDurationTimeOnChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setDuration(event.target.value);
+  };
+
   return (
     <>
       <Wrapper>
@@ -241,99 +215,100 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
           </ExerciseName>
         </ExerciseNameWrapper>
         <VideoWrapper>
-          <PrevButtonWrapper>
-            {/* {videoIndex !== 0 ? (
-              <PrevButton onClick={handlePrevButton}>
-                <ArrowBackIosNewIcon />
-              </PrevButton>
-            ) : (
-              <PrevButton disabled>
-                <ArrowBackIosNewIcon />
-              </PrevButton>
-            )} */}
-          </PrevButtonWrapper>
+          <PrevButtonWrapper />
           <PlayerWrapper>
             <VideoPlayer videoId={userVideoSelectList[videoIndex].videoId} />
           </PlayerWrapper>
           <NextButtonWrapper>
-            {videoIndex + 1 !== userVideoSelectList.length ? (
+            {videoIndex + 1 !== userVideoSelectList.length && (
               <NextButton
                 onClick={handleNextButton}
                 disabled={nextButtonDisabled}
               >
-                <ArrowForwardIosIcon />
+                {nextButtonDisabled ? (
+                  <Tooltip title="반복횟수/세트수 또는 시간을 입력해주세요.">
+                    <ArrowForwardIosIcon />
+                  </Tooltip>
+                ) : (
+                  <ArrowForwardIosIcon />
+                )}
               </NextButton>
-            ) : (
-              <FinishButton
-                onClick={handleNextButton}
-                disabled={nextButtonDisabled}
-              >
-                운동 완료
-              </FinishButton>
             )}
+            {videoIndex + 1 === userVideoSelectList.length &&
+              (nextButtonDisabled ? (
+                <Tooltip title="반복횟수/세트수 또는 시간을 입력해주세요.">
+                  <FinishButton
+                    onClick={handleNextButton}
+                    disabled={nextButtonDisabled}
+                  >
+                    운동 완료
+                    <WarningAmberRoundedIcon />
+                  </FinishButton>
+                </Tooltip>
+              ) : (
+                <FinishButton
+                  onClick={handleNextButton}
+                  disabled={nextButtonDisabled}
+                >
+                  운동 완료
+                </FinishButton>
+              ))}
           </NextButtonWrapper>
         </VideoWrapper>
         <InputAndButtonWrapper>
           <InputsWrapper>
             <InputWrapper>
-              <InputName>반복 횟수</InputName>
-              <Input
-                value={repeatCount}
-                type="text"
-                maxLength={3}
+              <TextField
                 onChange={handleRepeatCountOnChage}
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <InputName>세트 수</InputName>
-              <Input
-                value={setCount}
+                id="outlined-number"
+                label="반복 횟수"
                 type="number"
-                maxLength={3}
-                onChange={handleSetCountOnChange}
+                placeholder="15회"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                defaultValue="0"
+                value={repeatCount}
               />
             </InputWrapper>
             <InputWrapper>
-              <InputName>운동 시간</InputName>
-              <TimeInputWrapper>
-                <TimeInput
-                  value={hour}
-                  placeholder="시간"
-                  type="number"
-                  maxLength={2}
-                  onChange={handleHourOnChange}
-                />
-
-                <TimeInput
-                  value={minute}
-                  placeholder="분"
-                  type="number"
-                  maxLength={2}
-                  onChange={handleMinuteOnChange}
-                />
-                <TimeInput
-                  value={second}
-                  placeholder="초"
-                  type="number"
-                  maxLength={2}
-                  onChange={handleSecondOnChange}
-                />
-              </TimeInputWrapper>
+              <TextField
+                onChange={handleSetCountOnChange}
+                id="outlined-number"
+                label="세트 수"
+                type="number"
+                placeholder="5세트"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={setCount}
+              />
+            </InputWrapper>
+            <InputWrapper>
+              <TimeField
+                value={duration}
+                onChange={handleDurationTimeOnChange}
+                input={
+                  <TextField
+                    id="outlined-number"
+                    label="시간"
+                    type="text"
+                    placeholder="5세트"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                }
+                colon=":"
+                showSeconds
+              />
             </InputWrapper>
           </InputsWrapper>
           <StopButtonWrapper>
-            {videoIndex + 1 !== userVideoSelectList.length ? (
-              // <StopButton
-              //   disabled={nextButtonDisabled}
-              //   onClick={handleExerciseFinishButtonClick}
-              // >
-              //   운동 중단
-              // </StopButton>
-              <NonUserDialog
-                nonUserDialogOpen={nonUserDialogOpen}
-                exerciseRecordList={exerciseRecordList}
-              />
-            ) : undefined}
+            <NonUserDialog
+              nonUserDialogOpen={nonUserDialogOpen}
+              exerciseRecordList={exerciseRecordList}
+            />
           </StopButtonWrapper>
         </InputAndButtonWrapper>
       </Wrapper>
@@ -411,6 +386,13 @@ const NextButton = styled.button`
   &:hover {
     outline: 0;
     background-color: rgb(235, 224, 246);
+    border-radius: 50%;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    outline: 0;
+    background-color: white;
     border-radius: 50%;
   }
 `;

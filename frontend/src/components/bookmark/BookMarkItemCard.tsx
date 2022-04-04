@@ -5,8 +5,10 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 // import { login as loginSagaStart } from '../../redux/modules/auth';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { updateBookmarkInfo as BookmarkSagaUpdate } from '../../redux/bookmark';
-import { putBookmarkInfo as BookmarkSagaPut } from '../../redux/bookmark';
+import {
+  updateBookmarkInfo as BookmarkSagaUpdate,
+  putBookmarkInfo as BookmarkSagaPut,
+} from '../../redux/bookmark';
 import { Recommendation } from '../../types/recommendationTypes';
 import { RootState } from '../../types/authTypes';
 import BookmarkService from '../../services/BookmarkService';
@@ -20,19 +22,11 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(BookmarkSagaPut());
-  // }, [bookMarkChecked]);
-
   const updateBookmarkInfo = useCallback(
     (requestData) => {
       dispatch(BookmarkSagaUpdate(requestData));
     },
     [dispatch],
-  );
-
-  const token = useSelector<RootState, string | null>(
-    (state) => state.auth.token,
   );
 
   const handleExerciseBookMarkChange = (
@@ -42,15 +36,9 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
       setBookMarkChecked(true);
     } else {
       setBookMarkChecked(false);
-      // console.log(event.target.value);
-
-      // 기존
-      // const targetId = event.target.value;
-      // updateBookmarkInfo({ data: targetId, token });
 
       const exerciseId = event.target.value;
       updateBookmarkInfo({ exerciseId });
-      // putBookmarkInfo();
     }
   };
   return (
@@ -66,7 +54,7 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
           />
         </BookMarkWrapper>
         {bookMarkChecked === false ? (
-          <BookMarkIconchecked sx={{ color: '#fafafa' }} />
+          <BookMarkIconchecked sx={{ color: '#f8f8f8' }} />
         ) : (
           <>
             <div>

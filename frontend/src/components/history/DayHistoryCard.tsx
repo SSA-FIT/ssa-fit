@@ -1,40 +1,27 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { exerciseRecord } from '../../types/historyTypes';
+import { exerciseItemRecord, exerciseRecord } from '../../types/historyTypes';
 import ExerciseItemCard from './ExerciseItemCard';
 
 interface Props {
   exerciseHistoryDay: exerciseRecord;
 }
 const DayHistoryCard: React.FC<Props> = ({ exerciseHistoryDay }) => {
-  const [timeSum, setTimeSum] = useState<string>('00:00:00');
+  const [timeSum, setTimeSum] = useState<string>('0');
 
-  useEffect(() => {
-    exerciseHistoryDay.exercise.forEach((exerciseHistory) => {
-      if (exerciseHistory.durationTime !== null) {
-        setTimeSum(
-          `${
-            parseInt(exerciseHistory.durationTime?.split(':')[0], 10) +
-            parseInt(timeSum.split(':')[0], 10)
-          }:${
-            parseInt(exerciseHistory.durationTime?.split(':')[1], 10) +
-            parseInt(timeSum.split(':')[1], 10)
-          }:${
-            parseInt(exerciseHistory.durationTime?.split(':')[2], 10) +
-            parseInt(timeSum.split(':')[2], 10)
-          }`,
-        );
-      }
-    });
-  }, []);
+  const array: exerciseItemRecord[] = [];
+  // useEffect(() => {
+  //   exerciseHistoryDay.exercise.reduce(function (preValue, currentValue) {
+  //     console.log(exercise[preValue].durationTime);
+  //     return preValue;
+  //   }, 0);
+  // }, []);
   return (
     <>
       <DayWrapper>
         <DescroptionWrapper>
           <Day>{exerciseHistoryDay.date}</Day>
-          <Sum>
-            {exerciseHistoryDay.exercise.length}개 | {timeSum}
-          </Sum>
+          <Sum>{exerciseHistoryDay.exercise.length}개 |</Sum>
         </DescroptionWrapper>
         <ExerciseWrapper>
           {exerciseHistoryDay.exercise.map((exerciseItem) => (

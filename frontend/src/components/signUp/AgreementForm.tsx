@@ -15,20 +15,13 @@ interface Props {
 
 const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
   const location = useLocation();
-  // console.log(location);
   const locationState: any = location.state;
-  console.log(locationState);
-  // console.log(locationState.birth);
 
   const [agreement, setAgreement] = useState<boolean>(false);
   const [agreementError, setAgreementError] = useState<boolean>(false);
 
   const handleNext = () => {
     if (!agreement) {
-      // <Alert severity="success" color="info">
-      //   This is a success alert — check it out!
-      // </Alert>;
-      // alert('약관에 동의해주세요.');
       setAgreementError(true);
     } else {
       setSignUpStep(1);

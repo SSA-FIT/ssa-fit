@@ -143,15 +143,30 @@ const ResetPasswordVerify: React.FC = () => {
         .catch((error) => {
           const { status, message } = error.response.data;
           setLoading(false);
-          // console.log('에러 :: ', message);
-          // alert(message);
-          setCodeRequestErrorMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           if (status === 409) {
             // alert(message);
+            Swal.fire({
+              icon: 'error',
+              html: message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
             setCodeRequestErrorMessage(message);
             setLoading(false);
           } else if (status === 500) {
             // alert(message);
+            Swal.fire({
+              icon: 'error',
+              html: message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
             setCodeRequestErrorMessage(message);
             setLoading(false);
           }
@@ -210,16 +225,40 @@ const ResetPasswordVerify: React.FC = () => {
       .catch((error) => {
         const { status, message } = error.response.data;
         // alert(message);
+        Swal.fire({
+          icon: 'error',
+          html: message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setEmailConfirmMessage(message);
         // setEmailCodeInput('');
         if (status === 401) {
           // alert(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           setEmailConfirmMessage(message);
           // setEmailCodeInput('');
         } else if (status === 403) {
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           setEmailConfirmMessage(message);
           // setEmailCodeInput('');
         } else if (status === 500) {
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           setEmailConfirmMessage(message);
           // setEmailCodeInput('');
         }
@@ -227,7 +266,6 @@ const ResetPasswordVerify: React.FC = () => {
   };
 
   const requestAgainCode = () => {
-    // console.log('userEmailChange :: ', userEmailChange);
     const data: ResetPasswordEmailCodeRequest = { userId: '', email: '' };
     data.userId = id;
     data.email = email;
@@ -247,8 +285,6 @@ const ResetPasswordVerify: React.FC = () => {
       })
       .catch((error) => {
         const { status, message } = error.response.data;
-        // console.log('에러 :: ', message);
-        // alert(message);
         setLoading(false);
         Swal.fire({
           icon: 'error',
@@ -346,8 +382,20 @@ const ResetPasswordVerify: React.FC = () => {
         .catch((error) => {
           const { status, message } = error.response.data;
           setResetPasswordMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           if (status === 500) {
             setResetPasswordMessage(message);
+            Swal.fire({
+              icon: 'error',
+              html: message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
         });
     }
