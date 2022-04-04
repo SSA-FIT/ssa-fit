@@ -164,7 +164,7 @@ const ProfileCard: React.FC = () => {
   const handleCloseDeleteButton = () => {
     setDelOpen(false);
     if (delPassword !== null && token !== null) {
-      console.log(ProfileService.deleteUserInfo(delPassword, token));
+      ProfileService.deleteUserInfo(delPassword, token);
     }
   };
 

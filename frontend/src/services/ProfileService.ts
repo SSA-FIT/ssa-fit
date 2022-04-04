@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { axiosInstance } from '../apis/axios';
+import DeleteUser from '../components/profile/ProfileCard';
 import { SignUpResponse } from '../types/commonTypes';
 import { ProfileRequest, ProfileResponse } from '../types/profileTypes';
 
@@ -35,13 +36,13 @@ class ProfileService {
   }
 
   public static async deleteUserInfo(
-    password: string,
+    data: DeleteUser,
     token: string,
   ): Promise<SignUpResponse> {
     const response = await axiosInstance.delete<SignUpResponse>(
       '/api/users/profile',
       {
-        data: password,
+        data,
         headers: {
           Authorization: `Bearer ${token}`,
         },
