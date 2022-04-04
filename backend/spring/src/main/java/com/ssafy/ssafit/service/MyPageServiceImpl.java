@@ -36,13 +36,11 @@ public class MyPageServiceImpl implements MyPageService {
             mm = month;
         }
         String monday = calendarUtil.getMonday(year, mm, week);
-        System.out.println(monday);
         String dateList[] = calendarUtil.getDaysOfWeek(monday, month);
 
-
+        int sec[] = {3600, 60, 1};
         List<DateAndExerciseHistoryDto> list = new ArrayList<>();
         for (int i = 0; i < dateList.length; i++) {
-            System.out.println(dateList[i]);
             if (dateList[i].equals("null")) {
                 continue;
             }
@@ -53,25 +51,88 @@ public class MyPageServiceImpl implements MyPageService {
             List<ExerciseAndBookmarkDto> historyList = new ArrayList<>();
             if (historyListInterface != null) {
                 historyList = new ArrayList<>();
+
                 for (ExerciseAndBookmark eab : historyListInterface) {
 
-                    boolean flag = (eab.getBookmark() != null) ? true : false;
+                    int isOK = -1;
+                    for (int j = 0; j < historyList.size(); j++) {
+                        if (eab.getExerciseId() == historyList.get(j).getExerciseId()) {
 
-                    ExerciseAndBookmarkDto eabd = ExerciseAndBookmarkDto.builder()
-                            .exerciseId(eab.getExerciseId())
-                            .getName(eab.getName())
-                            .imageURL(eab.getImageURL())
-                            .countPerSet(eab.getCountPerSet())
-                            .durationTime(eab.getDurationTime())
-                            .bookmark(flag)
-                            .build();
+                            if (eab.getCountPerSet() != null && historyList.get(j).getCountPerSet() != null) {
+                                String hisGet = historyList.get(j).getCountPerSet();
+                                String eabGet = eab.getCountPerSet();
+                                Double countPerSet = Double.parseDouble(hisGet) + Double.parseDouble(eabGet);
+                                historyList.get(j).setCountPerSet(String.valueOf(countPerSet));
+                            }
 
-                    if(eab.getSetCount() != null){
-                        eabd.setSetCount(Integer.parseInt(eab.getSetCount()));
+                            if (eab.getSetCount() != null) {
+                                int setCount = historyList.get(j).getSetCount() + Integer.parseInt(eab.getSetCount());
+                                historyList.get(j).setSetCount(setCount);
+                            }
+                            if (eab.getDurationTime() != null && historyList.get(j).getDurationTime() != null) {
+                                String durationTime[] = eab.getDurationTime().split(":", 3);
+                                int duration = 0;
+                                for (int z = 0; z < 3; z++) {
+                                    for (int k = 0; k < durationTime[z].length(); k++) {
+                                        if (durationTime[z].charAt(k) != '0') {
+                                            duration += ((durationTime[z].charAt(k) - '0') * sec[z] * (int) Math.pow(10, durationTime[z].length() - k - 1));
+                                        }
+                                    }
+                                }
+                                duration += Integer.parseInt(historyList.get(j).getDurationTime());
+                                historyList.get(j).setDurationTime(String.valueOf(duration));
+                            }
+                            isOK = j;
+                            break;
+                        }
                     }
-                    historyList.add(eabd);
+
+                    if (isOK == -1) {
+                        boolean flag = (eab.getBookmark() != null) ? true : false;
+                        int duration = 0;
+                        if (eab.getDurationTime() != null) {
+                            String durationTime[] = eab.getDurationTime().split(":", 3);
+                            for (int h = 0; h < 3; h++) {
+                                for (int k = 0; k < durationTime[h].length(); k++) {
+                                    if (durationTime[h].charAt(k) != '0') {
+                                        duration += ((durationTime[h].charAt(k) - '0') * sec[h] * (int) Math.pow(10, durationTime[h].length() - k - 1));
+                                    }
+                                }
+                            }
+                        }
+
+                        ExerciseAndBookmarkDto eabd = ExerciseAndBookmarkDto.builder()
+                                .exerciseId(eab.getExerciseId())
+                                .getName(eab.getName())
+                                .imageURL(eab.getImageURL())
+                                .countPerSet(eab.getCountPerSet())
+                                .durationTime(String.valueOf(duration))
+                                .bookmark(flag)
+                                .build();
+
+                        if (eab.getSetCount() != null) {
+                            eabd.setSetCount(Integer.parseInt(eab.getSetCount()));
+                        }
+                        historyList.add(eabd);
+
+                    }
 
                 }
+
+                for (int j = 0; j < historyList.size(); j++) {
+                    if (historyList.get(j).getDurationTime() != null) {
+                        int time = Integer.parseInt(historyList.get(j).getDurationTime());
+                        if (time > 0) {
+                            int hour = time / 60 / 60;
+                            int minute = time / 60 % 60;
+                            int second = time % 60;
+                            historyList.get(j).setDurationTime(hour + "시간 " + minute + "분 " + second + "초");
+                        }else{
+                            historyList.get(j).setDurationTime("0시간 0분 0초");
+                        }
+                    }
+                }
+
                 list.add(new DateAndExerciseHistoryDto(dateList[i], historyList));
             }
         }
