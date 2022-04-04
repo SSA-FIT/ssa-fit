@@ -55,6 +55,7 @@ public class MyPageController {
             }
             list = myPageService.getMyPageHistory(year, month, week, user.getId());
         } catch (Exception exception) {
+            exception.printStackTrace();
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 내 프로필 응답 실패"));
         }
 

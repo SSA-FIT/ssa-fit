@@ -72,9 +72,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = User.builder()
-//                .height(signUpRequestDto.getHeight())
                 .height(Height)
-//                .weight(signUpRequestDto.getWeight())
                 .weight(Weight)
                 .birth(signUpRequestDto.getBirth())
                 .level(signUpRequestDto.getLevel())
@@ -83,7 +81,6 @@ public class UserServiceImpl implements UserService {
                 .nickname(signUpRequestDto.getNickname())
                 .password(passwordEncoder.encode(signUpRequestDto.getPassword()))
                 .gender(signUpRequestDto.getGender())
-//                .bmi(String.valueOf(bmi).substring(0, 4))
                 .bmi(Bmi)
                 .roles("ROLE_USER")
                 .build();
@@ -134,14 +131,11 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByUserId(userId).orElse(null);
         user.setBirth(profileModifyRequestDto.getBirth());
-//        user.setHeight(profileModifyRequestDto.getHeight());
-//        user.setWeight(profileModifyRequestDto.getWeight());
         user.setHeight(Height);
         user.setWeight(Weight);
         user.setLevel(profileModifyRequestDto.getLevel());
         user.setGender(profileModifyRequestDto.getGender());
         user.setNickname(profileModifyRequestDto.getNickname());
-//        user.setBmi(String.valueOf(bmi).substring(0, 4));
         user.setBmi(Bmi);
         LocalDateTime localDateTime = LocalDateTime.now();
         user.setUpdatedAt(localDateTime);

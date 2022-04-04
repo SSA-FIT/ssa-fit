@@ -58,14 +58,14 @@ public class MyPageServiceImpl implements MyPageService {
                     for (int j = 0; j < historyList.size(); j++) {
                         if (eab.getExerciseId() == historyList.get(j).getExerciseId()) {
 
-                            if (eab.getCountPerSet() != null && historyList.get(j).getCountPerSet() != null) {
-                                String hisGet = historyList.get(j).getCountPerSet();
-                                String eabGet = eab.getCountPerSet();
-                                Double countPerSet = Double.parseDouble(hisGet) + Double.parseDouble(eabGet);
-                                historyList.get(j).setCountPerSet(String.valueOf(countPerSet));
+                            if (eab.getCountPerSet() != null && historyList.get(j).getCountPerSet() != 0) {
+                                int hisGet = historyList.get(j).getCountPerSet();
+                                int eabGet = Integer.parseInt(eab.getCountPerSet());
+                                int countPerSet = hisGet + eabGet;
+                                historyList.get(j).setCountPerSet(countPerSet);
                             }
 
-                            if (eab.getSetCount() != null) {
+                            if (eab.getSetCount() != null && historyList.get(j).getSetCount() != 0) {
                                 int setCount = historyList.get(j).getSetCount() + Integer.parseInt(eab.getSetCount());
                                 historyList.get(j).setSetCount(setCount);
                             }
@@ -105,7 +105,7 @@ public class MyPageServiceImpl implements MyPageService {
                                 .exerciseId(eab.getExerciseId())
                                 .getName(eab.getName())
                                 .imageURL(eab.getImageURL())
-                                .countPerSet(eab.getCountPerSet())
+                                .countPerSet(Integer.parseInt(eab.getCountPerSet()))
                                 .durationTime(String.valueOf(duration))
                                 .bookmark(flag)
                                 .build();

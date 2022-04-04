@@ -15,7 +15,7 @@ public class ExerciseAndBookmarkDto {
 
     private String imageURL;
 
-    private String countPerSet;
+    private int countPerSet;
 
     private int setCount;
 
