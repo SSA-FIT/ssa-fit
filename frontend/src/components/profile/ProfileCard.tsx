@@ -12,6 +12,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { PortableWifiOff } from '@mui/icons-material';
 import {
   updateProfileInfo as ProfileSagaUpdate,
   putProfileInfo as ProfileSagaPut,
@@ -22,9 +23,13 @@ import { UserInfo, ProfileRequest } from '../../types/profileTypes';
 
 const ProfileCard: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [newProfile, setnewProfile] = useState<UserInfo | null>(null);
   const [buttonText, setButtonText] = useState<string>('수정');
   const [inputDisabled, setInputDisabled] = useState<boolean>(true);
+  const [gender, setGender] = useState<string>('');
+  const [newHeight, setNewHeight ] = useState<string>('');
+  const [newWeight, setNewWeight ] = useState<string>('');
+  const [newBirth, setNewBirth ] = useState<string>('');
+  const [newNickname, setNewNickname ] = useState<string>('');
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
   const [levelError, setLevelError] = useState<boolean>(false);
@@ -38,7 +43,6 @@ const ProfileCard: React.FC = () => {
   const [selfTestSum, setSelfTestSum] = useState<number>(4);
 
   const profileInfo: UserInfo | null = useProfileInfo();
-  console.log(profileInfo);
   const dispatch = useDispatch();
   const oldProfileRequest = {
     height: profileInfo?.height,
@@ -47,6 +51,31 @@ const ProfileCard: React.FC = () => {
     birth: profileInfo?.birth,
     gender: profileInfo?.gender,
     nickname: profileInfo?.nickname,
+  };
+
+  const handleheight = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewHeight(event.target.value)
+  };
+
+  const handleweight = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewWeight(event.target.value)
+  };
+
+  const handleBirth = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewBirth(event.target.value)
+  };
+
+  const handlenickname = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewNickname(event.target.value)
+  };
+
+  const newProfile = {
+    height: newHeight,
+    weight: newWeight,
+    level: userLevelChange,
+    birth: newBirth,
+    gender: gender,
+    nickname: newNickname,
   };
 
   const putprofileInfo = useCallback(() => {
@@ -68,16 +97,22 @@ const ProfileCard: React.FC = () => {
     (state) => state.auth.token,
   );
 
-  // useEffect(() => {
-  //   if (profileInfo !== null) {
-
-  //   }
-  // }, [profileInfo]),
+  useEffect(() => {
+    if (profileInfo !== null) {
+      setGender(profileInfo?.gender);
+      setUserLevelChange(profileInfo.level);
+      setnewProfile(profileInfo);
+    }
+  }, [profileInfo]);
   // const handleChangeProfile = (
   //   event: React.ChangeEvent<HTMLInputElement>,
   // ) => {
   //   if (event.target.checked)
   // };
+
+  const handleGender = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGender(event.target.value);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -322,24 +357,24 @@ const ProfileCard: React.FC = () => {
     [dispatch],
   );
 
-  // const newProfileRequest = (): ProfileRequest => {
-  //   const newProfileRequestData = new ProfileRequest();
-  //   newProfileRequestData.
-  // }
+  const newProfileRequest = (): <ProfileRequest> => {
+    const newProfileRequestData = new <ProfileRequest>();
+    newProfileRequestData.
+  }
 
-  // const newProfileInfo = (profileInfoSelected: string) => {
-  //   switch (profileInfoSelected) {
-  //     if (profileInfo !== newProfile) {
-  //       const RequestData: <ProfileRequest> = newProfileRequest();
-  //       if (token !== null) {
-  //         updateProfileAuth({
-  //           data: RequestData,
-  //         })
-  //       }
-  //     }
-  //     break;
-  //   }
-  // };
+  const newProfileInfo = (profileInfoSelected: string) => {
+    switch (profileInfoSelected) {
+      if (JSON.stringify(oldProfileRequest) !== JSON.stringify(newProfile)) {
+        const RequestData: <ProfileRequest> = newProfileRequest();
+        if (token !== null) {
+          updateProfileAuth({
+            data: RequestData,
+          })
+        }
+      }
+      break;
+    }
+  };
   // 🌱씨앗 🌿새싹 🌳나무 🍎열매
   return (
     <>
@@ -361,7 +396,7 @@ const ProfileCard: React.FC = () => {
                     <ProfileInfoFieldItemWrapper>
                       <ProfileInfoFieldItem>
                         <ProfileInfoFieldName>아이디</ProfileInfoFieldName>
-                        {profileInfo?.id}
+                        {profileInfo?.userId}
                       </ProfileInfoFieldItem>
                       <NewPasswordWrapper>
                         <NewPassword to="/">비밀번호 재설정</NewPassword>
@@ -371,12 +406,6 @@ const ProfileCard: React.FC = () => {
                       <ProfileInfoFieldItem>
                         <ProfileInfoFieldName>이메일</ProfileInfoFieldName>
                         {profileInfo?.email}
-                      </ProfileInfoFieldItem>
-                    </ProfileInfoFieldItemWrapper>
-                    <ProfileInfoFieldItemWrapper>
-                      <ProfileInfoFieldItem>
-                        <ProfileInfoFieldName>생년월일</ProfileInfoFieldName>
-                        {profileInfo?.birth}
                       </ProfileInfoFieldItem>
                     </ProfileInfoFieldItemWrapper>
                   </ProfileInfoFieldValue>
@@ -396,7 +425,25 @@ const ProfileCard: React.FC = () => {
                         <Requirement>필수입력</Requirement>
                       </ProfileInfoFieldItemLabel>
                       <InputWrapper>
-                        <Input type="text" disabled={inputDisabled} />
+                        <Input
+                          type="text"
+                          value={profileInfo?.nickname}
+                          onChange={handlenickname}
+                          disabled={inputDisabled}
+                        />
+                      </InputWrapper>
+                    </ProfileInfoFieldItemWrapper>
+                    <ProfileInfoFieldItemWrapper>
+                      <ProfileInfoFieldItemLabel>
+                        생년월일
+                        <Requirement>필수입력</Requirement>
+                      </ProfileInfoFieldItemLabel>
+                      <InputWrapper>
+                        <Input
+                          type="text"
+                          value={profileInfo?.birth}
+                          disabled={inputDisabled}
+                        />
                       </InputWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
@@ -404,7 +451,11 @@ const ProfileCard: React.FC = () => {
                         키(cm)<Requirement>필수입력</Requirement>
                       </ProfileInfoFieldItemLabel>
                       <InputWrapper>
-                        <Input type="text" disabled={inputDisabled} />
+                        <Input
+                          type="text"
+                          value={profileInfo?.height}
+                          disabled={inputDisabled}
+                        />
                       </InputWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
@@ -413,7 +464,11 @@ const ProfileCard: React.FC = () => {
                         <Requirement>필수입력</Requirement>
                       </ProfileInfoFieldItemLabel>
                       <InputWrapper>
-                        <Input type="text" disabled={inputDisabled} />
+                        <Input
+                          type="text"
+                          value={profileInfo?.nickname}
+                          disabled={inputDisabled}
+                        />
                       </InputWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
@@ -425,20 +480,24 @@ const ProfileCard: React.FC = () => {
                         <GenderSelect>
                           <GenderInput
                             type="radio"
-                            value="M"
+                            value="남"
                             id="M"
                             name="gender"
+                            checked={profileInfo?.gender === '남'}
                             disabled={inputDisabled}
+                            onChange={handleGender}
                           />
                           <Gender htmlFor="M">남자</Gender>
                         </GenderSelect>
                         <GenderSelect>
                           <GenderInput
                             type="radio"
-                            value="FM"
+                            value="여"
                             id="FM"
                             name="gender"
+                            checked={profileInfo?.gender === '여'}
                             disabled={inputDisabled}
+                            onChange={handleGender}
                           />
                           <Gender htmlFor="FM">여자</Gender>
                         </GenderSelect>
