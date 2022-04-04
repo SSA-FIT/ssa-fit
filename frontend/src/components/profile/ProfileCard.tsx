@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { PortableWifiOff } from '@mui/icons-material';
 import { profile } from 'console';
+import Swal from 'sweetalert2';
 import {
   updateProfileInfo as ProfileSagaUpdate,
   putProfileInfo as ProfileSagaPut,
@@ -22,6 +23,7 @@ import { RootState } from '../../types/authTypes';
 import useProfileInfo from '../../hooks/useProfileInfo';
 import { UserInfo, ProfileRequest } from '../../types/profileTypes';
 import ProfileService from '../../services/ProfileService';
+import { logout as logoutSagaStart } from '../../redux/modules/auth';
 
 const ProfileCard: React.FC = () => {
   const [nonUser, setNonUser] = useState<boolean>(false);
@@ -164,7 +166,42 @@ const ProfileCard: React.FC = () => {
   const handleCloseDeleteButton = () => {
     setDelOpen(false);
     if (delPassword !== null && token !== null) {
-      ProfileService.deleteUserInfo({ password: delPassword }, token);
+      ProfileService.deleteUserInfo({ password: delPassword }, token)
+        .then(({ message }) => {
+          Swal.fire({
+            icon: 'success',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          dispatch(logoutSagaStart());
+        })
+        .catch((error) => {
+          const { status, message } = error.response.data;
+          // console.log('에러 :: ', message);
+          // alert(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          if (status === 403) {
+            Swal.fire({
+              icon: 'error',
+              html: message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } else if (status === 500) {
+            Swal.fire({
+              icon: 'error',
+              html: message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
     }
   };
 
