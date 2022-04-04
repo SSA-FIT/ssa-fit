@@ -10,6 +10,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
+import { useLocation } from 'react-router-dom';
 import { BodyInfoData } from '../../types/commonTypes';
 
 interface Props {
@@ -29,23 +31,58 @@ const BodyInfoForm: React.FC<Props> = ({
   setUserGender,
   setUserLevel,
 }) => {
+  const [nonUser, setNonUser] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
+
   const [userHeightChange, setUserHeightChange] = useState<string>('');
   const [height1, setHeight1] = useState<string>('0');
   const [height2, setHeight2] = useState<string>('0');
   const [userHeightNumber, setUserHeightNumber] = useState<number>(0);
   const [heightMessage, setHeightMessage] = useState<string>('');
   const [isHeight, setIsHeight] = useState<boolean>(false);
+
   const [userWeightChange, setUserWeightChange] = useState<string>('');
   const [weight1, setWeight1] = useState<string>('0');
   const [weight2, setWeight2] = useState<string>('0');
   const [userWeightNumber, setUserWeightNumber] = useState<number>(0);
   const [weightMessage, setWeightMessage] = useState<string>('');
   const [isWeight, setIsWeight] = useState<boolean>(false);
+
   const [userBirthChange, setUserBirthChange] = useState<string>('');
   const [userGenderChange, setUserGenderChange] = useState<string>('');
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
+
+  const location = useLocation();
+  // console.log(location);
+  const locationState: any = location.state;
+  // console.log(locationState.birth);
+  console.log(locationState);
+  // 비로그인 체험판 확인, 사용자 정보 가져오기
+
+  useEffect(() => {
+    if (locationState !== undefined) {
+      setNonUser(true);
+      const stateHeight = locationState.height;
+      // setUserHeightChange(locationState.height);
+      const heightSplit = stateHeight.split('.');
+      // console.log(heightSplit);
+      // console.log(heightSplit[0].toString());
+      setHeight1(heightSplit[0].toString());
+      // console.log(heightSplit.length);
+      if (heightSplit.length === 2) setHeight2(heightSplit[1].toString());
+
+      // setUserWeightChange(locationState.weight);
+      const stateWeight = locationState.weight;
+      const weightSplit = stateWeight.split('.');
+      setWeight1(weightSplit[0].toString());
+      if (weightSplit.length === 2) setWeight2(weightSplit[1].toString());
+
+      setUserLevelChange(locationState.level);
+      setUserBirthChange(locationState.birth);
+      setUserGenderChange(locationState.gender);
+    }
+  }, [locationState]);
 
   const [heightError, setHeightError] = useState<boolean>(false);
   const [weightError, setWeightError] = useState<boolean>(false);
@@ -148,32 +185,25 @@ const BodyInfoForm: React.FC<Props> = ({
     setAlignment6('legpoint0');
   };
 
+  useEffect(() => {
+    if (selfTestSum >= 4 && selfTestSum < 9) setUserLevelChange('씨앗');
+    else if (selfTestSum >= 9 && selfTestSum < 15) setUserLevelChange('새싹');
+    else if (selfTestSum >= 15 && selfTestSum < 21) setUserLevelChange('나무');
+    else if (selfTestSum >= 21 && selfTestSum < 24) setUserLevelChange('열매');
+  }, [selfTestSum]);
+
   const handleCloseFinishButton = () => {
     setOpen(false);
-
-    if (selfTestSum >= 4 && selfTestSum < 9) {
-      setUserLevelChange('씨앗');
-      setUserLevelIcon('🌱');
-    }
-
-    if (selfTestSum >= 9 && selfTestSum < 15) {
-      setUserLevelChange('새싹');
-      setUserLevelIcon('🌿');
-    }
-
-    if (selfTestSum >= 15 && selfTestSum < 21) {
-      setUserLevelChange('나무');
-      setUserLevelIcon('🌳');
-    }
-
-    if (selfTestSum >= 21 && selfTestSum < 24) {
-      setUserLevelChange('열매');
-      setUserLevelIcon('🍎');
-    }
   };
 
   useEffect(() => {
-    if (userLevelChange !== '') setLevelError(false);
+    if (userLevelChange !== '') {
+      setLevelError(false);
+      if (userLevelChange === '씨앗') setUserLevelIcon('🌱');
+      else if (userLevelChange === '새싹') setUserLevelIcon('🌿');
+      else if (userLevelChange === '나무') setUserLevelIcon('🌳');
+      else if (userLevelChange === '열매') setUserLevelIcon('🍎');
+    }
   }, [userLevelChange]);
 
   const handleChange1 = (
@@ -366,34 +396,38 @@ const BodyInfoForm: React.FC<Props> = ({
     }
   }, [userHeightNumber]);
 
+  useEffect(() => {
+    // const height = `${height1}.${height2}`;
+    if (height2 !== '') setUserHeightChange(`${height1}.${height2}`);
+    else setUserHeightChange(height1);
+  }, [height1, height2]);
+
   const getHeight1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let height1 = event.target.value;
-    if (height1 === '') {
-      height1 = '0';
-    }
+    const height1 = event.target.value;
+    // if (height1 === '') {
+    //   height1 = '0';
+    // }
     setHeight1(height1);
-    const height = `${height1}.${height2}`;
-    setUserHeightChange(height);
     // console.log(`${height1} + ${height2} = ${height}`);
   };
 
   const getHeight2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let height2 = event.target.value;
-    if (height2 === '') {
-      height2 = '0';
-    }
+    const height2 = event.target.value;
+    // if (height2 === '') {
+    //   height2 = '0';
+    // }
     setHeight2(height2);
-    const height = `${height1}.${height2}`;
-    setUserHeightChange(height);
     // console.log(`${height1} + ${height2} = ${height}`);
-    setUserHeightNumber(parseFloat(height));
+    // setUserHeightNumber(parseFloat(height));
     // console.log('userHeihtNum :: ', userHeightNumber);
   };
 
   useEffect(() => {
-    // console.log('userWeightChange :: ', userWeightChange);
+    console.log('userWeightChange :: ', userWeightChange);
+    console.log('userHeightChange :: ', userHeightChange);
     setUserWeightNumber(parseFloat(userWeightChange));
-  }, [userWeightChange]);
+    setUserHeightNumber(parseFloat(userHeightChange));
+  }, [userWeightChange, userHeightChange]);
 
   useEffect(() => {
     // console.log('userWeightNumber :: ', userWeightNumber);
@@ -408,25 +442,26 @@ const BodyInfoForm: React.FC<Props> = ({
     }
   }, [userWeightNumber]);
 
+  useEffect(() => {
+    if (weight2 !== '') setUserWeightChange(`${weight1}.${weight2}`);
+    else setUserWeightChange(weight1);
+  }, [weight1, weight2]);
+
   const getWeight1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let weight1 = event.target.value;
-    if (weight1 === '') {
-      weight1 = '0';
-    }
+    const weight1 = event.target.value;
+    // if (weight1 === '') {
+    //   weight1 = '0';
+    // }
     setWeight1(weight1);
-    const weight = `${weight1}.${weight2}`;
-    setUserWeightChange(weight);
     // console.log(`${weight1} + ${weight2} = ${userWeight}`);
   };
 
   const getWeight2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let weight2 = event.target.value;
-    if (weight2 === '') {
-      weight2 = '0';
-    }
+    const weight2 = event.target.value;
+    // if (weight2 === '') {
+    //   weight2 = '0';
+    // }
     setWeight2(weight2);
-    const weight = `${weight1}.${weight2}`;
-    setUserWeightChange(weight);
     // console.log(`${weight1} + ${weight2} = ${userWeight}`);
   };
 
@@ -439,6 +474,7 @@ const BodyInfoForm: React.FC<Props> = ({
 
   const getGender = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGenderError(false);
+    // setNonUser(false);
     const gender = event.target.value;
     if (gender === 'M') setUserGenderChange('남');
     else if (gender === 'FM') setUserGenderChange('여');
@@ -464,6 +500,7 @@ const BodyInfoForm: React.FC<Props> = ({
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
               <BodyInput1
+                value={height1}
                 maxLength={3}
                 onChange={getHeight1}
                 className={
@@ -475,6 +512,7 @@ const BodyInfoForm: React.FC<Props> = ({
               />
               .
               <BodyInput2
+                value={height2}
                 maxLength={1}
                 onChange={getHeight2}
                 className={
@@ -503,6 +541,7 @@ const BodyInfoForm: React.FC<Props> = ({
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
               <BodyInput1
+                value={weight1}
                 maxLength={3}
                 onChange={getWeight1}
                 className={
@@ -514,6 +553,7 @@ const BodyInfoForm: React.FC<Props> = ({
               />
               .
               <BodyInput2
+                value={weight2}
                 maxLength={1}
                 onChange={getWeight2}
                 className={
@@ -542,6 +582,7 @@ const BodyInfoForm: React.FC<Props> = ({
               </InputName>
               <Input
                 type="date"
+                value={userBirthChange}
                 onChange={getBirth}
                 className={birthError ? 'have-error' : ''}
               />
@@ -564,7 +605,12 @@ const BodyInfoForm: React.FC<Props> = ({
                     id="M"
                     name="gender"
                     onChange={getGender}
+                    checked={
+                      (nonUser && userGenderChange === '남') ||
+                      userGenderChange === '남'
+                    }
                   />
+                  {/* checked={nonUser && locationState.gender === '남'} */}
                   <Gender htmlFor="M">남자</Gender>
                 </GenderSelect>
                 <GenderSelect>
@@ -574,7 +620,13 @@ const BodyInfoForm: React.FC<Props> = ({
                     id="FM"
                     name="gender"
                     onChange={getGender}
+                    checked={
+                      (nonUser && userGenderChange === '여') ||
+                      userGenderChange === '여'
+                    }
                   />
+                  {/* 
+                    checked={nonUser && locationState.gender === '여'} */}
                   <Gender htmlFor="FM">여자</Gender>
                 </GenderSelect>
               </GenderSelectWrapper>
@@ -626,10 +678,6 @@ const BodyInfoForm: React.FC<Props> = ({
                         exclusive
                         onChange={handleChange1}
                       >
-                        {/* <MuiToggleButton value="seed">🌱씨앗</MuiToggleButton>
-                        <MuiToggleButton value="sprout">🌿새싹</MuiToggleButton>
-                        <MuiToggleButton value="tree">🌳나무</MuiToggleButton>
-                        <MuiToggleButton value="fruit">🍎열매</MuiToggleButton> */}
                         <MuiToggleButton value="level1">초보</MuiToggleButton>
                         <MuiToggleButton value="level2">하수</MuiToggleButton>
                         <MuiToggleButton value="level3">중수</MuiToggleButton>

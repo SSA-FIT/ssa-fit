@@ -131,10 +131,15 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
     setSecond('0');
   };
 
+  const [last, setLast] = useState<boolean>(false);
   const handleNextButton = (event: React.MouseEvent) => {
     if (controlExerciseRecordList(videoIndex)) {
-      setVideoIndex(videoIndex + 1);
-      resetRecordItem();
+      if (videoIndex + 1 !== userVideoSelectList.length) {
+        setVideoIndex(videoIndex + 1);
+        resetRecordItem();
+      } else {
+        setLast(true);
+      }
     }
   };
 
@@ -191,8 +196,14 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
     return true;
   };
 
-  const handleExerciseFinishButtonClick = (event: React.MouseEvent) => {
-    if (controlExerciseRecordList(videoIndex)) {
+  useEffect(() => {
+    if (last) {
+      handleExerciseFinishButtonClick();
+    }
+  }, [last]);
+
+  const handleExerciseFinishButtonClick = () => {
+    if (last) {
       if (token !== null) {
         RecommendationService.saveExerciseRecords(
           { exercises: exerciseRecordList },
@@ -231,7 +242,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
         </ExerciseNameWrapper>
         <VideoWrapper>
           <PrevButtonWrapper>
-            {videoIndex !== 0 ? (
+            {/* {videoIndex !== 0 ? (
               <PrevButton onClick={handlePrevButton}>
                 <ArrowBackIosNewIcon />
               </PrevButton>
@@ -239,7 +250,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
               <PrevButton disabled>
                 <ArrowBackIosNewIcon />
               </PrevButton>
-            )}
+            )} */}
           </PrevButtonWrapper>
           <PlayerWrapper>
             <VideoPlayer videoId={userVideoSelectList[videoIndex].videoId} />
@@ -254,7 +265,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
               </NextButton>
             ) : (
               <FinishButton
-                onClick={handleExerciseFinishButtonClick}
+                onClick={handleNextButton}
                 disabled={nextButtonDisabled}
               >
                 운동 완료

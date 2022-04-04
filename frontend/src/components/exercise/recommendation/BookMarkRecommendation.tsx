@@ -40,12 +40,14 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
         )
       )}
       {token !== null ? (
-        <DescriptionWrapper>
-          <Description>
-            현재 즐겨찾기한 운동이 없습니다. 운동 이력 조회 페이지에서
-            즐겨찾기를 할 수 있습니다!
-          </Description>
-        </DescriptionWrapper>
+        bookMarkRecoList.length === 0 && (
+          <DescriptionWrapper>
+            <Description>
+              현재 즐겨찾기한 운동이 없습니다. 운동 이력 조회 페이지에서
+              즐겨찾기를 할 수 있습니다!
+            </Description>
+          </DescriptionWrapper>
+        )
       ) : (
         <DescriptionWrapper>
           <Description>

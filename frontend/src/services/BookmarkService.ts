@@ -3,13 +3,13 @@ import { axiosInstance } from '../apis/axios';
 
 class BookmarkService {
   public static async updateBookmark(
-    data: number,
+    exerciseId: number,
     token: string,
   ): Promise<SignUpResponse> {
     const response = await axiosInstance.get<SignUpResponse>(
       `/api/users/bookmark`,
       {
-        params: data,
+        params: exerciseId,
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,104 +1,54 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <Base>
-      <Section>
-        {/* <Statistics>
-          <Summary>
-            지금까지&nbsp;
-            <Emphasis>★ 633,986,967 개의 평가가</Emphasis>
-            &nbsp;쌓였어요.
-          </Summary>
-        </Statistics> */}
-        <Container>
-          <ContentWrapper>
-            <Left>
-              <TermsAndPolicy>
-                <TermsAndPolicyItem>서비스 이용약관</TermsAndPolicyItem>
-                <TermsAndPolicyItem>개인정보 처리방침</TermsAndPolicyItem>
-                <TermsAndPolicyItem>싸핏 안내</TermsAndPolicyItem>
-              </TermsAndPolicy>
-            </Left>
-            <Right />
-          </ContentWrapper>
-        </Container>
-      </Section>
-    </Base>
+    <Wrapper>
+      <InfoWrapper>
+        <ServiceWrapper>
+          <Tos to="#">개인 정보 처리 방침</Tos>
+          <Tos to="#">이용 약관</Tos>
+        </ServiceWrapper>
+      </InfoWrapper>
+    </Wrapper>
   );
 };
 
-const Base = styled.footer`
+const Wrapper = styled.div`
   display: block;
-  box-sizing: border-box;
-  width: 100%;
+  position: relative;
 `;
 
-const Section = styled.section`
-  background-color: #1c1d1f;
-`;
-
-const Statistics = styled.section`
-  background: #101113;
-  width: 100%;
-  height: 62px;
-  line-height: 62px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Summary = styled.span`
-  color: #d1d1d2;
-  font-size: 19px;
-  font-weight: 500;
-  line-height: 22px;
-  text-align: center;
-`;
-
-const Emphasis = styled.em`
-  color: #ff0558;
-  font-size: 19px;
-  font-weight: 500;
-  line-height: 22px;
-`;
-
-const Container = styled.section`
-  background: #1c1d1f;
-  padding: 20px 0 38px;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  margin: 0 60px;
-`;
-
-const Left = styled.div``;
-
-const TermsAndPolicy = styled.ul``;
-
-const TermsAndPolicyItem = styled.li`
-  display: inline-block;
-  color: #a5a5a7;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 22px;
-  vertical-align: top;
-  cursor: pointer;
-  &:not(:last-of-type) {
-    &:after {
-      content: '';
-      display: inline-block;
-      background: #848485;
-      vertical-align: top;
-      width: 1px;
-      height: 12px;
-      margin: 5px 8px 0;
-    }
+const InfoWrapper = styled.div`
+  padding: 1.6rem 2rem 1.7rem;
+  border-bottom: 1px solid #e7eaf0;
+  @media ((min-width: 1060px)) {
+    padding-top: 1.4rem;
+    padding-bottom: 1.3rem;
   }
 `;
 
-const Right = styled.div``;
+const ServiceWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+`;
+
+const Tos = styled(Link)`
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  padding: 0 1rem 0 2rem;
+  border: 0;
+  border-radius: 0.2rem;
+  outline: 0;
+  background-size: 16px 16px;
+  color: #000;
+  font-size: 1.4rem;
+  line-height: 1.58;
+`;
 
 export default Footer;

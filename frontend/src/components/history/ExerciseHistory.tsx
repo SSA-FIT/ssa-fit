@@ -1,103 +1,42 @@
 import styled from '@emotion/styled';
-import { ExerciseHistoryList } from '../../types/historyTypes';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import useHistoryList from '../../hooks/useHistoryList';
+import useToken from '../../hooks/useToken';
+import HistoryService from '../../services/HistoryService';
+import { ExerciseHistoryList, exerciseRecord } from '../../types/historyTypes';
 import DateSelect from './DateSelect';
 import DayHistoryCard from './DayHistoryCard';
 
 const ExerciseHistory: React.FC = () => {
-  const exerciseHistoryList: ExerciseHistoryList = {
-    exerciseHistory: [
-      {
-        date: '22.03.30',
-        exercise: [
+  const [year, setYear] = useState<string>('');
+  const [month, setMonth] = useState<string>('');
+  const [week, setWeek] = useState<string>('');
+  const [exerciseHistoryList, setExerciseHistoryList] = useState<
+    exerciseRecord[]
+  >([]);
+
+  const token = useToken();
+
+  useEffect(() => {
+    async function fetchEntireExerciseList() {
+      if (token !== null && year !== '' && month !== '' && week !== '') {
+        const HistoryListData = await HistoryService.getExerciseHistory(
           {
-            exerciseId: 1,
-            name: '등/어깨운동',
-            countPerSet: '3.5',
-            setCount: 3,
-            durationTime: '01:33:44',
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: true,
+            month,
+            week,
+            year,
           },
-          {
-            exerciseId: 3,
-            name: '스쿼트',
-            countPerSet: '5',
-            setCount: 3,
-            durationTime: null,
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: true,
-          },
-          {
-            exerciseId: 5,
-            name: '조깅',
-            countPerSet: '5',
-            setCount: 3,
-            durationTime: null,
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: true,
-          },
-          {
-            exerciseId: 7,
-            name: '줄넘기',
-            countPerSet: '50',
-            setCount: 3,
-            durationTime: '3:00:00',
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: true,
-          },
-          {
-            exerciseId: 10,
-            name: '한 발로 뛰기',
-            countPerSet: '15',
-            setCount: 3,
-            durationTime: null,
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: false,
-          },
-          {
-            exerciseId: 23,
-            name: '고양이 자세',
-            countPerSet: '5',
-            setCount: 3,
-            durationTime: '00:10:00',
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: false,
-          },
-        ],
-      },
-      {
-        date: '22.03.31',
-        exercise: [
-          {
-            exerciseId: 1,
-            name: '등/어깨운동',
-            countPerSet: '3.5',
-            setCount: 3,
-            durationTime: '01:33:44',
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: false,
-          },
-          {
-            exerciseId: 3,
-            name: '스쿼트',
-            countPerSet: '5',
-            setCount: 3,
-            durationTime: null,
-            imageURL:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Golde33443.jpg/220px-Golde33443.jpg',
-            bookmark: false,
-          },
-        ],
-      },
-    ],
-  };
+          token,
+        );
+
+        setExerciseHistoryList(HistoryListData.exerciseHistory);
+      }
+    }
+
+    fetchEntireExerciseList();
+  }, [year, month, week]);
+
   return (
     <>
       <ContainerWrapper>
@@ -106,21 +45,39 @@ const ExerciseHistory: React.FC = () => {
             <HistoryWrapper>
               <HistoryDateWrapper>
                 <HistoryDate>
-                  <HistoryDay>3월 1주차</HistoryDay>
+                  <HistoryDay>
+                    {year !== '' && month !== '' && week !== ''
+                      ? `${year}년
+                    ${month}월 ${week}주차`
+                      : `조회하고 싶은 운동 주간을 골라보세요.`}
+                  </HistoryDay>
                   <SelectWrapper>
-                    <DateSelect labelType="Year" />
-                    <DateSelect labelType="Month" />
-                    <DateSelect labelType="Week" />
+                    <DateSelect
+                      labelType="Year"
+                      setYear={setYear}
+                      setMonth={setMonth}
+                      setWeek={setWeek}
+                    />
+                    <DateSelect
+                      labelType="Month"
+                      setYear={setYear}
+                      setMonth={setMonth}
+                      setWeek={setWeek}
+                    />
+                    <DateSelect
+                      labelType="Week"
+                      setYear={setYear}
+                      setMonth={setMonth}
+                      setWeek={setWeek}
+                    />
                   </SelectWrapper>
                 </HistoryDate>
-                {exerciseHistoryList.exerciseHistory.map(
-                  (exerciseHistoryDay) => (
-                    <DayHistoryCard
-                      key={exerciseHistoryDay.date}
-                      exerciseHistoryDay={exerciseHistoryDay}
-                    />
-                  ),
-                )}
+                {exerciseHistoryList.map((exerciseHistoryDay) => (
+                  <DayHistoryCard
+                    key={exerciseHistoryDay.date}
+                    exerciseHistoryDay={exerciseHistoryDay}
+                  />
+                ))}
               </HistoryDateWrapper>
             </HistoryWrapper>
           </Contents>
