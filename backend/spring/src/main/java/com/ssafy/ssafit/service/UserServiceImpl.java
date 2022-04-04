@@ -146,11 +146,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Modifying
     @Override
-    public User deleteProfile(User user) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        user.setDeletedAt(localDateTime);
-        User deleteUser = userRepository.save(user);
-        return deleteUser;
+    public int deleteProfile(User user) {
+        userRepository.delete(user);
+        return 1;
 
     }
 
