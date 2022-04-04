@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
+import { Link, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
@@ -16,6 +16,7 @@ import MenusLogIn from './MenusLogIn';
 import MenusLogOut from './MenusLogOut';
 
 const Header: React.FC = () => {
+  const location = useLocation();
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token,
   );
@@ -42,7 +43,7 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <Container>
+    <Container css={location.pathname === '/' ? noborder : undefined}>
       <Wrapper>
         <LogoWrapper>
           <LogoNameWrapper>
@@ -119,7 +120,7 @@ const Header: React.FC = () => {
 
 const Container = styled.header`
   position: relative;
-  /* border-bottom: 1px solid #6367ff; */
+  border-bottom: 1px solid #6367ff;
   pointer-events: none;
 `;
 
@@ -240,6 +241,9 @@ const icon = css`
   font-size: 30px;
 `;
 
+const noborder = css`
+  border-bottom: 0;
+`;
 const AccountInfoItemWrapper = styled.div``;
 
 export default Header;

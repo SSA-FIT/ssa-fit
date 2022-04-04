@@ -5,8 +5,10 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded';
 // import { login as loginSagaStart } from '../../redux/modules/auth';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { updateBookmarkInfo as BookmarkSagaUpdate } from '../../redux/bookmark';
-import { putBookmarkInfo as BookmarkSagaPut } from '../../redux/bookmark';
+import {
+  updateBookmarkInfo as BookmarkSagaUpdate,
+  putBookmarkInfo as BookmarkSagaPut,
+} from '../../redux/bookmark';
 import { Recommendation } from '../../types/recommendationTypes';
 import { RootState } from '../../types/authTypes';
 import BookmarkService from '../../services/BookmarkService';
@@ -52,7 +54,7 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
           />
         </BookMarkWrapper>
         {bookMarkChecked === false ? (
-          <BookMarkIconchecked sx={{ color: '#fafafa' }} />
+          <BookMarkIconchecked sx={{ color: '#f8f8f8' }} />
         ) : (
           <>
             <div>

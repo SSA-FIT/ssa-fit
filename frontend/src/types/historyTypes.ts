@@ -12,9 +12,9 @@ export interface exerciseRecord {
 export interface exerciseItemRecord {
   exerciseId: number;
   getName: string;
-  countPerSet: string | null;
-  setCount: number | null;
-  durationTime: string | null;
+  countPerSet: number;
+  setCount: number;
+  durationTime: string;
   imageURL: string;
   bookmark: boolean;
 }
