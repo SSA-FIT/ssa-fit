@@ -16,7 +16,7 @@ public class ExerciseHistoryDto {
     private int id;
 
     @ApiModelProperty(value = "운동횟수", example = "20")
-    private String countPerSet;
+    private int countPerSet;
 
     @ApiModelProperty(value = "운동세트", example = "3")
     private int setCount;
