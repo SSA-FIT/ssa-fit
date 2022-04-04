@@ -124,15 +124,33 @@ const EmailVerification: React.FC<Props> = ({
         // alert(message);
 
         setLoading(false);
-        setEmailMessage(message);
+        Swal.fire({
+          icon: 'error',
+          html: message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        // setEmailMessage(message);
         if (status === 409) {
           // alert(message);
           setLoading(false);
-          setEmailMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // setEmailMessage(message);
         } else if (status === 500) {
           // alert(message);
           setLoading(false);
-          setEmailMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // setEmailMessage(message);
         }
       });
   };
@@ -174,16 +192,40 @@ const EmailVerification: React.FC<Props> = ({
         const { status, message } = error.response.data;
         // alert(message);
         setEmailConfirmMessage(message);
+        Swal.fire({
+          icon: 'error',
+          html: message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         // setEmailCodeInput('');
         if (status === 401) {
           // alert(message);
           setEmailConfirmMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           // setEmailCodeInput('');
         } else if (status === 403) {
           setEmailConfirmMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           // setEmailCodeInput('');
         } else if (status === 500) {
           setEmailConfirmMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           // setEmailCodeInput('');
         }
       });

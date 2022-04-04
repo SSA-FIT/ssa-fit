@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   BookmarkState,
   putBookmarkInfo as BookmarkSagaPut,
@@ -36,14 +37,27 @@ const Bookmark: React.FC = () => {
       <ContainerWrapper>
         <Container>
           {/* <ContentName>즐겨찾기</ContentName> */}
-          <Wrapper>
-            {bookMarkNewList.map((bookMarkItem) => (
-              <BookMarkItemCard
-                key={bookMarkItem.id}
-                bookMarkItem={bookMarkItem}
-              />
-            ))}
-          </Wrapper>
+
+          {bookMarkNewList.length > 0 ? (
+            <Wrapper>
+              {bookMarkNewList.map((bookMarkItem) => (
+                <BookMarkItemCard
+                  key={bookMarkItem.id}
+                  bookMarkItem={bookMarkItem}
+                />
+              ))}
+            </Wrapper>
+          ) : (
+            <DescriptionWrapper>
+              <Description>
+                현재 즐겨찾기한 운동이 없습니다. 운동 이력 조회 페이지에서
+                즐겨찾기를 할 수 있습니다!
+              </Description>
+              <ExerciseHistoryLink to="/exercise/history">
+                운동 이력 조회 하러 가기🏃‍♀️
+              </ExerciseHistoryLink>
+            </DescriptionWrapper>
+          )}
         </Container>
       </ContainerWrapper>
     </>
@@ -87,6 +101,36 @@ const Wrapper = styled.div`
   @media (min-width: 767px) {
     grid-template-columns: repeat(4, 1fr);
     margin: 30px 0px 40px;
+  }
+`;
+
+const DescriptionWrapper = styled.div`
+  width: 100%;
+  height: 150px;
+  background-color: #fafafa;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+`;
+
+const Description = styled.h5`
+  color: #6367ffcc;
+  text-align: center;
+  margin-top: 15px;
+  font-weight: 200;
+  font-size: 20px;
+  line-height: initial;
+`;
+
+const ExerciseHistoryLink = styled(Link)`
+  font-size: 20px;
+  margin-top: 15px;
+
+  &:hover {
+    border-bottom: 1px solid #fff;
   }
 `;
 export default Bookmark;
