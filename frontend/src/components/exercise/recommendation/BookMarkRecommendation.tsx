@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import Slider from '../../common/Slider';
 import Card from '../../common/Card';
 import {
@@ -54,11 +56,12 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
       ) : (
         <DescriptionWrapper>
           <Description>
-            싸핏 체험판에서는 사용자 운동 기록을 기반으로 맞춤 추천 목록은
-            제공되지 않습니다. <br /> 개인의 운동 기록을 기반으로 하는 추천을
-            보고 싶다면 회원가입을 진행해주세요
+            회원 전용 즐겨찾기 목록 입니다. <br /> 좋아하는 운동을 기억하고
+            싶다면 회원가입을 진행해주세요.
           </Description>
-          <SignUpLink to="/users/sign-up">싸핏 회원가입 하러 가기🏃‍♀️</SignUpLink>
+          <SignUpLink css={differentBorderColor} to="/users/sign-up">
+            싸핏 회원가입 하러 가기🤸‍♂️
+          </SignUpLink>
         </DescriptionWrapper>
       )}
     </Base>
@@ -104,6 +107,12 @@ const SignUpLink = styled(Link)`
 
   &:hover {
     border-bottom: 1px solid #fff;
+  }
+`;
+
+const differentBorderColor = css`
+  &:hover {
+    border-bottom: 1px solid #6367ff;
   }
 `;
 export default BookMarkRecommendation;

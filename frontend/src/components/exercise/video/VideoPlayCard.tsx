@@ -10,6 +10,10 @@ import { useLocation } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { text } from 'stream/consumers';
 import TimeField from 'react-simple-timefield';
+import Tooltip from '@mui/material/Tooltip';
+import { push } from 'connected-react-router';
+import { useDispatch } from 'react-redux';
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 import {
   recoRecord,
   recoRecordList,
@@ -25,6 +29,7 @@ interface Props {
   userVideoSelectList: YoutubeVideo[];
 }
 const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
+  const dispatch = useDispatch();
   const [duration, setDuration] = useState<string>('00:00:00');
   const location = useLocation();
   const [nonUserDialogOpen, setNonUserDialogOpen] = useState<boolean>(false);
@@ -173,10 +178,11 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
           .then(({ message }) => {
             Swal.fire({
               icon: 'success',
-              html: message,
+              html: `운동 성공! <br> 어제보다 건강해졌네요. <br> 내일 또 싸핏하러 오세요 🏃‍♂️`,
               showConfirmButton: false,
-              timer: 1500,
+              timer: 3000,
             });
+            dispatch(push('/'));
           })
           .catch((error) => {
             const { status, message } = error.response.data;
@@ -199,7 +205,6 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
     setDuration(event.target.value);
   };
 
-  console.log(repeatCount, setCount, duration);
   return (
     <>
       <Wrapper>
@@ -215,21 +220,39 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
             <VideoPlayer videoId={userVideoSelectList[videoIndex].videoId} />
           </PlayerWrapper>
           <NextButtonWrapper>
-            {videoIndex + 1 !== userVideoSelectList.length ? (
+            {videoIndex + 1 !== userVideoSelectList.length && (
               <NextButton
                 onClick={handleNextButton}
                 disabled={nextButtonDisabled}
               >
-                <ArrowForwardIosIcon />
+                {nextButtonDisabled ? (
+                  <Tooltip title="반복횟수/세트수 또는 시간을 입력해주세요.">
+                    <ArrowForwardIosIcon />
+                  </Tooltip>
+                ) : (
+                  <ArrowForwardIosIcon />
+                )}
               </NextButton>
-            ) : (
-              <FinishButton
-                onClick={handleNextButton}
-                disabled={nextButtonDisabled}
-              >
-                운동 완료
-              </FinishButton>
             )}
+            {videoIndex + 1 === userVideoSelectList.length &&
+              (nextButtonDisabled ? (
+                <Tooltip title="반복횟수/세트수 또는 시간을 입력해주세요.">
+                  <FinishButton
+                    onClick={handleNextButton}
+                    disabled={nextButtonDisabled}
+                  >
+                    운동 완료
+                    <WarningAmberRoundedIcon />
+                  </FinishButton>
+                </Tooltip>
+              ) : (
+                <FinishButton
+                  onClick={handleNextButton}
+                  disabled={nextButtonDisabled}
+                >
+                  운동 완료
+                </FinishButton>
+              ))}
           </NextButtonWrapper>
         </VideoWrapper>
         <InputAndButtonWrapper>
@@ -245,6 +268,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
                   shrink: true,
                 }}
                 defaultValue="0"
+                value={repeatCount}
               />
             </InputWrapper>
             <InputWrapper>
@@ -257,6 +281,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                value={setCount}
               />
             </InputWrapper>
             <InputWrapper>
@@ -280,18 +305,10 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
             </InputWrapper>
           </InputsWrapper>
           <StopButtonWrapper>
-            {videoIndex + 1 !== userVideoSelectList.length ? (
-              // <StopButton
-              //   disabled={nextButtonDisabled}
-              //   onClick={handleExerciseFinishButtonClick}
-              // >
-              //   운동 중단
-              // </StopButton>
-              <NonUserDialog
-                nonUserDialogOpen={nonUserDialogOpen}
-                exerciseRecordList={exerciseRecordList}
-              />
-            ) : undefined}
+            <NonUserDialog
+              nonUserDialogOpen={nonUserDialogOpen}
+              exerciseRecordList={exerciseRecordList}
+            />
           </StopButtonWrapper>
         </InputAndButtonWrapper>
       </Wrapper>
