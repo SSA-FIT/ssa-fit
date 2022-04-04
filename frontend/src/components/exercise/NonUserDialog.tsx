@@ -80,9 +80,6 @@ const NonUserDialog: React.FC<Props> = ({
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        운동 중단
-      </Button> */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -94,7 +91,7 @@ const NonUserDialog: React.FC<Props> = ({
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            더 섬세한 추천으로 fit한 운동을 하고 싶다면 회원으로 싸핏을
+            더 섬세한 추천으로 반영된 운동을 하고 싶다면 회원으로 싸핏을
             만나보세요
           </DialogContentText>
         </DialogContent>
