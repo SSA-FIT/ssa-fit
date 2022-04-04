@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { axiosInstance } from '../apis/axios';
-import DeleteUser from '../components/profile/ProfileCard';
 import { SignUpResponse } from '../types/commonTypes';
-import { ProfileRequest, ProfileResponse } from '../types/profileTypes';
+import {
+  DeleteUser,
+  ProfileRequest,
+  ProfileResponse,
+} from '../types/profileTypes';
 
 class ProfileService {
   public static async getUserInfo(token: string): Promise<ProfileResponse> {

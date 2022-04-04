@@ -25,3 +25,7 @@ export interface ProfileRequest {
   gender: string;
   nickname: string;
 }
+
+export interface DeleteUser {
+  password: string;
+}

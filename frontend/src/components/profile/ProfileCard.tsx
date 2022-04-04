@@ -23,10 +23,6 @@ import useProfileInfo from '../../hooks/useProfileInfo';
 import { UserInfo, ProfileRequest } from '../../types/profileTypes';
 import ProfileService from '../../services/ProfileService';
 
-export interface DeleteUser {
-  password: string;
-}
-
 const ProfileCard: React.FC = () => {
   const [nonUser, setNonUser] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -168,7 +164,7 @@ const ProfileCard: React.FC = () => {
   const handleCloseDeleteButton = () => {
     setDelOpen(false);
     if (delPassword !== null && token !== null) {
-      ProfileService.deleteUserInfo(delPassword, token);
+      ProfileService.deleteUserInfo({ password: delPassword }, token);
     }
   };
 
