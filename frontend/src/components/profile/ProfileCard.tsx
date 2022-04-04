@@ -21,9 +21,12 @@ import {
 import { RootState } from '../../types/authTypes';
 import useProfileInfo from '../../hooks/useProfileInfo';
 import { UserInfo, ProfileRequest } from '../../types/profileTypes';
+import ProfileService from '../../services/ProfileService';
 
 const ProfileCard: React.FC = () => {
+  const [nonUser, setNonUser] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+  const [delOpen, setDelOpen] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>('수정');
   const [inputDisabled, setInputDisabled] = useState<boolean>(true);
   const [newGender, setNewGender] = useState<string>('');
@@ -33,7 +36,7 @@ const ProfileCard: React.FC = () => {
   const [newNickname, setNewNickname] = useState<string>('');
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [delPassword, setDelPassword] = useState<string>('');
   const [levelError, setLevelError] = useState<boolean>(false);
 
   const [selfTest1, setSelfTest1] = useState<number>(1);
@@ -72,7 +75,7 @@ const ProfileCard: React.FC = () => {
   };
 
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    setDelPassword(event.target.value);
   };
 
   const newProfile = {
@@ -105,6 +108,7 @@ const ProfileCard: React.FC = () => {
 
   useEffect(() => {
     if (profileInfo !== null) {
+      setNonUser(true);
       setNewGender(profileInfo.gender);
       setUserLevelChange(profileInfo.level);
       setNewHeight(profileInfo.height);
@@ -115,7 +119,10 @@ const ProfileCard: React.FC = () => {
   }, [profileInfo]);
 
   const handleGender = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewGender(event.target.value);
+    setNonUser(false);
+    const gender = event.target.value;
+    if (gender === '남') setNewGender('남');
+    else if (gender === '여') setNewGender('여');
   };
 
   const handleClickOpen = () => {
@@ -125,7 +132,13 @@ const ProfileCard: React.FC = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleClickDelOpen = () => {
+    setDelOpen(true);
+  };
 
+  const handleDelClose = () => {
+    setDelOpen(false);
+  };
   const [alignment1, setAlignment1] = React.useState('level1');
   const [alignment2, setAlignment2] = React.useState('one');
   const [alignment3, setAlignment3] = React.useState('30min');
@@ -144,12 +157,16 @@ const ProfileCard: React.FC = () => {
     setAlignment6('legpoint0');
   };
 
-  // const handleCloseDeleteButton = () => {
-  //   setOpen(false);
+  const handleDelCloseCancleButton = () => {
+    setDelOpen(false);
+  };
 
-  //   if (password !== null) {
-  //   }
-  // };
+  const handleCloseDeleteButton = () => {
+    setDelOpen(false);
+    if (delPassword !== null && token !== null) {
+      console.log(ProfileService.deleteUserInfo(delPassword, token));
+    }
+  };
 
   const handleCloseFinishButton = () => {
     setOpen(false);
@@ -371,11 +388,8 @@ const ProfileCard: React.FC = () => {
   const newProfileInfo = () => {
     if (JSON.stringify(oldProfileRequest) !== JSON.stringify(newProfile)) {
       const RequestData: ProfileRequest = newProfile;
-      console.log(RequestData);
       if (token !== null) {
-        updateProfileAuth({
-          data: RequestData,
-        });
+        updateProfileAuth(RequestData);
       }
     }
   };
@@ -490,7 +504,10 @@ const ProfileCard: React.FC = () => {
                             value="남"
                             id="M"
                             name="gender"
-                            checked={profileInfo?.gender === '남'}
+                            checked={
+                              (nonUser && newGender === '남') ||
+                              newGender === '남'
+                            }
                             disabled={inputDisabled}
                             onChange={handleGender}
                           />
@@ -502,7 +519,10 @@ const ProfileCard: React.FC = () => {
                             value="여"
                             id="FM"
                             name="gender"
-                            checked={profileInfo?.gender === '여'}
+                            checked={
+                              (nonUser && newGender === '여') ||
+                              newGender === '여'
+                            }
                             disabled={inputDisabled}
                             onChange={handleGender}
                           />
@@ -721,10 +741,12 @@ const ProfileCard: React.FC = () => {
                   </ProfileInfoFieldValue>
                 </ProfileInfoField>
                 <WithdrawalWrapper>
-                  <Withdrawal onClick={handleClickOpen}>회원 탈퇴</Withdrawal>
+                  <Withdrawal onClick={handleClickDelOpen}>
+                    회원 탈퇴
+                  </Withdrawal>
                 </WithdrawalWrapper>
 
-                <Dialog open={open} onClose={handleClose}>
+                <Dialog open={delOpen} onClose={handleDelClose}>
                   <MuiDialogTitle>회원 탈퇴</MuiDialogTitle>
                   <DialogContent>
                     회원탈퇴하시겠습니까? 탈퇴를 원하시면 비밀번호를
@@ -732,16 +754,16 @@ const ProfileCard: React.FC = () => {
                   </DialogContent>
                   <InputWrapper>
                     <Input
-                      type="text"
-                      value={password}
+                      type="password"
+                      value={delPassword}
                       onChange={handlePassword}
                     />
                   </InputWrapper>
                   <DialogActions>
-                    <DialogButton onClick={handleCloseCancelButton}>
+                    <DialogButton onClick={handleDelCloseCancleButton}>
                       취소
                     </DialogButton>
-                    <DialogButton onClick={handleCloseFinishButton}>
+                    <DialogButton onClick={handleCloseDeleteButton}>
                       회원탈퇴
                     </DialogButton>
                   </DialogActions>
