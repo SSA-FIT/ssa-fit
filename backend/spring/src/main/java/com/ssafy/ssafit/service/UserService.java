@@ -25,6 +25,6 @@ public interface UserService {
     User modifyProfile(String userId, ProfileModifyRequestDto profileModifyRequestDto);
 
     // 회원 탈퇴
-    User deleteProfile(User user);
+    int deleteProfile(User user);
 
 }

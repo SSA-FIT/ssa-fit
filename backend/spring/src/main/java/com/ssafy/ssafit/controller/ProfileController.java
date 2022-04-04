@@ -103,7 +103,7 @@ public class ProfileController {
                 return ResponseEntity.status(403).body(ErrorResponseDto.of(403, "회원 탈퇴할 수 있는 권한이 없습니다."));
             }
 
-            User deleteUser = userService.deleteProfile(user);
+            int deleteOK = userService.deleteProfile(user);
         } catch (Exception exception) {
             return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 회원 탈퇴 실패"));
         }
