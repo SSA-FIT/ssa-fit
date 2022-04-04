@@ -2,6 +2,8 @@ package com.ssafy.ssafit.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -35,6 +37,7 @@ public class ExerciseHistory {
     private LocalDateTime updatedAt;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     private User user;
 

@@ -1,6 +1,8 @@
 package com.ssafy.ssafit.entity;
 
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -17,6 +19,7 @@ public class ExerciseBookmark {
     private int id;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     private User user;
 
