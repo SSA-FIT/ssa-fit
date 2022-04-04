@@ -1,16 +1,19 @@
 import styled from '@emotion/styled';
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
+import Tooltip from '@mui/material/Tooltip';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { RootState } from '../../types/authTypes';
 
 import { logout as logoutSagaStart } from '../../redux/modules/auth';
+import MenusLogIn from './MenusLogIn';
+import MenusLogOut from './MenusLogOut';
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -23,6 +26,21 @@ const Header: React.FC = () => {
   const logoutButtonClick = () => {
     dispatch(logoutSagaStart());
   };
+
+  const [state, setState] = useState({
+    mobileView: false,
+  });
+  const { mobileView } = state;
+
+  useEffect(() => {
+    const setResponsiveness = () => {
+      return window.innerWidth < 1060
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({ ...prevState, mobileView: false }));
+    };
+    setResponsiveness();
+    window.addEventListener('resize', () => setResponsiveness());
+  }, []);
 
   return (
     <Container css={location.pathname === '/' ? noborder : undefined}>
@@ -38,38 +56,58 @@ const Header: React.FC = () => {
             <AccountInfoList>
               {token === null ? (
                 <>
-                  <AccountInfoItem>
-                    <AccountLink to="/users/login">로그인</AccountLink>
-                  </AccountInfoItem>
-                  <AccountInfoItem>
-                    <AccountLink to="/users/sign-up">회원가입</AccountLink>
-                  </AccountInfoItem>
+                  {mobileView ? (
+                    <MenusLogIn />
+                  ) : (
+                    <AccountInfoItemWrapper>
+                      <AccountInfoItem>
+                        <AccountLink to="/users/login">로그인</AccountLink>
+                      </AccountInfoItem>
+                      <AccountInfoItem>
+                        <AccountLink to="/users/sign-up">회원가입</AccountLink>
+                      </AccountInfoItem>
+                    </AccountInfoItemWrapper>
+                  )}
                 </>
               ) : (
                 <>
-                  <AccountInfoItem>
-                    <AccountLink to="/">
-                      <LogoutRoundedIcon
-                        css={icon}
-                        onClick={logoutButtonClick}
-                      />
-                    </AccountLink>
-                  </AccountInfoItem>
-                  <AccountInfoItem>
-                    <AccountLink to="/users/profile">
-                      <ContentPasteSearchIcon css={icon} />
-                    </AccountLink>
-                  </AccountInfoItem>
-                  <AccountInfoItem>
-                    <AccountLink to="/exercise/history">
-                      <FitnessCenterRoundedIcon css={icon} />
-                    </AccountLink>
-                  </AccountInfoItem>
-                  <AccountInfoItem>
-                    <AccountLink to="/exercise/bookmark">
-                      <StarsRoundedIcon css={icon} />
-                    </AccountLink>
-                  </AccountInfoItem>
+                  {mobileView ? (
+                    <MenusLogOut />
+                  ) : (
+                    <AccountInfoItemWrapper>
+                      <AccountInfoItem>
+                        <AccountLink to="/">
+                          <Tooltip title="로그아웃">
+                            <LogoutRoundedIcon
+                              css={icon}
+                              onClick={logoutButtonClick}
+                            />
+                          </Tooltip>
+                        </AccountLink>
+                      </AccountInfoItem>
+                      <AccountInfoItem>
+                        <AccountLink to="/users/profile">
+                          <Tooltip title="내 정보 수정">
+                            <ContentPasteSearchIcon css={icon} />
+                          </Tooltip>
+                        </AccountLink>
+                      </AccountInfoItem>
+                      <AccountInfoItem>
+                        <AccountLink to="/exercise/history">
+                          <Tooltip title="운동 기록 확인">
+                            <FitnessCenterRoundedIcon css={icon} />
+                          </Tooltip>
+                        </AccountLink>
+                      </AccountInfoItem>
+                      <AccountInfoItem>
+                        <AccountLink to="/exercise/bookmark">
+                          <Tooltip title="즐겨찾기">
+                            <StarsRoundedIcon css={icon} />
+                          </Tooltip>
+                        </AccountLink>
+                      </AccountInfoItem>
+                    </AccountInfoItemWrapper>
+                  )}
                 </>
               )}
             </AccountInfoList>
@@ -206,4 +244,6 @@ const icon = css`
 const noborder = css`
   border-bottom: 0;
 `;
+const AccountInfoItemWrapper = styled.div``;
+
 export default Header;
