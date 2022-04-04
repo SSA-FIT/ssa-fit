@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
@@ -13,6 +13,7 @@ import { RootState } from '../../types/authTypes';
 import { logout as logoutSagaStart } from '../../redux/modules/auth';
 
 const Header: React.FC = () => {
+  const location = useLocation();
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token,
   );
@@ -24,7 +25,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container css={location.pathname === '/' ? noborder : undefined}>
       <Wrapper>
         <LogoWrapper>
           <LogoNameWrapper>
@@ -81,7 +82,7 @@ const Header: React.FC = () => {
 
 const Container = styled.header`
   position: relative;
-  /* border-bottom: 1px solid #6367ff; */
+  border-bottom: 1px solid #6367ff;
   pointer-events: none;
 `;
 
@@ -200,5 +201,9 @@ const AccountLink = styled(Link)`
 
 const icon = css`
   font-size: 30px;
+`;
+
+const noborder = css`
+  border-bottom: 0;
 `;
 export default Header;

@@ -83,7 +83,7 @@ export interface VideoListProp {
 
 export interface recoRecord {
   id: number;
-  countPerSet: string;
+  countPerSet: number;
   setCount: number;
   durationTime: string;
 }

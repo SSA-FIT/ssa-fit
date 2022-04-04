@@ -44,8 +44,11 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
           <DescriptionWrapper>
             <Description>
               현재 즐겨찾기한 운동이 없습니다. 운동 이력 조회 페이지에서
-              즐겨찾기를 할 수 있습니다!
+              즐겨찾기를 할 수 있습니다.
             </Description>
+            <SignUpLink to="/exercise/history">
+              운동 이력 조회 페이지로 이동🤸‍♂️
+            </SignUpLink>
           </DescriptionWrapper>
         )
       ) : (
@@ -90,7 +93,7 @@ const Description = styled.h5`
   color: #6367ffcc;
   text-align: center;
   margin-top: 15px;
-  font-weight: 200;
+  font-weight: 400;
   font-size: 20px;
   line-height: initial;
 `;

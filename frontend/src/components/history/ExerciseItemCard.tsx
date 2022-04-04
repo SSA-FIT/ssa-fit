@@ -69,7 +69,7 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
               />
             </ExerciseBookMarkWrapper>
             {bookMarkChecked === false ? (
-              <ExerciseBookMarkIconchecked sx={{ color: '#fafafa' }} />
+              <ExerciseBookMarkIconchecked sx={{ color: '#808080CC' }} />
             ) : (
               <ExerciseBookMarkIconchecked sx={{ color: '#6367ff' }} />
             )}
@@ -77,13 +77,13 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
         </ExerciseItem>
         <ExerciseDescription>{exerciseItem.getName}</ExerciseDescription>
         <ExerciseDescription className="record" key={exerciseItem.exerciseId}>
-          {exerciseItem.countPerSet !== null && exerciseItem.setCount !== null
-            ? `총 ${parseFloat(exerciseItem.countPerSet)} 회 (${(
-                parseFloat(exerciseItem.countPerSet) / exerciseItem.setCount
-              ).toFixed(1)}회 x ${exerciseItem.setCount}세트) `
-            : undefined}
-          {exerciseItem.durationTime !== null
-            ? `${exerciseItem.durationTime} 소요`
+          {exerciseItem.countPerSet !== 0 &&
+            exerciseItem.setCount !== 0 &&
+            `총 ${exerciseItem.countPerSet} 회 (${(
+              exerciseItem.countPerSet / exerciseItem.setCount
+            ).toFixed(1)}회 x ${exerciseItem.setCount}세트) `}
+          {exerciseItem.durationTime !== '00:00:00'
+            ? `${exerciseItem.durationTime}`
             : undefined}
         </ExerciseDescription>
       </ExerciseItemWrapper>
