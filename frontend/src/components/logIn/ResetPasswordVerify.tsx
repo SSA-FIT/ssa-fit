@@ -143,9 +143,6 @@ const ResetPasswordVerify: React.FC = () => {
         .catch((error) => {
           const { status, message } = error.response.data;
           setLoading(false);
-          // console.log('에러 :: ', message);
-          // alert(message);
-          // setCodeRequestErrorMessage(message);
           Swal.fire({
             icon: 'error',
             html: message,
@@ -269,7 +266,6 @@ const ResetPasswordVerify: React.FC = () => {
   };
 
   const requestAgainCode = () => {
-    // console.log('userEmailChange :: ', userEmailChange);
     const data: ResetPasswordEmailCodeRequest = { userId: '', email: '' };
     data.userId = id;
     data.email = email;
@@ -289,8 +285,6 @@ const ResetPasswordVerify: React.FC = () => {
       })
       .catch((error) => {
         const { status, message } = error.response.data;
-        // console.log('에러 :: ', message);
-        // alert(message);
         setLoading(false);
         Swal.fire({
           icon: 'error',

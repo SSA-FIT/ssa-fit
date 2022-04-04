@@ -76,8 +76,6 @@ const EmailVerification: React.FC<Props> = ({
   const checkEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
 
-    // console.log('이메일 유효성 검사 :: ', regEmail.test(event.target.value));
-
     const emailCurrent = event.target.value;
     setEmailRequestError(false);
     setUserEmailChange(emailCurrent);
@@ -97,7 +95,6 @@ const EmailVerification: React.FC<Props> = ({
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     setLoading(true);
-    // console.log('userEmailChange :: ', userEmailChange);
     const data: EmailCodeRequest = { email: '' };
     data.email = userEmailChange;
     UserService.getEmailCodeRequest(data)
@@ -110,8 +107,6 @@ const EmailVerification: React.FC<Props> = ({
         });
 
         setLoading(false);
-        // alert(message);
-        // console.log(message);
         setEmailMessage('');
         setEmailCodeInputView(true);
         setMinutes(2);
@@ -120,8 +115,6 @@ const EmailVerification: React.FC<Props> = ({
       })
       .catch((error) => {
         const { status, message } = error.response.data;
-        // console.log('에러 :: ', message);
-        // alert(message);
 
         setLoading(false);
         Swal.fire({
@@ -130,9 +123,7 @@ const EmailVerification: React.FC<Props> = ({
           showConfirmButton: false,
           timer: 1500,
         });
-        // setEmailMessage(message);
         if (status === 409) {
-          // alert(message);
           setLoading(false);
           Swal.fire({
             icon: 'error',
@@ -140,9 +131,7 @@ const EmailVerification: React.FC<Props> = ({
             showConfirmButton: false,
             timer: 1500,
           });
-          // setEmailMessage(message);
         } else if (status === 500) {
-          // alert(message);
           setLoading(false);
           Swal.fire({
             icon: 'error',
@@ -150,7 +139,6 @@ const EmailVerification: React.FC<Props> = ({
             showConfirmButton: false,
             timer: 1500,
           });
-          // setEmailMessage(message);
         }
       });
   };
@@ -175,11 +163,8 @@ const EmailVerification: React.FC<Props> = ({
     data.email = userEmailChange;
     UserService.getEmailCodeConfirm(data)
       .then(({ message }) => {
-        // console.log('입력코드 :: ', data.code);
         setemailConfirmComplete(true);
-        // setEmailCodeInputView(false);
         UserEmailProps(data);
-        // alert(message);
         Swal.fire({
           icon: 'success',
           html: message,
@@ -190,7 +175,6 @@ const EmailVerification: React.FC<Props> = ({
       })
       .catch((error) => {
         const { status, message } = error.response.data;
-        // alert(message);
         setEmailConfirmMessage(message);
         Swal.fire({
           icon: 'error',
@@ -198,9 +182,7 @@ const EmailVerification: React.FC<Props> = ({
           showConfirmButton: false,
           timer: 1500,
         });
-        // setEmailCodeInput('');
         if (status === 401) {
-          // alert(message);
           setEmailConfirmMessage(message);
           Swal.fire({
             icon: 'error',
@@ -208,7 +190,6 @@ const EmailVerification: React.FC<Props> = ({
             showConfirmButton: false,
             timer: 1500,
           });
-          // setEmailCodeInput('');
         } else if (status === 403) {
           setEmailConfirmMessage(message);
           Swal.fire({
@@ -217,7 +198,6 @@ const EmailVerification: React.FC<Props> = ({
             showConfirmButton: false,
             timer: 1500,
           });
-          // setEmailCodeInput('');
         } else if (status === 500) {
           setEmailConfirmMessage(message);
           Swal.fire({
@@ -226,7 +206,6 @@ const EmailVerification: React.FC<Props> = ({
             showConfirmButton: false,
             timer: 1500,
           });
-          // setEmailCodeInput('');
         }
       });
   };
@@ -240,7 +219,6 @@ const EmailVerification: React.FC<Props> = ({
         if (minutes === 0) {
           clearInterval(countdown);
           setTimeout(true);
-          // alert('인증코드 만료');
         } else {
           setMinutes(minutes - 1);
           setSeconds(59);
@@ -252,15 +230,11 @@ const EmailVerification: React.FC<Props> = ({
 
   const requestAgainCode = () => {
     setLoading(true);
-    // console.log('userEmailChange :: ', userEmailChange);
     const data: EmailCodeRequest = { email: '' };
     data.email = userEmailChange;
     setEmailCodeInput('');
     UserService.getEmailCodeRequest(data)
       .then(({ message }) => {
-        // alert(message);
-        // console.log(message);
-
         setLoading(false);
         Swal.fire({
           icon: 'success',
@@ -274,8 +248,6 @@ const EmailVerification: React.FC<Props> = ({
       })
       .catch((error) => {
         const { status, message } = error.response.data;
-        // console.log('에러 :: ', message);
-        // alert(message);
         Swal.fire({
           icon: 'error',
           html: message,
@@ -284,7 +256,6 @@ const EmailVerification: React.FC<Props> = ({
         });
         setLoading(false);
         if (status === 500) {
-          // alert(message);
           Swal.fire({
             icon: 'error',
             html: message,

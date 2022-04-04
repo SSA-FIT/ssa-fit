@@ -9,5 +9,4 @@ import bookmark from '../bookmark';
 const reducer = (history: History<any>) =>
   combineReducers({ auth, profile, bookmark, router: connectRouter(history) });
 
-
 export default reducer;

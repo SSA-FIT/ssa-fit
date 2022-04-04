@@ -178,8 +178,6 @@ const ProfileCard: React.FC = () => {
         })
         .catch((error) => {
           const { status, message } = error.response.data;
-          // console.log('에러 :: ', message);
-          // alert(message);
           Swal.fire({
             icon: 'error',
             html: message,
@@ -276,7 +274,6 @@ const ProfileCard: React.FC = () => {
   };
 
   useEffect(() => {
-    // console.log('alignment1 :: ', alignment1);
     switch (alignment1) {
       case 'level1':
         setSelfTest1(1);
@@ -296,7 +293,6 @@ const ProfileCard: React.FC = () => {
   }, [alignment1]);
 
   useEffect(() => {
-    // console.log('alignment2 :: ', alignment2);
     switch (alignment2) {
       case 'one':
         setSelfTest2(1);
@@ -316,7 +312,6 @@ const ProfileCard: React.FC = () => {
   }, [alignment2]);
 
   useEffect(() => {
-    // console.log('alignment3 :: ', alignment3);
     switch (alignment3) {
       case '30min':
         setSelfTest3(1);
@@ -336,7 +331,6 @@ const ProfileCard: React.FC = () => {
   }, [alignment3]);
 
   useEffect(() => {
-    // console.log('alignment4 :: ', alignment4);
     switch (alignment4) {
       case '3stairs':
         setSelfTest4(1);
@@ -356,7 +350,6 @@ const ProfileCard: React.FC = () => {
   }, [alignment4]);
 
   useEffect(() => {
-    // console.log('alignment5 :: ', alignment5);
     switch (alignment5) {
       case 'shoulderpoint0':
         setSelfTest5(0);
@@ -373,7 +366,6 @@ const ProfileCard: React.FC = () => {
   }, [alignment5]);
 
   useEffect(() => {
-    // console.log('alignment6 :: ', alignment6);
     switch (alignment6) {
       case 'legpoint0':
         setSelfTest6(0);
@@ -389,19 +381,10 @@ const ProfileCard: React.FC = () => {
     }
   }, [alignment6]);
 
-  // useEffect(() => {
-  //   console.log(
-  //     `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6} = ${selfTestSum}`,
-  //   );
-  // }, [selfTestSum]);
-
   useEffect(() => {
     const sum =
       selfTest1 + selfTest2 + selfTest3 + selfTest4 + selfTest5 + selfTest6;
     setSelfTestSum(sum);
-    // console.log(
-    //   `${selfTest1} + ${selfTest2} + ${selfTest3} + ${selfTest4} + ${selfTest5} + ${selfTest6}`,
-    // );
   }, [selfTest1, selfTest2, selfTest3, selfTest4, selfTest5, selfTest6]);
 
   const handleConfirmButton = (event: React.MouseEvent<HTMLElement>) => {

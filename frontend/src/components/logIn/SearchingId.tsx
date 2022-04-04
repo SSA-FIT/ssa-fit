@@ -44,7 +44,6 @@ const SearchingId: React.FC = () => {
           timer: 1500,
         });
         setFindUserId(userId);
-        // console.log(userId);
         setEmailMessage('');
         setUserIdView(true);
       })

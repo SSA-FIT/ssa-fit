@@ -53,8 +53,6 @@ const SignUpForm: React.FC<Props> = ({
   const checkId = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
 
-    // console.log('아이디 유효성 검사 :: ', regId.test(event.target.value));
-
     setIdError(false);
     const idCurrent = event.target.value;
     setUserId(idCurrent);
@@ -86,12 +84,9 @@ const SignUpForm: React.FC<Props> = ({
         });
         setIsIdConfirm(true);
         setIdCheckRequestButton(true);
-        // console.log(message);
       })
       .catch((error) => {
         const { status, message } = error.response.data;
-        // console.log('에러 :: ', message);
-        // alert(message);
         setIdMessage(message);
         Swal.fire({
           icon: 'error',
@@ -122,8 +117,6 @@ const SignUpForm: React.FC<Props> = ({
   const checkPw = (event: React.ChangeEvent<HTMLInputElement>) => {
     // 형식에 맞는 경우 true 리턴
 
-    // console.log('비밀번호 유효성 검사 :: ', regPw.test(event.target.value));
-
     setPwError(false);
     const pwCurrent = event.target.value;
     setUserPw(pwCurrent);
@@ -143,9 +136,6 @@ const SignUpForm: React.FC<Props> = ({
     setPwcheckError(false);
     const pwCurrent = event.target.value;
     setUserPwConfirm(pwCurrent);
-
-    // console.log('pwCurrent :: ', pwCurrent);
-    // console.log('userPwConfirm :: ', userPwConfirm);
   };
 
   useEffect(() => {
@@ -162,7 +152,6 @@ const SignUpForm: React.FC<Props> = ({
     setNicknameError(false);
     const nickname = event.target.value;
     setUserNickname(nickname);
-    // console.log('userNickname :: ', userNickname);
   };
 
   useEffect(() => {
@@ -172,7 +161,6 @@ const SignUpForm: React.FC<Props> = ({
 
   const handleNext = () => {
     if (!isIdConfirm) setIdError(true);
-    // console.log(isPwConfirm);
     if (userPw === '') setPwError(true);
     if (userPwConfirm === '') setPwcheckError(true);
     if (userNickname === '') setNicknameError(true);
@@ -201,9 +189,6 @@ const SignUpForm: React.FC<Props> = ({
 
       UserService.userSignUp(data)
         .then(({ message }) => {
-          // console.log(data);
-          // console.log(data.email);
-          // alert(message);
           setSignUpStep(4);
         })
         .catch((error) => {
