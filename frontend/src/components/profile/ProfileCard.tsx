@@ -33,6 +33,7 @@ const ProfileCard: React.FC = () => {
   const [newNickname, setNewNickname] = useState<string>('');
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [levelError, setLevelError] = useState<boolean>(false);
 
   const [selfTest1, setSelfTest1] = useState<number>(1);
@@ -70,6 +71,10 @@ const ProfileCard: React.FC = () => {
     setNewNickname(event.target.value);
   };
 
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
   const newProfile = {
     height: newHeight,
     weight: newWeight,
@@ -103,6 +108,9 @@ const ProfileCard: React.FC = () => {
       setNewGender(profileInfo.gender);
       setUserLevelChange(profileInfo.level);
       setNewHeight(profileInfo.height);
+      setNewWeight(profileInfo.weight);
+      setNewNickname(profileInfo.nickname);
+      setNewBirth(profileInfo.birth);
     }
   }, [profileInfo]);
 
@@ -135,6 +143,13 @@ const ProfileCard: React.FC = () => {
     setAlignment5('shoulderpoint0');
     setAlignment6('legpoint0');
   };
+
+  // const handleCloseDeleteButton = () => {
+  //   setOpen(false);
+
+  //   if (password !== null) {
+  //   }
+  // };
 
   const handleCloseFinishButton = () => {
     setOpen(false);
@@ -356,6 +371,7 @@ const ProfileCard: React.FC = () => {
   const newProfileInfo = () => {
     if (JSON.stringify(oldProfileRequest) !== JSON.stringify(newProfile)) {
       const RequestData: ProfileRequest = newProfile;
+      console.log(RequestData);
       if (token !== null) {
         updateProfileAuth({
           data: RequestData,
@@ -415,7 +431,7 @@ const ProfileCard: React.FC = () => {
                       <InputWrapper>
                         <Input
                           type="text"
-                          value={profileInfo?.nickname}
+                          value={newNickname}
                           onChange={handleNickname}
                           disabled={inputDisabled}
                         />
@@ -429,7 +445,7 @@ const ProfileCard: React.FC = () => {
                       <InputWrapper>
                         <Input
                           type="text"
-                          value={profileInfo?.birth}
+                          value={newBirth}
                           onChange={handleBirth}
                           disabled={inputDisabled}
                         />
@@ -456,7 +472,7 @@ const ProfileCard: React.FC = () => {
                       <InputWrapper>
                         <Input
                           type="text"
-                          value={profileInfo?.weight}
+                          value={newWeight}
                           onChange={handleWeight}
                           disabled={inputDisabled}
                         />
@@ -705,8 +721,31 @@ const ProfileCard: React.FC = () => {
                   </ProfileInfoFieldValue>
                 </ProfileInfoField>
                 <WithdrawalWrapper>
-                  <Withdrawal to="/">회원 탈퇴</Withdrawal>
+                  <Withdrawal onClick={handleClickOpen}>회원 탈퇴</Withdrawal>
                 </WithdrawalWrapper>
+
+                <Dialog open={open} onClose={handleClose}>
+                  <MuiDialogTitle>회원 탈퇴</MuiDialogTitle>
+                  <DialogContent>
+                    회원탈퇴하시겠습니까? 탈퇴를 원하시면 비밀번호를
+                    입력해주세요.
+                  </DialogContent>
+                  <InputWrapper>
+                    <Input
+                      type="text"
+                      value={password}
+                      onChange={handlePassword}
+                    />
+                  </InputWrapper>
+                  <DialogActions>
+                    <DialogButton onClick={handleCloseCancelButton}>
+                      취소
+                    </DialogButton>
+                    <DialogButton onClick={handleCloseFinishButton}>
+                      회원탈퇴
+                    </DialogButton>
+                  </DialogActions>
+                </Dialog>
               </ProfileInfo>
             </ProfileInfoWrapper>
 
@@ -1104,7 +1143,7 @@ const WithdrawalWrapper = styled.div`
   }
 `;
 
-const Withdrawal = styled(Link)`
+const Withdrawal = styled.button`
   position: relative;
   font-size: 1.4rem;
   text-decoration: none;

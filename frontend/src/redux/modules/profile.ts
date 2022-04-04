@@ -94,9 +94,17 @@ function* updateProfileSaga(action: Action<ProfileRequest>) {
     yield put(pending());
 
     const token: string = yield select((state) => state.auth.token);
-
+    // const newProfileInfo: ProfileRequest = {
+    //   birth: action.payload.birth,
+    //   nickname: action.payload.nickname,
+    //   height: action.payload.height,
+    //   weight: action.payload.weight,
+    //   level: action.payload.level,
+    //   gender: action.payload.gender,
+    // };
     const response: SignUpResponse = yield call(
       ProfileService.updateUserInfo,
+      // newProfileInfo,
       action.payload,
       token,
     );
