@@ -13,6 +13,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { PortableWifiOff } from '@mui/icons-material';
+import { profile } from 'console';
 import {
   updateProfileInfo as ProfileSagaUpdate,
   putProfileInfo as ProfileSagaPut,
@@ -25,11 +26,11 @@ const ProfileCard: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>('수정');
   const [inputDisabled, setInputDisabled] = useState<boolean>(true);
-  const [gender, setGender] = useState<string>('');
-  const [newHeight, setNewHeight ] = useState<string>('');
-  const [newWeight, setNewWeight ] = useState<string>('');
-  const [newBirth, setNewBirth ] = useState<string>('');
-  const [newNickname, setNewNickname ] = useState<string>('');
+  const [newGender, setNewGender] = useState<string>('');
+  const [newHeight, setNewHeight] = useState<string>('');
+  const [newWeight, setNewWeight] = useState<string>('');
+  const [newBirth, setNewBirth] = useState<string>('');
+  const [newNickname, setNewNickname] = useState<string>('');
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
   const [levelError, setLevelError] = useState<boolean>(false);
@@ -53,20 +54,20 @@ const ProfileCard: React.FC = () => {
     nickname: profileInfo?.nickname,
   };
 
-  const handleheight = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewHeight(event.target.value)
+  const handleHeight = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewHeight(event.target.value);
   };
 
-  const handleweight = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewWeight(event.target.value)
+  const handleWeight = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewWeight(event.target.value);
   };
 
   const handleBirth = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewBirth(event.target.value)
+    setNewBirth(event.target.value);
   };
 
-  const handlenickname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewNickname(event.target.value)
+  const handleNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewNickname(event.target.value);
   };
 
   const newProfile = {
@@ -74,7 +75,7 @@ const ProfileCard: React.FC = () => {
     weight: newWeight,
     level: userLevelChange,
     birth: newBirth,
-    gender: gender,
+    gender: newGender,
     nickname: newNickname,
   };
 
@@ -99,19 +100,14 @@ const ProfileCard: React.FC = () => {
 
   useEffect(() => {
     if (profileInfo !== null) {
-      setGender(profileInfo?.gender);
+      setNewGender(profileInfo.gender);
       setUserLevelChange(profileInfo.level);
-      setnewProfile(profileInfo);
+      setNewHeight(profileInfo.height);
     }
   }, [profileInfo]);
-  // const handleChangeProfile = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  // ) => {
-  //   if (event.target.checked)
-  // };
 
   const handleGender = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setGender(event.target.value);
+    setNewGender(event.target.value);
   };
 
   const handleClickOpen = () => {
@@ -344,7 +340,7 @@ const ProfileCard: React.FC = () => {
       setInputDisabled(false);
       setButtonText('확인');
     } else {
-      // newProfileInfo('');
+      newProfileInfo();
       setInputDisabled(true);
       setButtonText('수정');
     }
@@ -357,25 +353,17 @@ const ProfileCard: React.FC = () => {
     [dispatch],
   );
 
-  const newProfileRequest = (): <ProfileRequest> => {
-    const newProfileRequestData = new <ProfileRequest>();
-    newProfileRequestData.
-  }
-
-  const newProfileInfo = (profileInfoSelected: string) => {
-    switch (profileInfoSelected) {
-      if (JSON.stringify(oldProfileRequest) !== JSON.stringify(newProfile)) {
-        const RequestData: <ProfileRequest> = newProfileRequest();
-        if (token !== null) {
-          updateProfileAuth({
-            data: RequestData,
-          })
-        }
+  const newProfileInfo = () => {
+    if (JSON.stringify(oldProfileRequest) !== JSON.stringify(newProfile)) {
+      const RequestData: ProfileRequest = newProfile;
+      if (token !== null) {
+        updateProfileAuth({
+          data: RequestData,
+        });
       }
-      break;
     }
   };
-  // 🌱씨앗 🌿새싹 🌳나무 🍎열매
+
   return (
     <>
       <ContainerWrapper>
@@ -428,7 +416,7 @@ const ProfileCard: React.FC = () => {
                         <Input
                           type="text"
                           value={profileInfo?.nickname}
-                          onChange={handlenickname}
+                          onChange={handleNickname}
                           disabled={inputDisabled}
                         />
                       </InputWrapper>
@@ -442,6 +430,7 @@ const ProfileCard: React.FC = () => {
                         <Input
                           type="text"
                           value={profileInfo?.birth}
+                          onChange={handleBirth}
                           disabled={inputDisabled}
                         />
                       </InputWrapper>
@@ -453,7 +442,8 @@ const ProfileCard: React.FC = () => {
                       <InputWrapper>
                         <Input
                           type="text"
-                          value={profileInfo?.height}
+                          value={newHeight}
+                          onChange={handleHeight}
                           disabled={inputDisabled}
                         />
                       </InputWrapper>
@@ -466,7 +456,8 @@ const ProfileCard: React.FC = () => {
                       <InputWrapper>
                         <Input
                           type="text"
-                          value={profileInfo?.nickname}
+                          value={profileInfo?.weight}
+                          onChange={handleWeight}
                           disabled={inputDisabled}
                         />
                       </InputWrapper>
