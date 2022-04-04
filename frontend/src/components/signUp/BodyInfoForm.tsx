@@ -53,26 +53,17 @@ const BodyInfoForm: React.FC<Props> = ({
   const [userLevelChange, setUserLevelChange] = useState<string>('');
   const [userLevelIcon, setUserLevelIcon] = useState<string>('');
 
+  // 비로그인 체험유저 확인, 사용자 정보 가져오기
   const location = useLocation();
-  // console.log(location);
   const locationState: any = location.state;
-  // console.log(locationState.birth);
-  console.log(locationState);
-  // 비로그인 체험판 확인, 사용자 정보 가져오기
 
   useEffect(() => {
     if (locationState !== undefined) {
       setNonUser(true);
       const stateHeight = locationState.height;
-      // setUserHeightChange(locationState.height);
       const heightSplit = stateHeight.split('.');
-      // console.log(heightSplit);
-      // console.log(heightSplit[0].toString());
       setHeight1(heightSplit[0].toString());
-      // console.log(heightSplit.length);
       if (heightSplit.length === 2) setHeight2(heightSplit[1].toString());
-
-      // setUserWeightChange(locationState.weight);
       const stateWeight = locationState.weight;
       const weightSplit = stateWeight.split('.');
       setWeight1(weightSplit[0].toString());
@@ -94,7 +85,6 @@ const BodyInfoForm: React.FC<Props> = ({
   const UserBodyInfoProps = (data: BodyInfoData) => {
     const { userHeight, userWeight, userLevel, userBirth, userGender } = data;
 
-    // setSignUpStep(2);
     setUserHeight(userHeight);
     setUserWeight(userWeight);
     setUserLevel(userLevel);
@@ -210,9 +200,7 @@ const BodyInfoForm: React.FC<Props> = ({
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string,
   ) => {
-    // console.log(`alignment1:${alignment1}, newAlignment:${newAlignment}`);
     setAlignment1(newAlignment);
-    // console.log(`alignment1:${alignment1}, newAlignment:${newAlignment}`);
   };
 
   const handleChange2 = (

@@ -93,10 +93,28 @@ const SignUpForm: React.FC<Props> = ({
         // console.log('에러 :: ', message);
         // alert(message);
         setIdMessage(message);
+        Swal.fire({
+          icon: 'error',
+          html: message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         if (status === 409) {
           setIdMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         } else if (status === 500) {
           setIdMessage(message);
+          Swal.fire({
+            icon: 'error',
+            html: message,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       });
   };

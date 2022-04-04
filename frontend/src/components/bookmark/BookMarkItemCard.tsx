@@ -20,19 +20,11 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(BookmarkSagaPut());
-  // }, [bookMarkChecked]);
-
   const updateBookmarkInfo = useCallback(
     (requestData) => {
       dispatch(BookmarkSagaUpdate(requestData));
     },
     [dispatch],
-  );
-
-  const token = useSelector<RootState, string | null>(
-    (state) => state.auth.token,
   );
 
   const handleExerciseBookMarkChange = (
@@ -42,15 +34,9 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
       setBookMarkChecked(true);
     } else {
       setBookMarkChecked(false);
-      // console.log(event.target.value);
-
-      // 기존
-      // const targetId = event.target.value;
-      // updateBookmarkInfo({ data: targetId, token });
 
       const exerciseId = event.target.value;
       updateBookmarkInfo({ exerciseId });
-      // putBookmarkInfo();
     }
   };
   return (
