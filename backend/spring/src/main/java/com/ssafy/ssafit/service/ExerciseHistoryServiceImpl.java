@@ -28,7 +28,7 @@ public class ExerciseHistoryServiceImpl implements ExerciseHistoryService {
         for (ExerciseHistoryDto exerciseHis : exercises) {
 
             int exerciseId = exerciseHis.getId();
-            String countPerSet = exerciseHis.getCountPerSet();
+            int countPerSet = exerciseHis.getCountPerSet();
             int setCount = exerciseHis.getSetCount();
             String durationTime = exerciseHis.getDurationTime();
 
@@ -58,9 +58,9 @@ public class ExerciseHistoryServiceImpl implements ExerciseHistoryService {
     }
 
     // 운동이력 저장시 유효성 체크
-    public boolean checkValidate(String countPerSet, int setCount, String durationTime) {
-        if (countPerSet == null || countPerSet.equals("")) {
-            if (setCount != 0 || (durationTime == null || durationTime.equals(""))) {
+    public boolean checkValidate(int countPerSet, int setCount, String durationTime) {
+        if (countPerSet == 0) {
+            if (setCount != 0 || (durationTime == null || durationTime.equals("00:00:00"))) {
                 return false;
             }
         } else if (setCount == 0) {

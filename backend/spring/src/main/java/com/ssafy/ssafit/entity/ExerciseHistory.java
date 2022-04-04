@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +20,7 @@ public class ExerciseHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String countPerSet;
+    private int countPerSet;
 
     private int setCount;
 
