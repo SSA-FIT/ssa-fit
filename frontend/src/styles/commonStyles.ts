@@ -9,7 +9,7 @@ const commonStyles = css`
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
 
-  &.slick-slide {
+  /* &.slick-slide {
     height: 370px;
     object-fit: contain;
   }
@@ -17,7 +17,7 @@ const commonStyles = css`
   &.slick-slide img {
     height: 370px;
     object-fit: contain;
-  }
+  } */
 `;
 
 export default commonStyles;

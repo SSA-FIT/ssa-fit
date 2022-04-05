@@ -60,99 +60,113 @@ const ExerciseSelectionPage: React.FC = () => {
     <>
       <Header />
       <Main>
-        <Container>
-          {(() => {
-            switch (step) {
-              case 0:
-                return (
-                  <>
-                    <ProfileRecommendation
-                      userRecoSelectList={userRecoSelectList}
-                      setUserRecoSelectList={setUserRecoSelectList}
-                    />
-                    <SimilarityRecommendation
-                      userRecoSelectList={userRecoSelectList}
-                      setUserRecoSelectList={setUserRecoSelectList}
-                    />
-                    <BookMarkRecommendation
-                      userRecoSelectList={userRecoSelectList}
-                      setUserRecoSelectList={setUserRecoSelectList}
-                    />
-
-                    <EntireRecommendation
-                      userRecoSelectList={userRecoSelectList}
-                      setUserRecoSelectList={setUserRecoSelectList}
-                    />
-                    <UserSelectionWrapper>
-                      <UserSelection
+        <ContainerWrapper>
+          <Container>
+            <SectionName>오늘의 운동 추천 목록</SectionName>
+            {(() => {
+              switch (step) {
+                case 0:
+                  return (
+                    <>
+                      <ProfileRecommendation
                         userRecoSelectList={userRecoSelectList}
                         setUserRecoSelectList={setUserRecoSelectList}
                       />
-                      <Submit
-                        onClick={handleRecoSubmitButton}
-                        disabled={selectDisabled}
-                      >
-                        운동 선택 완료
-                      </Submit>
-                    </UserSelectionWrapper>
-                  </>
-                );
-              case 1:
-                return (
-                  <>
-                    <UserSelectionChips
-                      userRecoSelectList={userRecoSelectList}
-                      setYoutubeVideoList={setYoutubeVideoList}
-                    />
-                    {youtubeVideoList.length > 0 ? (
-                      <>
-                        <VideoList
-                          youtubeVideoList={youtubeVideoList}
-                          userVideoSelectList={userVideoSelectList}
-                          setUserVideoSelectList={setUserVideoSelectList}
+                      <SimilarityRecommendation
+                        userRecoSelectList={userRecoSelectList}
+                        setUserRecoSelectList={setUserRecoSelectList}
+                      />
+                      <BookMarkRecommendation
+                        userRecoSelectList={userRecoSelectList}
+                        setUserRecoSelectList={setUserRecoSelectList}
+                      />
+
+                      <EntireRecommendation
+                        userRecoSelectList={userRecoSelectList}
+                        setUserRecoSelectList={setUserRecoSelectList}
+                      />
+                      <UserSelectionWrapper>
+                        <UserSelection
+                          userRecoSelectList={userRecoSelectList}
+                          setUserRecoSelectList={setUserRecoSelectList}
                         />
-                        <UserSelectionWrapper>
-                          <UserVideoSelection
+                        <Submit
+                          onClick={handleRecoSubmitButton}
+                          disabled={selectDisabled}
+                        >
+                          운동 선택 완료
+                        </Submit>
+                      </UserSelectionWrapper>
+                    </>
+                  );
+                case 1:
+                  return (
+                    <>
+                      <UserSelectionChips
+                        userRecoSelectList={userRecoSelectList}
+                        setYoutubeVideoList={setYoutubeVideoList}
+                      />
+                      {youtubeVideoList.length > 0 ? (
+                        <>
+                          <VideoList
+                            youtubeVideoList={youtubeVideoList}
                             userVideoSelectList={userVideoSelectList}
                             setUserVideoSelectList={setUserVideoSelectList}
                           />
-                          <Submit
-                            onClick={handleVideoSubmitButton}
-                            disabled={videoSelectDisabled}
-                          >
-                            운동 영상 선택 완료
-                          </Submit>
-                        </UserSelectionWrapper>
-                      </>
-                    ) : (
-                      <DescriptionWrapper>
-                        <Description>
-                          운동 항목을 눌러 시청할 영상을 선택해주세요.👆
-                        </Description>
-                      </DescriptionWrapper>
-                    )}
-                  </>
-                );
-              case 2:
-                return (
-                  <>
-                    <VideoPlayCard userVideoSelectList={userVideoSelectList} />
-                  </>
-                );
-              default:
-                return <Redirect to="/" />;
-            }
-          })()}
-        </Container>
+                          <UserSelectionWrapper>
+                            <UserVideoSelection
+                              userVideoSelectList={userVideoSelectList}
+                              setUserVideoSelectList={setUserVideoSelectList}
+                            />
+                            <Submit
+                              onClick={handleVideoSubmitButton}
+                              disabled={videoSelectDisabled}
+                            >
+                              운동 영상 선택 완료
+                            </Submit>
+                          </UserSelectionWrapper>
+                        </>
+                      ) : (
+                        <DescriptionWrapper>
+                          <Description>
+                            운동 항목을 눌러 시청할 영상을 선택해주세요.👆
+                          </Description>
+                        </DescriptionWrapper>
+                      )}
+                    </>
+                  );
+                case 2:
+                  return (
+                    <>
+                      <VideoPlayCard
+                        userVideoSelectList={userVideoSelectList}
+                      />
+                    </>
+                  );
+                default:
+                  return <Redirect to="/" />;
+              }
+            })()}
+          </Container>
+        </ContainerWrapper>
       </Main>
       <Footer />
     </>
   );
 };
 
-const Main = styled.main`
-  max-width: 1200px;
-  margin: 0 auto;
+const Main = styled.div`
+  display: block;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+`;
+
+const ContainerWrapper = styled.div`
+  box-sizing: border-box;
+  padding: 0 2rem;
+
+  @media (min-width: 1060px) {
+    padding: 0 2rem;
+  }
 `;
 
 const UserSelectionWrapper = styled.div`
@@ -163,10 +177,27 @@ const UserSelectionWrapper = styled.div`
 `;
 
 const Container = styled.div`
-  margin-top: 62px;
-  padding: 24px 0;
+  margin: 0 auto;
+  padding: 4rem 2rem 13rem;
+  box-sizing: border-box;
+
+  @media (min-width: 1060px) {
+    max-width: 128rem;
+    padding: 6rem 6rem 10rem;
+  }
 `;
 
+const SectionName = styled.h1`
+  margin-bottom: 0.8rem;
+  color: #000;
+  font-weight: 700;
+  font-size: 2rem;
+
+  @media (min-width: 1060px) {
+    font-weight: 400;
+    font-size: 3.2rem;
+  }
+`;
 const Submit = styled.button`
   width: 100%;
   background-color: #6367ff;

@@ -2,7 +2,8 @@ import React from 'react';
 import ReactSlick, { Settings } from 'react-slick';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 
 interface Props {
   settings?: Settings;
@@ -69,12 +70,12 @@ const Slider: React.FC<Props> = ({ children, length }) => {
     ],
     prevArrow: (
       <ArrowButton pos="left">
-        <MdArrowBackIos />
+        <ArrowBackIosRoundedIcon />
       </ArrowButton>
     ),
     nextArrow: (
       <ArrowButton pos="right">
-        <MdArrowForwardIos />
+        <ArrowForwardIosRoundedIcon />
       </ArrowButton>
     ),
   };
@@ -87,11 +88,6 @@ const Slider: React.FC<Props> = ({ children, length }) => {
     </>
   );
 };
-// const Slider: React.FC<Props> = ({
-//   // settings = DEFAULT_SETTINGS,
-//   children,
-//   length,
-// }) => <ReactSlick {...settings}>{children}</ReactSlick>;
 
 const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   padding: 16px;
@@ -123,70 +119,5 @@ const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
     color: #222;
   }
 `;
-
-const DEFAULT_SETTINGS: Settings = {
-  dots: false,
-  arrows: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 6,
-  slidesToScroll: 3,
-  swipe: true,
-  draggable: true,
-  responsive: [
-    {
-      breakpoint: 1500,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 4,
-        infinite: true,
-        dots: false,
-      },
-    },
-    {
-      breakpoint: 1300,
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: false,
-      },
-    },
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        infinite: true,
-        dots: false,
-      },
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 2,
-      },
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
-  prevArrow: (
-    <ArrowButton pos="left">
-      <MdArrowBackIos />
-    </ArrowButton>
-  ),
-  nextArrow: (
-    <ArrowButton pos="right">
-      <MdArrowForwardIos />
-    </ArrowButton>
-  ),
-};
 
 export default Slider;
