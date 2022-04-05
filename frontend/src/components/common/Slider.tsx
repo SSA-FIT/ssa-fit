@@ -15,10 +15,58 @@ const Slider: React.FC<Props> = ({ children, length }) => {
     arrows: true,
     infinite: true,
     speed: 500,
-    slidesToShow: length < 5 ? length : 5,
-    slidesToScroll: length < 5 ? length : 5,
+    slidesToShow: length < 5 ? length : 6,
+    slidesToScroll: length < 5 ? length : 3,
     swipe: true,
     draggable: true,
+    responsive: [
+      {
+        breakpoint: 1500,
+        settings: {
+          slidesToShow: length < 5 ? length : 5,
+          slidesToScroll: length < 4 ? length : 4,
+
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: length < 4 ? length : 4,
+          slidesToScroll: length < 3 ? length : 3,
+
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: length < 3 ? length : 3,
+          slidesToScroll: length < 3 ? length : 3,
+
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: length < 2 ? length : 2,
+          slidesToScroll: length < 2 ? length : 2,
+
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
     prevArrow: (
       <ArrowButton pos="left">
         <MdArrowBackIos />
@@ -81,10 +129,54 @@ const DEFAULT_SETTINGS: Settings = {
   arrows: true,
   infinite: true,
   speed: 500,
-  slidesToShow: 5,
-  slidesToScroll: 5,
+  slidesToShow: 6,
+  slidesToScroll: 3,
   swipe: true,
   draggable: true,
+  responsive: [
+    {
+      breakpoint: 1500,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 4,
+        infinite: true,
+        dots: false,
+      },
+    },
+    {
+      breakpoint: 1300,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: false,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: false,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
   prevArrow: (
     <ArrowButton pos="left">
       <MdArrowBackIos />
