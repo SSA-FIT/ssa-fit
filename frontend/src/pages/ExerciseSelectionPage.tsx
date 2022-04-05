@@ -15,12 +15,13 @@ import UserSelectionChips from '../components/exercise/youtubeSelections/UserSel
 import VideoList from '../components/exercise/youtubeSelections/VideoList';
 import UserVideoSelection from '../components/exercise/youtubeSelections/UserVideoSelection';
 import VideoPlayCard from '../components/exercise/video/VideoPlayCard';
+import SelectionTabs from '../components/common/SelectionTabs';
 
 const ExerciseSelectionPage: React.FC = () => {
   useEffect(() => {
     document.title = '운동 추천';
   }, []);
-
+  const [tabNumber, setTabNumber] = useState<number>(0);
   const [userRecoSelectList, setUserRecoSelectList] = useState<
     Recommendation[]
   >([]);
@@ -62,34 +63,54 @@ const ExerciseSelectionPage: React.FC = () => {
       <Main>
         <ContainerWrapper>
           <Container>
-            <SectionName>오늘의 운동 추천 목록</SectionName>
             {(() => {
               switch (step) {
                 case 0:
                   return (
                     <>
-                      <ProfileRecommendation
-                        userRecoSelectList={userRecoSelectList}
-                        setUserRecoSelectList={setUserRecoSelectList}
-                      />
-                      <SimilarityRecommendation
-                        userRecoSelectList={userRecoSelectList}
-                        setUserRecoSelectList={setUserRecoSelectList}
-                      />
-                      <BookMarkRecommendation
-                        userRecoSelectList={userRecoSelectList}
-                        setUserRecoSelectList={setUserRecoSelectList}
-                      />
+                      <SectionName>오늘의 운동 추천 💪</SectionName>
+                      <SelectionTabs
+                        setTabNumber={setTabNumber}
+                      ></SelectionTabs>
+                      {tabNumber === 0 && (
+                        <RecommendationWrapper>
+                          <ProfileRecommendation
+                            userRecoSelectList={userRecoSelectList}
+                            setUserRecoSelectList={setUserRecoSelectList}
+                          />
+                        </RecommendationWrapper>
+                      )}
+                      {tabNumber === 1 && (
+                        <RecommendationWrapper>
+                          <SimilarityRecommendation
+                            userRecoSelectList={userRecoSelectList}
+                            setUserRecoSelectList={setUserRecoSelectList}
+                          />
+                        </RecommendationWrapper>
+                      )}
+                      {tabNumber === 2 && (
+                        <RecommendationWrapper>
+                          <BookMarkRecommendation
+                            userRecoSelectList={userRecoSelectList}
+                            setUserRecoSelectList={setUserRecoSelectList}
+                          />
+                        </RecommendationWrapper>
+                      )}
+                      {tabNumber === 3 && (
+                        <RecommendationWrapper>
+                          <EntireRecommendation
+                            userRecoSelectList={userRecoSelectList}
+                            setUserRecoSelectList={setUserRecoSelectList}
+                          />
+                        </RecommendationWrapper>
+                      )}
 
-                      <EntireRecommendation
-                        userRecoSelectList={userRecoSelectList}
-                        setUserRecoSelectList={setUserRecoSelectList}
-                      />
                       <UserSelectionWrapper>
                         <UserSelection
                           userRecoSelectList={userRecoSelectList}
                           setUserRecoSelectList={setUserRecoSelectList}
                         />
+
                         <Submit
                           onClick={handleRecoSubmitButton}
                           disabled={selectDisabled}
@@ -102,6 +123,7 @@ const ExerciseSelectionPage: React.FC = () => {
                 case 1:
                   return (
                     <>
+                      <SectionName>운동 영상 목록</SectionName>
                       <UserSelectionChips
                         userRecoSelectList={userRecoSelectList}
                         setYoutubeVideoList={setYoutubeVideoList}
@@ -196,6 +218,30 @@ const SectionName = styled.h1`
   @media (min-width: 1060px) {
     font-weight: 400;
     font-size: 3.2rem;
+  }
+`;
+
+const Title = styled.h2`
+  color: #6367ffcc;
+  font-weight: 500;
+
+  @media (min-width: 1060px) {
+    margin: 4rem 0 0.8rem;
+    font-size: 2.4rem;
+    line-height: 1.5;
+  }
+`;
+
+const RecommendationWrapper = styled.div`
+  padding: 2rem 1.6rem;
+  border: 1px solid #d9dbe1;
+  box-sizing: border-box;
+  margin: 2rem 0;
+
+  @media (min-width: 1060px) {
+    //display: flex;
+    flex-wrap: wrap;
+    padding: 4.6em 4rem;
   }
 `;
 const Submit = styled.button`

@@ -73,39 +73,37 @@ const Card: React.FC<Props> = ({
   };
 
   return (
-    <StyledLink>
+    <Container>
       <Base>
         <Wrapper>
-          <ImageWrapper>
+          <ImageBoxWrapper>
             <CheckBox
               type="checkbox"
               onChange={checkBoxChangeHandler}
               checked={checked}
               id={name}
             />
-            <ImageLabel htmlFor={name}>
-              <Image key={id} src={imageURL} alt={`${name} 의 이미지`} />
-            </ImageLabel>
-          </ImageWrapper>
+            <ImageWrapper>
+              <ImageLabel htmlFor={name}>
+                <Image key={id} src={imageURL} alt={`${name} 의 이미지`} />
+              </ImageLabel>
+            </ImageWrapper>
+          </ImageBoxWrapper>
         </Wrapper>
-        <Info>
-          <Title>{name}</Title>
-          {score !== null && <Title>예상 만족도 점수 : {score} 점</Title>}
-        </Info>
       </Base>
-    </StyledLink>
+      <Info>
+        <Title>{name}</Title>
+        {score !== null && <Title>예상 만족도 점수 : {score} 점</Title>}
+      </Info>
+    </Container>
   );
 };
 
-const StyledLink = styled.div`
-  /* text-decoration: none;
-  display: block;
-  margin-inline: 10px; */
+const Container = styled.div`
   cursor: pointer;
   transition: all 0.3s;
-  min-height: 450px;
   height: 100%;
-  margin: 10px;
+  margin: 15px;
 
   &:hover {
     transform: scale(1.1);
@@ -120,9 +118,11 @@ const Base = styled.div`
   height: 100%;
 `;
 
-const ImageWrapper = styled.div`
+const ImageBoxWrapper = styled.div`
   width: 100%;
-  height: 300px;
+`;
+const ImageWrapper = styled.div`
+  text-align: center;
 `;
 
 const ImageLabel = styled.label``;
@@ -130,10 +130,12 @@ const Image = styled.img`
   width: 100%;
   //height: 100%;
   border-radius: 4px;
+  display: block;
+  margin: 0px auto;
 `;
 
 const Info = styled.div`
-  //margin-top: 14px;
+  margin-top: 20px;
   text-align: left;
   width: 100%;
 `;

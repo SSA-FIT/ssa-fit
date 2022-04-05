@@ -26,7 +26,7 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
 
   return (
     <Base>
-      <Title>전체 운동 목록</Title>
+      {/* <Title>전체 운동 목록</Title> */}
       <ExerciseBackdrop backDropOpen={isLoading} />
       <Slider length={entireRecoList.length}>
         {entireRecoList.map((entireReco) => (

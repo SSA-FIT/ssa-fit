@@ -20,6 +20,7 @@ const Slider: React.FC<Props> = ({ children, length }) => {
     slidesToScroll: length < 5 ? length : 3,
     swipe: true,
     draggable: true,
+    adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 1500,
@@ -95,7 +96,7 @@ const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   border-radius: 50%;
   z-index: 1;
   top: 50%;
-  background-color: #fff;
+  //background-color: #6367ffaa;
   ${({ pos }) =>
     pos === 'left'
       ? css`
