@@ -582,11 +582,15 @@ const ProfileCard: React.FC = () => {
                           <SelfExerciseLevelButton
                             onClick={handleClickOpen}
                             className={levelError ? 'have-error' : ''}
+                            disabled={inputDisabled}
                           >
                             자가 체력 진단
                           </SelfExerciseLevelButton>
                         ) : (
-                          <SelfExerciseLevelButton onClick={handleClickOpen}>
+                          <SelfExerciseLevelButton
+                            onClick={handleClickOpen}
+                            disabled={inputDisabled}
+                          >
                             자가 체력 재진단
                           </SelfExerciseLevelButton>
                         )}
