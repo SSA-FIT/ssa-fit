@@ -98,9 +98,19 @@ const Card: React.FC<Props> = ({
 };
 
 const StyledLink = styled.div`
-  text-decoration: none;
+  /* text-decoration: none;
   display: block;
-  margin-inline: 10px;
+  margin-inline: 10px; */
+  cursor: pointer;
+  transition: all 0.3s;
+  min-height: 450px;
+  height: 100%;
+  margin: 10px;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+  }
 `;
 
 const Base = styled.div`

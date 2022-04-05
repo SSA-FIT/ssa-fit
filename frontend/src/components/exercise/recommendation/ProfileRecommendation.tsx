@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import Slider from '../../common/Slider';
 import Card from '../../common/Card';
 import {
-  NonUser,
   ProfileRecoWithoutTokenRequest,
   Recommendation,
   UserSelectListProp,
