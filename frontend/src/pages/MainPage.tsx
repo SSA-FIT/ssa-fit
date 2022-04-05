@@ -6,7 +6,7 @@ import MainBannerSection from '../components/main/MainBannerSection';
 
 const MainPage: React.FC = () => {
   useEffect(() => {
-    document.title = '싸핏';
+    document.title = 'Ready, Action, SSAFIT!';
   }, []);
 
   return (

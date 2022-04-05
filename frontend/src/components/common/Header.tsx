@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
@@ -9,17 +9,15 @@ import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
 import Tooltip from '@mui/material/Tooltip';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { RootState } from '../../types/authTypes';
 
 import { logout as logoutSagaStart } from '../../redux/modules/auth';
 import MenusLogIn from './MenusLogIn';
 import MenusLogOut from './MenusLogOut';
+import useToken from '../../hooks/useToken';
 
 const Header: React.FC = () => {
   const location = useLocation();
-  const token = useSelector<RootState, string | null>(
-    (state) => state.auth.token,
-  );
+  const token = useToken();
 
   const dispatch = useDispatch();
 
