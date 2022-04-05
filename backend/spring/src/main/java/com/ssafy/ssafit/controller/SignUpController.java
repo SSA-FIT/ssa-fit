@@ -112,10 +112,10 @@ public class SignUpController {
         try {
             user = userService.saveUser(signUpRequestDto);
             if(user == null) {
-                return ResponseEntity.status(400).body(ErrorResponseDto.of(400, "신체 정보 입력값이 유효하지 않습니다."));
+                return ResponseEntity.status(400).body(ErrorResponseDto.of(400, "회원가입에 실패하였습니다."));
             }
         } catch (Exception exception) {
-            return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error, 신체 정보 등록 실패"));
+            return ResponseEntity.status(500).body(ErrorResponseDto.of(500, "Internal Server Error <br> 회원가입에 실패하였습니다."));
         }
         return ResponseEntity.status(200).body(SuccessResponseDto.of("신체 정보 입력이 완료되었습니다."));
 
