@@ -1,7 +1,6 @@
 import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
 import { History } from 'history';
-import history from '../../history';
 import auth from './auth';
 import profile from './profile';
 import bookmark from '../bookmark';

@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux';
 import Footer from '../components/common/Footer';
 import Header from '../components/common/Header';
 import ExerciseHistory from '../components/history/ExerciseHistory';
-import LogInCard from '../components/logIn/LogInCard';
-import SignUpCard from '../components/signUp/SignUpCard';
 import { putBookmarkInfo as BookmarkSagaPut } from '../redux/bookmark';
 
 const ExerciseHistoryPage: React.FC = () => {
@@ -16,7 +14,7 @@ const ExerciseHistoryPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(BookmarkSagaPut());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

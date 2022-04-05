@@ -14,7 +14,7 @@ const useBookMarkList = (token: string | null) => {
     }
 
     fetchEntireExerciseList();
-  }, []);
+  }, [token]);
 
   return bookMarkList;
 };

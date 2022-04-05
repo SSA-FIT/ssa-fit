@@ -132,14 +132,7 @@ const BodyInfoForm: React.FC<Props> = ({
     )
       setBodyInfoComplete(true);
     else setBodyInfoComplete(false);
-  }, [
-    isHeight,
-    isWeight,
-    userBirthChange,
-    userGenderChange,
-    userGenderChange,
-    userLevelChange,
-  ]);
+  }, [isHeight, isWeight, userBirthChange, userGenderChange, userLevelChange]);
 
   const [selfTest1, setSelfTest1] = useState<number>(1);
   const [selfTest2, setSelfTest2] = useState<number>(1);

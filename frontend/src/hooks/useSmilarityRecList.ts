@@ -18,7 +18,7 @@ const useSimilarityRecList = (token: string | null) => {
     }
 
     fetchEntireExerciseList();
-  }, []);
+  }, [token]);
 
   return similarityRecList;
 };

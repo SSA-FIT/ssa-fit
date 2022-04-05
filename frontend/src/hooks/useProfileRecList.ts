@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import RecommendationService from '../services/RecommendationService';
 import {
-  NonUser,
   ProfileRecoWithoutTokenRequest,
   Recommendation,
 } from '../types/recommendationTypes';
@@ -28,7 +27,7 @@ const useProfileRecList = (
     }
 
     fetchEntireExerciseList();
-  }, []);
+  }, [state, token]);
 
   return profileRecList;
 };

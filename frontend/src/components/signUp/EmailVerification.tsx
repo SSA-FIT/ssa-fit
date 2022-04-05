@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { Alert } from '@mui/material';
 import Swal from 'sweetalert2';
 
 import { regEmail } from '../../utils/RegExpressions';
@@ -152,7 +151,7 @@ const EmailVerification: React.FC<Props> = ({
     setEmailConfirmMessage('');
     if (timeout) setEmailCodeConfirmButton(true);
     else setEmailCodeConfirmButton(false);
-  }, [emailCodeInput]);
+  }, [emailCodeInput, timeout]);
 
   const emailCodeConfirm = () => {
     const data: EmailCodeConfirm = {
