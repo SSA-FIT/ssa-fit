@@ -1,16 +1,14 @@
 import { createActions, handleActions, Action } from 'redux-actions';
 import { takeEvery, put, call } from 'redux-saga/effects';
-import { go, push } from 'connected-react-router';
+import { push } from 'connected-react-router';
 
 import Swal from 'sweetalert2';
 import TokenService from '../../services/TokenService';
 import UserService from '../../services/UserService';
 import {
   LogInApiResponse,
-  LogInRequest,
   LogInRequestIdCheck,
   LogInResponse,
-  UserInfo,
 } from '../../types/authTypes';
 
 export interface AuthState {
@@ -39,7 +37,6 @@ const reducer = handleActions<AuthState, LogInResponse>(
     PENDING: (state) => ({ ...state, loading: true, error: null }),
     SUCCESS: (state, action) => ({
       ...state,
-      // eslint-disable-next-line react/destructuring-assignment
       token: action.payload.token,
       loading: false,
       error: null,

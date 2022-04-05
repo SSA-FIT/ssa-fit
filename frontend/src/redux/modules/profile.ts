@@ -1,17 +1,13 @@
 import { Action, createActions, handleActions } from 'redux-actions';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
-import { go, push } from 'connected-react-router';
 
 import Swal from 'sweetalert2';
-import { userInfo } from 'os';
-import TokenService from '../../services/TokenService';
 import {
   ProfileRequest,
   ProfileResponse,
   UserInfo,
 } from '../../types/profileTypes';
 import ProfileService from '../../services/ProfileService';
-import { SignUpResponse } from '../../types/commonTypes';
 
 export interface ProfileState {
   info: UserInfo | null;
@@ -39,7 +35,6 @@ const reducer = handleActions<ProfileState, UserInfo>(
     PENDING: (state) => ({ ...state, loading: true, error: null }),
     UPDATE: (state, action) => ({
       ...state,
-      // eslint-disable-next-line react/destructuring-assignment
       info: action.payload,
       loading: false,
       error: null,
@@ -102,7 +97,9 @@ function* updateProfileSaga(action: Action<ProfileRequest>) {
     //   level: action.payload.level,
     //   gender: action.payload.gender,
     // };
-    const response: SignUpResponse = yield call(
+    // const response: SignUpResponse =
+
+    yield call(
       ProfileService.updateUserInfo,
       // newProfileInfo,
       action.payload,

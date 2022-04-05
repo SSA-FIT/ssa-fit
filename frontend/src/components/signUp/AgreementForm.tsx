@@ -1,22 +1,12 @@
 import styled from '@emotion/styled';
-import { Alert } from '@mui/material';
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-// import { BodyInfoData } from '../../types/commonTypes';
-import {
-  NonUser,
-  NonuserBodyInfoData,
-  ProfileRecoWithoutTokenRequest,
-} from '../../types/recommendationTypes';
+import { Link } from 'react-router-dom';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
 }
 
 const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
-  const location = useLocation();
-  const locationState: any = location.state;
-
   const [agreement, setAgreement] = useState<boolean>(false);
   const [agreementError, setAgreementError] = useState<boolean>(false);
 
@@ -42,9 +32,7 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
 
   return (
     <>
-      {/* <Alert severity="error">This is an error alert — check it out!</Alert> */}
       <Container>
-        {/*  className={agreementError ? 'have-error' : ''} */}
         <StepName>약관 동의</StepName>
         <StepDescription>
           약관 및 개인정보 수집 이용에 동의해주세요.

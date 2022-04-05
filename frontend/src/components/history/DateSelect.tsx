@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
