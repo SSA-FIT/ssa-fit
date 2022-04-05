@@ -12,8 +12,6 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { PortableWifiOff } from '@mui/icons-material';
-import { profile } from 'console';
 import Swal from 'sweetalert2';
 import {
   updateProfileInfo as ProfileSagaUpdate,
@@ -95,14 +93,7 @@ const ProfileCard: React.FC = () => {
 
   useEffect(() => {
     putprofileInfo();
-  }, []);
-
-  const updateProfileInfo = useCallback(
-    (requestData) => {
-      dispatch(ProfileSagaUpdate(requestData));
-    },
-    [dispatch],
-  );
+  }, [putprofileInfo]);
 
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token,

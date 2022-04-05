@@ -73,10 +73,3 @@ const LogInButton = styled(Link)`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
 export default SignUpComplete;
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
-
-function push(arg0: string): any {
-  throw new Error('Function not implemented.');
-}

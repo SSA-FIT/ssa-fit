@@ -53,6 +53,8 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 1200px;
   margin: 0px auto;
+  display: flex;
+  flex-direction: column;
 `;
 
 const TextWrapper = styled.div`

@@ -5,7 +5,6 @@ import { css } from '@emotion/react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 
 interface Props {
-  // eslint-disable-next-line react/require-default-props
   settings?: Settings;
   length: number;
 }

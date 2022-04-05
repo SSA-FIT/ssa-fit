@@ -1,5 +1,3 @@
-import SelectInput from '@mui/material/Select/SelectInput';
-import { response } from 'msw';
 import { createActions, handleActions, Action } from 'redux-actions';
 
 import { takeEvery, put, call, select } from 'redux-saga/effects';
@@ -7,7 +5,6 @@ import Swal from 'sweetalert2';
 import BookmarkService from '../services/BookmarkService';
 import RecommendationService from '../services/RecommendationService';
 import {
-  BookmarkRecommendation,
   Recommendation,
   RecommendationBookmarkRec,
 } from '../types/recommendationTypes';
@@ -38,7 +35,6 @@ const reducer = handleActions<BookmarkState, Recommendation[]>(
     PENDING: (state) => ({ ...state, loading: true, error: null }),
     UPDATE_BOOKMARK: (state, action) => ({
       ...state,
-      // eslint-disable-next-line react/destructuring-assignment
       bookmarks: action.payload,
       loading: false,
       error: null,
@@ -92,11 +88,9 @@ function* updateBookmarkInfoSaga(action: Action<number>) {
 
     const token: string = yield select((state) => state.auth.token);
 
-    const response: RecommendationBookmarkRec = yield call(
-      BookmarkService.updateBookmark,
-      action.payload,
-      token,
-    );
+    // const response: RecommendationBookmarkRec =
+
+    yield call(BookmarkService.updateBookmark, action.payload, token);
   } catch (error: any) {
     yield put(fail(error?.response?.data || 'UNKNOWN ERROR'));
 

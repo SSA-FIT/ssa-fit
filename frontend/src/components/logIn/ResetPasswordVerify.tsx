@@ -7,8 +7,6 @@ import Swal from 'sweetalert2';
 import { regEmail, regId, regPw } from '../../utils/RegExpressions';
 import UserService from '../../services/UserService';
 import {
-  EmailCodeConfirm,
-  EmailCodeRequest,
   ResetPasswordConfirm,
   ResetPasswordEmailCodeConfirm,
   ResetPasswordEmailCodeRequest,
@@ -347,7 +345,7 @@ const ResetPasswordVerify: React.FC = () => {
       setPwConfirmMessage('');
       setIsPwConfirm(false);
     }
-  }, [password, passwordConfirm]);
+  }, [isPw, password, passwordConfirm]);
 
   const resetPasswordConfirm = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -704,17 +702,6 @@ const InputAreaWrapper = styled.div`
   }
 `;
 
-const InputFieldWrapper = styled.div`
-  margin-top: 4rem;
-
-  &:first-of-type {
-    margin-top: 0;
-  }
-  @media (min-width: 1060px) {
-    width: 100%;
-  }
-`;
-
 const InputName = styled.label`
   display: block;
   margin-bottom: 0.2rem;
@@ -733,18 +720,6 @@ const InputDescription = styled.span`
   color: #00256c;
   font-size: 1.3rem;
   line-height: 1.58;
-`;
-
-const InputCode = styled.div`
-  display: block;
-  margin-bottom: 0.2rem;
-  color: #767676;
-  font-size: 1.4rem;
-  line-height: 1.58;
-
-  @media (min-width: 1060px) {
-    margin-bottom: 0.2rem;
-  }
 `;
 
 const CodeTimerWrapper = styled.div`
@@ -774,44 +749,6 @@ const RequestAgainCode = styled.a`
 
   &:hover {
     color: #3396f4;
-  }
-`;
-
-const CodeConfirmButton = styled.button`
-  margin-top: 0.4rem;
-  color: #555;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  display: inline-block;
-  min-width: 6.8rem;
-  margin: 0;
-  padding: 0.6rem 1.2rem 0.7rem;
-  border-radius: 0.2rem;
-  background-color: #fff;
-  font-size: 1.4rem;
-  line-height: 1.58;
-  text-decoration: none;
-  text-align: center;
-  cursor: pointer;
-  border: 1px solid #00256c;
-  appearance: none;
-
-  @media (min-width: 1060px) {
-    margin-top: 0.4rem;
-    min-width: 8.4rem;
-    padding: 0.7rem 0.8rem;
-    font-size: 1.6rem;
-    line-height: 1.5;
-  }
-
-  &:disabled {
-    background: rgb(247, 248, 250);
-    color: rgb(194, 200, 204);
-    border-color: rgb(218, 220, 224);
-    cursor: not-allowed;
-  }
-
-  &.have-error {
-    cursor: not-allowed;
   }
 `;
 

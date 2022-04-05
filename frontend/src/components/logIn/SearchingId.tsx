@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 import { regEmail } from '../../utils/RegExpressions';
 import UserService from '../../services/UserService';
-import { EmailCodeConfirm, EmailCodeRequest } from '../../types/commonTypes';
+import { EmailCodeRequest } from '../../types/commonTypes';
 
 const SearchingId: React.FC = () => {
   const [email, setEmail] = useState<string>('');

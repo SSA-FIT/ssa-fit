@@ -146,7 +146,7 @@ const SignUpForm: React.FC<Props> = ({
       setPwConfirmMessage('비밀번호가 일치하지 않습니다.');
       setIsPwConfirm(false);
     }
-  }, [userPw, userPwConfirm]);
+  }, [isPw, userPw, userPwConfirm]);
 
   const getNickname = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNicknameError(false);

@@ -46,7 +46,7 @@ export const authhandlers = [
 
     async (request: any, response, context) => {
       const data: EmailCodeConfirm = request.body;
-      const { code, email } = data;
+      const { code } = data;
 
       // const userEmail = data.email;
       // const emailCode = data.code;
@@ -223,7 +223,6 @@ export const authhandlers = [
 
     async (request, response, context) => {
       const email = request.url.searchParams.get('email');
-      const userId = request.url.searchParams.get('userId');
 
       if (email === '409error@naver.com') {
         return response(
@@ -257,7 +256,7 @@ export const authhandlers = [
 
     async (request: any, response, context) => {
       const data: ResetPasswordEmailCodeConfirm = request.body;
-      const { code, email, userId } = data;
+      const { code } = data;
 
       // const userEmail = data.email;
       // const emailCode = data.code;
@@ -302,7 +301,7 @@ export const authhandlers = [
 
     async (request: any, response, context) => {
       const data: ResetPasswordConfirm = request.body;
-      const { password, email, userId } = data;
+      const { password } = data;
 
       if (password === '500error') {
         return response(
