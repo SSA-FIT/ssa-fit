@@ -1,22 +1,27 @@
 import styled from '@emotion/styled';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+// import { BodyInfoData } from '../../types/commonTypes';
+import {
+  NonUser,
+  NonuserBodyInfoData,
+  ProfileRecoWithoutTokenRequest,
+} from '../../types/recommendationTypes';
 
 interface Props {
   setSignUpStep: (signUpStep: number) => void;
 }
 
 const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
+  const location = useLocation();
+  const locationState: any = location.state;
+
   const [agreement, setAgreement] = useState<boolean>(false);
   const [agreementError, setAgreementError] = useState<boolean>(false);
 
   const handleNext = () => {
     if (!agreement) {
-      // <Alert severity="success" color="info">
-      //   This is a success alert — check it out!
-      // </Alert>;
-      // alert('약관에 동의해주세요.');
       setAgreementError(true);
     } else {
       setSignUpStep(1);

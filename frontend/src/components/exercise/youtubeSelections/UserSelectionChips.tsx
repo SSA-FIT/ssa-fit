@@ -2,6 +2,8 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import {
   Recommendation,
   YoutubeListProp,
@@ -36,6 +38,7 @@ const UserSelectionChips: React.FC<YoutubeListProp> = ({
         m: 0,
       }}
       component="ul"
+      css={boxShadowNone}
     >
       {chipData.map((data) => {
         let icon;
@@ -43,7 +46,14 @@ const UserSelectionChips: React.FC<YoutubeListProp> = ({
         return (
           <ListItem key={data.id}>
             <Chip
-              color="secondary"
+              sx={{
+                'backgroundColor': '#6367ff',
+                'color': '#fff',
+                '&:hover': {
+                  color: '#6367ff',
+                  backgroundColor: '#fafafa',
+                },
+              }}
               icon={icon}
               label={data.name}
               onDelete={data.name === 'React' ? handleDelete(data) : undefined}
@@ -60,4 +70,8 @@ const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
 
+const boxShadowNone = css`
+  box-shadow: none;
+  margin-bottom: 30px;
+`;
 export default UserSelectionChips;

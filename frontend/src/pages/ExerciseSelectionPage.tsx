@@ -29,9 +29,29 @@ const ExerciseSelectionPage: React.FC = () => {
     YoutubeVideo[]
   >([]);
   const [step, setStep] = useState<number>(0);
+  const [selectDisabled, setSelectDisabled] = useState<boolean>(true);
+  const [videoSelectDisabled, setVideoSelectDisabled] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (userRecoSelectList.length > 0) {
+      setSelectDisabled(false);
+    } else {
+      setSelectDisabled(true);
+    }
+  }, [userRecoSelectList.length]);
+
+  useEffect(() => {
+    if (userVideoSelectList.length > 0) {
+      setVideoSelectDisabled(false);
+    } else {
+      setVideoSelectDisabled(true);
+    }
+  }, [userVideoSelectList.length]);
+
   const handleRecoSubmitButton = (event: React.MouseEvent) => {
     setStep(1);
   };
+
   const handleVideoSubmitButton = (event: React.MouseEvent) => {
     setStep(2);
   };
@@ -68,7 +88,10 @@ const ExerciseSelectionPage: React.FC = () => {
                         userRecoSelectList={userRecoSelectList}
                         setUserRecoSelectList={setUserRecoSelectList}
                       />
-                      <Submit onClick={handleRecoSubmitButton}>
+                      <Submit
+                        onClick={handleRecoSubmitButton}
+                        disabled={selectDisabled}
+                      >
                         운동 선택 완료
                       </Submit>
                     </UserSelectionWrapper>
@@ -81,7 +104,7 @@ const ExerciseSelectionPage: React.FC = () => {
                       userRecoSelectList={userRecoSelectList}
                       setYoutubeVideoList={setYoutubeVideoList}
                     />
-                    {youtubeVideoList.length > 0 && (
+                    {youtubeVideoList.length > 0 ? (
                       <>
                         <VideoList
                           youtubeVideoList={youtubeVideoList}
@@ -93,11 +116,20 @@ const ExerciseSelectionPage: React.FC = () => {
                             userVideoSelectList={userVideoSelectList}
                             setUserVideoSelectList={setUserVideoSelectList}
                           />
-                          <Submit onClick={handleVideoSubmitButton}>
-                            운동 선택 완료
+                          <Submit
+                            onClick={handleVideoSubmitButton}
+                            disabled={videoSelectDisabled}
+                          >
+                            운동 영상 선택 완료
                           </Submit>
                         </UserSelectionWrapper>
                       </>
+                    ) : (
+                      <DescriptionWrapper>
+                        <Description>
+                          운동 항목을 눌러 시청할 영상을 선택해주세요.👆
+                        </Description>
+                      </DescriptionWrapper>
                     )}
                   </>
                 );
@@ -126,7 +158,8 @@ const Main = styled.main`
 const UserSelectionWrapper = styled.div`
   position: sticky;
   bottom: 0;
-  background-color: #caace8cc;
+  background-color: #6367ffcc;
+  color: #fff;
 `;
 
 const Container = styled.div`
@@ -136,13 +169,40 @@ const Container = styled.div`
 
 const Submit = styled.button`
   width: 100%;
-  background-color: rgb(153, 51, 255);
+  background-color: #6367ff;
   height: 55px;
   border: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-size: 24px;
   padding: 0px;
   color: white;
+
+  &:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+    color: #808080;
+  }
+`;
+
+const DescriptionWrapper = styled.div`
+  width: 100%;
+  height: 600px;
+  background-color: #fafafa;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+`;
+
+const Description = styled.h5`
+  color: #6367ffcc;
+  text-align: center;
+  margin-top: 15px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: initial;
 `;
 
 export default ExerciseSelectionPage;

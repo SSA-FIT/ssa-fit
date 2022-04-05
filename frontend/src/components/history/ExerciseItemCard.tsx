@@ -1,16 +1,48 @@
 import styled from '@emotion/styled';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { exerciseItemRecord } from '../../types/historyTypes';
+import {
+  putBookmarkInfo as BookmarkSagaPut,
+  updateBookmarkInfo as BookmarkSagaUpdate,
+} from '../../redux/bookmark';
+import { Recommendation } from '../../types/recommendationTypes';
+import { RootState } from '../../types/authTypes';
 
 interface Props {
   exerciseItem: exerciseItemRecord;
 }
 
 const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
+  const bookMarkFromRedux = useSelector<RootState, Recommendation[] | null>(
+    (state) => state.bookmark.bookmarks,
+  );
+
+  const dispatch = useDispatch();
+
+  const updateBookmarkInfo = useCallback(
+    (requestData) => {
+      dispatch(BookmarkSagaUpdate(requestData));
+    },
+    [dispatch],
+  );
+
   const [bookMarkChecked, setBookMarkChecked] = useState<boolean>(
     exerciseItem.bookmark,
   );
+
+  const findExerciseId = bookMarkFromRedux?.findIndex(
+    (bookmark) => bookmark.id === exerciseItem.exerciseId,
+  );
+
+  useEffect(() => {
+    if (findExerciseId === -1) {
+      setBookMarkChecked(false);
+    } else {
+      setBookMarkChecked(true);
+    }
+  }, [bookMarkFromRedux]);
 
   const handleExerciseBookMarkChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -20,6 +52,8 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
     } else {
       setBookMarkChecked(false);
     }
+
+    updateBookmarkInfo({ exerciseId: exerciseItem.exerciseId });
   };
   return (
     <>
@@ -35,23 +69,21 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
               />
             </ExerciseBookMarkWrapper>
             {bookMarkChecked === false ? (
-              <ExerciseBookMarkIconchecked sx={{ color: '#fafafa' }} />
+              <ExerciseBookMarkIconchecked sx={{ color: '#808080CC' }} />
             ) : (
               <ExerciseBookMarkIconchecked sx={{ color: '#6367ff' }} />
             )}
           </Exercise>
         </ExerciseItem>
-        <ExerciseDescription>{exerciseItem.name}</ExerciseDescription>
+        <ExerciseDescription>{exerciseItem.getName}</ExerciseDescription>
         <ExerciseDescription className="record" key={exerciseItem.exerciseId}>
-          {exerciseItem.countPerSet !== null && exerciseItem.setCount !== null
-            ? `총 ${
-                parseFloat(exerciseItem.countPerSet) * exerciseItem.setCount
-              } 회 (${exerciseItem.countPerSet}회 x ${
-                exerciseItem.setCount
-              }세트) `
-            : undefined}
-          {exerciseItem.durationTime !== null
-            ? `${exerciseItem.durationTime} 소요`
+          {exerciseItem.countPerSet !== 0 &&
+            exerciseItem.setCount !== 0 &&
+            `총 ${exerciseItem.countPerSet} 회 (${(
+              exerciseItem.countPerSet / exerciseItem.setCount
+            ).toFixed(1)}회 x ${exerciseItem.setCount}세트) `}
+          {exerciseItem.durationTime !== '00:00:00'
+            ? `${exerciseItem.durationTime}`
             : undefined}
         </ExerciseDescription>
       </ExerciseItemWrapper>
@@ -79,7 +111,7 @@ const ExerciseItem = styled.div`
 `;
 
 const Exercise = styled.div`
-  object-fit: cover;
+  // object-fit: cover;
   position: relative;
   height: 0px;
   padding-top: 56.3333%;
@@ -104,7 +136,7 @@ const ExerciseImage = styled.img`
   width: 100%;
   height: 100%;
   //z-index: 1;
-  object-fit: cover;
+  object-fit: contain;
   vertical-align: middle;
   border-style: none;
 `;

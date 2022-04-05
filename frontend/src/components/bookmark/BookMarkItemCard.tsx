@@ -1,13 +1,33 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+
+// import { login as loginSagaStart } from '../../redux/modules/auth';
+
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  updateBookmarkInfo as BookmarkSagaUpdate,
+  putBookmarkInfo as BookmarkSagaPut,
+} from '../../redux/bookmark';
 import { Recommendation } from '../../types/recommendationTypes';
+import { RootState } from '../../types/authTypes';
+import BookmarkService from '../../services/BookmarkService';
 
 interface Props {
   bookMarkItem: Recommendation;
 }
 const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
   const [bookMarkChecked, setBookMarkChecked] = useState<boolean>(true);
+  const [nowExerciseId, setNowExerciseId] = useState<number | null>();
+
+  const dispatch = useDispatch();
+
+  const updateBookmarkInfo = useCallback(
+    (requestData) => {
+      dispatch(BookmarkSagaUpdate(requestData));
+    },
+    [dispatch],
+  );
 
   const handleExerciseBookMarkChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -16,6 +36,9 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
       setBookMarkChecked(true);
     } else {
       setBookMarkChecked(false);
+
+      const exerciseId = event.target.value;
+      updateBookmarkInfo({ exerciseId });
     }
   };
   return (
@@ -26,11 +49,12 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
           <BookMark
             type="checkbox"
             checked={bookMarkChecked}
+            value={bookMarkItem.id}
             onChange={handleExerciseBookMarkChange}
           />
         </BookMarkWrapper>
         {bookMarkChecked === false ? (
-          <BookMarkIconchecked sx={{ color: '#fafafa' }} />
+          <BookMarkIconchecked sx={{ color: '#f8f8f8' }} />
         ) : (
           <>
             <div>

@@ -8,6 +8,16 @@ const commonStyles = css`
   body {
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
+
+  &.slick-slide {
+    height: 370px;
+    object-fit: contain;
+  }
+
+  &.slick-slide img {
+    height: 370px;
+    object-fit: contain;
+  }
 `;
 
 export default commonStyles;

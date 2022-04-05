@@ -1,17 +1,27 @@
 import styled from '@emotion/styled';
-import { exerciseRecord } from '../../types/historyTypes';
+import { useEffect, useState } from 'react';
+import { exerciseItemRecord, exerciseRecord } from '../../types/historyTypes';
 import ExerciseItemCard from './ExerciseItemCard';
 
 interface Props {
   exerciseHistoryDay: exerciseRecord;
 }
 const DayHistoryCard: React.FC<Props> = ({ exerciseHistoryDay }) => {
+  const [timeSum, setTimeSum] = useState<string>('0');
+
+  const array: exerciseItemRecord[] = [];
+  // useEffect(() => {
+  //   exerciseHistoryDay.exercise.reduce(function (preValue, currentValue) {
+  //     console.log(exercise[preValue].durationTime);
+  //     return preValue;
+  //   }, 0);
+  // }, []);
   return (
     <>
       <DayWrapper>
         <DescroptionWrapper>
           <Day>{exerciseHistoryDay.date}</Day>
-          <Sum>{exerciseHistoryDay.exercise.length}개 | 시간(합계 넣기)</Sum>
+          <Sum>{exerciseHistoryDay.exercise.length}개 |</Sum>
         </DescroptionWrapper>
         <ExerciseWrapper>
           {exerciseHistoryDay.exercise.map((exerciseItem) => (
