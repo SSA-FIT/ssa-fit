@@ -389,10 +389,6 @@ const ProfileCard: React.FC = () => {
     }
   };
 
-  const handleCancleButton = (event: React.MouseEvent<HTMLElement>) => {
-    setInputDisabled(true);
-  };
-
   const updateProfileAuth = useCallback(
     (requestData) => {
       dispatch(ProfileSagaUpdate(requestData));
@@ -793,7 +789,7 @@ const ProfileCard: React.FC = () => {
             </ProfileInfoWrapper>
 
             <ConfirmWrapper>
-              <Cancel onClick={handleCancleButton}>취소</Cancel>
+              <Cancel to="/">취소</Cancel>
               <ConfirmButton onClick={handleConfirmButton}>
                 {buttonText}
               </ConfirmButton>
@@ -1216,7 +1212,7 @@ const ConfirmWrapper = styled.div`
   }
 `;
 
-const Cancel = styled.a`
+const Cancel = styled(Link)`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;
