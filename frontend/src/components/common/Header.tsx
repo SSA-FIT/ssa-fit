@@ -46,7 +46,7 @@ const Header: React.FC = () => {
       <Wrapper>
         <LogoWrapper>
           <LogoNameWrapper>
-            <LogoImage to="/" />
+            {/* <LogoImage to="/" /> */}
             <LogoImage className="logo" to="/" />
           </LogoNameWrapper>
         </LogoWrapper>
@@ -64,12 +64,12 @@ const Header: React.FC = () => {
                           component={Link}
                           to="/users/login"
                           variant="outlined"
-                          color="secondary"
                           size="large"
                           style={{
                             border: 'none',
                             fontSize: '1.5rem',
                             fontFamily: 'Spoqa Han Sans Neo',
+                            color: '#02aab0',
                           }}
                         >
                           로그인
@@ -81,12 +81,12 @@ const Header: React.FC = () => {
                           component={Link}
                           to="/users/sign-up"
                           variant="outlined"
-                          color="secondary"
                           size="large"
                           style={{
                             border: 'none',
                             fontSize: '1.5rem',
                             fontFamily: 'Spoqa Han Sans Neo',
+                            color: '#02aab0',
                           }}
                         >
                           회원가입
@@ -152,7 +152,7 @@ const Container = styled.header`
   box-sizing: border-box;
   margin-right: auto;
   position: relative;
-  border-bottom: 1px solid #6367ff;
+  border-bottom: 1px solid #00cdac;
   pointer-events: none;
   color: rgb(26, 32, 39);
   padding-left: 20px;
@@ -282,7 +282,7 @@ const AccountInfoItem = styled.li`
 const AccountLink = styled(Link)`
   display: block;
   outline: 0;
-  color: #6367ff;
+  color: #02aab0;
   font-weight: 500;
   font-size: 1.6rem;
   line-height: 1.56;
