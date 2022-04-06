@@ -26,7 +26,7 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
 
   return (
     <Base>
-      <Title>전체 운동 목록</Title>
+      {/* <Title>전체 운동 목록</Title> */}
       <ExerciseBackdrop backDropOpen={isLoading} />
       <Slider length={entireRecoList.length}>
         {entireRecoList.map((entireReco) => (
@@ -38,6 +38,7 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
             name={entireReco.name}
             imageURL={entireReco.imageURL}
             score={null}
+            selection={false}
           />
         ))}
       </Slider>
@@ -47,6 +48,10 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
 const Base = styled.div`
   margin-bottom: 42px;
   position: relative;
+
+  @media (max-width: 667px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const Title = styled.h4`

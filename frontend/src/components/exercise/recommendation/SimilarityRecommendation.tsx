@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import Slider from '../../common/Slider';
@@ -9,6 +9,7 @@ import {
 } from '../../../types/recommendationTypes';
 import useSimilarityRecList from '../../../hooks/useSmilarityRecList';
 import useToken from '../../../hooks/useToken';
+import ExerciseBackdrop from '../../common/ExerciseBackdrop';
 
 const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
   userRecoSelectList,
@@ -18,10 +19,19 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const similarityRecoList: SimilarityRecommendationType[] =
     useSimilarityRecList(token);
+
+  // useEffect(() => {
+  //   if (similarityRecoList.length > 0) {
+  //     setIsLoading(false);
+  //   } else {
+  //     setIsLoading(true);
+  //   }
+  // }, [similarityRecoList]);
+
   return (
     <Base>
-      <Title>싸핏 운동 추천</Title>
       <>
+        {/* <ExerciseBackdrop backDropOpen={isLoading} /> */}
         {similarityRecoList.length !== 0 ? (
           <Slider length={similarityRecoList.length}>
             {similarityRecoList.map((similarityReco) => (
@@ -33,6 +43,7 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
                 name={similarityReco.name}
                 imageURL={similarityReco.imageURL}
                 score={similarityReco.score}
+                selection={false}
               />
             ))}
           </Slider>
@@ -43,6 +54,7 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
           <DescriptionWrapper>
             <Description>
               운동 기록을 기반으로 당신을 위한 추천 운동이 만들어지고 있습니다.
+              🕵️‍♂️
             </Description>
           </DescriptionWrapper>
         )
@@ -63,6 +75,10 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
 const Base = styled.div`
   margin-bottom: 42px;
   position: relative;
+
+  @media (max-width: 667px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const Title = styled.h4`

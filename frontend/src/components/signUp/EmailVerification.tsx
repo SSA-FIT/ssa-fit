@@ -438,6 +438,9 @@ const ContentsWrapper = styled.div`
     flex-wrap: wrap;
     padding: 4.6rem 4rem;
   }
+  @media (max-width 667px) {
+    padding: 0px;
+  }
 `;
 
 const ContentNameWrapper = styled.div`

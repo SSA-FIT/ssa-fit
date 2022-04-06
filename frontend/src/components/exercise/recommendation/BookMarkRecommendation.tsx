@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 /** @jsxImportSource @emotion/react */
@@ -11,6 +11,7 @@ import {
 } from '../../../types/recommendationTypes';
 import useBookMarkList from '../../../hooks/useBookMarkList';
 import useToken from '../../../hooks/useToken';
+import ExerciseBackdrop from '../../common/ExerciseBackdrop';
 
 const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
   userRecoSelectList,
@@ -18,28 +19,35 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
 }) => {
   const token = useToken();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const bookMarkRecoList: Recommendation[] = useBookMarkList(token);
+
+  // useEffect(() => {
+  //   if (bookMarkRecoList.length > 0) {
+  //     setIsLoading(false);
+  //   } else {
+  //     setIsLoading(true);
+  //   }
+  // }, [bookMarkRecoList]);
+
   return (
     <Base>
-      <Title>내가 즐겨찾기한 운동</Title>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        bookMarkRecoList.length !== 0 && (
-          <Slider length={bookMarkRecoList.length}>
-            {bookMarkRecoList.map((bookMarkReco) => (
-              <Card
-                userRecoSelectList={userRecoSelectList}
-                setUserRecoSelectList={setUserRecoSelectList}
-                key={bookMarkReco.id}
-                id={bookMarkReco.id}
-                name={bookMarkReco.name}
-                imageURL={bookMarkReco.imageURL}
-                score={null}
-              />
-            ))}
-          </Slider>
-        )
+      {/* <ExerciseBackdrop backDropOpen={isLoading} /> */}
+      {bookMarkRecoList.length !== 0 && (
+        <Slider length={bookMarkRecoList.length}>
+          {bookMarkRecoList.map((bookMarkReco) => (
+            <Card
+              userRecoSelectList={userRecoSelectList}
+              setUserRecoSelectList={setUserRecoSelectList}
+              key={bookMarkReco.id}
+              id={bookMarkReco.id}
+              name={bookMarkReco.name}
+              imageURL={bookMarkReco.imageURL}
+              score={null}
+              selection={false}
+            />
+          ))}
+        </Slider>
       )}
       {token !== null ? (
         bookMarkRecoList.length === 0 && (
@@ -56,8 +64,8 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
       ) : (
         <DescriptionWrapper>
           <Description>
-            회원 전용 즐겨찾기 목록 입니다. <br /> 좋아하는 운동을 기억하고
-            싶다면 회원가입을 진행해주세요.
+            즐겨찾기 목록은 회원 전용 서비스입니다. <br /> 좋아하는 운동을
+            기억하고 싶다면 회원가입을 진행해주세요.
           </Description>
           <SignUpLink css={differentBorderColor} to="/users/sign-up">
             싸핏 회원가입 하러 가기🤸‍♂️
@@ -71,13 +79,10 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
 const Base = styled.div`
   margin-bottom: 42px;
   position: relative;
-`;
 
-const Title = styled.h4`
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 30px;
-  padding: 12px 0 14px;
+  @media (max-width: 667px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const DescriptionWrapper = styled.div`
@@ -90,6 +95,7 @@ const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+  border: #6367ffcc solid 1px;
 `;
 
 const Description = styled.h5`
@@ -99,6 +105,13 @@ const Description = styled.h5`
   font-weight: 400;
   font-size: 20px;
   line-height: initial;
+
+  @media (max-width: 575px) {
+    font-size: 14px;
+  }
+  @media (max-width: 349px) {
+    font-size: 13px;
+  }
 `;
 
 const SignUpLink = styled(Link)`
@@ -107,6 +120,12 @@ const SignUpLink = styled(Link)`
 
   &:hover {
     border-bottom: 1px solid #fff;
+  }
+  @media (max-width: 575px) {
+    font-size: 14px;
+  }
+  @media (max-width: 349px) {
+    font-size: 13px;
   }
 `;
 
