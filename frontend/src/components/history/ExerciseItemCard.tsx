@@ -82,7 +82,7 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
             `총 ${exerciseItem.countPerSet} 회 (${(
               exerciseItem.countPerSet / exerciseItem.setCount
             ).toFixed(1)}회 x ${exerciseItem.setCount}세트) `}
-          {exerciseItem.durationTime !== '00:00:00'
+          {exerciseItem.durationTime !== '0시간 0분 0초'
             ? `${exerciseItem.durationTime}`
             : undefined}
         </ExerciseDescription>

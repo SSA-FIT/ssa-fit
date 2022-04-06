@@ -4,9 +4,27 @@ import { useDispatch } from 'react-redux';
 import useHistoryList from '../../hooks/useHistoryList';
 import useToken from '../../hooks/useToken';
 import HistoryService from '../../services/HistoryService';
-import { ExerciseHistoryList, exerciseRecord } from '../../types/historyTypes';
+import { exerciseRecord } from '../../types/historyTypes';
 import DateSelect from './DateSelect';
 import DayHistoryCard from './DayHistoryCard';
+
+function getWeekOfMonth(date: Date) {
+  const startWeekDayIndex = 1; // 1 MonthDay 0 Sundays
+  const firstDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  const firstDay = firstDate.getDay();
+
+  let weekNumber = Math.ceil((date.getDate() + firstDay) / 7);
+  if (startWeekDayIndex === 1) {
+    if (date.getDay() === 0 && date.getDate() > 1) {
+      weekNumber -= 1;
+    }
+
+    if (firstDate.getDate() === 1 && firstDay === 0 && date.getDate() > 1) {
+      weekNumber += 1;
+    }
+  }
+  return weekNumber;
+}
 
 const ExerciseHistory: React.FC = () => {
   const [year, setYear] = useState<string>('');
@@ -17,6 +35,21 @@ const ExerciseHistory: React.FC = () => {
   >([]);
 
   const token = useToken();
+
+  useEffect(() => {
+    setYear(`${new Date().getFullYear()}`);
+    setMonth(`${new Date().getMonth() + 1}`);
+    setWeek(`${getWeekOfMonth(new Date())}`);
+    // if (labelType === 'Year') {
+    //   setValue(date);
+    // }
+    // if (labelType === 'Month') {
+    //   setValue(date);
+    // }
+    // if (labelType === 'Week') {
+    //   setValue(date);
+    // }
+  }, []);
 
   useEffect(() => {
     async function fetchEntireExerciseList() {
@@ -53,18 +86,21 @@ const ExerciseHistory: React.FC = () => {
                   </HistoryDay>
                   <SelectWrapper>
                     <DateSelect
+                      date={year}
                       labelType="Year"
                       setYear={setYear}
                       setMonth={setMonth}
                       setWeek={setWeek}
                     />
                     <DateSelect
+                      date={month}
                       labelType="Month"
                       setYear={setYear}
                       setMonth={setMonth}
                       setWeek={setWeek}
                     />
                     <DateSelect
+                      date={week}
                       labelType="Week"
                       setYear={setYear}
                       setMonth={setMonth}
