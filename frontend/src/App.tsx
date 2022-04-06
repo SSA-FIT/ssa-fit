@@ -26,6 +26,11 @@ import PrivacyPage from './pages/PrivacyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 
 const App: React.FC = () => {
+  if (process.env.NODE_ENV === 'production') {
+    console.log = function no_console() {};
+    console.warn = function no_console() {};
+  }
+
   return (
     <>
       <Global styles={resetStyles} />
