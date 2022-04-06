@@ -60,7 +60,7 @@ const DateSelect: React.FC<Props> = ({
 
   return (
     <>
-      <BoxWrapper sx={{ minWidth: 120 }}>
+      <BoxWrapper>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">{name}</InputLabel>
           <Select
@@ -85,5 +85,9 @@ const DateSelect: React.FC<Props> = ({
 
 const BoxWrapper = styled(Box)`
   margin-right: 8px;
+  min-width: 120px;
+  @media (max-width: 575px) {
+    margin-bottom: 10px;
+  }
 `;
 export default DateSelect;
