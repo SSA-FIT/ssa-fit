@@ -244,7 +244,7 @@ const DescriptionWrapper = styled.div`
 `;
 
 const Description = styled.h5`
-  color: #6367ffcc;
+  color: #02aab0;
   text-align: center;
   margin-top: 15px;
   font-weight: 400;

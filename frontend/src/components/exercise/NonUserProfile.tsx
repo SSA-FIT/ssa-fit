@@ -475,7 +475,7 @@ const InputWrapper = styled.div`
     border-bottom-color: transparent;
     border-radius: 0.2rem;
     outline: 0;
-    box-shadow: 0 0 0 1px #0064de;
+    box-shadow: 0 0 0 1px #00cdac;
     color: #000;
     transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
       box-shadow 0.2s;
@@ -486,7 +486,7 @@ const InputWrapper = styled.div`
     border-bottom-color: transparent;
     border-radius: 0.2rem;
     outline: 0;
-    box-shadow: 0 0 0 1px #0064de;
+    box-shadow: 0 0 0 1px #00cdac;
     color: #000;
     transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
       box-shadow 0.2s;
@@ -503,23 +503,12 @@ const Input = styled.input`
   margin: 0;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 0;
   color: #000;
   font-size: 1.6rem;
   line-height: 1.5;
   transition: border 0.2s 0.3s, color 0.2s 0.3s, box-shadow 0.2s 0.3s;
-
-  /* &:hover {
-    padding: 0 1rem;
-    border-bottom-color: transparent;
-    border-radius: 0.2rem;
-    outline: 0;
-    box-shadow: 0 0 0 1px #0064de;
-    color: #000;
-    transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
-      box-shadow 0.2s;
-  } */
 
   &:disabled {
     background-color: #fff;
@@ -605,14 +594,14 @@ const SelfExerciseLevelButton = styled.button`
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 
   &:hover {
     outline: 0;
     border-radius: 0.2rem;
-    box-shadow: 0 0 0 0.2rem #fff, 0 0 0 0.3rem #0064de;
+    box-shadow: 0 0 0 0.2rem #fff, 0 0 0 0.3rem #00cdac;
   }
 
   @media (min-width: 1060px) {
@@ -644,11 +633,11 @@ const Cancel = styled(Link)`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;
-  color: #013066;
+  color: #02aab0;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
   font-weight: 700;
   text-decoration: none;
@@ -659,7 +648,7 @@ const Cancel = styled(Link)`
   &:hover {
     outline: 0;
     border-radius: 0.2rem;
-    box-shadow: 0 0 0 0.2rem #fff, 0 0 0 0.3rem #0064de;
+    box-shadow: 0 0 0 0.2rem #fff, 0 0 0 0.3rem #00cdac;
   }
 
   @media (min-width: 1060px) {
@@ -680,9 +669,9 @@ const ConfirmButton = styled(Link)`
   width: 100%;
   margin: 0;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background-color: #013066;
+  background-color: #02aab0;
   color: #fff;
   font-weight: 700;
   font-size: 1.4rem;
@@ -695,7 +684,7 @@ const ConfirmButton = styled(Link)`
   &:hover {
     outline: 0;
     border-radius: 0.2rem;
-    box-shadow: 0 0 0 0.2rem #fff, 0 0 0 0.3rem #0064de;
+    box-shadow: 0 0 0 0.2rem #fff, 0 0 0 0.3rem #00cdac;
   }
 
   &.disabled {

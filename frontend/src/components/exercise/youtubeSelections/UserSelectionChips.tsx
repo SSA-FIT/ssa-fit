@@ -47,10 +47,10 @@ const UserSelectionChips: React.FC<YoutubeListProp> = ({
           <ListItem key={data.id}>
             <Chip
               sx={{
-                'backgroundColor': '#6367ff',
+                'backgroundColor': '#02aab0',
                 'color': '#fff',
                 '&:hover': {
-                  color: '#6367ff',
+                  color: '#02aab0',
                   backgroundColor: '#fafafa',
                 },
               }}

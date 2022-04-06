@@ -7,8 +7,8 @@ const Footer: React.FC = () => {
     <Wrapper>
       <InfoWrapper>
         <ServiceWrapper>
-          <Tos to="#">개인 정보 처리 방침</Tos>
-          <Tos to="#">이용 약관</Tos>
+          <Tos to="/privacy">개인 정보 처리 방침</Tos>
+          <Tos to="/terms_of_service">이용 약관</Tos>
         </ServiceWrapper>
       </InfoWrapper>
     </Wrapper>

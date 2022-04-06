@@ -95,11 +95,11 @@ const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  border: #6367ffcc solid 1px;
+  border: #02aab0 solid 1px;
 `;
 
 const Description = styled.h5`
-  color: #6367ffcc;
+  color: #02aab0;
   text-align: center;
   margin-top: 15px;
   font-weight: 400;
@@ -131,7 +131,7 @@ const SignUpLink = styled(Link)`
 
 const differentBorderColor = css`
   &:hover {
-    border-bottom: 1px solid #6367ff;
+    border-bottom: 1px solid #02aab0;
   }
 `;
 export default BookMarkRecommendation;

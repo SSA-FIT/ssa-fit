@@ -193,7 +193,7 @@ const ContainerWrapper = styled.div`
 
 const UserSelectionWrapper = styled.div`
   border-radius: 15px;
-  background-color: #6367ffcc;
+  background-color: #02aab0;
   color: #fff;
 
   @media (min-width: 1280px) and (min-height: 900px) {
@@ -237,7 +237,7 @@ const SectionName = styled.h1`
 `;
 
 const Title = styled.h2`
-  color: #6367ffcc;
+  color: #02aab0;
   font-weight: 500;
 
   @media (min-width: 1060px) {
@@ -264,18 +264,27 @@ const RecommendationWrapper = styled.div`
 `;
 const Submit = styled.button`
   width: 100%;
-  background-color: #6367ff;
+  background-color: #fff;
   height: 55px;
-  border: none;
+  border: 1px solid #02aab0;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-size: 24px;
   padding: 0px;
-  color: white;
+  color: #02aab0;
+  cursor: pointer;
+  transition: color 0.3s;
+  border-radius: 5px;
 
   &:disabled {
-    background-color: #d3d3d3;
+    background-color: #e0e0e0;
     cursor: not-allowed;
     color: #808080;
+    border-radius: 7px;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: #00cdac;
   }
 `;
 
@@ -292,7 +301,7 @@ const DescriptionWrapper = styled.div`
 `;
 
 const Description = styled.h5`
-  color: #6367ffcc;
+  color: #02aab0;
   text-align: center;
   margin-top: 15px;
   font-weight: 400;

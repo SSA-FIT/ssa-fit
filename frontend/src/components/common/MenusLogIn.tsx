@@ -28,7 +28,7 @@ export default function BasicMenu() {
           paddingRight: '80px',
         }}
       >
-        <AddCircleRoundedIcon color="secondary" />
+        <AddCircleRoundedIcon sx={{ color: '#02aab0 ' }} />
       </Button>
       <Menu
         id="basic-menu"

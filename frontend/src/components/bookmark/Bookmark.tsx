@@ -36,7 +36,7 @@ const Bookmark: React.FC = () => {
     <>
       <ContainerWrapper>
         <Container>
-          {/* <ContentName>즐겨찾기</ContentName> */}
+          <ContentName>즐겨찾기</ContentName>
 
           {bookMarkNewList.length > 0 ? (
             <Wrapper>
@@ -64,7 +64,13 @@ const Bookmark: React.FC = () => {
   );
 };
 const ContainerWrapper = styled.div`
-  max-width: 1240px;
+  box-sizing: border-box;
+  padding: 0;
+
+  @media (min-width: 1060px) {
+    padding: 0 2rem;
+  }
+  /* max-width: 1240px;
   margin: 0px auto;
   padding: 0 24px;
   margin-bottom: 60px;
@@ -75,10 +81,25 @@ const ContainerWrapper = styled.div`
 
   @media (min-width: 992px) {
     padding: 0 20px;
-  }
+  } */
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin: 0 auto;
+  padding: 4rem 2rem 13rem;
+  box-sizing: border-box;
+
+  @media (min-width: 1060px) {
+    max-width: 128rem;
+    padding: 6rem 6rem 10rem;
+  }
+
+  @media (max-width: 667px) {
+    padding-right: 0px;
+    padding-bottom: 2rem;
+    padding-left: 0px;
+  }
+`;
 
 const ContentName = styled.h1`
   margin-bottom: 0.8rem;
@@ -102,6 +123,11 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(4, 1fr);
     margin: 30px 0px 40px;
   }
+
+  @media (max-width: 349px) {
+    grid-template-columns: repeat(1, 1fr);
+    margin: 30px 0px 40px;
+  }
 `;
 
 const DescriptionWrapper = styled.div`
@@ -117,7 +143,7 @@ const DescriptionWrapper = styled.div`
 `;
 
 const Description = styled.h5`
-  color: #6367ffcc;
+  color: #02aab0;
   text-align: center;
   margin-top: 15px;
   font-weight: 200;

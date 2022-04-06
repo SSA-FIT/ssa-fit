@@ -21,6 +21,9 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import ExerciseBookmarkPage from './pages/ExerciseBookmarkPage';
 
 import NonUserProfilePage from './pages/NonUserProfilePage';
+import NewMainPage from './pages/NewMainPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
 
 const App: React.FC = () => {
   return (
@@ -29,13 +32,15 @@ const App: React.FC = () => {
       <Global styles={commonStyles} />
       <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path="/" component={MainPage} />
+          {/* <Route exact path="/" component={MainPage} /> */}
+          <Route exact path="/" component={NewMainPage} />
           <Route exact path="/users/sign-up" component={SignUpPage} />
           <Route exact path="/users/login" component={LogInPage} />
           <Route exact path="/users/profile" component={ProfilePage} />
           <Route exact path="/exercise" component={ExerciseSelectionPage} />
           <Route exact path="/nonuser" component={NonUserProfilePage} />
           <Route exact path="/users/search-id" component={SearchIdPage} />
+
           <Route
             exact
             path="/users/reset-password/verify"
@@ -50,6 +55,12 @@ const App: React.FC = () => {
             exact
             path="/exercise/bookmark"
             component={ExerciseBookmarkPage}
+          />
+          <Route exact path="/privacy" component={PrivacyPage} />
+          <Route
+            exact
+            path="/terms_of_service"
+            component={TermsOfServicePage}
           />
         </Switch>
       </ConnectedRouter>

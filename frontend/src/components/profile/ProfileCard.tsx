@@ -995,7 +995,7 @@ const NewPassword = styled(Link)`
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 
@@ -1054,7 +1054,7 @@ const Input = styled.input`
   margin: 0;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 0;
   color: #000;
   font-size: 1.6rem;
@@ -1130,7 +1130,7 @@ const SelfExerciseLevelButton = styled.button`
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 
@@ -1181,7 +1181,7 @@ const QuestionDescription = styled.div`
 
 const DialogButton = styled(Button)`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  color: #013066;
+  color: #02aab0;
 `;
 
 const WithdrawalWrapper = styled.div`
@@ -1202,7 +1202,7 @@ const Withdrawal = styled.button`
     display: inline-block;
     border: 0;
     background: none;
-    color: #0064de;
+    color: #00cdac;
     text-indent: 0;
   }
 `;
@@ -1227,11 +1227,11 @@ const Cancel = styled.a`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;
-  color: #013066;
+  color: #02aab0;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
   font-weight: 700;
   text-decoration: none;
@@ -1258,9 +1258,9 @@ const ConfirmButton = styled.button`
   width: 100%;
   margin: 0;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background-color: #013066;
+  background-color: #02aab0;
   color: #fff;
   font-weight: 700;
   font-size: 1.4rem;

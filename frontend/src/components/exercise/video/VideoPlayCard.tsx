@@ -20,7 +20,6 @@ import {
   YoutubeVideo,
 } from '../../../types/recommendationTypes';
 import VideoPlayer from './VideoPlayer';
-import { onlyNumberReg } from '../../../utils/RegExpressions';
 import useToken from '../../../hooks/useToken';
 import RecommendationService from '../../../services/RecommendationService';
 import NonUserDialog from '../NonUserDialog';
@@ -31,14 +30,12 @@ interface Props {
 const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
   const dispatch = useDispatch();
   const [duration, setDuration] = useState<string>('00:00:00');
-  const location = useLocation();
   const [nonUserDialogOpen, setNonUserDialogOpen] = useState<boolean>(false);
   const token = useToken();
   const [videoIndex, setVideoIndex] = useState<number>(0);
   const [repeatCount, setRepeatCount] = useState<number>(0);
   const [setCount, setSetCount] = useState<number>(0);
 
-  const [exerciseRecords, setExerciseRecords] = useState<recoRecordList>();
   const [exerciseRecordList, setExerciseRecordList] = useState<recoRecord[]>(
     [],
   );
@@ -269,6 +266,9 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
                 }}
                 defaultValue="0"
                 value={repeatCount}
+                sx={{
+                  color: '#00cdac',
+                }}
               />
             </InputWrapper>
             <InputWrapper>
@@ -353,8 +353,9 @@ const PrevButton = styled.button`
 
   &:hover {
     outline: 0;
-    background-color: rgb(235, 224, 246);
+    background-color: #00cdac;
     border-radius: 50%;
+    cursor: pointer;
   }
 
   &:disabled {
@@ -385,10 +386,10 @@ const NextButton = styled.button`
 
   &:hover {
     outline: 0;
-    background-color: rgb(235, 224, 246);
+    background-color: #00cdac26;
     border-radius: 50%;
+    cursor: pointer;
   }
-
   &:disabled {
     cursor: not-allowed;
     outline: 0;
@@ -399,16 +400,21 @@ const NextButton = styled.button`
 
 const FinishButton = styled.button`
   font-size: 20px;
-  color: rgb(153, 51, 255);
+  color: #02aab0;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   background-color: white;
   border: none;
+  cursor: pointer;
 
   &:hover {
     outline: 0;
     // border: 2px solid rgb(153, 51, 255);
-    background-color: rgb(235, 224, 246);
+    background-color: #02aab01a;
     border-radius: 0.3rem;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 const InputAndButtonWrapper = styled.div`
@@ -458,7 +464,7 @@ const InputName = styled.div`
 const Input = styled.input`
   margin-right: 8px;
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 0;
   text-align: center;
 `;
@@ -472,7 +478,7 @@ const TimeInputWrapper = styled.div`
 
 const TimeInput = styled.input`
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 0;
   margin-right: 8px;
   text-align: center;

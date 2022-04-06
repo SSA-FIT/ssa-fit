@@ -71,7 +71,7 @@ const ExerciseItemCard: React.FC<Props> = ({ exerciseItem }) => {
             {bookMarkChecked === false ? (
               <ExerciseBookMarkIconchecked sx={{ color: '#808080CC' }} />
             ) : (
-              <ExerciseBookMarkIconchecked sx={{ color: '#6367ff' }} />
+              <ExerciseBookMarkIconchecked sx={{ color: '#00cdac' }} />
             )}
           </Exercise>
         </ExerciseItem>

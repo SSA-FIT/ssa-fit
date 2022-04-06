@@ -126,7 +126,7 @@ const MoveExerciseRecoButton = styled(Link)`
   font-weight: 400;
   border: none;
   border-radius: 34px;
-  background: #6367ffcc;
+  background: #02aab0;
   padding-top: 0px;
   padding-bottom: 0px;
   text-align: center;
@@ -134,7 +134,7 @@ const MoveExerciseRecoButton = styled(Link)`
 
   &:hover {
     background: #fff;
-    color: #6367ffcc;
+    color: #02aab0;
     opacity: 1;
   }
 `;

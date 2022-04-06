@@ -405,7 +405,7 @@ const EmailVerification: React.FC<Props> = ({
 const Container = styled.div``;
 
 const StepName = styled.h2`
-  color: #00256c;
+  color: #02aab0;
   font-weight: 700;
 
   @media (min-width: 1060px) {
@@ -438,7 +438,7 @@ const ContentsWrapper = styled.div`
     flex-wrap: wrap;
     padding: 4.6rem 4rem;
   }
-  @media (max-width 667px) {
+  @media (max-width: 667px) {
     padding: 0px;
   }
 `;
@@ -537,12 +537,11 @@ const InputWrapper = styled.div`
   @media (min-width: 1060px) {
     margin-right: 1.2rem;
   }
-  
+
   @media (max-width: 575px) {
     margin-right: 0;
     width: 100%;
   }
-
 `;
 
 const Input = styled.input`
@@ -555,7 +554,7 @@ const Input = styled.input`
   margin-bottom: 10px;
   padding-left: 10px;
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 4px;
   color: #000;
   font-size: 1.6rem;
@@ -569,8 +568,8 @@ const Input = styled.input`
   }
 
   &:focus {
-    border: 1px solid #3688f4;
-    box-shadow: inset 0 0 0 1px #3688f4;
+    border: 1px solid #00cdac;
+    box-shadow: inset 0 0 0 1px #00cdac;
   }
 
   &:disabled {
@@ -586,7 +585,7 @@ const Input = styled.input`
   &.checked {
     margin-bottom: 4px;
     border: 1px solid #36b5f4;
-    box-shadow: inset 0 0 0 1px #3688f4;
+    box-shadow: inset 0 0 0 1px #00cdac;
   }
   @media (max-width: 575px) {
     margin-right: 0;
@@ -603,7 +602,7 @@ const CodeConfirmMessage = styled.div`
   margin-left: 8px;
   font-size: 20px;
   font-weight: 500;
-  color: #3688f4;
+  color: #00cdac;
 `;
 
 const Timer = styled.span`
@@ -627,7 +626,7 @@ const OverlapConfirmButton = styled.button`
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   appearance: none;
 
   @media (min-width: 1060px) {
@@ -685,7 +684,7 @@ const CodeConfirmButton = styled.button`
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   appearance: none;
 
   @media (min-width: 1060px) {
@@ -700,7 +699,7 @@ const CodeConfirmButton = styled.button`
     margin-right: 0;
     width: 100%;
   }
-  
+
   &:disabled {
     background: rgb(247, 248, 250);
     color: rgb(194, 200, 204);
@@ -728,11 +727,11 @@ const CancelButton = styled.button`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;
-  color: #013066;
+  color: #02aab0;
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
   font-weight: 700;
   font-size: 1.4rem;
@@ -750,10 +749,10 @@ const ConfirmButton = styled.button`
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background: #bad5f5;
-  color: #013066;
+  background: #e0e0e0;
+  color: #02aab0;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -764,7 +763,7 @@ const ConfirmButton = styled.button`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 
   &.complete {
-    background-color: #013066;
+    background-color: #02aab0;
     color: #fff;
   }
 `;

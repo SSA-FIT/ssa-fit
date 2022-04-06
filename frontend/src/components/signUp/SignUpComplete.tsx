@@ -59,9 +59,9 @@ const LogInButton = styled(Link)`
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background-color: #013066;
+  background-color: #02aab0;
   color: #fff;
   font-weight: 700;
   font-size: 1.4rem;

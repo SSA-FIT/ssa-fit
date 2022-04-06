@@ -793,7 +793,7 @@ const BodyInfoForm: React.FC<Props> = ({
 const Container = styled.div``;
 
 const StepName = styled.h2`
-  color: #00256c;
+  color: #02aab0;
   font-weight: 700;
 
   @media (min-width: 1060px) {
@@ -924,13 +924,13 @@ const InputWrapper = styled.div`
 
 const BodyInputWrapper = styled.div`
   margin-top: 4rem;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   &:hover {
     padding: 0 1rem;
     border-bottom-color: transparent;
     border-radius: 0.2rem;
     outline: 0;
-    box-shadow: 0 0 0 1px #0064de;
+    box-shadow: 0 0 0 1px #00cdac;
     color: #000;
     transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
       box-shadow 0.2s;
@@ -993,7 +993,7 @@ const Input = styled.input`
   margin: 0;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 0;
   color: #000;
   font-size: 1.6rem;
@@ -1144,7 +1144,7 @@ const SelfExerciseLevelButton = styled.button`
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   appearance: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 
@@ -1177,11 +1177,11 @@ const CancelButton = styled.button`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;
-  color: #013066;
+  color: #02aab0;
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
   font-weight: 700;
   font-size: 1.4rem;
@@ -1199,10 +1199,10 @@ const ConfirmButton = styled.button`
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background: #bad5f5;
-  color: #013066;
+  background: #e0e0e0;
+  color: #02aab0;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -1213,7 +1213,7 @@ const ConfirmButton = styled.button`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 
   &.complete {
-    background-color: #013066;
+    background-color: #02aab0;
     color: #fff;
   }
 `;
@@ -1257,7 +1257,7 @@ const QuestionDescription = styled.div`
 
 const DialogButton = styled(Button)`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  color: #013066;
+  color: #02aab0;
 `;
 
 const ErrorWrapper = styled.div``;

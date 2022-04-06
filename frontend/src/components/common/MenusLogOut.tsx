@@ -35,7 +35,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <AddCircleRoundedIcon color="secondary" />
+        <AddCircleRoundedIcon sx={{ color: '#02aab0 ' }} />
         {/* <img
           src="\images\common\menu.png"
           alt="menu"
