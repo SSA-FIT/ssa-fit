@@ -389,6 +389,10 @@ const ProfileCard: React.FC = () => {
     }
   };
 
+  const handleCancleButton = (event: React.MouseEvent<HTMLElement>) => {
+    setInputDisabled(true);
+  };
+
   const updateProfileAuth = useCallback(
     (requestData) => {
       dispatch(ProfileSagaUpdate(requestData));
@@ -428,7 +432,9 @@ const ProfileCard: React.FC = () => {
                         {profileInfo?.userId}
                       </ProfileInfoFieldItem>
                       <NewPasswordWrapper>
-                        <NewPassword to="/">비밀번호 재설정</NewPassword>
+                        <NewPassword to="/users/reset-password/verify">
+                          비밀번호 재설정
+                        </NewPassword>
                       </NewPasswordWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
@@ -787,7 +793,7 @@ const ProfileCard: React.FC = () => {
             </ProfileInfoWrapper>
 
             <ConfirmWrapper>
-              <Cancel>취소</Cancel>
+              <Cancel onClick={handleCancleButton}>취소</Cancel>
               <ConfirmButton onClick={handleConfirmButton}>
                 {buttonText}
               </ConfirmButton>
