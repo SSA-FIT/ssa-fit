@@ -1,21 +1,20 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { exerciseItemRecord, exerciseRecord } from '../../types/historyTypes';
+import { exerciseRecord } from '../../types/historyTypes';
 import ExerciseItemCard from './ExerciseItemCard';
-
 interface Props {
   exerciseHistoryDay: exerciseRecord;
 }
 const DayHistoryCard: React.FC<Props> = ({ exerciseHistoryDay }) => {
-  const [timeSum, setTimeSum] = useState<string>('0');
-
-  const array: exerciseItemRecord[] = [];
-  // useEffect(() => {
-  //   exerciseHistoryDay.exercise.reduce(function (preValue, currentValue) {
-  //     console.log(exercise[preValue].durationTime);
-  //     return preValue;
-  //   }, 0);
-  // }, []);
+  const restImage: string[] = [
+    `\\img\\orange.gif`,
+    `\\img\\broccoli.gif`,
+    `\\img\\coffee.gif`,
+    `\\img\\mushroom.gif`,
+    `\\img\\potato.gif`,
+    `\\img\\avocado.gif`,
+    `\\img\\taco.gif`,
+  ];
   return (
     <>
       <DayWrapper>
@@ -23,14 +22,20 @@ const DayHistoryCard: React.FC<Props> = ({ exerciseHistoryDay }) => {
           <Day>{exerciseHistoryDay.date}</Day>
           <Sum>{exerciseHistoryDay.exercise.length}개 |</Sum>
         </DescroptionWrapper>
-        <ExerciseWrapper>
-          {exerciseHistoryDay.exercise.map((exerciseItem) => (
-            <ExerciseItemCard
-              key={exerciseItem.exerciseId}
-              exerciseItem={exerciseItem}
-            />
-          ))}
-        </ExerciseWrapper>
+        {exerciseHistoryDay.exercise.length !== 0 ? (
+          <ExerciseWrapper>
+            {exerciseHistoryDay.exercise.map((exerciseItem) => (
+              <ExerciseItemCard
+                key={exerciseItem.exerciseId}
+                exerciseItem={exerciseItem}
+              />
+            ))}
+          </ExerciseWrapper>
+        ) : (
+          <RestDayWrapper>
+            <RestImage src={restImage[Math.floor(Math.random() * 7)]} />
+          </RestDayWrapper>
+        )}
       </DayWrapper>
     </>
   );
@@ -80,4 +85,12 @@ const ExerciseWrapper = styled.div`
   }
 `;
 
+const RestDayWrapper = styled.div`
+  background: #fff;
+  text-align: center;
+`;
+
+const RestImage = styled.img`
+  height: 200px;
+`;
 export default DayHistoryCard;

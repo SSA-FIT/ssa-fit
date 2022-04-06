@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
+import DirectionsRunRoundedIcon from '@mui/icons-material/DirectionsRunRounded';
+
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
 import Tooltip from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
@@ -112,6 +114,13 @@ const Header: React.FC = () => {
                         </AccountLink>
                       </AccountInfoItem>
                       <AccountInfoItem>
+                        <AccountLink to="/exercise">
+                          <Tooltip title="운동하러 가기">
+                            <DirectionsRunRoundedIcon css={icon} />
+                          </Tooltip>
+                        </AccountLink>
+                      </AccountInfoItem>
+                      <AccountInfoItem>
                         <AccountLink to="/users/profile">
                           <Tooltip title="내 정보 수정">
                             <ContentPasteSearchIcon css={icon} />
@@ -125,6 +134,7 @@ const Header: React.FC = () => {
                           </Tooltip>
                         </AccountLink>
                       </AccountInfoItem>
+                      
                       <AccountInfoItem>
                         <AccountLink to="/exercise/bookmark">
                           <Tooltip title="즐겨찾기">
@@ -132,6 +142,7 @@ const Header: React.FC = () => {
                           </Tooltip>
                         </AccountLink>
                       </AccountInfoItem>
+                      
                     </AccountInfoItemWrapper>
                   )}
                 </>
@@ -167,7 +178,7 @@ const Container = styled.header`
     padding-right: 0;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 575px) {
     padding-left: 0;
     padding-right: 0;
   }

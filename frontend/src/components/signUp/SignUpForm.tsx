@@ -522,14 +522,23 @@ const InputDescription = styled.span`
   display: block;
   margin-top: 0.2rem;
   color: #00256c;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   line-height: 1.58;
+
+  @media (min-width: 1060px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const InputAndButtonWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+
+  @media (max-width: 575px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -539,6 +548,13 @@ const InputWrapper = styled.div`
   @media (min-width: 1060px) {
     margin-right: 1.2rem;
   }
+
+  @media (max-width: 575px) {
+    margin-right: 0;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
 `;
 
 const Input = styled.input`
@@ -563,6 +579,7 @@ const Input = styled.input`
     font-size: 1.8rem;
     line-height: 1.56;
   }
+  
 
   &.have-error {
     margin-bottom: 4px;
@@ -595,6 +612,11 @@ const OverlapConfirmButton = styled.button`
     padding: 0.7rem 0.8rem;
     font-size: 1.6rem;
     line-height: 1.5;
+  }
+
+  @media (max-width: 575px) {
+    margin-right: 0;
+    width: 100%;
   }
 
   &:disabled {

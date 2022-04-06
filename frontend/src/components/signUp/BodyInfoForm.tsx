@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { css } from '@emotion/react';
 
 import styled from '@emotion/styled';
 
@@ -35,15 +36,15 @@ const BodyInfoForm: React.FC<Props> = ({
   const [open, setOpen] = useState(false);
 
   const [userHeightChange, setUserHeightChange] = useState<string>('');
-  const [height1, setHeight1] = useState<string>('0');
-  const [height2, setHeight2] = useState<string>('0');
+  const [height1, setHeight1] = useState<string>('');
+  const [height2, setHeight2] = useState<string>('');
   const [userHeightNumber, setUserHeightNumber] = useState<number>(0);
   const [heightMessage, setHeightMessage] = useState<string>('');
   const [isHeight, setIsHeight] = useState<boolean>(false);
 
   const [userWeightChange, setUserWeightChange] = useState<string>('');
-  const [weight1, setWeight1] = useState<string>('0');
-  const [weight2, setWeight2] = useState<string>('0');
+  const [weight1, setWeight1] = useState<string>('');
+  const [weight2, setWeight2] = useState<string>('');
   const [userWeightNumber, setUserWeightNumber] = useState<number>(0);
   const [weightMessage, setWeightMessage] = useState<string>('');
   const [isWeight, setIsWeight] = useState<boolean>(false);
@@ -134,15 +135,21 @@ const BodyInfoForm: React.FC<Props> = ({
     else setBodyInfoComplete(false);
   }, [isHeight, isWeight, userBirthChange, userGenderChange, userLevelChange]);
 
-  const [selfTest1, setSelfTest1] = useState<number>(1);
-  const [selfTest2, setSelfTest2] = useState<number>(1);
-  const [selfTest3, setSelfTest3] = useState<number>(1);
-  const [selfTest4, setSelfTest4] = useState<number>(1);
+  const [selfTest1, setSelfTest1] = useState<number>(0);
+  const [selfTest2, setSelfTest2] = useState<number>(0);
+  const [selfTest3, setSelfTest3] = useState<number>(0);
+  const [selfTest4, setSelfTest4] = useState<number>(0);
   const [selfTest5, setSelfTest5] = useState<number>(0);
   const [selfTest6, setSelfTest6] = useState<number>(0);
-  const [selfTestSum, setSelfTestSum] = useState<number>(4);
+  const [selfTestSum, setSelfTestSum] = useState<number>(0);
 
   const handleClickOpen = () => {
+    setAlignment1('level1');
+    setAlignment2('one');
+    setAlignment3('30min');
+    setAlignment4('3stairs');
+    setAlignment5('shoulderpoint0');
+    setAlignment6('legpoint0');
     setOpen(true);
   };
 
@@ -150,12 +157,12 @@ const BodyInfoForm: React.FC<Props> = ({
     setOpen(false);
   };
 
-  const [alignment1, setAlignment1] = React.useState('level1');
-  const [alignment2, setAlignment2] = React.useState('one');
-  const [alignment3, setAlignment3] = React.useState('30min');
-  const [alignment4, setAlignment4] = React.useState('3stairs');
-  const [alignment5, setAlignment5] = React.useState('shoulderpoint0');
-  const [alignment6, setAlignment6] = React.useState('legpoint0');
+  const [alignment1, setAlignment1] = React.useState('');
+  const [alignment2, setAlignment2] = React.useState('');
+  const [alignment3, setAlignment3] = React.useState('');
+  const [alignment4, setAlignment4] = React.useState('');
+  const [alignment5, setAlignment5] = React.useState('');
+  const [alignment6, setAlignment6] = React.useState('');
 
   const handleCloseCancelButton = () => {
     setOpen(false);
@@ -437,29 +444,35 @@ const BodyInfoForm: React.FC<Props> = ({
                 키(cm)
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
-              <BodyInput1
-                value={height1}
-                maxLength={3}
-                onChange={getHeight1}
+              <BodyInputWrapper
                 className={
                   (heightMessage !== '' && userHeightChange !== '') ||
                   heightError
                     ? 'have-error'
                     : ''
                 }
-              />
-              .
-              <BodyInput2
-                value={height2}
-                maxLength={1}
-                onChange={getHeight2}
-                className={
-                  (heightMessage !== '' && userHeightChange !== '') ||
-                  heightError
-                    ? 'have-error'
-                    : ''
-                }
-              />
+              >
+                <BodyInput
+                  value={height1}
+                  maxLength={3}
+                  placeholder="175"
+                  onChange={getHeight1}
+                />
+                <BodyInput
+                  type="text"
+                  className="dot"
+                  defaultValue="."
+                  readOnly
+                  disabled
+                />
+                <BodyInput
+                  value={height2}
+                  className="oneNumber"
+                  maxLength={1}
+                  placeholder="0"
+                  onChange={getHeight2}
+                />
+              </BodyInputWrapper>
               {/* 입력값 {userHeightChange} */}
               {heightError && (
                 <ErrorWrapper>
@@ -478,29 +491,35 @@ const BodyInfoForm: React.FC<Props> = ({
                 몸무게(kg)
                 <InputRequireLabel>필수입력</InputRequireLabel>
               </InputName>
-              <BodyInput1
-                value={weight1}
-                maxLength={3}
-                onChange={getWeight1}
+              <BodyInputWrapper
                 className={
                   (weightMessage !== '' && userWeightChange !== '') ||
                   weightError
                     ? 'have-error'
                     : ''
                 }
-              />
-              .
-              <BodyInput2
-                value={weight2}
-                maxLength={1}
-                onChange={getWeight2}
-                className={
-                  (weightMessage !== '' && userWeightChange !== '') ||
-                  weightError
-                    ? 'have-error'
-                    : ''
-                }
-              />
+              >
+                <BodyInput
+                  value={weight1}
+                  maxLength={3}
+                  placeholder="68"
+                  onChange={getWeight1}
+                />
+                <BodyInput
+                  type="text"
+                  className="dot"
+                  defaultValue="."
+                  readOnly
+                  disabled
+                />
+                <BodyInput
+                  value={weight2}
+                  className="oneNumber"
+                  maxLength={1}
+                  placeholder="9"
+                  onChange={getWeight2}
+                />
+              </BodyInputWrapper>
               {/* 입력값 {userWeightChange} */}
               {weightError && (
                 <ErrorWrapper>
@@ -903,6 +922,33 @@ const InputWrapper = styled.div`
   }
 `;
 
+const BodyInputWrapper = styled.div`
+  margin-top: 4rem;
+  border-bottom: 1px solid #00256c;
+  &:hover {
+    padding: 0 1rem;
+    border-bottom-color: transparent;
+    border-radius: 0.2rem;
+    outline: 0;
+    box-shadow: 0 0 0 1px #0064de;
+    color: #000;
+    transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
+      box-shadow 0.2s;
+  }
+  &:first-of-type {
+    margin-top: 0;
+  }
+  @media (min-width: 1060px) {
+    width: 100%;
+  }
+
+  &.have-error {
+    margin-bottom: 4px;
+    border: 1px solid #f44336;
+    box-shadow: inset 0 0 0 1px #ff77774d;
+  }
+`;
+
 const InputName = styled.label`
   display: block;
   margin-bottom: 0.2rem;
@@ -967,17 +1013,15 @@ const Input = styled.input`
   }
 `;
 
-const BodyInput1 = styled.input`
+const BodyInput = styled.input`
   appearance: none;
   box-sizing: border-box;
   display: inline-block;
   margin: 0;
-  padding-right: 5px;
   border: 0;
   left: 0;
   width: 3.5rem;
   height: 2rem;
-  border-bottom: 1px solid #00256c;
   border-radius: 0;
   color: #000;
   font-size: 1.6rem;
@@ -996,36 +1040,15 @@ const BodyInput1 = styled.input`
     border: 1px solid #f44336;
     box-shadow: inset 0 0 0 1px #ff77774d;
   }
-`;
 
-const BodyInput2 = styled.input`
-  appearance: none;
-  box-sizing: border-box;
-  display: inline-block;
-  margin-right: 30px;
-  padding-left: 5px;
-  border: 0;
-  left: 0;
-  width: 1.5rem;
-  height: 2rem;
-  border-bottom: 1px solid #00256c;
-  border-radius: 0;
-  color: #000;
-  font-size: 1.6rem;
-  line-height: 1.5;
-  transition: border 0.2s 0.3s, color 0.2s 0.3s, box-shadow 0.2s 0.3s;
-  text-align: left;
-
-  @media (min-width: 1060px) {
-    height: 4.8rem;
-    font-size: 1.8rem;
-    line-height: 1.56;
+  &.dot {
+    background: rgb(255, 255, 255);
+    width: 10px;
+    color: #000;
   }
 
-  &.have-error {
-    margin-bottom: 4px;
-    border: 1px solid #f44336;
-    box-shadow: inset 0 0 0 1px #ff77774d;
+  &.oneNumber {
+    width: 25px;
   }
 `;
 
