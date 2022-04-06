@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { UserSelectListProp } from '../../types/recommendationTypes';
-
+import Checkbox from '@mui/material/Checkbox';
 interface Props extends UserSelectListProp {
   id: number;
   name: string;
   imageURL: string;
   score: number | null;
+  selection: boolean | null;
 }
 
 const Card: React.FC<Props> = ({
@@ -16,6 +17,7 @@ const Card: React.FC<Props> = ({
   score,
   userRecoSelectList,
   setUserRecoSelectList,
+  selection,
 }) => {
   const [checked, setChecked] = useState<boolean>(false);
 
@@ -73,59 +75,102 @@ const Card: React.FC<Props> = ({
   };
 
   return (
-    <StyledLink>
-      <Base>
-        <Wrapper>
-          <ImageWrapper>
-            <CheckBox
-              type="checkbox"
-              onChange={checkBoxChangeHandler}
-              checked={checked}
-              id={name}
+    <Container>
+      <Wrapper
+        className={
+          checked === true && selection === false ? 'checked' : undefined
+        }
+      >
+        <Checkbox
+          id={name}
+          onChange={checkBoxChangeHandler}
+          checked={checked}
+        />
+        <label htmlFor={name}>
+          <Base className={selection ? 'selection' : undefined}>
+            <Image
+              key={id}
+              src={imageURL}
+              alt={`${name} 의 이미지`}
+              className={selection ? 'selection' : undefined}
             />
-            <ImageLabel htmlFor={name}>
-              <Image key={id} src={imageURL} alt={`${name} 의 이미지`} />
-            </ImageLabel>
-          </ImageWrapper>
-        </Wrapper>
-        <Info>
-          <Title>{name}</Title>
-          {score !== null && <Title>예상 만족도 점수 : {score} 점</Title>}
-        </Info>
-      </Base>
-    </StyledLink>
+          </Base>
+          <DescriptionWrapper>
+            <Description>
+              <Title>{name}</Title>
+              {score !== null && <Score>예상 만족도 점수 : {score} 점</Score>}
+            </Description>
+          </DescriptionWrapper>
+        </label>
+      </Wrapper>
+    </Container>
   );
 };
 
-const StyledLink = styled.div`
-  text-decoration: none;
-  display: block;
-  margin-inline: 10px;
-`;
-
-const Base = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+const Container = styled.div`
+  cursor: pointer;
+  transition: all 0.3s;
   height: 100%;
+  margin: 10px;
+  //min-height: 200px;
+  max-width: 400px;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+  }
 `;
 
-const ImageWrapper = styled.div`
-  width: 100%;
+//배경
+const Wrapper = styled.div`
+  background-color: #fafafacc;
+
+  @media (max-height: 667px) {
+    height: 180px;
+  }
+
+  &.checked {
+    filter: opacity(0.5);
+  }
+`;
+
+//이미지
+const Base = styled.div`
   height: 300px;
+
+  @media (max-height: 667px) {
+    height: 100px;
+  }
+
+  &.selection {
+    height: 105px;
+  }
 `;
 
-const ImageLabel = styled.label``;
 const Image = styled.img`
   width: 100%;
-  //height: 100%;
-  border-radius: 4px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+
+  &.selection {
+    object-fit: contain;
+    box-shadow: none;
+  }
+
+  box-shadow: 0px 10px 10px 1px #d3d3d3;
 `;
 
-const Info = styled.div`
-  //margin-top: 14px;
-  text-align: left;
-  width: 100%;
+const DescriptionWrapper = styled.div`
+  padding: 20px;
+
+  @media (max-height: 667px) {
+    padding: 0px;
+  }
+`;
+
+const Description = styled.div`
+  color: #000;
 `;
 
 const Title = styled.h4`
@@ -139,23 +184,7 @@ const Title = styled.h4`
   white-space: nowrap;
   max-width: 200px;
 `;
-const CheckBox = styled.input`
-  position: absolute;
-  bottom: 0px;
-  top: 0px;
-  zoom: 1.5;
-  /* top: 6px;
-  left: 6px;
-  width: 14px;
-  height: 14px;
-  line-height: 27px; */
-`;
 
-const Wrapper = styled.form`
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 145.37037037037038%;
-`;
+const Score = styled.p``;
 
 export default Card;

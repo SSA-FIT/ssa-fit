@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactSlick, { Settings } from 'react-slick';
 import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 
 interface Props {
   settings?: Settings;
@@ -16,17 +18,66 @@ const Slider: React.FC<Props> = ({ children, length }) => {
     infinite: true,
     speed: 500,
     slidesToShow: length < 5 ? length : 5,
-    slidesToScroll: length < 5 ? length : 5,
+    slidesToScroll: length < 5 ? length : 3,
     swipe: true,
     draggable: true,
+    //adaptiveHeight: true,
+    responsive: [
+      {
+        breakpoint: 1500,
+        settings: {
+          slidesToShow: length < 5 ? length : 4,
+          slidesToScroll: length < 4 ? length : 4,
+
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: length < 4 ? length : 3,
+          slidesToScroll: length < 3 ? length : 3,
+
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: length < 3 ? length : 2,
+          slidesToScroll: length < 3 ? length : 2,
+
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: length < 2 ? length : 1,
+          slidesToScroll: length < 2 ? length : 1,
+
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
     prevArrow: (
       <ArrowButton pos="left">
-        <MdArrowBackIos />
+        <ArrowBackIosRoundedIcon />
       </ArrowButton>
     ),
     nextArrow: (
       <ArrowButton pos="right">
-        <MdArrowForwardIos />
+        <ArrowForwardIosRoundedIcon />
       </ArrowButton>
     ),
   };
@@ -39,11 +90,6 @@ const Slider: React.FC<Props> = ({ children, length }) => {
     </>
   );
 };
-// const Slider: React.FC<Props> = ({
-//   // settings = DEFAULT_SETTINGS,
-//   children,
-//   length,
-// }) => <ReactSlick {...settings}>{children}</ReactSlick>;
 
 const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   padding: 16px;
@@ -51,7 +97,7 @@ const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
   border-radius: 50%;
   z-index: 1;
   top: 50%;
-  background-color: #fff;
+  //background-color: #6367ffaa;
   ${({ pos }) =>
     pos === 'left'
       ? css`
@@ -75,26 +121,5 @@ const ArrowButton = styled.button<{ pos?: 'left' | 'right' }>`
     color: #222;
   }
 `;
-
-const DEFAULT_SETTINGS: Settings = {
-  dots: false,
-  arrows: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 5,
-  slidesToScroll: 5,
-  swipe: true,
-  draggable: true,
-  prevArrow: (
-    <ArrowButton pos="left">
-      <MdArrowBackIos />
-    </ArrowButton>
-  ),
-  nextArrow: (
-    <ArrowButton pos="right">
-      <MdArrowForwardIos />
-    </ArrowButton>
-  ),
-};
 
 export default Slider;

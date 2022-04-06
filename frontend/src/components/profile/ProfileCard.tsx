@@ -10,7 +10,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import {
@@ -378,6 +378,11 @@ const ProfileCard: React.FC = () => {
     setSelfTestSum(sum);
   }, [selfTest1, selfTest2, selfTest3, selfTest4, selfTest5, selfTest6]);
 
+  let history = useHistory();
+  const handleCancelButton = () => {
+    history.goBack();
+  };
+
   const handleConfirmButton = (event: React.MouseEvent<HTMLElement>) => {
     if (buttonText === '수정') {
       setInputDisabled(false);
@@ -428,7 +433,9 @@ const ProfileCard: React.FC = () => {
                         {profileInfo?.userId}
                       </ProfileInfoFieldItem>
                       <NewPasswordWrapper>
-                        <NewPassword to="/">비밀번호 재설정</NewPassword>
+                        <NewPassword to="/users/reset-password/verify">
+                          비밀번호 재설정
+                        </NewPassword>
                       </NewPasswordWrapper>
                     </ProfileInfoFieldItemWrapper>
                     <ProfileInfoFieldItemWrapper>
@@ -787,7 +794,7 @@ const ProfileCard: React.FC = () => {
             </ProfileInfoWrapper>
 
             <ConfirmWrapper>
-              <Cancel>취소</Cancel>
+              <Cancel onClick={handleCancelButton}>취소</Cancel>
               <ConfirmButton onClick={handleConfirmButton}>
                 {buttonText}
               </ConfirmButton>
@@ -814,6 +821,12 @@ const Contents = styled.div`
   @media (min-width: 1060px) {
     max-width: 128rem;
     padding: 6rem 0 10rem;
+  }
+
+  @media (max-width: 667px) {
+    padding-right: 0px;
+    padding-bottom: 2rem;
+    padding-left: 0px;
   }
 `;
 

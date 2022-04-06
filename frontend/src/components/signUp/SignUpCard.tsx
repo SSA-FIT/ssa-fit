@@ -100,6 +100,12 @@ const Contents = styled.div`
     max-width: 128rem;
     padding: 6rem 6rem 10rem;
   }
+
+  @media (max-width: 667px) {
+    padding-right: 0px;
+    padding-bottom: 2rem;
+    padding-left: 0px;
+  }
 `;
 
 const SignUpName = styled.h1`

@@ -7,6 +7,7 @@ import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded';
 import Tooltip from '@mui/material/Tooltip';
+import Button from '@mui/material/Button';
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
@@ -59,10 +60,37 @@ const Header: React.FC = () => {
                   ) : (
                     <AccountInfoItemWrapper>
                       <AccountInfoItem>
-                        <AccountLink to="/users/login">로그인</AccountLink>
+                        <Button
+                          component={Link}
+                          to="/users/login"
+                          variant="outlined"
+                          color="secondary"
+                          size="large"
+                          style={{
+                            border: 'none',
+                            fontSize: '1.5rem',
+                            fontFamily: 'Spoqa Han Sans Neo',
+                          }}
+                        >
+                          로그인
+                        </Button>
+                        {/* <AccountLink to="/users/login">로그인</AccountLink> */}
                       </AccountInfoItem>
                       <AccountInfoItem>
-                        <AccountLink to="/users/sign-up">회원가입</AccountLink>
+                        <Button
+                          component={Link}
+                          to="/users/sign-up"
+                          variant="outlined"
+                          color="secondary"
+                          size="large"
+                          style={{
+                            border: 'none',
+                            fontSize: '1.5rem',
+                            fontFamily: 'Spoqa Han Sans Neo',
+                          }}
+                        >
+                          회원가입
+                        </Button>
                       </AccountInfoItem>
                     </AccountInfoItemWrapper>
                   )}
@@ -117,9 +145,32 @@ const Header: React.FC = () => {
 };
 
 const Container = styled.header`
+  display: flex;
+  position: relative;
+  width: 100%;
+  margin-left: auto;
+  box-sizing: border-box;
+  margin-right: auto;
   position: relative;
   border-bottom: 1px solid #6367ff;
   pointer-events: none;
+  color: rgb(26, 32, 39);
+  padding-left: 20px;
+
+  // @media (max-width: 900px) {
+  //   padding-left: 20px;
+  //   padding-right: 20px;
+  // }
+
+  @media (max-width: 1060px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media (max-width: 375px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -127,7 +178,7 @@ const Wrapper = styled.div`
   height: 50px;
   max-width: 128rem;
   margin: 0 auto;
-  padding: 0 5.4rem 0 2rem;
+  // padding: 0 5.4rem 0 2rem;
   pointer-events: none;
 
   @media (min-width: 1060px) {
@@ -206,12 +257,15 @@ const AccountInfoListWrapper = styled.nav`
 `;
 
 const AccountInfoList = styled.ul`
-  display: table;
+  align-items: center;
+  justify-content: center;
+  display: flex;
   height: 4.4rem;
   list-style: none;
 
   @media (min-width: 1060px) {
     height: 4.8rem;
+    margin-right: 20px;
   }
 `;
 

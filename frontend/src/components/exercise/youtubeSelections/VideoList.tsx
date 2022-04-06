@@ -9,29 +9,24 @@ const VideoList: React.FC<VideoListProp> = ({
   userVideoSelectList,
   setUserVideoSelectList,
 }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   return (
     <Base>
       <Title>{youtubeVideoList[0].searchName} 운동 영상</Title>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <Slider length={youtubeVideoList.length}>
-          {youtubeVideoList.map((youtubeVideoItem) => (
-            <YoutubeCard
-              userVideoSelectList={userVideoSelectList}
-              setUserVideoSelectList={setUserVideoSelectList}
-              key={youtubeVideoItem.videoId}
-              searchName={youtubeVideoItem.searchName}
-              videoId={youtubeVideoItem.videoId}
-              title={youtubeVideoItem.title}
-              thumbnails={youtubeVideoItem.thumbnails}
-              id={youtubeVideoItem.id}
-            />
-          ))}
-        </Slider>
-      )}
+      <Slider length={youtubeVideoList.length}>
+        {youtubeVideoList.map((youtubeVideoItem) => (
+          <YoutubeCard
+            userVideoSelectList={userVideoSelectList}
+            setUserVideoSelectList={setUserVideoSelectList}
+            key={youtubeVideoItem.videoId}
+            searchName={youtubeVideoItem.searchName}
+            videoId={youtubeVideoItem.videoId}
+            title={youtubeVideoItem.title}
+            thumbnails={youtubeVideoItem.thumbnails}
+            id={youtubeVideoItem.id}
+            selection={false}
+          />
+        ))}
+      </Slider>
     </Base>
   );
 };
@@ -39,6 +34,10 @@ const VideoList: React.FC<VideoListProp> = ({
 const Base = styled.div`
   margin-bottom: 42px;
   position: relative;
+
+  @media (max-width: 667px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const Title = styled.h4`

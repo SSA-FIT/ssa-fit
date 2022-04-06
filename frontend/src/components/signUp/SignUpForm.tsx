@@ -354,7 +354,9 @@ const SignUpForm: React.FC<Props> = ({
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  background-color: #fafafa;
+`;
 
 const StepName = styled.h2`
   color: #00256c;

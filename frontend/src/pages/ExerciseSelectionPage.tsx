@@ -15,12 +15,13 @@ import UserSelectionChips from '../components/exercise/youtubeSelections/UserSel
 import VideoList from '../components/exercise/youtubeSelections/VideoList';
 import UserVideoSelection from '../components/exercise/youtubeSelections/UserVideoSelection';
 import VideoPlayCard from '../components/exercise/video/VideoPlayCard';
+import SelectionTabs from '../components/common/SelectionTabs';
 
 const ExerciseSelectionPage: React.FC = () => {
   useEffect(() => {
     document.title = '운동 추천';
   }, []);
-
+  const [tabNumber, setTabNumber] = useState<number>(0);
   const [userRecoSelectList, setUserRecoSelectList] = useState<
     Recommendation[]
   >([]);
@@ -60,113 +61,207 @@ const ExerciseSelectionPage: React.FC = () => {
     <>
       <Header />
       <Main>
-        <Container>
-          {(() => {
-            switch (step) {
-              case 0:
-                return (
-                  <>
-                    <ProfileRecommendation
-                      userRecoSelectList={userRecoSelectList}
-                      setUserRecoSelectList={setUserRecoSelectList}
-                    />
-                    <SimilarityRecommendation
-                      userRecoSelectList={userRecoSelectList}
-                      setUserRecoSelectList={setUserRecoSelectList}
-                    />
-                    <BookMarkRecommendation
-                      userRecoSelectList={userRecoSelectList}
-                      setUserRecoSelectList={setUserRecoSelectList}
-                    />
+        <ContainerWrapper>
+          <Container>
+            {(() => {
+              switch (step) {
+                case 0:
+                  return (
+                    <>
+                      <SectionName>오늘의 운동 추천 💪</SectionName>
+                      <SelectionTabs
+                        setTabNumber={setTabNumber}
+                      ></SelectionTabs>
+                      {tabNumber === 0 && (
+                        <RecommendationWrapper>
+                          <ProfileRecommendation
+                            userRecoSelectList={userRecoSelectList}
+                            setUserRecoSelectList={setUserRecoSelectList}
+                          />
+                        </RecommendationWrapper>
+                      )}
+                      {tabNumber === 1 && (
+                        <RecommendationWrapper>
+                          <SimilarityRecommendation
+                            userRecoSelectList={userRecoSelectList}
+                            setUserRecoSelectList={setUserRecoSelectList}
+                          />
+                        </RecommendationWrapper>
+                      )}
+                      {tabNumber === 2 && (
+                        <RecommendationWrapper>
+                          <BookMarkRecommendation
+                            userRecoSelectList={userRecoSelectList}
+                            setUserRecoSelectList={setUserRecoSelectList}
+                          />
+                        </RecommendationWrapper>
+                      )}
+                      {tabNumber === 3 && (
+                        <RecommendationWrapper>
+                          <EntireRecommendation
+                            userRecoSelectList={userRecoSelectList}
+                            setUserRecoSelectList={setUserRecoSelectList}
+                          />
+                        </RecommendationWrapper>
+                      )}
 
-                    <EntireRecommendation
-                      userRecoSelectList={userRecoSelectList}
-                      setUserRecoSelectList={setUserRecoSelectList}
-                    />
-                    <UserSelectionWrapper>
-                      <UserSelection
-                        userRecoSelectList={userRecoSelectList}
-                        setUserRecoSelectList={setUserRecoSelectList}
-                      />
-                      <Submit
-                        onClick={handleRecoSubmitButton}
-                        disabled={selectDisabled}
-                      >
-                        운동 선택 완료
-                      </Submit>
-                    </UserSelectionWrapper>
-                  </>
-                );
-              case 1:
-                return (
-                  <>
-                    <UserSelectionChips
-                      userRecoSelectList={userRecoSelectList}
-                      setYoutubeVideoList={setYoutubeVideoList}
-                    />
-                    {youtubeVideoList.length > 0 ? (
-                      <>
-                        <VideoList
-                          youtubeVideoList={youtubeVideoList}
-                          userVideoSelectList={userVideoSelectList}
-                          setUserVideoSelectList={setUserVideoSelectList}
+                      <UserSelectionWrapper>
+                        <UserSelection
+                          userRecoSelectList={userRecoSelectList}
+                          setUserRecoSelectList={setUserRecoSelectList}
                         />
-                        <UserSelectionWrapper>
-                          <UserVideoSelection
+
+                        <Submit
+                          onClick={handleRecoSubmitButton}
+                          disabled={selectDisabled}
+                        >
+                          운동 선택 완료
+                        </Submit>
+                      </UserSelectionWrapper>
+                    </>
+                  );
+                case 1:
+                  return (
+                    <>
+                      <SectionName>운동 영상 목록</SectionName>
+                      <UserSelectionChips
+                        userRecoSelectList={userRecoSelectList}
+                        setYoutubeVideoList={setYoutubeVideoList}
+                      />
+                      {youtubeVideoList.length > 0 ? (
+                        <>
+                          <VideoList
+                            youtubeVideoList={youtubeVideoList}
                             userVideoSelectList={userVideoSelectList}
                             setUserVideoSelectList={setUserVideoSelectList}
                           />
-                          <Submit
-                            onClick={handleVideoSubmitButton}
-                            disabled={videoSelectDisabled}
-                          >
-                            운동 영상 선택 완료
-                          </Submit>
-                        </UserSelectionWrapper>
-                      </>
-                    ) : (
-                      <DescriptionWrapper>
-                        <Description>
-                          운동 항목을 눌러 시청할 영상을 선택해주세요.👆
-                        </Description>
-                      </DescriptionWrapper>
-                    )}
-                  </>
-                );
-              case 2:
-                return (
-                  <>
-                    <VideoPlayCard userVideoSelectList={userVideoSelectList} />
-                  </>
-                );
-              default:
-                return <Redirect to="/" />;
-            }
-          })()}
-        </Container>
+                          <UserSelectionWrapper>
+                            <UserVideoSelection
+                              userVideoSelectList={userVideoSelectList}
+                              setUserVideoSelectList={setUserVideoSelectList}
+                            />
+                            <Submit
+                              onClick={handleVideoSubmitButton}
+                              disabled={videoSelectDisabled}
+                            >
+                              운동 영상 선택 완료
+                            </Submit>
+                          </UserSelectionWrapper>
+                        </>
+                      ) : (
+                        <DescriptionWrapper>
+                          <Description>
+                            운동 항목을 눌러 시청할 영상을 선택해주세요.👆
+                          </Description>
+                        </DescriptionWrapper>
+                      )}
+                    </>
+                  );
+                case 2:
+                  return (
+                    <>
+                      <VideoPlayCard
+                        userVideoSelectList={userVideoSelectList}
+                      />
+                    </>
+                  );
+                default:
+                  return <Redirect to="/" />;
+              }
+            })()}
+          </Container>
+        </ContainerWrapper>
       </Main>
       <Footer />
     </>
   );
 };
 
-const Main = styled.main`
-  max-width: 1200px;
-  margin: 0 auto;
+const Main = styled.div`
+  display: block;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+`;
+
+const ContainerWrapper = styled.div`
+  box-sizing: border-box;
+  padding: 0 2rem;
+
+  @media (min-width: 1060px) {
+    padding: 0 2rem;
+  }
 `;
 
 const UserSelectionWrapper = styled.div`
-  position: sticky;
-  bottom: 0;
+  border-radius: 15px;
   background-color: #6367ffcc;
   color: #fff;
+
+  @media (min-width: 1280px) {
+    position: sticky;
+    bottom: 0;
+  }
+
+  @media (min-height: 1100px) {
+    position: sticky;
+    bottom: 0;
+  }
 `;
 
 const Container = styled.div`
-  margin-top: 62px;
-  padding: 24px 0;
+  margin: 0 auto;
+  padding: 4rem 2rem 13rem;
+  box-sizing: border-box;
+
+  @media (min-width: 1060px) {
+    max-width: 128rem;
+    padding: 6rem 6rem 10rem;
+  }
+
+  @media (max-width: 667px) {
+    padding-right: 0px;
+    padding-bottom: 2rem;
+    padding-left: 0px;
+  }
 `;
 
+const SectionName = styled.h1`
+  margin-bottom: 0.8rem;
+  color: #000;
+  font-weight: 700;
+  font-size: 2rem;
+
+  @media (min-width: 1060px) {
+    font-weight: 400;
+    font-size: 3.2rem;
+  }
+`;
+
+const Title = styled.h2`
+  color: #6367ffcc;
+  font-weight: 500;
+
+  @media (min-width: 1060px) {
+    margin: 4rem 0 0.8rem;
+    font-size: 2.4rem;
+    line-height: 1.5;
+  }
+`;
+
+const RecommendationWrapper = styled.div`
+  padding: 2rem 1.6rem;
+  border: 1px solid #d9dbe1;
+  box-sizing: border-box;
+  margin: 2rem 0;
+
+  @media (min-width: 1060px) {
+    //display: flex;
+    flex-wrap: wrap;
+    padding: 4.6em 4rem;
+  }
+  @media (max-width: 667px) {
+    padding: 0px;
+  }
+`;
 const Submit = styled.button`
   width: 100%;
   background-color: #6367ff;
