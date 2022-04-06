@@ -53,7 +53,7 @@ const BookMarkItemCard: React.FC<Props> = ({ bookMarkItem }) => {
         ) : (
           <>
             <div>
-              <BookMarkIconchecked sx={{ color: '#6367ff' }} />
+              <BookMarkIconchecked sx={{ color: '#00cdac' }} />
             </div>
           </>
         )}
@@ -75,6 +75,10 @@ const Container = styled.div`
   outline: none;
   cursor: pointer;
   transition: color 0.3s;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const Image = styled.img`
@@ -90,8 +94,8 @@ const Image = styled.img`
 `;
 
 const NameWrapper = styled.div`
-  display: flex;
-  width: 100%;
+  //display: flex;
+  //width: 100%;
   margin-top: 10px;
 `;
 

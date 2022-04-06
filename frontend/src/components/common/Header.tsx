@@ -134,7 +134,7 @@ const Header: React.FC = () => {
                           </Tooltip>
                         </AccountLink>
                       </AccountInfoItem>
-                      
+
                       <AccountInfoItem>
                         <AccountLink to="/exercise/bookmark">
                           <Tooltip title="즐겨찾기">
@@ -142,7 +142,6 @@ const Header: React.FC = () => {
                           </Tooltip>
                         </AccountLink>
                       </AccountInfoItem>
-                      
                     </AccountInfoItemWrapper>
                   )}
                 </>

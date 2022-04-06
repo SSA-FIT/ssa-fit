@@ -83,7 +83,7 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
 const Container = styled.div``;
 
 const StepName = styled.h2`
-  color: #00256c;
+  color: #02aab0;
   font-weight: 700;
 
   @media (min-width: 1060px) {
@@ -191,7 +191,6 @@ const AgreementList = styled.ul`
   @media (max-width: 575px) {
     padding: 1rem 1rem 0 0;
   }
-
 `;
 
 const AgreementItem = styled.li`
@@ -199,7 +198,7 @@ const AgreementItem = styled.li`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  
+
   @media (max-width: 376px) {
     padding: 0 0 1rem 0;
   }
@@ -220,11 +219,11 @@ const CancelButton = styled(Link)`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;
-  color: #013066;
+  color: #02aab0;
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
   font-weight: 700;
   font-size: 1.4rem;
@@ -242,10 +241,10 @@ const ConfirmButton = styled.button`
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #e0e0e0;
   border-radius: 0.2rem;
-  background: #bad5f5;
-  color: #013066;
+  background: #e0e0e0;
+  color: #02aab0;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -256,7 +255,7 @@ const ConfirmButton = styled.button`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 
   &.complete {
-    background-color: #013066;
+    background-color: #02aab0;
     color: #fff;
   }
 `;

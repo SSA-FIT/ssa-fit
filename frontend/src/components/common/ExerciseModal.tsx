@@ -250,7 +250,7 @@ const QuestionDescription = styled.div`
 
 const DialogButton = styled(Button)`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  color: #013066;
+  color: #02aab0;
 `;
 
 const WithdrawalWrapper = styled.div`
@@ -271,7 +271,7 @@ const Withdrawal = styled(Link)`
     display: inline-block;
     border: 0;
     background: none;
-    color: #0064de;
+    color: #00cdac;
     text-indent: 0;
   }
 `;

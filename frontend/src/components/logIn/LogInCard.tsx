@@ -321,7 +321,7 @@ const Input = styled.input`
   margin: 0;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 0;
   color: #000;
   font-size: 1.6rem;
@@ -333,7 +333,7 @@ const Input = styled.input`
     border-bottom-color: transparent;
     border-radius: 0.2rem;
     outline: 0;
-    box-shadow: 0 0 0 1px #0064de;
+    box-shadow: 0 0 0 1px #00cdac;
     color: #000;
     transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
       box-shadow 0.2s;
@@ -344,7 +344,7 @@ const Input = styled.input`
     border-bottom-color: transparent;
     border-radius: 0.2rem;
     outline: 0;
-    box-shadow: 0 0 0 1px #0064de;
+    box-shadow: 0 0 0 1px #00cdac;
     color: #000;
     transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
       box-shadow 0.2s;
@@ -414,10 +414,10 @@ const LogInButton = styled.button`
   height: 5.4rem;
   margin: 0;
   padding: 1.6rem 2rem;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background: #bad5f5;
-  color: #013066;
+  background: #02aab0;
+  color: #fff;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -433,7 +433,7 @@ const LogInButton = styled.button`
   }
 
   &.complete {
-    background-color: #013066;
+    background-color: #02aab0;
     color: #fff;
   }
 `;
@@ -453,7 +453,7 @@ const FindLink = styled(Link)`
   display: inline-block;
   border: 0;
   background: none;
-  color: #0064de;
+  color: #00cdac;
   text-decoration: underline;
   text-decoration-skip-ink: auto;
   text-indent: 0;
@@ -484,8 +484,8 @@ const SignUpLink = styled.a`
   align-items: center;
   width: 100%;
   height: 5.4rem;
-  background-color: #e6f9ff;
-  color: #00256c;
+  background-color: #00cdacff;
+  color: #fff;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -494,7 +494,7 @@ const SignUpLink = styled.a`
   &:hover {
     outline: 0;
     border-radius: 0;
-    box-shadow: inset 0 0 0 1px #0064de;
+    box-shadow: inset 0 0 0 1px #00cdac;
   }
   @media (min-width: 1060px) {
     display: flex;
@@ -502,8 +502,8 @@ const SignUpLink = styled.a`
     align-items: center;
     width: 100%;
     height: 5.4rem;
-    background-color: #e6f9ff;
-    color: #00256c;
+    background-color: #00cdac1a;
+    color: #02aab0;
     font-weight: 700;
     font-size: 1.4rem;
     line-height: 1.58;

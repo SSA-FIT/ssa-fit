@@ -359,7 +359,7 @@ const Container = styled.div`
 `;
 
 const StepName = styled.h2`
-  color: #00256c;
+  color: #02aab0;
   font-weight: 700;
 
   @media (min-width: 1060px) {
@@ -521,7 +521,7 @@ const InputRequireLabel = styled.span`
 const InputDescription = styled.span`
   display: block;
   margin-top: 0.2rem;
-  color: #00256c;
+  color: #02aab0;
   font-size: 1.1rem;
   line-height: 1.58;
 
@@ -554,7 +554,6 @@ const InputWrapper = styled.div`
     margin-bottom: 1rem;
     width: 100%;
   }
-  
 `;
 
 const Input = styled.input`
@@ -567,7 +566,7 @@ const Input = styled.input`
   margin: 0;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 0;
   color: #000;
   font-size: 1.6rem;
@@ -579,7 +578,6 @@ const Input = styled.input`
     font-size: 1.8rem;
     line-height: 1.56;
   }
-  
 
   &.have-error {
     margin-bottom: 4px;
@@ -603,7 +601,7 @@ const OverlapConfirmButton = styled.button`
   text-decoration: none;
   text-align: center;
   cursor: pointer;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   appearance: none;
 
   @media (min-width: 1060px) {
@@ -650,11 +648,11 @@ const CancelButton = styled.button`
   flex: 6;
   margin-right: 0.4rem;
   background-color: #fff;
-  color: #013066;
+  color: #02aab0;
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
   font-weight: 700;
   font-size: 1.4rem;
@@ -672,10 +670,10 @@ const ConfirmButton = styled.button`
   display: block;
   width: 100%;
   padding: 1.5rem 2rem 1.6rem;
-  border: 1px solid #013066;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background: #bad5f5;
-  color: #013066;
+  background: #e0e0e0;
+  color: #02aab0;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -686,7 +684,7 @@ const ConfirmButton = styled.button`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 
   &.complete {
-    background-color: #013066;
+    background-color: #02aab0;
     color: #fff;
   }
 `;

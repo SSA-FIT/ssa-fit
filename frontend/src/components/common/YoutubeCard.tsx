@@ -179,9 +179,9 @@ const Base = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 5px;
-
+  border: 1px solid #02aab0;
   &.selection {
     object-fit: contain;
     box-shadow: none;

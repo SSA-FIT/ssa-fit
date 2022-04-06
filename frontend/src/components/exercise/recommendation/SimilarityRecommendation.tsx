@@ -91,7 +91,7 @@ const Title = styled.h4`
 const DescriptionWrapper = styled.div`
   width: 100%;
   height: 150px;
-  background-color: #6367ffcc;
+  background-color: #02aab0;
   padding: 5px;
   justify-content: center;
   align-items: center;

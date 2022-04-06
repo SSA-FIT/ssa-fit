@@ -718,7 +718,7 @@ const InputName = styled.label`
 const InputDescription = styled.span`
   display: block;
   margin-top: 0.2rem;
-  color: #00256c;
+  color: #02aab0;
   font-size: 1.3rem;
   line-height: 1.58;
 `;
@@ -732,7 +732,7 @@ const CodeConfirmMessage = styled.div`
   margin-left: 8px;
   font-size: 20px;
   font-weight: 500;
-  color: #3688f4;
+  color: #00cdac;
 `;
 
 const Timer = styled.span`
@@ -794,7 +794,7 @@ const Input = styled.input`
   margin: 0;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #00256c;
+  border-bottom: 1px solid #02aab0;
   border-radius: 0;
   color: #000;
   font-size: 1.6rem;
@@ -806,7 +806,7 @@ const Input = styled.input`
     border-bottom-color: transparent;
     border-radius: 0.2rem;
     outline: 0;
-    box-shadow: 0 0 0 1px #0064de;
+    box-shadow: 0 0 0 1px #00cdac;
     color: #000;
     transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
       box-shadow 0.2s;
@@ -823,7 +823,7 @@ const Input = styled.input`
     border-bottom-color: transparent;
     border-radius: 0.2rem;
     outline: 0;
-    box-shadow: 0 0 0 1px #0064de;
+    box-shadow: 0 0 0 1px #00cdac;
     color: #000;
     transition: padding 0.2s, border 0.2s, background 0.2s, color 0.2s,
       box-shadow 0.2s;
@@ -867,10 +867,10 @@ const ResetPasswordButton = styled.button`
   height: 5.4rem;
   margin: 0;
   padding: 1.6rem 2rem;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background: #bad5f5;
-  color: #013066;
+  background: #02aab0;
+  color: #fff;
   font-weight: 700;
   font-size: 1.4rem;
   line-height: 1.58;
@@ -886,7 +886,7 @@ const ResetPasswordButton = styled.button`
   }
 
   &.complete {
-    background-color: #013066;
+    background-color: #02aab0;
     color: #fff;
   }
 
@@ -902,9 +902,9 @@ const ResetPasswordCompleteButton = styled(Link)`
   display: block;
   margin: 0;
   padding: 1.6rem 2rem;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background-color: #013066;
+  background-color: #02aab0;
   color: #fff;
   font-weight: 700;
   font-size: 1.4rem;
@@ -927,9 +927,9 @@ const ResetPasswordConfirmButton = styled.button`
   height: 5.4rem;
   margin-top: 1rem;
   padding: 1.6rem 2rem;
-  border: 1px solid #00256c;
+  border: 1px solid #02aab0;
   border-radius: 0.2rem;
-  background-color: #013066;
+  background-color: #02aab0;
   color: #fff;
   font-weight: 700;
   font-size: 1.4rem;
@@ -946,7 +946,7 @@ const ResetPasswordConfirmButton = styled.button`
   }
 
   &.complete {
-    background-color: #013066;
+    background-color: #02aab0;
     color: #fff;
   }
 
@@ -973,7 +973,7 @@ const FindLink = styled.a`
   display: inline-block;
   border: 0;
   background: none;
-  color: #0064de;
+  color: #00cdac;
   text-decoration: underline;
   text-decoration-skip-ink: auto;
   text-indent: 0;
