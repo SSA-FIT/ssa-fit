@@ -226,7 +226,8 @@ const LogInWrapper = styled.div`
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(to bottom, #8bbdf8 -75%, #e9f3fb 89%);
+      background-color: #02aab0;
+      background-image: linear-gradient(135deg, #02aab0, #00cdac);
     }
   }
 `;
