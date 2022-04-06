@@ -196,15 +196,15 @@ const UserSelectionWrapper = styled.div`
   background-color: #6367ffcc;
   color: #fff;
 
-  @media (min-width: 1280px) {
+  @media (min-width: 1280px) and (min-height: 900px) {
     position: sticky;
     bottom: 0;
   }
-
-  @media (min-height: 1100px) {
+  /* 
+  @media  {
     position: sticky;
     bottom: 0;
-  }
+  } */
 `;
 
 const Container = styled.div`
