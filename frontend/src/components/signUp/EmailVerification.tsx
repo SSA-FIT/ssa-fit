@@ -456,7 +456,7 @@ const ContentName = styled.h3`
   margin: 2rem 0 0.8rem;
   color: #000;
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: 1.1rem;
 
   @media (min-width: 1060px) {
     margin: 4rem 0 0.8rem;
@@ -520,6 +520,11 @@ const InputAndButtonWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+
+  @media (max-width: 575px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -529,6 +534,12 @@ const InputWrapper = styled.div`
   @media (min-width: 1060px) {
     margin-right: 1.2rem;
   }
+  
+  @media (max-width: 575px) {
+    margin-right: 0;
+    width: 100%;
+  }
+
 `;
 
 const Input = styled.input`
@@ -574,6 +585,10 @@ const Input = styled.input`
     border: 1px solid #36b5f4;
     box-shadow: inset 0 0 0 1px #3688f4;
   }
+  @media (max-width: 575px) {
+    margin-right: 0;
+    width: 100%;
+  }
 `;
 
 const CodeTimerWrapper = styled.div`
@@ -618,6 +633,11 @@ const OverlapConfirmButton = styled.button`
     padding: 0.7rem 0.7rem;
     font-size: 1.6rem;
     line-height: 1.5;
+  }
+
+  @media (max-width: 575px) {
+    margin-right: 0;
+    width: 100%;
   }
 
   &:disabled {
@@ -673,6 +693,11 @@ const CodeConfirmButton = styled.button`
     line-height: 1.5;
   }
 
+  @media (max-width: 575px) {
+    margin-right: 0;
+    width: 100%;
+  }
+  
   &:disabled {
     background: rgb(247, 248, 250);
     color: rgb(194, 200, 204);

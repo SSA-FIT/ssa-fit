@@ -84,7 +84,7 @@ const ContainerWrapper = styled.div`
 
 const Container = styled.div`
   box-sizing: border-box;
-  padding: 0 2rem;
+  padding: 0;
 
   @media (min-width: 1060px) {
     padding: 0 2rem;
@@ -123,6 +123,10 @@ const SignUpSteppersWrapper = styled.div`
 
   @media (min-width: 1060px) {
     margin: 3.2rem 0 1.2rem;
+  }
+
+  @media (max-width: 575px) {
+    display: none;
   }
 `;
 

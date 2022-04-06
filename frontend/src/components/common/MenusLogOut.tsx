@@ -94,6 +94,16 @@ export default function BasicMenu() {
         >
           즐겨찾기
         </MenuItem>
+        <MenuItem
+          component={Link}
+          to="/exercise"
+          onClick={handleClose}
+          style={{
+            fontFamily: 'Spoqa Han Sans Neo',
+          }}
+        >
+          운동하러 가기
+        </MenuItem>
       </Menu>
     </MenuWrapper>
   );
