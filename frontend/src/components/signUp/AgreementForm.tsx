@@ -152,7 +152,7 @@ const AgreementLabel = styled.label`
   position: relative;
   padding-left: 2.6rem;
   color: #000;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   line-height: 1.58;
   text-indent: 0;
 
@@ -171,17 +171,27 @@ const AgreementLabel = styled.label`
   &.bold {
     font-weight: 700;
   }
+
+  @media (min-width: 1060px) {
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
 `;
 
 const AgreementList = styled.ul`
   border: 1px solid #d9dbe1;
-  margin-top: 0;
+  padding: 1rem;
   border-top: 0;
   list-style: none;
 
   &:last-child {
     margin-bottom: 0;
   }
+
+  @media (max-width: 575px) {
+    padding: 1rem 1rem 0 0;
+  }
+
 `;
 
 const AgreementItem = styled.li`
@@ -189,6 +199,10 @@ const AgreementItem = styled.li`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  
+  @media (max-width: 376px) {
+    padding: 0 0 1rem 0;
+  }
 `;
 
 const ConFirmWrapper = styled.div`
