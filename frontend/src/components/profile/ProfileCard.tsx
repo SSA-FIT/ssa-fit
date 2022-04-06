@@ -10,7 +10,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import {
@@ -378,6 +378,11 @@ const ProfileCard: React.FC = () => {
     setSelfTestSum(sum);
   }, [selfTest1, selfTest2, selfTest3, selfTest4, selfTest5, selfTest6]);
 
+  let history = useHistory();
+  const handleCancelButton = () => {
+    history.goBack();
+  };
+
   const handleConfirmButton = (event: React.MouseEvent<HTMLElement>) => {
     if (buttonText === '수정') {
       setInputDisabled(false);
@@ -387,10 +392,6 @@ const ProfileCard: React.FC = () => {
       setInputDisabled(true);
       setButtonText('수정');
     }
-  };
-
-  const handleCancleButton = (event: React.MouseEvent<HTMLElement>) => {
-    setInputDisabled(true);
   };
 
   const updateProfileAuth = useCallback(
@@ -793,7 +794,7 @@ const ProfileCard: React.FC = () => {
             </ProfileInfoWrapper>
 
             <ConfirmWrapper>
-              <Cancel onClick={handleCancleButton}>취소</Cancel>
+              <Cancel onClick={handleCancelButton}>취소</Cancel>
               <ConfirmButton onClick={handleConfirmButton}>
                 {buttonText}
               </ConfirmButton>
