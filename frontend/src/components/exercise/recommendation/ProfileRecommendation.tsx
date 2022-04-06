@@ -47,6 +47,7 @@ const ProfileRecommendation: React.FC<UserSelectListProp> = ({
                   name={profileReco.name}
                   imageURL={profileReco.imageURL}
                   score={null}
+                  selection={false}
                 />
               ))}
             </Slider>
@@ -57,9 +58,12 @@ const ProfileRecommendation: React.FC<UserSelectListProp> = ({
   );
 };
 const Base = styled.div`
-  /* //margin-bottom: 42px;
+  margin-bottom: 42px;
   position: relative;
-  background-color: #000; */
+
+  @media (max-width: 667px) {
+    margin-bottom: 0px;
+  }
 `;
 
 export default ProfileRecommendation;

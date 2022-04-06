@@ -127,6 +127,9 @@ const AllAgreementWrapper = styled.div`
     font-size: 1.6rem;
     line-height: 1.5;
   }
+  @media (max-width: 667px) {
+    padding: 0px;
+  }
 `;
 
 const Selections = styled.div`

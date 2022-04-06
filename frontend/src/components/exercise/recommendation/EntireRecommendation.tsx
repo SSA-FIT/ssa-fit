@@ -38,6 +38,7 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
             name={entireReco.name}
             imageURL={entireReco.imageURL}
             score={null}
+            selection={false}
           />
         ))}
       </Slider>
@@ -47,6 +48,10 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
 const Base = styled.div`
   margin-bottom: 42px;
   position: relative;
+
+  @media (max-width: 667px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const Title = styled.h4`

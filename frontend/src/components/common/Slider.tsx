@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactSlick, { Settings } from 'react-slick';
 import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
@@ -16,16 +17,16 @@ const Slider: React.FC<Props> = ({ children, length }) => {
     arrows: true,
     infinite: true,
     speed: 500,
-    slidesToShow: length < 5 ? length : 6,
+    slidesToShow: length < 5 ? length : 5,
     slidesToScroll: length < 5 ? length : 3,
     swipe: true,
     draggable: true,
-    adaptiveHeight: true,
+    //adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 1500,
         settings: {
-          slidesToShow: length < 5 ? length : 5,
+          slidesToShow: length < 5 ? length : 4,
           slidesToScroll: length < 4 ? length : 4,
 
           infinite: true,
@@ -35,7 +36,7 @@ const Slider: React.FC<Props> = ({ children, length }) => {
       {
         breakpoint: 1300,
         settings: {
-          slidesToShow: length < 4 ? length : 4,
+          slidesToShow: length < 4 ? length : 3,
           slidesToScroll: length < 3 ? length : 3,
 
           infinite: true,
@@ -45,8 +46,8 @@ const Slider: React.FC<Props> = ({ children, length }) => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: length < 3 ? length : 3,
-          slidesToScroll: length < 3 ? length : 3,
+          slidesToShow: length < 3 ? length : 2,
+          slidesToScroll: length < 3 ? length : 2,
 
           infinite: true,
           dots: false,
@@ -55,8 +56,8 @@ const Slider: React.FC<Props> = ({ children, length }) => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: length < 2 ? length : 2,
-          slidesToScroll: length < 2 ? length : 2,
+          slidesToShow: length < 2 ? length : 1,
+          slidesToScroll: length < 2 ? length : 1,
 
           initialSlide: 2,
         },

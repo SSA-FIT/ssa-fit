@@ -43,6 +43,7 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
                 name={similarityReco.name}
                 imageURL={similarityReco.imageURL}
                 score={similarityReco.score}
+                selection={false}
               />
             ))}
           </Slider>
@@ -74,6 +75,10 @@ const SimilarityRecommendation: React.FC<UserSelectListProp> = ({
 const Base = styled.div`
   margin-bottom: 42px;
   position: relative;
+
+  @media (max-width: 667px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const Title = styled.h4`

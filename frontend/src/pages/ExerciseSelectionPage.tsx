@@ -192,10 +192,19 @@ const ContainerWrapper = styled.div`
 `;
 
 const UserSelectionWrapper = styled.div`
-  position: sticky;
-  bottom: 0;
+  border-radius: 15px;
   background-color: #6367ffcc;
   color: #fff;
+
+  @media (min-width: 1280px) {
+    position: sticky;
+    bottom: 0;
+  }
+
+  @media (min-height: 1100px) {
+    position: sticky;
+    bottom: 0;
+  }
 `;
 
 const Container = styled.div`
@@ -206,6 +215,12 @@ const Container = styled.div`
   @media (min-width: 1060px) {
     max-width: 128rem;
     padding: 6rem 6rem 10rem;
+  }
+
+  @media (max-width: 667px) {
+    padding-right: 0px;
+    padding-bottom: 2rem;
+    padding-left: 0px;
   }
 `;
 
@@ -242,6 +257,9 @@ const RecommendationWrapper = styled.div`
     //display: flex;
     flex-wrap: wrap;
     padding: 4.6em 4rem;
+  }
+  @media (max-width: 667px) {
+    padding: 0px;
   }
 `;
 const Submit = styled.button`

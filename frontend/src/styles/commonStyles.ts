@@ -10,13 +10,7 @@ const commonStyles = css`
   }
 
   /* &.slick-slide {
-    height: 370px;
-    object-fit: contain;
-  }
-
-  &.slick-slide img {
-    height: 370px;
-    object-fit: contain;
+    max-height: 400px;
   } */
 `;
 

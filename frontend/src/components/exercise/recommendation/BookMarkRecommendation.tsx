@@ -44,6 +44,7 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
               name={bookMarkReco.name}
               imageURL={bookMarkReco.imageURL}
               score={null}
+              selection={false}
             />
           ))}
         </Slider>
@@ -78,6 +79,10 @@ const BookMarkRecommendation: React.FC<UserSelectListProp> = ({
 const Base = styled.div`
   margin-bottom: 42px;
   position: relative;
+
+  @media (max-width: 667px) {
+    margin-bottom: 0px;
+  }
 `;
 
 const DescriptionWrapper = styled.div`
