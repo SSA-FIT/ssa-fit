@@ -31,7 +31,7 @@ const ProjectsSection: React.FC = () => {
                       </Description>
                     </DescriptionWrapper>
                     <LinkToService to="/exercise" id="blank">
-                      은동 추천 서비스 체험하러 가기
+                      운동 추천 서비스 체험하러 가기
                     </LinkToService>
                   </Fade>
                 </Col>
@@ -275,6 +275,7 @@ const LinkToService = styled(Link)`
   line-height: 1;
   z-index: 1;
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  margin-bottom: 16px;
 
   &:hover {
     color: #0056b3;
