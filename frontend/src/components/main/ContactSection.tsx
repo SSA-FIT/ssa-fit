@@ -8,7 +8,7 @@ const ContactSection: React.FC = () => {
           <Title>Contact</Title>
           <ContactWrapper>
             <ContactWrapperText>
-              Would you like to work with me? Awesome!
+              Would you like to workout with me? Awesome!
             </ContactWrapperText>
             <ContactButton>Let's Talk</ContactButton>
           </ContactWrapper>
