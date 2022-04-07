@@ -279,7 +279,11 @@ const NonUserProfile: React.FC = () => {
   );
 };
 
-const ContainerWrapper = styled.div``;
+const ContainerWrapper = styled.div`
+  @media (min-width: 1060px) {
+    padding: 0 2rem;
+  }
+`;
 
 const Container = styled.div`
   @media (min-width: 1060px) {
@@ -293,7 +297,7 @@ const Contents = styled.div`
 
   @media (min-width: 1060px) {
     max-width: 128rem;
-    padding: 6rem 0 10rem;
+    padding: 6rem 6rem 10rem;
   }
 `;
 
