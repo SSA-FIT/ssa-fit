@@ -42,7 +42,7 @@ const ProjectsSection: React.FC = () => {
                         <Tilt>
                           <MovingImageWrapper>
                             <Hidden></Hidden>
-                            <MovingImage src="https://upload.wikimedia.org/wikipedia/commons/1/17/Westie_pups.jpg"></MovingImage>
+                            <MovingImage src="\img\main1.gif"></MovingImage>
                           </MovingImageWrapper>
                         </Tilt>
                       </ProjectLink>
@@ -58,7 +58,7 @@ const ProjectsSection: React.FC = () => {
                         <Tilt>
                           <MovingImageWrapper>
                             <Hidden></Hidden>
-                            <MovingImage src="https://upload.wikimedia.org/wikipedia/commons/1/17/Westie_pups.jpg"></MovingImage>
+                            <MovingImage src="\img\main2.gif"></MovingImage>
                           </MovingImageWrapper>
                         </Tilt>
                       </ProjectLink>
@@ -110,7 +110,7 @@ const ProjectsSection: React.FC = () => {
                         <Tilt>
                           <MovingImageWrapper>
                             <Hidden></Hidden>
-                            <MovingImage src="https://upload.wikimedia.org/wikipedia/commons/1/17/Westie_pups.jpg"></MovingImage>
+                            <MovingImage src="\img\main3.gif"></MovingImage>
                           </MovingImageWrapper>
                         </Tilt>
                       </ProjectLink>
