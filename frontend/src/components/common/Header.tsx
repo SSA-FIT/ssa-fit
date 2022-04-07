@@ -51,6 +51,8 @@ const Header: React.FC = () => {
     `\\img\\potato.gif`,
     `\\img\\avocado.gif`,
     `\\img\\taco.gif`,
+    `\\img\\donut.gif`,
+    `\\img\\pothos.gif`,
   ];
 
   return (
@@ -59,7 +61,7 @@ const Header: React.FC = () => {
         <LogoWrapper>
           <LogoNameWrapper to="/">
             {/* <LogoImage className="logo" to="/" /> */}
-            <RestImage src={restImage[Math.floor(Math.random() * 7)]} />
+            <RestImage src={restImage[Math.floor(Math.random() * 9)]} />
           </LogoNameWrapper>
         </LogoWrapper>
         <AcoountWrapper>
