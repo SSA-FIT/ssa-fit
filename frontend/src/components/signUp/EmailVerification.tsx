@@ -313,7 +313,7 @@ const EmailVerification: React.FC<Props> = ({
                   className={emailMessage !== '' ? 'have-error' : ''}
                 >
                   {loading && !emailCodeInputView ? (
-                    <Circular />
+                    <Circular size={35} />
                   ) : (
                     '이메일 인증하기'
                   )}
@@ -328,24 +328,6 @@ const EmailVerification: React.FC<Props> = ({
                   <InputCode>
                     이메일로 전송된 인증코드를 입력해주세요.
                   </InputCode>
-                  {emailConfirmComplete ? (
-                    <CodeConfirmMessage>인증완료</CodeConfirmMessage>
-                  ) : (
-                    <CodeTimerWrapper>
-                      <Timer>
-                        {timeout ? (
-                          <span>인증시간 만료</span>
-                        ) : (
-                          <span>
-                            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-                          </span>
-                        )}
-                      </Timer>
-                      <RequestAgainCode onClick={requestAgainCode}>
-                        {!loading ? '인증번호 재전송' : <Circular />}
-                      </RequestAgainCode>
-                    </CodeTimerWrapper>
-                  )}
 
                   <InputAndButtonWrapper>
                     <InputWrapper>
@@ -372,6 +354,17 @@ const EmailVerification: React.FC<Props> = ({
                           </ErrorWrapper>
                         )}
                     </InputWrapper>
+                    <CodeTimerWrapper>
+                      <Timer>
+                        {timeout ? (
+                          <span>인증시간 만료</span>
+                        ) : (
+                          <span>
+                            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                          </span>
+                        )}
+                      </Timer>
+                    </CodeTimerWrapper>
                     <CodeConfirmButton
                       onClick={emailCodeConfirm}
                       disabled={
@@ -382,6 +375,27 @@ const EmailVerification: React.FC<Props> = ({
                       인증하기
                     </CodeConfirmButton>
                   </InputAndButtonWrapper>
+                  {emailConfirmComplete ? (
+                    <CodeConfirmMessage>인증완료</CodeConfirmMessage>
+                  ) : (
+                    <CodeTimerWrapper>
+                      <RequestAgainCode onClick={requestAgainCode}>
+                        인증번호 재전송
+                        {/* {!loading ? (
+                          '인증번호 재전송'
+                        ) : (
+                          <LoadingWrapper>
+                            <Circular />
+                          </LoadingWrapper>
+                        )} */}
+                      </RequestAgainCode>
+                      {loading === true && (
+                        <LoadingWrapper>
+                          <Circular size={15} />
+                        </LoadingWrapper>
+                      )}
+                    </CodeTimerWrapper>
+                  )}
                 </InputFieldWrapper>
               ) : null}
               {/* {emailConfirmComplete ? <span>인증완료</span> : null} */}
@@ -521,8 +535,8 @@ const InputCode = styled.div`
 
 const InputAndButtonWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 575px) {
     display: flex;
@@ -594,7 +608,16 @@ const Input = styled.input`
 `;
 
 const CodeTimerWrapper = styled.div`
+  display: flex;
   margin-bottom: 0.5rem;
+`;
+
+const LoadingWrapper = styled.div`
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 12px;
 `;
 
 const CodeConfirmMessage = styled.div`
@@ -606,13 +629,14 @@ const CodeConfirmMessage = styled.div`
 `;
 
 const Timer = styled.span`
-  margin-left: 8px;
+  /* margin-left: 8px; */
+  margin-right: 1.2rem;
   color: #f44336;
   font-size: 20px;
 `;
 
 const OverlapConfirmButton = styled.button`
-  margin-top: 0.4rem;
+  //margin-top: 0.4rem;
   color: #555;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   display: inline-block;
@@ -630,7 +654,7 @@ const OverlapConfirmButton = styled.button`
   appearance: none;
 
   @media (min-width: 1060px) {
-    margin-top: 0.4rem;
+    //margin-top: 0.4rem;
     min-width: 8.4rem;
     padding: 0.7rem 0.7rem;
     font-size: 1.6rem;
@@ -670,7 +694,7 @@ const RequestAgainCode = styled.a`
 `;
 
 const CodeConfirmButton = styled.button`
-  margin-top: 0.4rem;
+  //margin-top: 0.4rem;
   color: #555;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   display: inline-block;
@@ -688,7 +712,7 @@ const CodeConfirmButton = styled.button`
   appearance: none;
 
   @media (min-width: 1060px) {
-    margin-top: 0.4rem;
+    //margin-top: 0.4rem;
     min-width: 8.4rem;
     padding: 0.7rem 0.8rem;
     font-size: 1.6rem;
