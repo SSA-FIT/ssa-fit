@@ -22,6 +22,8 @@
 
 사용자가 했던 운동 이력과 즐겨찾는 운동의 리스트를 언제든지 보여줍니다.
 
+반응형 디자인을 적용하여 쾌적한 화면으로 서비스를 이용하실 수 있습니다.
+
 <br />
 
 <div id="2"></div>
@@ -75,6 +77,7 @@
 | YouTube API 영상               |    YouTube API를 활용하여 사용자가 추천받은 운동 영상을 제공합니다.|
 | 즐겨찾기 기능 |  즐겨찾기한 운동들을 빠르게 찾을 수 있습니다.                |
 | 운동 이력 조회  |     나의 운동 이력을 날짜별로 확인할 수 있습니다.      |
+| 반응형 웹  |     반응형 디자인으로 디바이스 상관없이 쾌적한 화면으로 즐기실 수 있습니다.      |
 <br />
 
 ### 신체 정보 기반 운동 추천
@@ -116,7 +119,7 @@
 | 조원빈 |      Back-end      | - DB 설계<br />- CI/CD 환경 설정<br />- Spring Boot RESTful API 작성<br />&nbsp;&nbsp;&nbsp;&nbsp;- 로그인, 회원가입 도메인 개발<br />&nbsp;&nbsp;&nbsp;&nbsp;- 운동 이력 조회, 즐겨찾기<br />- GitLab 담당                                    
 | 윤홍림 |     Front-end      | - 추천 알고리즘 구현<br /> - 기본 정보 수정 페이지 작성<br /> - 데이터 전처리, 더미 데이터 제작<br /> - JIRA 담당
 | 김나경 |     Front-end      |- 회원가입 로그인 서비스 구현 <br />&nbsp;&nbsp;&nbsp;&nbsp;- 이메일 인증 및 입력정보 유효성 검사를 통한 불필요한 통신 최소화<br /> &nbsp;&nbsp;&nbsp;&nbsp;- 비로그인 체험 사용자의 회원가입시 신체정보 입력값 연동 <br />&nbsp;&nbsp;&nbsp;&nbsp;- Redux, Redux Saga를 통한 로그인 구현 <br />- 아이디 찾기, 비밀번호 재설정 구현 <br />- Emotion을 이용한 CSS-in-JS 방식으로 스타일링 작업 <br />- 미디어 쿼리를 이용한 반응형 구현 <br />- Mock Service Worker를 이용해 API 테스트 진행<br />- Notion 담당                                                                                                                                                                                                                     
-| 이여진 |     Front-end      |- 서비스 메인 홈페이지 개발 - 추천 운동 조회 및 운동 영상, 운동 저장 기능 구현 <br />- Redux, Redux Saga를 통한 운동 기록 조회 기능 구현 <br />- 비로그인 사용자 체험 서비스 개발 <br />- 'Emotion'을 이용한 CSS-in-JS 방식으로 스타일링 구현 <br />- 'Media Query'를 이용한 반응형 웹 구현 <br />- Mock Service Worker를 이용해 목업 API 구현하여 백엔드 API 설계 이전 API 테스팅 진행                                                                                                                                                                                                                                                                                               
+| 이여진 |     Front-end      |- 서비스 메인 홈페이지 개발 - 추천 운동 조회 및 운동 영상, 운동 저장 기능 구현 <br />- Redux, Redux Saga를 통한 운동 기록 조회 기능 구현 <br />- 비로그인 사용자 체험 서비스 개발 <br />- 'Emotion'을 이용한 CSS-in-JS 방식으로 스타일링 구현 <br />- 'Media Query'를 이용한 반응형 웹 구현 <br />- Mock Service Worker를 이용해 목업 API 구현하여 백엔드 API 설계 이전 API 테스팅 진행  <br />- Front-end Reader                                                                                                                                                                                                                                                                                             
 
 <br />
 
@@ -213,7 +216,7 @@ jwt:
 ```bash
 $ ./gradlew build
 ```
-5. **빌드 폴더 이동 후 war 파일 실행**
+5. **빌드 폴더 이동 후 jar 파일 실행**
 ```bash
 $ cd backend
 $ cd spring/build/libs
