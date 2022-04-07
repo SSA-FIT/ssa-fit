@@ -105,6 +105,12 @@ function* updateProfileSaga(action: Action<ProfileRequest>) {
       action.payload,
       token,
     );
+    Swal.fire({
+      icon: 'success',
+      html: '프로필 수정 성공하였습니다.',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   } catch (error: any) {
     yield put(fail(error?.response?.data || 'UNKNOWN ERROR'));
 
