@@ -13,6 +13,11 @@ if (process.env.NODE_ENV === 'development') {
   // Mock서버 연동,해제
   // worker.start();
 }
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {};
+  console.warn = () => {};
+  console.warn = () => {};
+}
 
 ReactDOM.render(
   <React.StrictMode>
