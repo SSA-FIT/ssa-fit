@@ -43,13 +43,25 @@ const Header: React.FC = () => {
     window.addEventListener('resize', () => setResponsiveness());
   }, []);
 
+  const restImage: string[] = [
+    `\\img\\orange.gif`,
+    `\\img\\broccoli.gif`,
+    `\\img\\coffee.gif`,
+    `\\img\\mushroom.gif`,
+    `\\img\\potato.gif`,
+    `\\img\\avocado.gif`,
+    `\\img\\taco.gif`,
+    `\\img\\donut.gif`,
+    `\\img\\pothos.gif`,
+  ];
+
   return (
     <Container css={location.pathname === '/' ? noborder : undefined}>
       <Wrapper>
         <LogoWrapper>
-          <LogoNameWrapper>
-            {/* <LogoImage to="/" /> */}
-            <LogoImage className="logo" to="/" />
+          <LogoNameWrapper to="/">
+            {/* <LogoImage className="logo" to="/" /> */}
+            <RestImage src={restImage[Math.floor(Math.random() * 9)]} />
           </LogoNameWrapper>
         </LogoWrapper>
         <AcoountWrapper>
@@ -162,7 +174,7 @@ const Container = styled.header`
   box-sizing: border-box;
   margin-right: auto;
   position: relative;
-  border-bottom: 1px solid #00cdac;
+  // border-bottom: 1px solid #00cdac;
   pointer-events: none;
   color: rgb(26, 32, 39);
   padding-left: 20px;
@@ -185,14 +197,14 @@ const Container = styled.header`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 50px;
+  height: 100px;
   max-width: 128rem;
   margin: 0 auto;
   // padding: 0 5.4rem 0 2rem;
   pointer-events: none;
 
   @media (min-width: 1060px) {
-    height: 90px;
+    height: 130px;
     padding: 0;
   }
 `;
@@ -205,7 +217,7 @@ const LogoWrapper = styled.div`
   pointer-events: auto;
 `;
 
-const LogoNameWrapper = styled.div`
+const LogoNameWrapper = styled(Link)`
   display: flex;
   align-items: center;
   height: inherit;
@@ -251,6 +263,21 @@ const LogoImage = styled(Link)`
     height: 4.4rem;
     background-size: 132px 44px;
   }
+`;
+
+const RestImage = styled.img`
+  margin: 0;
+  padding: 0;
+  height: 200px;
+
+  @media (max-width: 1060px) {
+    height: 120px;
+  }
+  
+  @media (max-width: 575px) {
+    height: 100px;
+  }
+
 `;
 
 const AcoountWrapper = styled.div`

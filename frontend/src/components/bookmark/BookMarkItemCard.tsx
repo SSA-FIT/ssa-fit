@@ -79,17 +79,21 @@ const Container = styled.div`
   justify-items: center;
   align-items: center;
   flex-direction: column;
+  background-color: #02aab012;
+  padding: 10px;
+  border-radius: 15px;
 `;
 
 const Image = styled.img`
   width: 100%;
-  border-radius: 6px;
+  border-radius: 5px;
   vertical-align: middle;
   border-style: none;
-
+  height: 310px;
+  object-fit: cover;
+  background-color: #fafafa;
   @media (min-width: 992px) {
     max-width: 295px;
-    min-height: 303px;
   }
 `;
 
@@ -122,7 +126,8 @@ const BookMark = styled.input`
   border: 0;
   //clip: rect(0 0 0 0);
   opacity: 0;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  margin-right: 20px;
   overflow: hidden;
   padding: 0;
   white-space: nowrap;
@@ -134,6 +139,8 @@ const BookMarkIconchecked = styled(StarRoundedIcon)`
   right: 0px;
   width: 2.5em;
   height: 2.5em;
-  margin-bottom: 30px;
+  padding: 0;
+  margin-bottom: 40px;
+  margin-right: 20px;
 `;
 export default BookMarkItemCard;

@@ -115,7 +115,6 @@ const Exercise = styled.div`
   position: relative;
   height: 0px;
   padding-top: 56.3333%;
-
   &::before {
     content: '';
     display: block;
@@ -136,6 +135,7 @@ const ExerciseImage = styled.img`
   width: 100%;
   height: 100%;
   //z-index: 1;
+
   object-fit: contain;
   vertical-align: middle;
   border-style: none;

@@ -280,9 +280,6 @@ const NonUserProfile: React.FC = () => {
 };
 
 const ContainerWrapper = styled.div`
-  @media (min-width: 1060px) {
-    padding: 0 2rem;
-  }
 `;
 
 const Container = styled.div`

@@ -70,18 +70,6 @@ const ContainerWrapper = styled.div`
   @media (min-width: 1060px) {
     padding: 0 2rem;
   }
-  /* max-width: 1240px;
-  margin: 0px auto;
-  padding: 0 24px;
-  margin-bottom: 60px;
-
-  @media (min-width: 1060px) {
-    padding: 0px;
-  }
-
-  @media (min-width: 992px) {
-    padding: 0 20px;
-  } */
 `;
 
 const Container = styled.div`
@@ -118,10 +106,9 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin: 20px 0px 30px;
-
   @media (min-width: 767px) {
     grid-template-columns: repeat(4, 1fr);
-    margin: 30px 0px 40px;
+    margin: 64px 0px 40px;
   }
 
   @media (max-width: 349px) {

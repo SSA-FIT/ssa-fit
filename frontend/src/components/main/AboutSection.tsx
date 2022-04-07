@@ -10,6 +10,8 @@ const AboutSection: React.FC = () => {
     `\\img\\potato.gif`,
     `\\img\\avocado.gif`,
     `\\img\\taco.gif`,
+    `\\img\\donut.gif`,
+    `\\img\\pothos.gif`,
   ];
 
   return (
@@ -27,7 +29,7 @@ const AboutSection: React.FC = () => {
                   {/* <img src="\images\common\menu.png" /> */}
                   <Picture>
                     <ImageSecond
-                      src={restImage[Math.floor(Math.random() * 7)]}
+                      src={restImage[Math.floor(Math.random() * 9)]}
                     />
                   </Picture>
                 </ImageWrapper>
@@ -39,17 +41,17 @@ const AboutSection: React.FC = () => {
                   <AboutWrapperInfoText>
                     SSA-FIT은 남녀노소 모두의 건강을 지키기 위해 제안하는 기초
                     체력증진 운동 추천 서비스입니다.
-                    </AboutWrapperInfoText>
-                    <AboutWrapperInfoText>
+                  </AboutWrapperInfoText>
+                  <AboutWrapperInfoText>
                     코로나 이후, 많은 사람들이 우울감을 느끼고 코로나 블루를
                     경험하고 있습니다. 신체 활동 시간과 야외 활동 빈도가
                     적어지면 사람들은 불안과 우울감, 무기력증 발생 가능성이
-                    높아지기 때문입니다. 이처럼 운동부족은 정신적인 건강 뿐만
-                    아니라 신체적으로도 많은 영향을 미치고 있습니다. 코로나
-                    장기화로 인해 청소년 기초체력 저하, 노쇠 증후군, 면역력
-                    저하, 비만율 증가 등의 건강 문제가 발생하게 되었습니다.
-                    </AboutWrapperInfoText>
-                    <AboutWrapperInfoText>
+                    높아지기 때문입니다. 운동부족은 정신적인 건강 뿐만 아니라
+                    신체적으로도 많은 영향을 미치고 있습니다. 코로나 장기화로
+                    인해 청소년 기초체력 저하, 노쇠 증후군, 면역력 저하, 비만율
+                    증가 등의 건강 문제가 발생하게 되었습니다.
+                  </AboutWrapperInfoText>
+                  <AboutWrapperInfoText>
                     이처럼 국민의 정신 건강과 전 연령 기초체력 저하 현상 속에서,
                     저희 SSA-FIT 팀은 어떤 서비스로 사람들에게 도움을 줄 수
                     있을까 많은 고민을 했습니다. 또한 현재 디지털, 온라인 시장이
@@ -57,8 +59,8 @@ const AboutSection: React.FC = () => {
                     운동 추천 아이디어를 기획했습니다. 모두가 개인별 맞춤 추천
                     운동을 편리하고 쉽게 따라할 수 있도록 제공하는 SSA-FIT
                     서비스를 여러분께 제안합니다.
-                    </AboutWrapperInfoText>
-                    <AboutWrapperInfoText>
+                  </AboutWrapperInfoText>
+                  <AboutWrapperInfoText>
                     기초체력 증진과 건강을 위해 우리 모두 SSA-FIT과 함께
                     운동해봅시다 !
                   </AboutWrapperInfoText>
@@ -313,12 +315,12 @@ const AboutWrapperInfo = styled.div`
 
 const AboutWrapperInfoText = styled.p`
   line-height: initial;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 1.6rem;
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 22px;
   text-align: left;
   margin-top: 0;
   margin-bottom: 1rem;
-
+  font-weight: 400;
   display: block;
   margin-block-start: 1em;
   margin-block-end: 1.5rem;

@@ -170,7 +170,9 @@ const SignUpName = styled.h1`
   }
 `;
 
-const HistoryWrapper = styled.div``;
+const HistoryWrapper = styled.div`
+  margin-top: 64px;
+`;
 
 const HistoryDateWrapper = styled.div`
   position: sticky;
