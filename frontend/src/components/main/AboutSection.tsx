@@ -68,6 +68,16 @@ const Section = styled.section`
   padding-bottom: 10%;
   padding: 5rem 0;
   display: block;
+
+  @media (max-width: 75em) {
+    height: 100%;
+    clip-path: none;
+  }
+
+  @media (max-width: 37.5em) {
+    border: none;
+    padding: 0 1.6rem;
+  }
 `;
 
 const Container = styled.div`
@@ -108,6 +118,10 @@ const MainTitle = styled.h2`
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   line-height: 1.3;
+
+  @media (max-width: 37.5em) {
+    font-size: 2.8rem;
+  }
 `;
 
 const AboutWrapper = styled.div`
@@ -116,6 +130,10 @@ const AboutWrapper = styled.div`
   margin-right: -15px;
   margin-left: -15px;
   margin-bottom: 8rem;
+
+  @media (max-width: 37.5em) {
+    padding-bottom: 5rem;
+  }
 
   @media (max-width: 992px) {
     flex-direction: column;
@@ -142,14 +160,15 @@ const AboutColumn = styled.div`
   /* display: flex;
   flex-direction: colum; */
 
-  /* @media (min-width: 576px) {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-  @media (min-width: 768px) {
-    flex: 0 0 50%;
-    max-width: 50%;
-  } */
+  // @media (min-width: 576px) {
+  //   flex: 0 0 100%;
+  //   max-width: 100%;
+  // }
+
+  // @media (min-width: 768px) {
+  //   flex: 0 0 50%;
+  //   max-width: 50%;
+  // }
 
   @media (min-width: 576px) {
     flex: 0 0 100%;
@@ -173,6 +192,14 @@ const AboutImageWrapper = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 75em) {
+    height: 100%;
+  }
+
+  @media (max-width: 56.25em) {
+    padding-bottom: 2rem;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -242,6 +269,15 @@ const AboutColumnSecond = styled.div`
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
   }
+
+  // @media (min-width: 576px) {
+  //   flex: 0 0 100%;
+  //   max-width: 100%;
+  // }
+  // @media (min-width: 768px) {
+  //   flex: 0 0 50%;
+  //   max-width: 50%;
+  // }
 `;
 
 const AboutWrapperInfo = styled.div`
@@ -256,20 +292,34 @@ const AboutWrapperInfo = styled.div`
   justify-content: center;
   flex-direction: column;
   box-sizing: border-box;
+  @media (max-width: 37.5em) {
+    align-items: center;
+  }
 `;
 
 const AboutWrapperInfoText = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 20px;
+  font-size: 1.6rem;
   text-align: left;
   margin-top: 0;
   margin-bottom: 1rem;
 
   display: block;
   margin-block-start: 1em;
-  margin-block-end: 1em;
+  margin-block-end: 1.5rem;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
+
+  @media (max-width: 56.25em) {
+    font-size: 1.3rem;
+    // text-align: center;
+  }
+
+  @media (max-width: 37.5em) {
+    font-size: 1rem;
+    padding-right: 3rem;
+    // text-align: center;
+  }
 `;
 
 export default AboutSection;

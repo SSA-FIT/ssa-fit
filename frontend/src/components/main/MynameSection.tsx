@@ -99,27 +99,27 @@ const MainTitle = styled.h1`
   opacity: 1;
   animation-name: react-reveal-25703168730339-4;
 
-  @media (max-width: 20em) {
-    font-size: 2.8rem;
-  }
-  @media (max-width: 37.5em) {
-    font-size: 3.5rem;
-    line-height: 1.5;
+  font-size: 5.6rem;
+  font-weight: 700;
+  margin-bottom: 3.2rem;
+  text-align: left;
+
+  @media (max-width: 75em) {
+    font-size: 4rem;
   }
 
   @media (max-width: 56.25em) {
     font-size: 3.6rem;
     text-align: center;
   }
-
-  @media (max-width: 75em) {
-    font-size: 4rem;
+  @media (max-width: 37.5em) {
+    font-size: 3.5rem;
+    line-height: 1.5;
   }
 
-  font-size: 5.6rem;
-  font-weight: 700;
-  margin-bottom: 3.2rem;
-  text-align: left;
+  @media (max-width: 20em) {
+    font-size: 2.8rem;
+  }
 `;
 
 const MainText = styled.span`
