@@ -11,19 +11,18 @@ const MynameSection: React.FC = () => {
         <Container>
           <Fade duration={1000} delay={500} distance="30px">
             <MainTitle>
-              Hi, my name is
-              <MainText> SSA-FIT</MainText>
+              READY, ACTION,
               <br />
-              I'm the Unknown Developer.
+              <MainText> SSA-FIT</MainText>
             </MainTitle>
           </Fade>
           <MoreButtonWrapper>
             <Fade duration={1000} delay={1000} distance="30px">
               <MoreButton>
                 {token !== null ? (
-                  <Link to="/exercise">Ready, Action, SSA-FIT</Link>
+                  <Link to="/exercise">LET'S WORK OUT</Link>
                 ) : (
-                  <Link to="/nonuser">Ready, Action, SSA-FIT</Link>
+                  <Link to="/nonuser">LET'S WORK OUT</Link>
                 )}
               </MoreButton>
             </Fade>
