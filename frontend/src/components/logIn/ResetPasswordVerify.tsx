@@ -466,7 +466,7 @@ const ResetPasswordVerify: React.FC = () => {
                             : ''
                         }
                       >
-                        {!loading ? '이메일 인증' : <Circular />}
+                        {!loading ? '이메일 인증' : <Circular size={30} />}
                       </ResetPasswordButton>
                       <FindWrapper>
                         <FindItemWrapper>
@@ -503,7 +503,11 @@ const ResetPasswordVerify: React.FC = () => {
                             )}
                           </Timer>
                           <RequestAgainCode onClick={requestAgainCode}>
-                            {!loading ? '인증번호 재전송' : <Circular />}
+                            {!loading ? (
+                              '인증번호 재전송'
+                            ) : (
+                              <Circular size={10} />
+                            )}
                           </RequestAgainCode>
                         </CodeTimerWrapper>
                       )}
