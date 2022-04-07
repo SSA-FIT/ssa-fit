@@ -34,9 +34,6 @@ const MynameSection: React.FC = () => {
 };
 
 const Section = styled.section`
-  @media (max-width: 37.5em) {
-    padding: 0 1.6rem;
-  }
   font-family: 'Montserrat', sans-serif;
   min-height: 100vh;
   height: 100vh;
@@ -46,7 +43,7 @@ const Section = styled.section`
   background: #fff;
   font-weight: 400;
   color: #272341;
-  padding: 0 5.6rem;
+  padding: 4rem 5rem;
   margin-bottom: 0;
   top: 0;
   left: 0;
@@ -57,6 +54,10 @@ const Section = styled.section`
 
   @media (min-width: 576px) {
     padding: 4rem 2rem;
+  }
+
+  @media (min-width: 1060px) {
+    padding: 4rem 5rem;
   }
 `;
 

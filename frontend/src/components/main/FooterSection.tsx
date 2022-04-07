@@ -21,22 +21,22 @@ const FooterSection: React.FC = () => {
           <SocialLink>
             <Tooltip title="개인 정보 처리 방침">
               <SocialLinkItem to="/terms_of_service" target="_blank">
-                <Image src="/images/common/UserIcon2.png" />
+                <img src="/images/common/UserIcon2.png" />
               </SocialLinkItem>
             </Tooltip>
             <Tooltip title="이용 약관">
               <SocialLinkItem to="/privacy" target="_blank">
-                <Image src="/images/common/UserIcon2.png" />
+                <img src="/images/common/UserIcon2.png" />
+              </SocialLinkItem>
+            </Tooltip>
+            <Tooltip title="SSAFIT 깃허브">
+              <SocialLinkItem to="/">
+                <img src="/images/common/YouTube1.png" />
               </SocialLinkItem>
             </Tooltip>
             <Tooltip title="SSAFIT UCC">
               <SocialLinkItem to="/">
-                <Image src="/images/common/YouTube1.png" />
-              </SocialLinkItem>
-            </Tooltip>
-            <Tooltip title="SSAFIT GitHub">
-              <SocialLinkItem to="/">
-                <Image src="/images/common/GitHubMarkLight.png" />
+                <img src="/images/common/GitHubMarkLight.png" />
               </SocialLinkItem>
             </Tooltip>
           </SocialLink>
@@ -71,10 +71,7 @@ const Container = styled.div`
   }
 `;
 
-const BackToTop = styled.span`
-  display: flex;
-  justify-content: center;
-`;
+const BackToTop = styled.span``;
 
 const BacktoTopLink = styled.a`
   color: inherit;
@@ -114,20 +111,9 @@ const SocialLinkItem = styled(Link)`
   text-decoration: none;
   background-color: transparent;
   cursor: pointer;
-  @media (max-width: 576px) {
-    margin-right: 1px;
-  }
-`;
-
-const Image = styled.img`
-  @media (max-width: 576px) {
-    width: 60px;
-    hight: 60px;
-  }
 `;
 
 const FooterText = styled.p`
-  text-align: center;
   color: grey;
   font-size: 1.3rem;
   font-family: Montserrat, sans-serif;
