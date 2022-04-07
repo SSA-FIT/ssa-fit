@@ -7,6 +7,13 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import Tooltip from '@mui/material/Tooltip';
 
 const FooterSection: React.FC = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <>
       <Footer>
@@ -14,7 +21,7 @@ const FooterSection: React.FC = () => {
           <BackToTop>
             <BacktoTopLink>
               <AngleUp>
-                <KeyboardArrowUpRoundedIcon />
+                <KeyboardArrowUpRoundedIcon onClick={scrollToTop} />
               </AngleUp>
             </BacktoTopLink>
           </BackToTop>
