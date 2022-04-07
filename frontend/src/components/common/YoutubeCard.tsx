@@ -185,6 +185,7 @@ const Image = styled.img`
   &.selection {
     object-fit: contain;
     box-shadow: none;
+    border: 0;
   }
 
   box-shadow: 0px 10px 10px 1px #d3d3d3;

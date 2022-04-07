@@ -125,7 +125,6 @@ const ProjectsSection: React.FC = () => {
     </>
   );
 };
-
 const ProjectsSectionWrapper = styled.section`
   background-color: #fff;
   color: #272341;
@@ -239,18 +238,20 @@ const ProjectName = styled.h3`
   font-size: 2.5rem;
   line-height: 1.2;
   margin-top: 0;
+  font-family: 'Gowun Dodum', sans-serif;
 `;
 
 const DescriptionWrapper = styled.div``;
 
 const Description = styled.p`
-  font-size: 22px;
+  font-size: 20px;
   margin-top: 0;
   margin-bottom: 1rem;
   text-align: left;
   color: #272341;
   font-weight: 400;
   line-height: 1.5;
+  font-family: 'Gowun Dodum', sans-serif;
 `;
 
 const Mb = styled.p`
@@ -260,6 +261,7 @@ const Mb = styled.p`
 `;
 
 const LinkToService = styled(Link)`
+  font-family: 'Gowun Dodum', sans-serif;
   text-decoration: none;
   background-image: linear-gradient(135deg, #02aab0, #00cdac);
   border-width: 2px;

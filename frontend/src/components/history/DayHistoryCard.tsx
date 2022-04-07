@@ -14,6 +14,8 @@ const DayHistoryCard: React.FC<Props> = ({ exerciseHistoryDay }) => {
     `\\img\\potato.gif`,
     `\\img\\avocado.gif`,
     `\\img\\taco.gif`,
+    `\\img\\donut.gif`,
+    `\\img\\pothos.gif`,
   ];
   return (
     <>
@@ -33,7 +35,7 @@ const DayHistoryCard: React.FC<Props> = ({ exerciseHistoryDay }) => {
           </ExerciseWrapper>
         ) : (
           <RestDayWrapper>
-            <RestImage src={restImage[Math.floor(Math.random() * 7)]} />
+            <RestImage src={restImage[Math.floor(Math.random() * 9)]} />
           </RestDayWrapper>
         )}
       </DayWrapper>
