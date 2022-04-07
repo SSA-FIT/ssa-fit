@@ -2,12 +2,22 @@ import styled from '@emotion/styled';
 const Fade = require('react-reveal/Fade');
 
 const AboutSection: React.FC = () => {
+  const restImage: string[] = [
+    `\\img\\orange.gif`,
+    `\\img\\broccoli.gif`,
+    `\\img\\coffee.gif`,
+    `\\img\\mushroom.gif`,
+    `\\img\\potato.gif`,
+    `\\img\\avocado.gif`,
+    `\\img\\taco.gif`,
+  ];
+
   return (
     <>
       <Section>
         <Container>
           <Fade duration={1000} delay={600} distance="30px">
-            <MainTitle>About SSA-FIT</MainTitle>
+            <MainTitle>ABOUT</MainTitle>
           </Fade>
           <AboutWrapper>
             <AboutColumn>
@@ -16,7 +26,9 @@ const AboutSection: React.FC = () => {
                   <Image src="\img\broccoli.gif" />
                   {/* <img src="\images\common\menu.png" /> */}
                   <Picture>
-                    <ImageSecond src="\img\broccoli.gif" />
+                    <ImageSecond
+                      src={restImage[Math.floor(Math.random() * 7)]}
+                    />
                   </Picture>
                 </ImageWrapper>
               </AboutImageWrapper>
@@ -25,29 +37,27 @@ const AboutSection: React.FC = () => {
               <AboutWrapperInfo>
                 <Fade duration={1000} delay={1000} distance="30px">
                   <AboutWrapperInfoText>
-                    코로나19 이후 "코로나 블루" 라는 용어가 생길정도로 많은
-                    사람들이 우울증을 있습니다. <br />
-                    별다른 신체활동을 하지 않고, 야외에서의 활동 시간이 적은
-                    사람들은 불안과 우울증정도가 매우 심하다는 조사 결과도
-                    있는데요. <br />
-                    코로나는 정신적인 건강을 해치는 것뿐만 아니라 신체적으로도
-                    영향을 미치고 있습니다.
+                    SSA-FIT은 남녀노소 모두의 건강을 지키기 위해 제안하는 기초
+                    체력증진 운동 추천 서비스입니다. <br />
+                    코로나 이후, 많은 사람들이 우울감을 느끼고 코로나 블루를
+                    경험하고 있습니다. 신체 활동 시간과 야외 활동 빈도가
+                    적어지면 사람들은 불안과 우울감, 무기력증 발생 가능성이
+                    높아지기 때문입니다. 이처럼 운동부족은 정신적인 건강 뿐만
+                    아니라 신체적으로도 많은 영향을 미치고 있습니다. 코로나
+                    장기화로 인해 청소년 기초체력 저하, 노쇠 증후군, 면역력
+                    저하, 비만율 증가 등의 건강 문제가 발생하게 되었습니다.
                     <br />
-                    코로나 "확찐자" 라는 말 들어보셨을텐데요. 사회적 거리두기로
-                    외출이 자유롭지 못하고, 이로 인해 우울감은 심해지고 집에만
-                    있다보니 활동량이 자연스레 적어지는 악순환 속에서 많은
-                    사람들이 살이 찌고 있다고 합니다.
-                  </AboutWrapperInfoText>
-                  <AboutWrapperInfoText>
-                    이처럼 국민의 정신적, 신체적 건강이 많이 나빠지고 있는
-                    상황에서 디지털, 온라인 시장은 활성화되고 있습니다. <br />
-                    특히 영상 콘텐츠의 시청 시간이 많이 증가하고 있습니다.
+                    이처럼 국민의 정신 건강과 전 연령 기초체력 저하 현상 속에서,
+                    저희 SSA-FIT 팀은 어떤 서비스로 사람들에게 도움을 줄 수
+                    있을까 많은 고민을 했습니다. 또한 현재 디지털, 온라인 시장이
+                    활성화되고 특히 영상 콘텐츠 소비가 증가하는 점에 주목하여
+                    운동 추천 아이디어를 기획했습니다. 모두가 개인별 맞춤 추천
+                    운동을 편리하고 쉽게 따라할 수 있도록 제공하는 SSA-FIT
+                    서비스를 여러분께 제안합니다.
                     <br />
-                    코로나로 인한 사람들의 건강 악화라는 문제에 온라인 영상
-                    컨텐츠 소비가 늘어가는 현 상황을 접목하여 SSA-FIT 이라는
-                    솔루션을 제안하려고 합니다.
+                    기초체력 증진과 건강을 위해 우리 모두 SSA-FIT과 함께
+                    운동해봅시다 !
                   </AboutWrapperInfoText>
-                  <AboutWrapperInfoText>SSA-FIT</AboutWrapperInfoText>
                 </Fade>
               </AboutWrapperInfo>
             </AboutColumnSecond>
@@ -259,6 +269,7 @@ const AboutWrapperInfo = styled.div`
 `;
 
 const AboutWrapperInfoText = styled.p`
+  line-height: initial;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 20px;
   text-align: left;

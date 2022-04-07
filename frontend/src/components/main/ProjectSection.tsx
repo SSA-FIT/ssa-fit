@@ -14,13 +14,21 @@ const ProjectsSection: React.FC = () => {
               <Row id="row">
                 <Col id="col">
                   <Fade duration={1000} delay={1000} distance="30px">
-                    <ProjectName id="title">운동 추천 서비스</ProjectName>
+                    <ProjectName id="title">추천 서비스</ProjectName>
                     <DescriptionWrapper id="div">
                       <Description id="p">
-                        신체 정보 기반, ~~~ 등을 기반으로 운동 추천을 합니다.
-                        (서비스 설명)+싸핏 추천, 비로그인 체험 가능+반응형
+                        첫 번째, 개인의 나이, BMI, 운동레벨의 신체정보 기반으로
+                        운동을 추천해줍니다. 운동레벨은 SSA-FIT 자가체력진단
+                        서비스를 통해 확인할 수 있습니다. 회원가입 없이 체험이
+                        가능하고, 국민체육진흥공단 공공데이터를 사용하여
+                        신뢰도를 높였습니다.
                       </Description>
                       <Mb></Mb>
+                      <Description id="p">
+                        두 번째, 개인별 선호하는 운동과 유사도가 높은 사용자의
+                        데이터를 기반으로 SSA-FIT 만의 최적화된 알고리즘이
+                        개인별 맞춤 운동을 추천해줍니다.
+                      </Description>
                     </DescriptionWrapper>
                     <LinkToService to="/exercise" id="blank">
                       은동 추천 서비스 체험하러 가기
@@ -30,7 +38,7 @@ const ProjectsSection: React.FC = () => {
                 <ColRight id="colRignt">
                   <FadeCustom duration={1000} delay={1000} distance="30px">
                     <ImageWrapper>
-                      <ProjectLink to="#">
+                      <ProjectLink to="/exercise">
                         <Tilt>
                           <MovingImageWrapper>
                             <Hidden></Hidden>
@@ -46,7 +54,7 @@ const ProjectsSection: React.FC = () => {
                 <ColRight id="colRignt">
                   <FadeCustom duration={1000} delay={1000} distance="30px">
                     <ImageWrapper>
-                      <ProjectLink to="#">
+                      <ProjectLink to="/users/sign-up">
                         <Tilt>
                           <MovingImageWrapper>
                             <Hidden></Hidden>
@@ -59,13 +67,20 @@ const ProjectsSection: React.FC = () => {
                 </ColRight>
                 <Col id="col">
                   <Fade duration={1000} delay={1000} distance="30px">
-                    <ProjectName id="title">운동 추천 원리(특화점)</ProjectName>
+                    <ProjectName id="title">운동하기 서비스</ProjectName>
                     <DescriptionWrapper id="div">
-                      <Description id="p">서비스 강점</Description>
+                      <Description id="p">
+                        개인이 선택한 운동의 YouTube 영상을 직접 확인하며 운동을
+                        쉽게 따라할 수 있습니다. SSA-FIT 회원은 운동을 진행하며
+                        운동횟수, 세트수, 운동시간의 개인 운동 이력을 저장할 수
+                        있습니다. 운동 이력은 마이페이지에서 확인할 수 있고,
+                        주/일 별 운동 기록을 조회할 수 있습니다. 좋아하는 운동은
+                        즐겨찾기를 통해 관리하고 쉽게 확인할 수 있습니다.
+                      </Description>
                       <Mb></Mb>
                     </DescriptionWrapper>
-                    <LinkToService to="#" id="blank">
-                      싸핏 자세한 이야기 보러가기(노션 연결..?)
+                    <LinkToService to="/users/sign-up" id="blank">
+                      회원 가입하러 가기
                     </LinkToService>
                   </Fade>
                 </Col>
@@ -73,16 +88,18 @@ const ProjectsSection: React.FC = () => {
               <Row id="row">
                 <Col id="col">
                   <Fade duration={1000} delay={1000} distance="30px">
-                    <ProjectName id="title">부가 가능</ProjectName>
+                    <ProjectName id="title">TEAM SSA-FIT</ProjectName>
                     <DescriptionWrapper id="div">
                       <Description id="p">
-                        회원에게 필요한 서비스 제공(가입 시 정보 암호화, 수정,
-                        가입, 즐겨찾기, 운동 기록 조회)
+                        SSA-FIT 은 개인정보 보호를 위해 회원 가입 시, 개인의
+                        신체 정보를 모두 암호화하여 관리합니다. <br />
+                        여러분 모두의 기초체력이 표준 이상이 되는 그날까지
+                        SSA-FIT 이 함께합니다.
                       </Description>
                       <Mb></Mb>
                     </DescriptionWrapper>
                     <LinkToService to="#" id="blank">
-                      See Live
+                      SSAFIT UCC
                     </LinkToService>
                   </Fade>
                 </Col>
@@ -227,7 +244,7 @@ const ProjectName = styled.h3`
 const DescriptionWrapper = styled.div``;
 
 const Description = styled.p`
-  font-size: 1.6rem;
+  font-size: 22px;
   margin-top: 0;
   margin-bottom: 1rem;
   text-align: left;
