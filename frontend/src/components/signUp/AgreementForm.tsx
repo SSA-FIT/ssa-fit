@@ -53,12 +53,14 @@ const AgreementForm: React.FC<Props> = ({ setSignUpStep }) => {
           </AllAgreementWrapper>
           <AgreementList>
             <AgreementItem>
-              <AgreementLabel>[필수] 이용약관</AgreementLabel>
+              <AgreementLabelLink to="/terms_of_service" target="_blank">
+                [필수] 이용 약관
+              </AgreementLabelLink>
             </AgreementItem>
             <AgreementItem>
-              <AgreementLabel>
-                [필수] 개인 정보 수집 및 이용 동의
-              </AgreementLabel>
+              <AgreementLabelLink to="/privacy" target="_blank">
+                [필수] 개인 정보 처리 방침
+              </AgreementLabelLink>
             </AgreementItem>
           </AgreementList>
         </AgreementFieldSet>
@@ -168,6 +170,40 @@ const AgreementLabel = styled.label`
     background-size: 11px 9px;
   }
 
+  &.bold {
+    font-weight: 700;
+  }
+
+  @media (min-width: 1060px) {
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+`;
+
+const AgreementLabelLink = styled(Link)`
+  display: inline-block;
+  position: relative;
+  padding-left: 2.6rem;
+  color: #000;
+  font-size: 1.1rem;
+  line-height: 1.58;
+  text-indent: 0;
+
+  &::before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 0.2rem;
+    left: 0;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.2rem;
+    background-size: 11px 9px;
+  }
+  &:hover {
+    color: #02aab0;
+    cursor: pointer;
+  }
   &.bold {
     font-weight: 700;
   }

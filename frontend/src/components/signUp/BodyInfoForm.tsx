@@ -179,7 +179,7 @@ const BodyInfoForm: React.FC<Props> = ({
     if (selfTestSum >= 4 && selfTestSum < 9) setUserLevelChange('씨앗');
     else if (selfTestSum >= 9 && selfTestSum < 15) setUserLevelChange('새싹');
     else if (selfTestSum >= 15 && selfTestSum < 21) setUserLevelChange('나무');
-    else if (selfTestSum >= 21 && selfTestSum < 24) setUserLevelChange('열매');
+    else if (selfTestSum >= 21 && selfTestSum <= 24) setUserLevelChange('열매');
   }, [selfTestSum]);
 
   const handleCloseFinishButton = () => {
