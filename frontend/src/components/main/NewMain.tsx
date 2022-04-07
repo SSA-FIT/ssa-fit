@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import MynameSection from './MynameSection';
 import AboutSection from './AboutSection';
 import ProjectsSection from './ProjectSection';
+import ContactSection from './ContactSection';
 
 const NewMain: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const NewMain: React.FC = () => {
           <MynameSection></MynameSection>
           <AboutSection></AboutSection>
           <ProjectsSection></ProjectsSection>
+          <ContactSection></ContactSection>
         </Wrapper>
       </Container>
     </>

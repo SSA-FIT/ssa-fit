@@ -212,7 +212,7 @@ const ProfileCard: React.FC = () => {
       setUserLevelIcon('🌳');
     }
 
-    if (selfTestSum >= 21 && selfTestSum < 24) {
+    if (selfTestSum >= 21 && selfTestSum <= 24) {
       setUserLevelChange('열매');
       setUserLevelIcon('🍎');
     }
@@ -820,7 +820,7 @@ const Contents = styled.div`
 
   @media (min-width: 1060px) {
     max-width: 128rem;
-    padding: 6rem 0 10rem;
+    padding: 6rem 6rem 10rem;
   }
 
   @media (max-width: 667px) {
