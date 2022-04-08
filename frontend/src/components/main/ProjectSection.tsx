@@ -2,8 +2,10 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
 import { Fade } from 'react-awesome-reveal';
+import useToken from '../../hooks/useToken';
 
 const ProjectsSection: React.FC = () => {
+  const token = useToken();
   return (
     <>
       <ProjectsSectionWrapper id="projects">
@@ -30,7 +32,10 @@ const ProjectsSection: React.FC = () => {
                         개인별 맞춤 운동을 추천해줍니다.
                       </Description>
                     </DescriptionWrapper>
-                    <LinkToService to="/exercise" id="blank">
+                    <LinkToService
+                      to={token === null ? '/nonuser' : '/exercise'}
+                      id="blank"
+                    >
                       운동 추천 서비스 체험하러 가기
                     </LinkToService>
                   </Fade>
@@ -38,7 +43,9 @@ const ProjectsSection: React.FC = () => {
                 <ColRight id="colRignt">
                   <FadeCustom duration={1000} delay={1000}>
                     <ImageWrapper>
-                      <ProjectLink to="/exercise">
+                      <ProjectLink
+                        to={token === null ? '/nonuser' : '/exercise'}
+                      >
                         <Tilt>
                           <MovingImageWrapper>
                             <Hidden></Hidden>
