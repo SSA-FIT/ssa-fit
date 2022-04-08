@@ -34,7 +34,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
   const token = useToken();
   const [videoIndex, setVideoIndex] = useState<number>(0);
   const [repeatCount, setRepeatCount] = useState<number>(0);
-  const [setCount, setSetCount] = useState<number>(0);
+  const [bundleCount, setBundleCount] = useState<number>(0);
 
   const [exerciseRecordList, setExerciseRecordList] = useState<recoRecord[]>(
     [],
@@ -53,47 +53,29 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
     }
   };
 
-  // useEffect(()={
-  //   if (repeatCount> 3) {
-  //     setRepeatCount(repeatCount.slice(0, 3));
-  //   }
-  // },[repeatCount])
-  const handleSetCountOnChange = (
+  const handleBundleCountOnChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setSetCount(parseInt(event.target.value, 10));
+    setBundleCount(parseInt(event.target.value, 10));
     if (event.target.value === '') {
-      setRepeatCount(0);
+      setBundleCount(0);
+    }
+    if (event.target.value.length > 3) {
+      setBundleCount(parseInt(event.target.value.slice(0, 3), 10));
     }
   };
 
-  // useEffect(() => {
-  //   if (nonUserDialogOpen) {
-  //     controlExerciseRecordList(videoIndex);
-  //   }
-  // }, [nonUserDialogOpen]);
-
   useEffect(() => {
-    if ((repeatCount > 0 && setCount > 0) || duration !== '00:00:00') {
+    if ((repeatCount > 0 && bundleCount > 0) || duration !== '00:00:00') {
       setNextButtonDisabled(false);
     } else {
       setNextButtonDisabled(true);
     }
-
-    // if (repeatCount > 0 && setCount > 0) {
-    //   setNextButtonDisabled(false);
-    // } else {
-    //   setNextButtonDisabled(true);
-    // }
-  }, [repeatCount, setCount, duration]);
-
-  const handlePrevButton = (event: React.MouseEvent) => {
-    setVideoIndex(videoIndex - 1);
-  };
+  }, [repeatCount, bundleCount, duration]);
 
   const resetRecordItem = () => {
     setRepeatCount(0);
-    setSetCount(0);
+    setBundleCount(0);
     setDuration('00:00:00');
   };
 
@@ -120,8 +102,8 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
         ...exerciseRecordList,
         {
           id: userVideoSelectList[videoIndex].id,
-          countPerSet: repeatCount * setCount,
-          setCount,
+          countPerSet: repeatCount * bundleCount,
+          setCount: bundleCount,
           durationTime: duration,
         },
       ]);
@@ -132,8 +114,9 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
     tempExerciseRecordList[findExerciseId] = {
       id: userVideoSelectList[videoIndex].id,
       countPerSet:
-        exerciseRecordList[findExerciseId].countPerSet + repeatCount * setCount,
-      setCount: exerciseRecordList[findExerciseId].setCount + setCount,
+        exerciseRecordList[findExerciseId].countPerSet +
+        repeatCount * bundleCount,
+      setCount: exerciseRecordList[findExerciseId].setCount + bundleCount,
       durationTime: `${
         parseInt(duration.split(':')[0], 10) +
         parseInt(
@@ -182,7 +165,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
             dispatch(push('/'));
           })
           .catch((error) => {
-            const { status, message } = error.response.data;
+            const { message } = error.response.data;
             Swal.fire({
               icon: 'error',
               html: message,
@@ -234,13 +217,15 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
             {videoIndex + 1 === userVideoSelectList.length &&
               (nextButtonDisabled ? (
                 <Tooltip title="반복횟수/세트수 또는 시간을 입력해주세요.">
-                  <FinishButton
-                    onClick={handleNextButton}
-                    disabled={nextButtonDisabled}
-                  >
-                    운동 완료
-                    <WarningAmberRoundedIcon />
-                  </FinishButton>
+                  <span>
+                    <FinishButton
+                      onClick={handleNextButton}
+                      disabled={nextButtonDisabled}
+                    >
+                      운동 완료
+                      <WarningAmberRoundedIcon />
+                    </FinishButton>
+                  </span>
                 </Tooltip>
               ) : (
                 <FinishButton
@@ -264,7 +249,6 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                defaultValue="0"
                 value={repeatCount}
                 sx={{
                   color: '#00cdac',
@@ -273,7 +257,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
             </InputWrapper>
             <InputWrapper>
               <TextField
-                onChange={handleSetCountOnChange}
+                onChange={handleBundleCountOnChange}
                 id="outlined-number"
                 label="세트 수"
                 type="number"
@@ -281,7 +265,7 @@ const VideoPlayCard: React.FC<Props> = ({ userVideoSelectList }) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                value={setCount}
+                value={bundleCount}
               />
             </InputWrapper>
             <InputWrapper>
@@ -437,51 +421,6 @@ const StopButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const StopButton = styled.button`
-  font-size: 20px;
-  color: rgb(153, 51, 255);
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  background-color: white;
-  border: none;
-
-  &:hover {
-    outline: 0;
-    // border: 2px solid rgb(153, 51, 255);
-    background-color: rgb(235, 224, 246);
-    border-radius: 0.3rem;
-  }
-`;
-
-const InputName = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 8px;
-`;
-
-const Input = styled.input`
-  margin-right: 8px;
-  border: 0;
-  border-bottom: 1px solid #02aab0;
-  border-radius: 0;
-  text-align: center;
-`;
-
-const TimeInputWrapper = styled.div`
-  width: 100%;
-  margin-right: 8px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const TimeInput = styled.input`
-  border: 0;
-  border-bottom: 1px solid #02aab0;
-  border-radius: 0;
-  margin-right: 8px;
-  text-align: center;
 `;
 
 export default VideoPlayCard;
