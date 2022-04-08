@@ -11,6 +11,7 @@ import {
   ProfileRecoWithoutTokenRequest,
   recoRecord,
 } from '../../types/recommendationTypes';
+import styled from '@emotion/styled';
 
 interface Props {
   nonUserDialogOpen: boolean;
@@ -80,22 +81,22 @@ const NonUserDialog: React.FC<Props> = ({
 
   return (
     <div>
-      <Dialog
+      <DialogCustom
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
+        <DialogTitle id="alert-dialog-title" sx={{ color: '#02aab0' }}>
           싸핏과 함께한 운동 시간 어떠셨나요?
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            더 섬세한 추천으로 반영된 운동을 하고 싶다면 회원으로 싸핏을
-            만나보세요
+            더 섬세한 추천이 반영된 운동을 하고 싶다면 회원으로 싸핏을
+            만나보세요.
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ color: '#02aab0' }}>
           <Link to="/">홈으로</Link>
           <Link
             to={{
@@ -106,9 +107,13 @@ const NonUserDialog: React.FC<Props> = ({
             회원가입
           </Link>
         </DialogActions>
-      </Dialog>
+      </DialogCustom>
     </div>
   );
 };
+
+const DialogCustom = styled(Dialog)`
+  background-color: #00cdaccc;
+`;
 
 export default NonUserDialog;

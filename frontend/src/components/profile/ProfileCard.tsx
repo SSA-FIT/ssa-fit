@@ -768,8 +768,14 @@ const ProfileCard: React.FC = () => {
                   </Withdrawal>
                 </WithdrawalWrapper>
 
-                <Dialog open={delOpen} onClose={handleDelClose}>
-                  <MuiDialogTitle>회원 탈퇴</MuiDialogTitle>
+                <Dialog
+                  open={delOpen}
+                  onClose={handleDelClose}
+                  sx={{ backgroundColor: '#00cdaccc' }}
+                >
+                  <MuiDialogTitle sx={{ color: '#02aab0' }}>
+                    회원 탈퇴
+                  </MuiDialogTitle>
                   <DialogContent>
                     회원탈퇴하시겠습니까? 탈퇴를 원하시면 비밀번호를
                     입력해주세요.
@@ -1052,9 +1058,9 @@ const Input = styled.input`
   width: 100%;
   height: 4rem;
   margin: 0;
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid #02aab0;
+  padding: 30px;
+  border: 1px solid #02aab0;
+
   border-radius: 0;
   color: #000;
   font-size: 1.6rem;
