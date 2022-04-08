@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import useHistoryList from '../../hooks/useHistoryList';
 import useToken from '../../hooks/useToken';
 import HistoryService from '../../services/HistoryService';
 import { exerciseRecord } from '../../types/historyTypes';

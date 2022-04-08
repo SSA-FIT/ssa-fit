@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import Tilt from 'react-parallax-tilt';
-const Fade = require('react-reveal/Fade');
+import { Fade } from 'react-awesome-reveal';
 
 const ProjectsSection: React.FC = () => {
   return (
@@ -9,11 +9,11 @@ const ProjectsSection: React.FC = () => {
       <ProjectsSectionWrapper id="projects">
         <Container id="container">
           <ProjectWrapper id="project-wrapper">
-            <Fade duration={1000} delay={500} distance="30px">
+            <Fade duration={1000} delay={500}>
               <SectionTitle id="title">SSA-FIT</SectionTitle>
               <Row id="row">
                 <Col id="col">
-                  <Fade duration={1000} delay={1000} distance="30px">
+                  <Fade duration={1000} delay={1000}>
                     <ProjectName id="title">추천 서비스</ProjectName>
                     <DescriptionWrapper id="div">
                       <Description id="p">
@@ -36,7 +36,7 @@ const ProjectsSection: React.FC = () => {
                   </Fade>
                 </Col>
                 <ColRight id="colRignt">
-                  <FadeCustom duration={1000} delay={1000} distance="30px">
+                  <FadeCustom duration={1000} delay={1000}>
                     <ImageWrapper>
                       <ProjectLink to="/exercise">
                         <Tilt>
@@ -52,7 +52,7 @@ const ProjectsSection: React.FC = () => {
               </Row>
               <Row id="row" className="second">
                 <ColRight id="colRignt">
-                  <FadeCustom duration={1000} delay={1000} distance="30px">
+                  <FadeCustom duration={1000} delay={1000}>
                     <ImageWrapper>
                       <ProjectLink to="/users/sign-up">
                         <Tilt>
@@ -66,7 +66,7 @@ const ProjectsSection: React.FC = () => {
                   </FadeCustom>
                 </ColRight>
                 <Col id="col">
-                  <Fade duration={1000} delay={1000} distance="30px">
+                  <Fade duration={1000} delay={1000}>
                     <ProjectName id="title">운동하기 서비스</ProjectName>
                     <DescriptionWrapper id="div">
                       <Description id="p">
@@ -87,7 +87,7 @@ const ProjectsSection: React.FC = () => {
               </Row>
               <Row id="row">
                 <Col id="col">
-                  <Fade duration={1000} delay={1000} distance="30px">
+                  <Fade duration={1000} delay={1000}>
                     <ProjectName id="title">TEAM SSA-FIT</ProjectName>
                     <DescriptionWrapper id="div">
                       <Description id="p">
@@ -104,7 +104,7 @@ const ProjectsSection: React.FC = () => {
                   </Fade>
                 </Col>
                 <ColRight id="colRignt">
-                  <FadeCustom duration={1000} delay={1000} distance="30px">
+                  <FadeCustom duration={1000} delay={1000}>
                     <ImageWrapper>
                       <ProjectLink to="#">
                         <Tilt>

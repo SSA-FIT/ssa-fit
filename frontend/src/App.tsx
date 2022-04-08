@@ -19,11 +19,12 @@ import ExerciseHistoryPage from './pages/ExerciseHistoryPage';
 import SearchIdPage from './pages/SearchIdPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import ExerciseBookmarkPage from './pages/ExerciseBookmarkPage';
-
+import { ErrorBoundary } from 'react-error-boundary';
 import NonUserProfilePage from './pages/NonUserProfilePage';
 import NewMainPage from './pages/NewMainPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
+import ErrorPage from './pages/ErrorPages';
 
 const App: React.FC = () => {
   return (
@@ -62,6 +63,7 @@ const App: React.FC = () => {
             path="/terms_of_service"
             component={TermsOfServicePage}
           />
+          <Route component={ErrorPage} />
         </Switch>
       </ConnectedRouter>
     </>

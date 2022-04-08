@@ -64,7 +64,6 @@ const Title = styled.h2`
   animation-delay: 300ms;
   animation-iteration-count: 1;
   opacity: 1;
-  animation-name: react-reveal-836151465924688-2;
   margin: 0 0 4.5rem;
   font-size: 4rem;
   font-weight: 700;
@@ -82,16 +81,14 @@ const Title = styled.h2`
 `;
 
 const ContactWrapper = styled.div`
-animation-fill-mode: both;
-    animation-duration: 1000ms;
-    animation-delay: 800ms;
-    animation-iteration-count: 1;
-    opacity: 1;
-    animation-name: react-reveal-836151465924688-3;
-    margin-top: 3.2rem;
-    padding: 0 2rem;
-    backface-visibility: hidden;
-}
+  animation-fill-mode: both;
+  animation-duration: 1000ms;
+  animation-delay: 800ms;
+  animation-iteration-count: 1;
+  opacity: 1;
+  margin-top: 3.2rem;
+  padding: 0 2rem;
+  backface-visibility: hidden;
 `;
 
 const ContactWrapperText = styled.p`

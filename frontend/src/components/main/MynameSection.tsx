@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import useToken from '../../hooks/useToken';
-const Fade = require('react-reveal/Fade');
+
+import { Fade } from 'react-awesome-reveal';
 
 const MynameSection: React.FC = () => {
   const token = useToken();
@@ -9,7 +10,7 @@ const MynameSection: React.FC = () => {
     <>
       <Section>
         <Container>
-          <Fade duration={1000} delay={500} distance="30px">
+          <Fade duration={1000} delay={500}>
             <MainTitle>
               READY, ACTION,
               <br />
@@ -17,7 +18,7 @@ const MynameSection: React.FC = () => {
             </MainTitle>
           </Fade>
           <MoreButtonWrapper>
-            <Fade duration={1000} delay={1000} distance="30px">
+            <Fade duration={1000} delay={1000}>
               <MoreButton>
                 {token !== null ? (
                   <Link to="/exercise">LET'S WORK OUT</Link>
@@ -97,7 +98,7 @@ const MainTitle = styled.h1`
   animation-delay: 500ms;
   animation-iteration-count: 1;
   opacity: 1;
-  animation-name: react-reveal-25703168730339-4;
+  animation-name: -25703168730339-4;
 
   font-size: 5.6rem;
   font-weight: 700;
@@ -128,13 +129,12 @@ const MainText = styled.span`
   -webkit-text-fill-color: transparent;
 `;
 
-const MoreButtonWrapper = styled.p`
+const MoreButtonWrapper = styled.div`
   animation-fill-mode: both;
   animation-duration: 1000ms;
   animation-delay: 1000ms;
   animation-iteration-count: 1;
   opacity: 1;
-  animation-name: react-reveal-25703168730339-4;
 
   display: flex;
   font-family: Montserrat, sans-serif;

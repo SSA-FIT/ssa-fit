@@ -236,17 +236,6 @@ const SectionName = styled.h1`
   }
 `;
 
-const Title = styled.h2`
-  color: #02aab0;
-  font-weight: 500;
-
-  @media (min-width: 1060px) {
-    margin: 4rem 0 0.8rem;
-    font-size: 2.4rem;
-    line-height: 1.5;
-  }
-`;
-
 const RecommendationWrapper = styled.div`
   padding: 2rem 1.6rem;
   border: 1px solid #d9dbe1;

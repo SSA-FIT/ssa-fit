@@ -273,11 +273,10 @@ const RestImage = styled.img`
   @media (max-width: 1060px) {
     height: 120px;
   }
-  
+
   @media (max-width: 575px) {
     height: 100px;
   }
-
 `;
 
 const AcoountWrapper = styled.div`
