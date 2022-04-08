@@ -157,6 +157,7 @@ const ExerciseBookMark = styled.input`
   overflow: hidden;
   padding: 0;
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 const ExerciseBookMarkIconchecked = styled(StarRoundedIcon)`
@@ -165,6 +166,7 @@ const ExerciseBookMarkIconchecked = styled(StarRoundedIcon)`
   right: 0px;
   width: 2.5em;
   height: 2.5em;
+  cursor: pointer;
 `;
 
 const ExerciseDescription = styled.p`
