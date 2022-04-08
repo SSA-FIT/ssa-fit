@@ -28,20 +28,22 @@ const EntireRecommendation: React.FC<UserSelectListProp> = ({
     <Base>
       {/* <Title>전체 운동 목록</Title> */}
       <ExerciseBackdrop backDropOpen={isLoading} />
-      <Slider length={entireRecoList.length}>
-        {entireRecoList.map((entireReco) => (
-          <Card
-            userRecoSelectList={userRecoSelectList}
-            setUserRecoSelectList={setUserRecoSelectList}
-            key={entireReco.id}
-            id={entireReco.id}
-            name={entireReco.name}
-            imageURL={entireReco.imageURL}
-            score={null}
-            selection={false}
-          />
-        ))}
-      </Slider>
+      {entireRecoList.length !== 0 && (
+        <Slider length={entireRecoList.length}>
+          {entireRecoList.map((entireReco) => (
+            <Card
+              userRecoSelectList={userRecoSelectList}
+              setUserRecoSelectList={setUserRecoSelectList}
+              key={entireReco.id}
+              id={entireReco.id}
+              name={entireReco.name}
+              imageURL={entireReco.imageURL}
+              score={null}
+              selection={false}
+            />
+          ))}
+        </Slider>
+      )}
     </Base>
   );
 };

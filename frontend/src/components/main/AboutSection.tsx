@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-const Fade = require('react-reveal/Fade');
+import { Fade } from 'react-awesome-reveal';
 
 const AboutSection: React.FC = () => {
   const restImage: string[] = [
@@ -18,7 +18,7 @@ const AboutSection: React.FC = () => {
     <>
       <Section>
         <Container>
-          <Fade duration={1000} delay={600} distance="30px">
+          <Fade duration={1000} delay={600}>
             <MainTitle>ABOUT</MainTitle>
           </Fade>
           <AboutWrapper>
@@ -37,7 +37,7 @@ const AboutSection: React.FC = () => {
             </AboutColumn>
             <AboutColumnSecond>
               <AboutWrapperInfo>
-                <Fade duration={1000} delay={1000} distance="30px">
+                <Fade duration={1000} delay={1000}>
                   <AboutWrapperInfoText>
                     SSA-FIT은 남녀노소 모두의 건강을 지키기 위해 제안하는 기초
                     체력증진 운동 추천 서비스입니다.
@@ -123,7 +123,6 @@ const MainTitle = styled.h2`
   animation-delay: 300ms;
   animation-iteration-count: 1;
   opacity: 1;
-  animation-name: react-reveal-25703168730339-2;
   margin: 0 0 4.5rem;
   font-size: 4rem;
   font-weight: 700;
@@ -203,7 +202,6 @@ const AboutImageWrapper = styled.div`
   animation-delay: 600ms;
   animation-iteration-count: 1;
   opacity: 1;
-  animation-name: react-reveal-25703168730339-3;
   display: flex;
   height: 100%;
   align-items: center;
@@ -302,7 +300,6 @@ const AboutWrapperInfo = styled.div`
   animation-delay: 1000ms;
   animation-iteration-count: 1;
   opacity: 1;
-  animation-name: react-reveal-25703168730339-4;
   display: flex;
   height: 100%;
   justify-content: center;
