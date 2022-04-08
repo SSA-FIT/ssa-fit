@@ -41,6 +41,11 @@ const Header: React.FC = () => {
     };
     setResponsiveness();
     window.addEventListener('resize', () => setResponsiveness());
+
+    return () => {
+      window.removeEventListener('resize', () => setResponsiveness());
+      setResponsiveness();
+    };
   }, []);
 
   const restImage: string[] = [

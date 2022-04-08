@@ -1203,6 +1203,12 @@ const Withdrawal = styled.button`
   position: relative;
   font-size: 1.4rem;
   text-decoration: none;
+  display: inline-block;
+  border: 0;
+  background: none;
+  color: #00cdac;
+  text-indent: 0;
+  cursor: pointer;
   @media (min-width: 1060px) {
     font-size: 1.6rem;
     display: inline-block;
@@ -1212,6 +1218,7 @@ const Withdrawal = styled.button`
     text-indent: 0;
   }
 `;
+
 const ConfirmWrapper = styled.div`
   justify-content: space-between;
   display: flex;
@@ -1232,6 +1239,34 @@ const ConfirmWrapper = styled.div`
 const Cancel = styled.a`
   flex: 6;
   margin-right: 0.4rem;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 1.5rem 2rem 1.6rem;
+  border: 1px solid #02aab0;
+  border-radius: 0.2rem;
+  background-color: #fff;
+  color: #02aab0;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1.58;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  appearance: none;
+  margin-right: 0.4rem;
+  @media (min-width: 1060px) {
+    flex: none;
+    display: inline-block;
+    width: auto;
+    min-width: 24rem;
+    padding: 1.5rem 2rem;
+    font-size: 1.8rem;
+    line-height: 1.56;
+  }
+  /* flex: 6;
+  margin-right: 0.4rem;
   background-color: #fff;
   color: #02aab0;
   display: inline-flex;
@@ -1244,7 +1279,8 @@ const Cancel = styled.a`
   text-align: center;
   cursor: pointer;
   appearance: none;
-
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-weight: 700;
   @media (min-width: 1060px) {
     flex: none;
 
@@ -1253,7 +1289,7 @@ const Cancel = styled.a`
     padding: 1.5rem 2rem;
     font-size: 1.8rem;
     line-height: 1.56;
-  }
+  } */
 `;
 
 const ConfirmButton = styled.button`

@@ -131,6 +131,7 @@ const BookMark = styled.input`
   overflow: hidden;
   padding: 0;
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 const BookMarkIconchecked = styled(StarRoundedIcon)`
@@ -142,5 +143,6 @@ const BookMarkIconchecked = styled(StarRoundedIcon)`
   padding: 0;
   margin-bottom: 40px;
   margin-right: 20px;
+  cursor: pointer;
 `;
 export default BookMarkItemCard;

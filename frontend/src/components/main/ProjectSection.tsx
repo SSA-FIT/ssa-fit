@@ -98,9 +98,12 @@ const ProjectsSection: React.FC = () => {
                       </Description>
                       <Mb></Mb>
                     </DescriptionWrapper>
-                    <LinkToService to="#" id="blank">
+                    <LinkToYoutube
+                      href="https://youtu.be/Go2zokmm9rw"
+                      id="blank"
+                    >
                       SSAFIT UCC
-                    </LinkToService>
+                    </LinkToYoutube>
                   </Fade>
                 </Col>
                 <ColRight id="colRignt">
@@ -261,6 +264,45 @@ const Mb = styled.p`
 `;
 
 const LinkToService = styled(Link)`
+  font-family: 'Gowun Dodum', sans-serif;
+  text-decoration: none;
+  background-image: linear-gradient(135deg, #02aab0, #00cdac);
+  border-width: 2px;
+  border-style: solid;
+  -o-border-image: linear-gradient(135deg, #02aab0, #00cdac);
+  border-image: linear-gradient(135deg, #02aab0, #00cdac);
+  border-image-slice: 1;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding: 0.8rem 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  z-index: 1;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  margin-bottom: 16px;
+
+  &:hover {
+    color: #0056b3;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    background-image: linear-gradient(135deg, #02aab0, #00cdac);
+  }
+`;
+
+const LinkToYoutube = styled.a`
   font-family: 'Gowun Dodum', sans-serif;
   text-decoration: none;
   background-image: linear-gradient(135deg, #02aab0, #00cdac);
