@@ -30,14 +30,14 @@ const FooterSection: React.FC = () => {
               </SocialLinkItem>
             </Tooltip>
             <Tooltip title="SSAFIT 깃허브">
-              <SocialLinkItem to="/">
+              <SocialLinkSite href="https://github.com/">
                 <img src="/images/common/YouTube1.png" />
-              </SocialLinkItem>
+              </SocialLinkSite>
             </Tooltip>
             <Tooltip title="SSAFIT UCC">
-              <SocialLinkItem to="/">
+              <SocialLinkSite href="https://youtu.be/Go2zokmm9rw">
                 <img src="/images/common/GitHubMarkLight.png" />
-              </SocialLinkItem>
+              </SocialLinkSite>
             </Tooltip>
           </SocialLink>
           <hr />
@@ -113,6 +113,20 @@ const SocialLinkItem = styled(Link)`
   cursor: pointer;
 `;
 
+const SocialLinkSite = styled.a`
+  flex-direction: column;
+  color: #fff;
+  font-size: 3rem;
+  width: 5rem;
+  height: 5rem;
+  margin: 1.6rem;
+  transition: all 0.2s ease-in;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
 const FooterText = styled.p`
   color: grey;
   font-size: 1.3rem;

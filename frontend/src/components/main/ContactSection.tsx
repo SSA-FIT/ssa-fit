@@ -8,9 +8,11 @@ const ContactSection: React.FC = () => {
           <Title>Contact</Title>
           <ContactWrapper>
             <ContactWrapperText>
-              Would you like to workout with me? Awesome!
+              서비스 이용에 문의 사항이 있으신가요?
             </ContactWrapperText>
-            <ContactButton>Let's Talk</ContactButton>
+            <ContactButton href=" mailto:ssafit123@gmail.com">
+              @SSA-FIT
+            </ContactButton>
           </ContactWrapper>
         </Container>
       </Section>
@@ -19,6 +21,7 @@ const ContactSection: React.FC = () => {
 };
 
 const Section = styled.section`
+  font-family: 'Montserrat', sans-serif;
   background-image: linear-gradient(135deg, #02aab0, #00cdac);
   clip-path: polygon(0 15vh, 100% 0, 100% 100%, 0 100%);
   padding: 15rem 0 10rem;
@@ -94,7 +97,7 @@ const ContactWrapper = styled.div`
 const ContactWrapperText = styled.p`
   font-size: 2.4rem;
   margin-bottom: 2.5rem;
-  font-family: Montserrat, sans-serif;
+  font-family: 'Gowun Dodum', sans-serif;
 
   margin-top: 0;
   display: block;
@@ -120,7 +123,7 @@ const ContactButton = styled.a`
   line-height: 1;
   z-index: 1;
   transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-  font-family: Montserrat, sans-serif;
+  font-family: 'Gowun Dodum', sans-serif;
   background-color: transparent;
   cursor: pointer;
 

@@ -26,6 +26,7 @@ const NonUserProfile: React.FC = () => {
   const [levelEmoji, setLevelEmoji] = useState<string>('');
   const [isActive, setIsActive] = useState<boolean>(false);
   const [data, setData] = useState<ProfileRecoWithoutTokenRequest | null>(null);
+
   useEffect(() => {
     if (
       level !== '하단의 자가 체력 진단을 눌러 측정해보세요.' &&
@@ -42,6 +43,8 @@ const NonUserProfile: React.FC = () => {
     ) {
       setData({ level, birth, gender, height, weight });
       setIsActive(true);
+    } else {
+      setIsActive(false);
     }
   }, [
     level,
@@ -279,8 +282,7 @@ const NonUserProfile: React.FC = () => {
   );
 };
 
-const ContainerWrapper = styled.div`
-`;
+const ContainerWrapper = styled.div``;
 
 const Container = styled.div`
   @media (min-width: 1060px) {
@@ -689,9 +691,11 @@ const ConfirmButton = styled(Link)`
   }
 
   &.disabled {
-    background-color: #5b646e;
+    background: rgb(247, 248, 250);
+    color: rgb(194, 200, 204);
     cursor: not-allowed;
   }
+
   @media (min-width: 1060px) {
     flex: none;
     display: inline-block;
